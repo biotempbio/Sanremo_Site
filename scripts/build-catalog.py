@@ -33,16 +33,16 @@ FAMILIES = [
         "slug": "d8", "name": "D8", "order": 20,
         "tagline": "Новый стандарт upper-mid и доступ к premium-функциям",
         "territory": "Больше контроля, модульности и вариантов исполнения в рациональном бюджете. Версия PRO добавляет температуру по группам и рабочие функции без ценового скачка к флагманам.",
-        "architecture": "Гибридная группа с нагревателем, контроль температуры по группам",
+        "architecture": "Гибридная группа, PID",
         "scenarios": ["Растущая кофейня", "Сеть", "Независимая specialty"],
         "rivals": ["Nuova Simonelli Appia Life XT", "Dalla Corte EVO2", "Rancilio Classe 9", "Fiamma Compass DB"],
-        "photo": "/photo/xone-d8pro.webp",
+        "photo": "/photo/d8-workzone.webp",
     },
     {
         "slug": "f18", "name": "F18", "order": 30,
         "tagline": "Современная потоковая рабочая машина",
         "territory": "Интенсивная эксплуатация, удобная рабочая зона и сильная паровая часть. SB — рациональный поток, мультибойлерная версия — независимость кофе и пара.",
-        "architecture": "Single boiler (SB) или мультибойлер",
+        "architecture": "Single boiler или мультибойлер",
         "scenarios": ["Высокий поток", "Молочное меню", "Specialty с потоком"],
         "rivals": ["Nuova Simonelli Appia Life XT", "Victoria Arduino White Eagle T3", "La Marzocco Linea PB"],
         "photo": "/photo/machine-marble.webp",
@@ -51,7 +51,7 @@ FAMILIES = [
         "slug": "cafe-racer", "name": "Café Racer", "order": 40,
         "tagline": "Технологичный дизайн-объект",
         "territory": "Кофемашина одновременно формирует вкус, workflow и визуальный образ кофейни.",
-        "architecture": "Мультибойлер, PID, помпа в каждой группе",
+        "architecture": "Мультибойлер, PID",
         "scenarios": ["Флагманская дизайн-кофейня", "Specialty", "Высокий поток"],
         "rivals": ["La Marzocco Linea PB / GB5", "Victoria Arduino Eagle One", "Rocket RS1", "Diamant Pro"],
         "photo": "/photo/cafe-racer-green-detail.webp",
@@ -60,7 +60,7 @@ FAMILIES = [
         "slug": "you", "name": "YOU", "order": 50,
         "tagline": "Компактный specialty",
         "territory": "Полноценный профессиональный контроль рецепта при дефиците места. Не бытовая машина.",
-        "architecture": "Мультибойлер, профилирование фаз экстракции",
+        "architecture": "Мультибойлер, профилирование",
         "scenarios": ["Компактный bar", "Фуд-корнер", "Лаборатория рецептов"],
         "rivals": ["Victoria Arduino Eagle One Prima", "Dalla Corte Mina"],
         "photo": "/photo/display-detail.webp",
@@ -69,19 +69,10 @@ FAMILIES = [
         "slug": "opera", "name": "Opera", "order": 60,
         "tagline": "R&D и технологический флагман",
         "territory": "Инструмент профилирования и дифференциации меню для обжарщиков и flagship-точек.",
-        "architecture": "Мультибойлер, помпа в каждой группе, профилирование",
+        "architecture": "Мультибойлер, помпа в группе",
         "scenarios": ["Обжарщик и лаборатория", "Флагманская точка", "Несколько сортов одновременно"],
         "rivals": ["Rocket RS1", "La Marzocco Strada / Leva", "Victoria Arduino Black Eagle", "Dalla Corte XT"],
         "photo": "/photo/studio-dark.webp",
-    },
-    {
-        "slug": "classic", "name": "Verona и Torino", "order": 70,
-        "tagline": "Классическая база",
-        "territory": "Простые автоматические машины для точек, где важнее предсказуемость и цена, чем расширенный контроль.",
-        "architecture": "Теплообменник (HX)",
-        "scenarios": ["Пекарня", "Столовая и фуд-корнер", "Замена парка"],
-        "rivals": ["Wega Pegaso", "Astoria Tanya", "Casadio Undici"],
-        "photo": "/photo/bar-crowd.webp",
     },
 ]
 
@@ -134,8 +125,6 @@ def detect_family(n):
         return "you"
     if s.startswith("zoe"):
         return "zoe"
-    if s.startswith("verona") or s.startswith("torino"):
-        return "classic"
     return None
 
 
@@ -145,7 +134,7 @@ def detect_model(fam, n):
     if fam == "d8":
         return ("d8-pro", "D8 PRO", "PRO") if "pro" in s else ("d8", "D8", "Basic")
     if fam == "f18":
-        return ("f18-sb", "F18 SB", "SB") if re.search(r"f18\s*sb", s) else ("f18-mb", "F18", "Multiboiler")
+        return ("f18-sb", "F18 SB", "SB") if re.search(r"f18\s*sb", s) else ("f18-mb", "F18 MB", "Multiboiler (мультибойлер)")
     if fam == "zoe":
         if "competition" in s:
             return ("zoe-competition", "Zoe Competition", "Competition")
@@ -154,8 +143,6 @@ def detect_model(fam, n):
         if "sap" in s:
             return ("zoe-sap", "Zoe SAP", "SAP (полуавтомат)")
         return ("zoe-sed", "Zoe SED", "SED (автомат)")
-    if fam == "classic":
-        return ("verona", "Verona", "SED+AM") if "verona" in s else ("torino", "Torino", "SED")
     if fam == "cafe-racer":
         return ("cafe-racer", "Café Racer", None)
     if fam == "opera":
@@ -306,7 +293,8 @@ def main():
         ))
 
     if unmatched:
-        print("!! не отнесены к семейству:", unmatched, file=sys.stderr)
+        print(f"   не публикуются (вне российской матрицы): {len(unmatched)} шт. — "
+              + ", ".join(f"{c} {t}" for c, t in unmatched), file=sys.stderr)
 
     # ── модели: агрегируем SKU ────────────────────────────────────────────
     models = OrderedDict()

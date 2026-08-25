@@ -16,6 +16,8 @@ import {
   PRICE_DATE,
   money,
   moneyPrecise,
+  kw,
+  imgUrl,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
@@ -64,7 +66,7 @@ export default async function ModelPage({ params }: Props) {
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
     groupHeight: s.groupHeight, color: s.color, colorHex: s.colorHex, edition: s.edition,
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
-    power: s.power, voltage: s.voltage,
+    power: s.power, voltage: s.voltage, image: imgUrl(s.image),
   }));
 
   const productSchema = {
@@ -129,8 +131,8 @@ export default async function ModelPage({ params }: Props) {
                   <div className="card-body">
                     <h3>{s}</h3>
                     <p className="small" style={{ margin: 0 }}>
-                      {m.groupsAvailable.join("/")} группы, {f.architecture.toLowerCase()},
-                      {m.optionsAvailable.length ? ` опции: ${m.optionsAvailable.join(", ").toLowerCase()}.` : " базовая комплектация."}
+                      {m.groupsAvailable.join("/")} группы · {f.architecture}.
+                      {m.optionsAvailable.length ? ` Опции: ${m.optionsAvailable.join(", ")}.` : " Базовая комплектация."}
                     </p>
                   </div>
                 </div>
@@ -155,7 +157,7 @@ export default async function ModelPage({ params }: Props) {
             </div>
             <div className="notice calm" style={{ marginTop: 24 }}>
               <b>Ограничения.</b> Проверьте ширину рабочей зоны ({hero?.sizeNet ? `${hero.sizeNet.w} мм` : "см. габариты"}),
-              допустимую мощность и фазность ({hero?.power ? `${hero.power} кВт` : "см. таблицу"},{" "}
+              допустимую мощность и фазность ({hero?.power ? `${kw(hero.power)} кВт` : "см. таблицу"},{" "}
               {hero?.voltage ? `${hero.voltage} В` : "напряжение уточняется"}), подготовку воды и слив.
             </div>
           </div>
@@ -219,7 +221,7 @@ export default async function ModelPage({ params }: Props) {
               </div>
               <div>
                 <SpecGroup title="Подключение">
-                  <Spec k="Мощность" v={hero?.power ? `${hero.power} кВт` : null} />
+                  <Spec k="Мощность" v={hero?.power ? `${kw(hero.power)} кВт` : null} />
                   <Spec k="Напряжение" v={hero?.voltage ? `${hero.voltage} В` : null} />
                   <Spec k="Подключение к воде" v="Требуется, с подготовкой и фильтрацией" />
                 </SpecGroup>
@@ -268,7 +270,7 @@ export default async function ModelPage({ params }: Props) {
               <tbody>
                 {sk.sort((a, b) => a.rrp - b.rrp).map((s) => (
                   <tr key={s.code}>
-                    <td className="tiny">{s.vendorCode ?? s.code}</td>
+                    <td className="tiny sku">{s.vendorCode ?? s.code}</td>
                     <td className="num">{s.groups ?? "—"}</td>
                     <td>{s.groupHeight ?? "—"}</td>
                     <td>
@@ -409,7 +411,7 @@ export default async function ModelPage({ params }: Props) {
                   <tbody>
                     {modelParts.slice(0, 10).map((p) => (
                       <tr key={p.code}>
-                        <td className="tiny">{p.article ?? p.code}</td>
+                        <td className="tiny sku">{p.article ?? p.code}</td>
                         <td>{p.name}</td>
                         <td className="tiny">{p.node}</td>
                         <td className="num">{moneyPrecise(p.rrp)}</td>
@@ -453,7 +455,7 @@ export default async function ModelPage({ params }: Props) {
                     <span className="tag" style={{ alignSelf: "flex-start" }}>{d.type}</span>
                     <h3 style={{ fontSize: 15, lineHeight: 1.35 }}>{d.name}</h3>
                     <a className="link-arrow" style={{ marginTop: "auto" }} href={`/documents/${d.ref}`}>
-                      Скачать PDF
+                      Скачать PDF →
                     </a>
                   </div>
                 </div>
@@ -532,7 +534,7 @@ export default async function ModelPage({ params }: Props) {
                         <span className="price-from">РРЦ от</span>
                         <span className="price num" style={{ fontSize: 19 }}>{money(x.priceFrom)}</span>
                       </div>
-                      <span className="link-arrow">Открыть</span>
+                      <span className="link-arrow">Открыть →</span>
                     </div>
                   </div>
                 </article>
@@ -575,7 +577,7 @@ function CmpRow({
       <td><b>{a}</b></td>
       {rest.map((r, i) =>
         linkFamily ? (
-          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}`}>Открыть</a></td>
+          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}`}>Открыть →</a></td>
         ) : (
           <td key={i}>{r}</td>
         )

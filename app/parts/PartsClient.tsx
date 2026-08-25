@@ -135,7 +135,7 @@ export default function PartsClient({
                 <tbody>
                   {shown.map((p) => (
                     <tr key={p.code}>
-                      <td className="num" style={{ fontFamily: "var(--sans)", fontWeight: 600 }}>
+                      <td className="sku" style={{ fontWeight: 700 }}>
                         {p.article ?? p.code}
                       </td>
                       <td>{p.name}</td>
@@ -153,7 +153,7 @@ export default function PartsClient({
                           {LABEL[p.availability]}
                         </span>
                       </td>
-                      <td><a className="link-arrow" href="/service">Запросить</a></td>
+                      <td><a className="link-arrow" href="/service">Запросить →</a></td>
                     </tr>
                   ))}
                 </tbody>

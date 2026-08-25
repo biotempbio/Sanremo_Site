@@ -93,7 +93,7 @@ export default function DealersClient({
                   </p>
                   <div className="card-foot">
                     <span className="tiny">Статус: активный</span>
-                    <a className="link-arrow" href="/contacts">Запросить контакт</a>
+                    <a className="link-arrow" href="/contacts">Запросить контакт →</a>
                   </div>
                 </div>
               </article>

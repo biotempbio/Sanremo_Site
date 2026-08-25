@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
-import { Crumbs, MachineVisual, Stock } from "../../components/Bits";
+import { Crumbs, Stock } from "../../components/Bits";
+import SkuImage from "../../components/SkuImage";
 import {
   families,
   familyBySlug,
@@ -10,6 +11,7 @@ import {
   analogsFor,
   PRICE_DATE,
   money,
+  imgUrl,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string }> };
@@ -96,7 +98,7 @@ export default async function FamilyPage({ params }: Props) {
               return (
                 <article className="card" key={m.slug}>
                   <div className="card-visual">
-                    <MachineVisual groups={m.groupsAvailable[0]} color={hero?.colorHex} label={`${m.name} · схема`} />
+                    <SkuImage src={imgUrl(hero?.image)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} label={m.name} />
                   </div>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}`}>{m.name}</a></h3>
@@ -157,7 +159,7 @@ export default async function FamilyPage({ params }: Props) {
                           <a className="link-arrow" href={`/products/${family}/${s.model}`} style={{ border: 0 }}>
                             {s.modelName}
                           </a>
-                          <div className="tiny">{s.vendorCode ?? s.code}</div>
+                          <div className="tiny sku">{s.vendorCode ?? s.code}</div>
                         </td>
                         <td className="num">{s.groups ?? "—"}</td>
                         <td>{s.groupHeight ?? "—"}</td>

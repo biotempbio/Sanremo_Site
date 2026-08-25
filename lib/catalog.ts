@@ -115,6 +115,11 @@ const catalog = raw as unknown as Catalog;
 /* ── Актуальность коммерческих данных ─────────────────────────────────────
    Дата берётся из выгрузки BIO. В продакшене её проставляет импорт (ТЗ §18). */
 export const PRICE_DATE = "25 августа 2026";
+/** Медиабиблиотека BIO: в выгрузке лежат относительные пути вида /api/img/{uuid}.jpg. */
+export const IMG_BASE =
+  process.env.NEXT_PUBLIC_SANREMO_IMG_BASE ?? "https://portal.holdingbio.ru";
+export const imgUrl = (path: string | null | undefined) =>
+  path ? (path.startsWith("http") ? path : IMG_BASE + path) : null;
 export const DATA_OWNER = "Компания BIO — официальный дистрибьютор Sanremo в России";
 
 export const families = [...catalog.families].sort((a, b) => a.order - b.order);
@@ -135,8 +140,26 @@ export const modelsOfFamily = (slug: string) => models.filter((m) => m.family ==
 export const skusOfModel = (slug: string) => liveSkus.filter((s) => s.model === slug);
 export const skuByCode = (code: string) => skus.find((s) => s.code === code);
 export const partsForSku = (code: string) => parts.filter((p) => p.fits.includes(code));
-export const analogsFor = (name: string) =>
-  analogs.filter((a) => a.sanremo.toLowerCase() === name.toLowerCase());
+/** Названия в мастер-каталоге рынка отличаются от карточек BIO — сопоставляем явно. */
+const ANALOG_ALIASES: Record<string, string[]> = {
+  "zoe competition": ["zoe competition", "zoe"],
+  "zoe sed": ["zoe"],
+  "zoe sap": ["zoe"],
+  "zoe compact": ["zoe"],
+  d8: ["d8", "d8 one"],
+  "d8 pro": ["d8 pro"],
+  "f18 mb": ["f18"],
+  f18: ["f18"],
+  "f18 sb": ["f18 sb"],
+  "café racer": ["café racer"],
+  opera: ["opera 2.0", "opera"],
+};
+
+export const analogsFor = (name: string) => {
+  const key = name.toLowerCase();
+  const targets = ANALOG_ALIASES[key] ?? [key];
+  return analogs.filter((a) => targets.includes(a.sanremo.toLowerCase()));
+};
 
 export function familyPriceFrom(slug: string): number | null {
   const p = modelsOfFamily(slug).map((m) => m.priceFrom).filter((x): x is number => !!x);
@@ -151,6 +174,7 @@ export function familyStockCount(slug: string): number {
 const nf = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
 export const money = (v: number | null | undefined) =>
   v === null || v === undefined ? "—" : `${nf.format(Math.round(v))} ₽`;
+export const kw = (v: number) => String(v).replace(".", ",");
 export const moneyPrecise = (v: number) =>
   `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(v)} ₽`;
 
@@ -165,8 +189,8 @@ export const AVAILABILITY_LABEL: Record<Availability, string> = {
 export interface VolumeBand { id: string; label: string; models: string[] }
 
 export const VOLUME_BANDS: VolumeBand[] = [
-  { id: "u100", label: "до 100 чашек/день", models: ["zoe-sap", "zoe-sed", "you", "verona", "torino"] },
-  { id: "100-200", label: "100–200 чашек/день", models: ["zoe-sed", "zoe-competition", "d8", "you", "verona"] },
+  { id: "u100", label: "до 100 чашек/день", models: ["zoe-sap", "zoe-sed", "zoe-compact", "you"] },
+  { id: "100-200", label: "100–200 чашек/день", models: ["zoe-sed", "zoe-competition", "zoe-compact", "d8", "you"] },
   { id: "200-300", label: "200–300 чашек/день", models: ["zoe-competition", "d8", "d8-pro", "f18-sb"] },
   { id: "300-500", label: "300–500 чашек/день", models: ["d8-pro", "f18-sb", "f18-mb", "cafe-racer"] },
   { id: "500+", label: "500+ чашек/день", models: ["f18-mb", "cafe-racer", "opera", "d8-pro"] },
@@ -185,7 +209,7 @@ export const SCENARIOS: Scenario[] = [
     logic: "Zoe — рациональная база с понятной волюметрикой. D8 даёт больше контроля и запас на рост потока.",
     photo: "/photo/machine-red-lifestyle.webp" },
   { id: "bakery", title: "Пекарня и ресторан", question: "Меню без сложного обучения персонала",
-    main: "zoe-competition", alt: "verona", upgrade: "d8",
+    main: "zoe-competition", alt: "zoe-sed", upgrade: "d8",
     logic: "Простота обучения и предсказуемая volumetric-работа важнее расширенного контроля рецепта.",
     photo: "/photo/bar-crowd.webp" },
   { id: "specialty", title: "Независимая specialty", question: "Контроль рецепта и несколько сортов",

@@ -129,7 +129,7 @@ export default function ServicePage() {
                       {[...new Set(m.docs.map((d) => d.type))].join(", ") || "загружается"}
                     </td>
                     <td className="num">{m.docs.length ? m.docs.length : "—"}</td>
-                    <td><a className="link-arrow" href={`/parts?model=${m.slug}`}>Запчасти модели</a></td>
+                    <td><a className="link-arrow" href={`/parts?model=${m.slug}`}>Запчасти модели →</a></td>
                   </tr>
                 ))}
               </tbody>
@@ -152,7 +152,7 @@ export default function ServicePage() {
                 <li>Гарантийные обращения принимаются через дилера, продавшего оборудование.</li>
               </ul>
             </div>
-            <form className="grid g2" style={{ alignItems: "start" }} onSubmit={undefined}>
+            <form className="grid g2" style={{ alignItems: "start" }}>
               <label className="field"><span>Модель</span>
                 <select defaultValue="">
                   <option value="" disabled>Выберите модель</option>

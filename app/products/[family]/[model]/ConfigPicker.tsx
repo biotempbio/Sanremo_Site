@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { MachineVisual } from "../../../components/Bits";
+import SkuImage from "../../../components/SkuImage";
 
 export interface PickerSku {
   code: string;
@@ -18,6 +18,7 @@ export interface PickerSku {
   free: number;
   power: number | null;
   voltage: string | null;
+  image: string | null;
 }
 
 const LABEL: Record<PickerSku["availability"], string> = {
@@ -63,7 +64,9 @@ export default function ConfigPicker({
   return (
     <div className="picker">
       <div className="picker-visual">
-        <MachineVisual
+        <SkuImage
+          src={current.image}
+          alt={`Sanremo ${modelName}, ${current.groups ?? ""} гр., ${current.color ?? ""}`}
           groups={current.groups}
           color={current.colorHex}
           label={`${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}`}
@@ -130,7 +133,7 @@ export default function ConfigPicker({
 
         <dl className="picker-specs">
           <Row k="Высота групп" v={current.groupHeight} />
-          <Row k="Мощность" v={current.power ? `${current.power} кВт` : null} />
+          <Row k="Мощность" v={current.power ? `${String(current.power).replace(".", ",")} кВт` : null} />
           <Row k="Напряжение" v={current.voltage ? `${current.voltage} В` : null} />
           <Row k="Опции" v={current.options.length ? current.options.join(", ") : null} />
         </dl>

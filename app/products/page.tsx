@@ -10,6 +10,7 @@ import {
   VOLUME_BANDS,
   PRICE_DATE,
   liveSkus,
+  imgUrl,
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function ProductsPage() {
       inStockCount: m.inStockCount,
       skuCount: m.skuCount,
       heroColor: hero?.colorHex ?? "#1a1a1a",
+      heroImage: imgUrl(hero?.image),
       volumeBands: VOLUME_BANDS.filter((b) => b.models.includes(m.slug)).map((b) => b.id),
     };
   });

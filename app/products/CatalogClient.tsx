@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { MachineVisual } from "../components/Bits";
+import SkuImage from "../components/SkuImage";
 
 export interface CatalogRow {
   slug: string;
@@ -21,6 +21,7 @@ export interface CatalogRow {
   inStockCount: number;
   skuCount: number;
   heroColor: string | null;
+  heroImage: string | null;
   volumeBands: string[];
 }
 
@@ -193,7 +194,7 @@ export default function CatalogClient({
             {filtered.map((r) => (
               <article className="card" key={r.slug}>
                 <div className="card-visual">
-                  <MachineVisual groups={r.groups[0]} color={r.heroColor} label={`${r.name} · схема`} />
+                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} label={r.name} />
                 </div>
                 <div className="card-body">
                   <p className="eyebrow" style={{ margin: 0 }}>{r.familyName}</p>

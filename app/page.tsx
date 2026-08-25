@@ -37,11 +37,11 @@ export default function Home() {
             <p className="eyebrow" style={{ color: "#c9c4bd" }}>Италия · Официальная дистрибуция в России</p>
             <h1>Профессиональные кофемашины Sanremo в России</h1>
             <p className="lead" style={{ marginTop: 22 }}>
-              Выбор по бизнес-задаче, а не по картинке: формат заведения, поток, меню и бюджет —
+              Выбор по бизнес-задаче, а не по картинке: формат заведения, поток, меню и бюджет →
               две-три обоснованные конфигурации с РРЦ, наличием и дилером в вашем регионе.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-amber" href="/choose">Подобрать машину</a>
+              <a className="btn btn-amber" href="/choose">Подобрать машину →</a>
               <a className="btn" href="/products">Смотреть каталог</a>
             </div>
             <div className="hero-facts">
@@ -116,7 +116,7 @@ export default function Home() {
                         <span className="price-from">Рекомендация</span>
                         <b style={{ fontFamily: "var(--sans)", fontSize: 16 }}>{m?.name}</b>
                       </div>
-                      <span className="link-arrow">Подробнее</span>
+                      <span className="link-arrow">Разбор →</span>
                     </div>
                   </div>
                 </a>
@@ -151,7 +151,7 @@ export default function Home() {
                         .slice(0, 4)
                         .join(" · ")}
                     </p>
-                    <span className="link-arrow" style={{ marginTop: "auto" }}>Подобрать</span>
+                    <span className="link-arrow" style={{ marginTop: "auto" }}>Подобрать →</span>
                   </div>
                 </a>
               ))}
@@ -280,7 +280,7 @@ export default function Home() {
                         </td>
                         <td className="num">{s.rrp.toLocaleString("ru-RU")} ₽</td>
                         <td><Stock status={s.availability} free={s.free} /></td>
-                        <td><a className="link-arrow" href={modelPath(m)}>Карточка</a></td>
+                        <td><a className="link-arrow" href={modelPath(m)}>Карточка →</a></td>
                       </tr>
                     );
                   })}
@@ -314,7 +314,7 @@ export default function Home() {
               ))}
             </div>
             <p style={{ marginTop: 22 }}>
-              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями</a>
+              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями →</a>
             </p>
           </div>
         </section>

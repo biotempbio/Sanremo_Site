@@ -53,7 +53,8 @@ export function MachineVisual({
   const stroke = light ? "#8c8a86" : "rgba(255,255,255,.35)";
   const metal = "#b9bcbe";
   const width = 120 + g * 66;
-  const positions = Array.from({ length: g }, (_, i) => 62 + i * 66);
+  const first = width / 2 - ((g - 1) * 66) / 2;
+  const positions = Array.from({ length: g }, (_, i) => first + i * 66);
 
   return (
     <figure className="machine-vis" style={{ margin: 0 }}>
