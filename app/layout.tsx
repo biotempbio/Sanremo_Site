@@ -26,7 +26,14 @@ const ORG_SCHEMA = {
       description: "Официальный дистрибьютор профессиональных кофемашин Sanremo в России",
       url: "https://sanremomachines.ru/",
       areaServed: "RU",
-      telephone: "+7 800 500-64-95",
+      telephone: "+7 800 600-43-00",
+      address: {
+        "@type": "PostalAddress",
+        postalCode: "117630",
+        addressLocality: "Москва",
+        streetAddress: "ул. Обручева, 23с1, БЦ «Геолог», 4 этаж",
+        addressCountry: "RU",
+      },
     },
     {
       "@type": "Brand",

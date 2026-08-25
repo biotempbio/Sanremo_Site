@@ -57,10 +57,6 @@ export default function DealersClient({
           <div className="chips">
             {SERVICES.map((s) => <span className="tag" key={s}>{s}</span>)}
           </div>
-          <p className="tiny" style={{ marginTop: 8 }}>
-            Фильтр по услугам включается после импорта файла дилеров с полями услуг, зон работы и
-            статуса (ТЗ §8.2). Сейчас список услуг показан как справочный.
-          </p>
         </div>
 
         <p className="source-note">
@@ -109,10 +105,10 @@ export default function DealersClient({
                     </span>
                     {d.site ? (
                       <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer">
-                        Сайт дилера
+                        Сайт дилера →
                       </a>
                     ) : (
-                      <a className="link-arrow" href="/contacts">Запросить контакт</a>
+                      <a className="link-arrow" href="/contacts">Запросить контакт →</a>
                     )}
                   </div>
                 </div>

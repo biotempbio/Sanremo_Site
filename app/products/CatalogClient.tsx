@@ -51,7 +51,7 @@ export default function CatalogClient({
   const [vol, setVol] = useState<string[]>([]);
   const [price, setPrice] = useState<string[]>([]);
   const [stockOnly, setStockOnly] = useState(false);
-  const [sort, setSort] = useState("price-asc");
+  const [sort, setSort] = useState("lineup");
 
   const allFamilies = useMemo(
     () => [...new Map(rows.map((r) => [r.family, r.familyName])).entries()],
@@ -84,6 +84,7 @@ export default function CatalogClient({
       return true;
     });
     const cmp: Record<string, (a: CatalogRow, b: CatalogRow) => number> = {
+      lineup: () => 0,
       "price-asc": (a, b) => (a.priceFrom ?? 0) - (b.priceFrom ?? 0),
       "price-desc": (a, b) => (b.priceFrom ?? 0) - (a.priceFrom ?? 0),
       stock: (a, b) => b.inStockCount - a.inStockCount,
@@ -158,10 +159,6 @@ export default function CatalogClient({
           <Chip on={stockOnly} onClick={() => setStockOnly(!stockOnly)}>Только со склада</Chip>
         </Group>
 
-        <p className="source-note">
-          Фильтры считаются из заполненных данных выгрузки BIO. Ориентир по потоку — редакционная
-          матрица, а не паспортная производительность.
-        </p>
       </aside>
 
       <div>
@@ -173,6 +170,7 @@ export default function CatalogClient({
             <span style={{ margin: 0 }}>Сортировка</span>
             <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ minWidth: 210, minHeight: 42 }}>
               <option value="price-asc">РРЦ: по возрастанию</option>
+              <option value="lineup">Порядок линейки</option>
               <option value="price-desc">РРЦ: по убыванию</option>
               <option value="stock">Сначала со склада</option>
               <option value="name">По названию</option>
@@ -184,8 +182,7 @@ export default function CatalogClient({
           <div className="empty">
             <h3>Под эти условия в российской матрице моделей нет</h3>
             <p className="small" style={{ maxWidth: "48ch", margin: "10px auto 18px" }}>
-              Снимите часть фильтров или опишите задачу — специалист BIO подберёт конфигурацию,
-              в том числе под заказ.
+              Снимите часть фильтров или опишите задачу — специалист BIO подберёт конфигурацию.
             </p>
             <button className="btn" onClick={reset}>Сбросить фильтры</button>
           </div>
@@ -219,8 +216,8 @@ export default function CatalogClient({
                       <span className="price num">{r.priceFrom?.toLocaleString("ru-RU")} ₽</span>
                     </div>
                     <span className="stock-label">
-                      <i className={`dot ${r.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-                      {r.inStockCount ? `${r.inStockCount} со склада` : "Под заказ"}
+                      <i className={`dot ${r.inStockCount ? "st-in_stock" : "st-reserved"}`} />
+                      {r.inStockCount ? `${r.inStockCount} со склада` : "Уточнить наличие"}
                     </span>
                   </div>
                 </div>

@@ -28,6 +28,7 @@ FAMILIES = [
         "scenarios": ["Первая кофейня", "Пекарня и ресторан", "Ограниченный CAPEX"],
         "rivals": ["Nuova Simonelli Appia Life", "Rancilio Classe 5", "Fiamma Compass SE", "Wega Polaris"],
         "photo": "/photo/machine-red-lifestyle.webp",
+        "product": "/photo/model-zoe.webp",
     },
     {
         "slug": "d8", "name": "D8", "order": 20,
@@ -37,6 +38,8 @@ FAMILIES = [
         "scenarios": ["Растущая кофейня", "Сеть", "Независимая specialty"],
         "rivals": ["Nuova Simonelli Appia Life XT", "Dalla Corte EVO2", "Rancilio Classe 9", "Fiamma Compass DB"],
         "photo": "/photo/d8-workzone.webp",
+        "product": "/photo/model-d8.webp",
+        "lineup": "/photo/model-d8-lineup.webp",
     },
     {
         "slug": "f18", "name": "F18", "order": 30,
@@ -46,6 +49,7 @@ FAMILIES = [
         "scenarios": ["Высокий поток", "Молочное меню", "Specialty с потоком"],
         "rivals": ["Nuova Simonelli Appia Life XT", "Victoria Arduino White Eagle T3", "La Marzocco Linea PB"],
         "photo": "/photo/machine-marble.webp",
+        "product": "/photo/model-f18.webp",
     },
     {
         "slug": "cafe-racer", "name": "Café Racer", "order": 40,
@@ -55,6 +59,7 @@ FAMILIES = [
         "scenarios": ["Флагманская дизайн-кофейня", "Specialty", "Высокий поток"],
         "rivals": ["La Marzocco Linea PB / GB5", "Victoria Arduino Eagle One", "Rocket RS1", "Diamant Pro"],
         "photo": "/photo/cafe-racer-green-detail.webp",
+        "product": "/photo/model-cafe-racer.webp",
     },
     {
         "slug": "you", "name": "YOU", "order": 50,
@@ -64,6 +69,7 @@ FAMILIES = [
         "scenarios": ["Компактный bar", "Фуд-корнер", "Лаборатория рецептов"],
         "rivals": ["Victoria Arduino Eagle One Prima", "Dalla Corte Mina"],
         "photo": "/photo/display-detail.webp",
+        "product": None,
     },
     {
         "slug": "opera", "name": "Opera", "order": 60,
@@ -73,6 +79,7 @@ FAMILIES = [
         "scenarios": ["Обжарщик и лаборатория", "Флагманская точка", "Несколько сортов одновременно"],
         "rivals": ["Rocket RS1", "La Marzocco Strada / Leva", "Victoria Arduino Black Eagle", "Dalla Corte XT"],
         "photo": "/photo/studio-dark.webp",
+        "product": None,
     },
 ]
 

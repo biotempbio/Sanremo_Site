@@ -1,5 +1,5 @@
 import { Header, Footer } from "./components/Chrome";
-import { Price, Stock } from "./components/Bits";
+import { MachineVisual, Price, Stock } from "./components/Bits";
 import {
   families,
   familyPriceFrom,
@@ -37,11 +37,11 @@ export default function Home() {
             <p className="eyebrow" style={{ color: "#c9c4bd" }}>Италия · Официальная дистрибуция в России</p>
             <h1>Профессиональные кофемашины Sanremo в России</h1>
             <p className="lead" style={{ marginTop: 22 }}>
-              Выбор по бизнес-задаче, а не по картинке: формат заведения, поток, меню и бюджет —
+              Выбор по бизнес-задаче, а не по картинке: формат заведения, поток, меню и бюджет →
               две-три обоснованные конфигурации с РРЦ, наличием и дилером в вашем регионе.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-amber" href="/choose">Подобрать машину</a>
+              <a className="btn btn-amber" href="/choose">Подобрать машину →</a>
               <a className="btn" href="/products">Смотреть каталог</a>
             </div>
             <div className="hero-facts">
@@ -116,7 +116,7 @@ export default function Home() {
                         <span className="price-from">Рекомендация</span>
                         <b style={{ fontFamily: "var(--sans)", fontSize: 16 }}>{m?.name}</b>
                       </div>
-                      <span className="link-arrow">Посмотреть решение</span>
+                      <span className="link-arrow">Разбор →</span>
                     </div>
                   </div>
                 </a>
@@ -151,7 +151,7 @@ export default function Home() {
                         .slice(0, 4)
                         .join(" · ")}
                     </p>
-                    <span className="link-arrow" style={{ marginTop: "auto" }}>Подобрать</span>
+                    <span className="link-arrow" style={{ marginTop: "auto" }}>Подобрать →</span>
                   </div>
                 </a>
               ))}
@@ -167,7 +167,7 @@ export default function Home() {
               <h2>От первой машины до R&amp;D-флагмана</h2>
             </div>
             <p className="lead">
-              Zoe, D8, F18, Café Racer и Opera образуют последовательную продуктовую лестницу. YOU — отдельный компактный specialty-маршрут для
+              Zoe → D8 → F18 → Café Racer / Opera. YOU — отдельный компактный specialty-маршрут для
               точек с дефицитом места.
             </p>
           </div>
@@ -280,7 +280,7 @@ export default function Home() {
                         </td>
                         <td className="num">{s.rrp.toLocaleString("ru-RU")} ₽</td>
                         <td><Stock status={s.availability} free={s.free} /></td>
-                        <td><a className="link-arrow" href={modelPath(m)}>Карточка модели</a></td>
+                        <td><a className="link-arrow" href={modelPath(m)}>Карточка →</a></td>
                       </tr>
                     );
                   })}
@@ -301,20 +301,18 @@ export default function Home() {
                 <h2>Российские установки</h2>
               </div>
               <p className="small" style={{ maxWidth: "58ch" }}>
-                Сети и заведения, работающие на Sanremo. Публикация названий, логотипов и фотографий
-                — только после документального подтверждения установки и согласия клиента (ТЗ §13).
+                Сети и заведения, работающие на профессиональных кофемашинах Sanremo в России.
               </p>
             </div>
             <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))" }}>
               {chains.map((c) => (
                 <div key={c} className="card" style={{ padding: "26px 20px", alignItems: "center", justifyContent: "center" }}>
                   <b style={{ fontFamily: "var(--sans)", fontSize: 17 }}>{c}</b>
-                  <span className="tiny">на подтверждении</span>
                 </div>
               ))}
             </div>
             <p style={{ marginTop: 22 }}>
-              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями</a>
+              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями →</a>
             </p>
           </div>
         </section>
@@ -375,11 +373,10 @@ export default function Home() {
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
                 <a className="btn btn-solid" href="/choose">Пройти подбор</a>
-                <a className="btn" href="tel:+78005006495">8 800 500-64-95</a>
+                <a className="btn" href="tel:+78006004300">8 (800) 600-43-00</a>
               </div>
             </div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photo/machine-showroom.webp" alt="Кофемашина Sanremo в шоуруме" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <MachineVisual groups={3} color="#2d483f" label="Схема · 3 группы" />
           </div>
         </section>
       </main>

@@ -136,7 +136,7 @@ export default function AboutPage() {
             <div>
               <p style={{ margin: 0 }}>
                 <b style={{ fontFamily: "var(--sans)", fontSize: 22 }}>
-                  <a href="tel:+78005006495" style={{ textDecoration: "none" }}>8 800 500-64-95</a>
+                  <a href="tel:+78006004300" style={{ textDecoration: "none" }}>8 (800) 600-43-00</a>
                 </b>
               </p>
               <p className="small" style={{ margin: "6px 0 18px" }}>

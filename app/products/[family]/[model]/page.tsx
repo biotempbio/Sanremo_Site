@@ -454,8 +454,8 @@ export default async function ModelPage({ params }: Props) {
                   <div className="card-body">
                     <span className="tag" style={{ alignSelf: "flex-start" }}>{d.type}</span>
                     <h3 style={{ fontSize: 15, lineHeight: 1.35 }}>{d.name}</h3>
-                    <a className="link-arrow" style={{ marginTop: "auto" }} href={`/documents#${d.ref}`}>
-                      Открыть документ
+                    <a className="link-arrow" style={{ marginTop: "auto" }} href={`/documents/${d.ref}`}>
+                      Скачать PDF →
                     </a>
                   </div>
                 </div>
@@ -534,7 +534,7 @@ export default async function ModelPage({ params }: Props) {
                         <span className="price-from">РРЦ от</span>
                         <span className="price num" style={{ fontSize: 19 }}>{money(x.priceFrom)}</span>
                       </div>
-                      <span className="link-arrow">Открыть модель</span>
+                      <span className="link-arrow">Открыть →</span>
                     </div>
                   </div>
                 </article>
@@ -577,7 +577,7 @@ function CmpRow({
       <td><b>{a}</b></td>
       {rest.map((r, i) =>
         linkFamily ? (
-          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}`}>Открыть модель</a></td>
+          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}`}>Открыть →</a></td>
         ) : (
           <td key={i}>{r}</td>
         )

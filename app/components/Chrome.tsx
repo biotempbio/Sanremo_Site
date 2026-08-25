@@ -21,7 +21,7 @@ export function Header({ active }: { active?: string }) {
         <div className="wrap">
           <span>Официальный дистрибьютор Sanremo в России — компания BIO</span>
           <span>
-            <a href="tel:+78005006495">8 800 500-64-95</a>
+            <a href="tel:+78006004300">8 (800) 600-43-00</a>
             {" · "}
             <a href="/contacts">Контакты</a>
           </span>
@@ -104,22 +104,19 @@ export function Footer() {
               Официальный дистрибьютор Sanremo в РФ
             </p>
             <p className="small" style={{ color: "#b9b6b1" }}>
-              <a href="tel:+78005006495">8 800 500-64-95</a>
+              117630, Москва, ул. Обручева, 23с1
+              <br />
+              БЦ «Геолог», 4 этаж
+              <br />
+              <a href="tel:+78006004300">8 (800) 600-43-00</a>
+              <br />
+              Бесплатный звонок по России
               <br />
               <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
             </p>
           </div>
         </div>
-        <div className="fine">
-          <p style={{ margin: 0 }}>
-            Сайт не является интернет-магазином. Указана рекомендованная розничная цена; продажу,
-            монтаж и обслуживание выполняют авторизованные дилеры и сервисные партнёры.
-          </p>
-          <p style={{ margin: "8px 0 0" }}>
-            Sanremo Coffee Machines S.r.l. — производитель (Италия). Данные по ассортименту, РРЦ,
-            наличию и сервису в России публикует компания BIO. © 2026
-          </p>
-        </div>
+        <div className="fine">Sanremo Coffee Machines S.r.l. · Официальная дистрибуция BIO в России · © 2026</div>
       </div>
     </footer>
   );

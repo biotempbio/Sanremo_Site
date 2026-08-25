@@ -3,14 +3,12 @@ import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
 import {
-  families,
-  models,
+  catalogModels,
+  CATALOG_LINEUP,
   skusOfModel,
   familyBySlug,
   VOLUME_BANDS,
-  PRICE_DATE,
   liveSkus,
-  imgUrl,
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
@@ -20,14 +18,14 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
-  const rows: CatalogRow[] = models.map((m) => {
+  const rows: CatalogRow[] = catalogModels.map((m) => {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
     const heights = [...new Set(sk.map((s) => s.groupHeight).filter(Boolean))] as string[];
-    const hero = sk.find((s) => s.availability === "in_stock") ?? sk[0];
+    const line = CATALOG_LINEUP.find((item) => item.slug === m.slug)!;
     return {
       slug: m.slug,
-      name: m.name,
+      name: line.label,
       family: m.family,
       familyName: f.name,
       familyTagline: f.tagline,
@@ -42,8 +40,8 @@ export default function ProductsPage() {
       priceTo: m.priceTo,
       inStockCount: m.inStockCount,
       skuCount: m.skuCount,
-      heroColor: hero?.colorHex ?? "#1a1a1a",
-      heroImage: imgUrl(hero?.image),
+      heroColor: "#1a1a1a",
+      heroImage: line.image,
       volumeBands: VOLUME_BANDS.filter((b) => b.models.includes(m.slug)).map((b) => b.id),
     };
   });
@@ -69,19 +67,15 @@ export default function ProductsPage() {
         <section className="wrap" style={{ paddingBottom: 34 }}>
           <div className="sec-head">
             <div>
-              <p className="eyebrow">Российская матрица · {liveSkus.length} конфигураций</p>
+              <p className="eyebrow">Официальная линейка Sanremo в России</p>
               <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>
                 Профессиональные рожковые кофемашины Sanremo
               </h1>
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                {models.length} моделей в {families.length} семействах. Для каждой конфигурации —
+                Шесть основных линеек. Для каждой конфигурации —
                 рекомендованная розничная цена, доступные исполнения и складской статус.
-              </p>
-              <p className="source-note">
-                РРЦ и наличие — данные российского дистрибьютора BIO, обновлено {PRICE_DATE}. Сайт
-                не является интернет-магазином: покупка через авторизованного дилера.
               </p>
             </div>
           </div>

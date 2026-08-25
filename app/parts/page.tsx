@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import PartsClient, { PartRow } from "./PartsClient";
-import { parts, partNodes, models, skuByCode, PRICE_DATE } from "@/lib/catalog";
+import { parts, partNodes, catalogModels, CATALOG_LINEUP, skuByCode } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Запчасти Sanremo — каталог ЗИП с совместимостью и наличием",
@@ -32,8 +32,6 @@ export default async function PartsPage({ searchParams }: Props) {
     };
   });
 
-  const withStock = rows.filter((r) => r.stock > 0).length;
-
   return (
     <>
       <Header active="/service" />
@@ -47,12 +45,8 @@ export default async function PartsPage({ searchParams }: Props) {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                Возражение «Sanremo сложнее обслуживать» снимается не лозунгом, а видимым каталогом:
-                артикул, узел, совместимость с конкретными конфигурациями и складской статус.
-              </p>
-              <p className="source-note">
-                Источник: файл запчастей компании BIO, обновлён {PRICE_DATE}. Сейчас в наличии
-                {" "}{withStock} позиций. Точное количество раскрывается по политике публикации.
+                Поиск по артикулу, названию, модели и узлу. В каталоге показаны только запчасти,
+                доступные на складе BIO.
               </p>
             </div>
           </div>
@@ -62,7 +56,10 @@ export default async function PartsPage({ searchParams }: Props) {
           <PartsClient
             parts={rows}
             nodes={partNodes()}
-            models={models.map((m) => ({ slug: m.slug, name: m.name }))}
+            models={catalogModels.map((m) => ({
+              slug: m.slug,
+              name: CATALOG_LINEUP.find((line) => line.slug === m.slug)?.label ?? m.name,
+            }))}
             initialModel={model}
           />
         </section>
@@ -82,8 +79,8 @@ export default async function PartsPage({ searchParams }: Props) {
                 <p className="eyebrow">Совместимость</p>
                 <h3>Схемы и серийные диапазоны</h3>
                 <p className="small">
-                  Навигация по модели, узлу и детали; взрыв-схемы из эксплуатационной документации.
-                  Интерактивные схемы — этап развития P2.
+                  Навигация «модель → узел → деталь» и взрыв-схемы из эксплуатационной документации.
+                  Совместимость проверяется по модели, конфигурации и серийному диапазону.
                 </p>
               </div>
               <div>

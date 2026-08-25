@@ -18,7 +18,7 @@ const LABEL: Record<PartRow["availability"], string> = {
   in_stock: "В наличии",
   limited: "Мало",
   reserved: "Зарезервировано",
-  on_order: "Под заказ",
+  on_order: "Нет на складе",
 };
 
 const PAGE = 40;
@@ -34,7 +34,6 @@ export default function PartsClient({
   const [q, setQ] = useState("");
   const [node, setNode] = useState("");
   const [model, setModel] = useState(initialModel ?? "");
-  const [stockOnly, setStockOnly] = useState(false);
   const [limit, setLimit] = useState(PAGE);
 
   const filtered = useMemo(() => {
@@ -42,7 +41,6 @@ export default function PartsClient({
     return parts.filter((p) => {
       if (node && p.node !== node) return false;
       if (model && !p.modelSlugs.includes(model)) return false;
-      if (stockOnly && p.stock <= 0) return false;
       if (!needle) return true;
       return (
         p.name.toLowerCase().includes(needle) ||
@@ -51,7 +49,7 @@ export default function PartsClient({
         p.models.some((m) => m.toLowerCase().includes(needle))
       );
     });
-  }, [parts, q, node, model, stockOnly]);
+  }, [parts, q, node, model]);
 
   const shown = filtered.slice(0, limit);
 
@@ -88,19 +86,6 @@ export default function PartsClient({
           </div>
         </div>
 
-        <div className="filter-group">
-          <h4>Наличие</h4>
-          <div className="chips">
-            <button className="chip" aria-pressed={stockOnly} onClick={() => setStockOnly(!stockOnly)}>
-              Только в наличии
-            </button>
-          </div>
-        </div>
-
-        <p className="source-note">
-          Поиск открыт без авторизации. Публикуется рекомендованная цена и складской статус;
-          дилерские условия — по политике BIO, в закрытом контуре.
-        </p>
       </aside>
 
       <div>
@@ -153,7 +138,7 @@ export default function PartsClient({
                           {LABEL[p.availability]}
                         </span>
                       </td>
-                      <td><a className="link-arrow" href="/service">Запросить</a></td>
+                      <td><a className="link-arrow" href="/service">Запросить →</a></td>
                     </tr>
                   ))}
                 </tbody>

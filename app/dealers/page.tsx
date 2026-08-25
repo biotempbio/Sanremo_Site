@@ -71,10 +71,7 @@ export default async function DealersPage({ searchParams }: Props) {
               <div>
                 <p className="eyebrow">Карта</p>
                 <h3>Карта партнёров</h3>
-                <p className="small">
-                  Интерактивная карта с фильтрами по услугам подключается на этапе разработки. При
-                  недоступности внешней карты список, контакты и формы остаются рабочими (ТЗ §20.1).
-                </p>
+                <p className="small">Выберите город в списке выше, чтобы найти ближайшего партнёра.</p>
               </div>
               <div>
                 <p className="eyebrow">Аналитика</p>

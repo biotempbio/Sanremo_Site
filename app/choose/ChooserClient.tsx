@@ -169,7 +169,7 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
             <h3>Под эти ограничения готовой конфигурации нет</h3>
             <p className="small" style={{ maxWidth: "44ch", margin: "10px auto 0" }}>
               Чаще всего дело в бюджете или ширине рабочей зоны. Опишите задачу — специалист BIO
-              подберёт вариант, в том числе под заказ.
+              подберёт подходящий вариант.
             </p>
           </div>
         ) : (
@@ -209,11 +209,6 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
                 <a className="btn" href="/dealers">Найти дилера</a>
               </div>
             </div>
-            {submitted && (
-              <p className="small" style={{ marginTop: 12 }}>
-                Форма запроса подключается на этапе интеграции с CRM (ТЗ §19).
-              </p>
-            )}
           </>
         )}
       </div>

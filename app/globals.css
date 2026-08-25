@@ -32,42 +32,107 @@
 @font-face { font-family: "PT Mono Web"; src: url("/fonts/pt-mono-700.woff") format("woff");
   font-weight: 700 900; font-style: normal; font-display: swap; }
 
+/* ============================================================================
+   1. ТОКЕНЫ ДИЗАЙН-СИСТЕМЫ
+   Источник истины — Sanremo Brand Guidelines 2026 (v1.0, FEB 2026).
+   Правило системы: ядро — чёрное и белое; вторичные цвета работают акцентами
+   и подложками, а не «раскраской» интерфейса.
+   ========================================================================== */
 :root {
-  /* официальные цвета бренда */
-  --forest: #2d483f;
-  --amber: #c14e00;
-  --mocha: #965044;
-  --sage: #7d9c91;
-  --petrol: #003e51;
-  --cream: #d7c4b7;
+  /* ── 1.1 Ядро бренда (§4.1) ─────────────────────────────────────────────── */
+  --black: #111111;              /* Pantone Black C, экранный эквивалент */
+  --white: #ffffff;
 
-  /* 20% оттенки — только для спокойных секционных фонов */
-  --forest-20: #eaeeec;
-  --sage-20: #f0f4f2;
-  --cream-20: #f9f5f2;
-  --petrol-20: #e6ecee;
-  --amber-20: #fbeee5;
+  /* ── 1.2 Вторичная палитра (§4.1), точные значения гайда ────────────────── */
+  --forest: #2d483f;             /* Pantone 4203 C · RGB 45 72 63   */
+  --petrol: #003e51;             /* Pantone 3035 C · RGB 0 62 81    */
+  --sage:   #7d9c91;             /* Pantone 5565 C · RGB 125 156 145 */
+  --mocha:  #965044;             /* Pantone 4100 C · RGB 150 80 68  */
+  --amber:  #c14e00;             /* Pantone 718 C  · RGB 193 78 0   */
+  --cream:  #d7c4b7;             /* Pantone 4755 C · RGB 215 196 183 */
 
-  /* нейтральная функциональная шкала */
-  --ink: #111111;
-  --ink-2: #3a3936;
-  --muted: #6b6864;
-  --line: #e2e0dc;
-  --line-strong: #c9c6c1;
-  --gray-bg: #f3f2f0;
-  --gray-plaque: #b9b6b1;
+  /* ── 1.3 Тинты гайда (§4.2): 80 / 60 / 40 / 20 % ────────────────────────── */
+  --forest-80: #576d65;  --forest-60: #81918c;  --forest-40: #abb6b2;  --forest-20: #d5dad9;
+  --petrol-80: #336574;  --petrol-60: #668b97;  --petrol-40: #99b2b9;  --petrol-20: #ccd8dc;
+  --sage-80:   #97b0a7;  --sage-60:   #b1c4bd;  --sage-40:   #cbd7d3;  --sage-20:   #e5ebe9;
+  --mocha-80:  #ab7369;  --mocha-60:  #c0968f;  --mocha-40:  #d5b9b4;  --mocha-20:  #eadcda;
+  --amber-80:  #cd7133;  --amber-60:  #da9566;  --amber-40:  #e6b899;  --amber-20:  #f3dccc;
+  --cream-80:  #dfd0c5;  --cream-60:  #e7dcd4;  --cream-40:  #efe7e2;  --cream-20:  #f7f3f1;
+
+  /* ── 1.4 Подложки секций ────────────────────────────────────────────────────
+     Светлее тинта 20 %: на больших полотнах каталога держат контраст основного
+     текста ≥ 12:1 и не спорят с фотографией товара. Тинты 20 % — для плашек,
+     заливок таблиц и графики, подложки — для целых секций страницы.          */
+  --wash-forest: #eaeeec;
+  --wash-sage:   #f0f4f2;
+  --wash-cream:  #f9f5f2;
+  --wash-petrol: #e6ecee;
+  --wash-amber:  #fbeee5;
+
+  /* ── 1.5 Нейтральная функциональная шкала ───────────────────────────────── */
+  --ink: #111111;                /* основной текст                     21:1 */
+  --ink-2: #3a3936;              /* вторичный текст, лиды              11:1 */
+  --muted: #6b6864;              /* подписи, метки, служебное         5.4:1 */
+  --line: #e2e0dc;               /* разделители, рамки карточек            */
+  --line-strong: #c9c6c1;        /* рамки полей и чипов                    */
+  --gray-bg: #f3f2f0;            /* нейтральная подложка                   */
+  --gray-plaque: #b9b6b1;        /* серая плашка (§16.1)                   */
   --paper: #ffffff;
 
-  --ok: #2d6a4a;
-  --warn: #b06a11;
+  /* ── 1.6 Статусы ────────────────────────────────────────────────────────── */
+  --ok: #2d6a4a;        --ok-wash: #e9f1ec;      /* в наличии, подтверждено */
+  --warn: #9a5c0d;      --warn-wash: #fbf1e2;    /* мало, под заказ         */
+  --err: #a3271c;       --err-wash: #f8eae8;     /* ошибка формы, снято     */
+  --info: var(--petrol); --info-wash: var(--wash-petrol);
 
-  --serif: "PT Serif Web", "Times New Roman", Georgia, serif;      /* роль Blacker */
-  --sans: "PT Root UI", "Helvetica Neue", Arial, sans-serif;       /* роль Gotham */
-  --text: "PT Root UI", "Helvetica Neue", Arial, sans-serif;       /* основной текст */
-  --mono: "PT Mono Web", "SFMono-Regular", Consolas, monospace;    /* артикулы и SKU */
+  /* ── 1.7 Шрифты (§3.1) ──────────────────────────────────────────────────────
+     Gotham и Blacker кириллицы не имеют. Роли гайда сохранены семейством PT:
+       редакционный serif (роль Blacker) → PT Serif Bold
+       интерфейсный sans (роль Gotham)   → PT Root UI Medium / Bold
+       текст (роль Gotham book / Roboto) → PT Root UI Regular
+       артикулы, SKU и коды              → PT Mono                          */
+  --serif: "PT Serif Web", "Times New Roman", Georgia, serif;
+  --sans:  "PT Root UI", "Helvetica Neue", Arial, sans-serif;
+  --text:  "PT Root UI", "Helvetica Neue", Arial, sans-serif;
+  --mono:  "PT Mono Web", "SFMono-Regular", Consolas, monospace;
 
-  --pad: clamp(20px, 4.2vw, 68px);
-  --maxw: 1520px;
+  /* ── 1.8 Типографическая шкала (§3.2) ───────────────────────────────────── */
+  --fs-display: clamp(38px, 4.6vw, 74px);   /* H1, serif                    */
+  --fs-h2:      clamp(28px, 3vw, 46px);     /* H2, serif                    */
+  --fs-h3:      clamp(18px, 1.5vw, 23px);   /* H3, sans                     */
+  --fs-h4:      15px;                       /* H4 / подзаголовок таблицы    */
+  --fs-lead:    clamp(16px, 1.25vw, 19px);
+  --fs-body:    16px;
+  --fs-sm:      13px;
+  --fs-xs:      11.5px;
+  --fs-eyebrow: 11px;
+
+  --lh-tight: 1.02;  --lh-head: 1.1;  --lh-snug: 1.24;  --lh-body: 1.6;
+  --tr-tight: -.02em;  --tr-caps: .1em;  --tr-eyebrow: .17em;
+
+  /* ── 1.9 Ритм: шаг 4 px ─────────────────────────────────────────────────── */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 20px;  --s-6: 24px;  --s-8: 32px;  --s-10: 40px;
+  --s-14: 56px; --s-18: 72px; --s-24: 96px;
+
+  --pad: clamp(20px, 4.2vw, 68px);          /* поле страницы                */
+  --maxw: 1520px;                           /* предел контентной полосы     */
+  --maxw-text: 62ch;                        /* предел строки текста         */
+  --gap: clamp(14px, 1.4vw, 22px);          /* шаг сетки карточек           */
+  --section-y: clamp(48px, 6vw, 104px);
+  --section-y-tight: clamp(32px, 3.5vw, 60px);
+
+  /* ── 1.10 Форма, рамка, тень ──────────────────────────────────────────────
+     Скругления в системе нет: плашка, кнопка и карточка — прямоугольные,
+     как логотип и плашки гайда (§2.5, §16.1). Тень допустима только у
+     всплывающих слоёв; на логотипе и плашках она запрещена (§2.5).         */
+  --radius: 0;
+  --bw: 1px;
+  --shadow-pop: 0 14px 34px -14px rgba(17, 17, 17, .34);
+
+  /* ── 1.11 Слои и движение ───────────────────────────────────────────────── */
+  --z-sticky: 40;  --z-drop: 50;  --z-modal: 100;
+  --dur-fast: .15s;  --dur: .25s;  --ease: cubic-bezier(.2, .6, .2, 1);
 }
 
 * { box-sizing: border-box; }
@@ -125,10 +190,10 @@ p { margin: 0 0 1em; }
 .section { padding-block: clamp(48px, 6vw, 104px); }
 .section-tight { padding-block: clamp(32px, 3.5vw, 60px); }
 .bg-gray { background: var(--gray-bg); }
-.bg-sage { background: var(--sage-20); }
-.bg-cream { background: var(--cream-20); }
-.bg-petrol { background: var(--petrol-20); }
-.bg-forest { background: var(--forest-20); }
+.bg-sage { background: var(--wash-sage); }
+.bg-cream { background: var(--wash-cream); }
+.bg-petrol { background: var(--wash-petrol); }
+.bg-forest { background: var(--wash-forest); }
 .rule { border-top: 1px solid var(--line); }
 
 .sec-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 80px); align-items: end; margin-bottom: clamp(28px, 3vw, 52px); }
@@ -219,7 +284,7 @@ p { margin: 0 0 1em; }
 table.data { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
 table.data th, table.data td { padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
 table.data thead th { position: sticky; top: 0; background: var(--gray-bg); font-family: var(--sans); font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); z-index: 1; }
-table.data tbody tr:hover { background: var(--sage-20); }
+table.data tbody tr:hover { background: var(--wash-sage); }
 table.data td.num, table.data th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* шапка */
@@ -229,7 +294,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .header { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 40; }
 .header .wrap { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 42px); min-height: 76px; }
 .brand { display: block; flex: none; }
-.brand img { width: clamp(136px, 11vw, 168px); height: auto; }
+.brand img { width: clamp(112px, 10vw, 148px); height: auto; }
 .mainnav { display: flex; align-items: center; gap: clamp(10px, 1.5vw, 26px); margin-left: auto; }
 .mainnav a { font-family: var(--sans); font-weight: 600; font-size: 13.5px; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
 .mainnav a:hover, .mainnav a[data-active="true"] { border-color: var(--ink); }
@@ -276,9 +341,9 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .field textarea { min-height: 110px; resize: vertical; }
 .field input:focus, .field select:focus { border-color: var(--ink); outline: none; }
 
-.notice { border-left: 3px solid var(--amber); background: var(--amber-20); padding: 14px 18px; font-size: 14px; line-height: 1.55; }
-.notice.calm { border-color: var(--sage); background: var(--sage-20); }
-.source-note { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.notice { border-left: 3px solid var(--amber); background: var(--wash-amber); padding: 14px 18px; font-size: 14px; line-height: 1.55; }
+.notice.calm { border-color: var(--sage); background: var(--wash-sage); }
+.source-note { display: none; }
 
 /* герой */
 .hero { position: relative; background: var(--ink); color: #fff; }
@@ -303,24 +368,165 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .trustline span { font-size: 12.5px; color: var(--muted); }
 @media (max-width: 860px) { .trustline .wrap { grid-template-columns: 1fr 1fr; } }
 
-@media (max-width: 560px) {
-  .topbar .wrap { min-height: 32px; }
-  .topbar .wrap > :last-child { display: none; }
-  .header .wrap { min-height: 72px; }
-  .hero-inner { padding-top: 48px; }
-  .hero-actions { display: grid; grid-template-columns: 1fr; }
-  .hero-actions .btn { width: 100%; }
-  .hero-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 16px; }
-}
-
 .swatches { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
 .swatch { width: 17px; height: 17px; border: 1px solid var(--line-strong); display: inline-block; }
 
 .ladder { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .ladder > a { background: #fff; padding: 20px 18px 22px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; min-height: 190px; }
-.ladder > a:hover { background: var(--sage-20); }
+.ladder > a:hover { background: var(--wash-sage); }
 .ladder .step { font-family: var(--sans); font-size: 11px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
 @media (max-width: 1000px) { .ladder { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .ladder { grid-template-columns: 1fr; } }
 
 .empty { padding: 44px 24px; border: 1px dashed var(--line-strong); background: var(--gray-bg); text-align: center; }
+
+/* ============================================================================
+   3. КОМПОНЕНТНЫЙ СЛОЙ ДИЗАЙН-СИСТЕМЫ — состояния и элементы B2B-каталога
+   Всё, чего нет в бренд-гайде (он описывает бренд, а не интерфейс), собрано
+   здесь по его же логике: прямоугольная форма, чёрно-белое ядро, фирменный
+   цвет — точечно. Витрина всех элементов: /design-system
+   ========================================================================== */
+
+/* ── 3.1 Доступность ───────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: var(--z-modal);
+  background: var(--ink); color: #fff; padding: 12px 18px; font-family: var(--sans);
+  font-weight: 700; font-size: var(--fs-sm);
+}
+.skip-link:focus { left: 0; }
+
+/* ── 3.2 Кнопки: состояния ─────────────────────────────────────────────────── */
+.btn-ghost { border-color: var(--line-strong); color: var(--ink-2); }
+.btn-ghost:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
+.btn[disabled], .btn[aria-disabled="true"] {
+  border-color: var(--line); color: var(--gray-plaque); background: var(--gray-bg);
+  cursor: not-allowed; pointer-events: none;
+}
+.btn-lg { min-height: 58px; padding: 0 28px; font-size: 14px; }
+
+/* ── 3.3 Статусы наличия: бейдж (крупная форма точки .dot) ─────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 10px 4px; border: 1px solid var(--line-strong); background: #fff;
+  font-family: var(--sans); font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .04em; color: var(--ink-2); white-space: nowrap;
+}
+.badge-ok    { border-color: var(--ok);   color: var(--ok);   background: var(--ok-wash); }
+.badge-warn  { border-color: var(--warn); color: var(--warn); background: var(--warn-wash); }
+.badge-err   { border-color: var(--err);  color: var(--err);  background: var(--err-wash); }
+.badge-quiet { border-color: var(--line); color: var(--muted); background: var(--gray-bg); }
+.badge-brand { border-color: var(--forest); color: #fff; background: var(--forest); }
+
+/* ── 3.4 Сообщения (расширение .notice) ────────────────────────────────────── */
+.notice.ok  { border-color: var(--ok);  background: var(--ok-wash); }
+.notice.err { border-color: var(--err); background: var(--err-wash); }
+.notice b { font-family: var(--sans); }
+
+/* ── 3.5 Вкладки ───────────────────────────────────────────────────────────── */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tab {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  padding: 13px 18px; margin-bottom: -1px; white-space: nowrap;
+  font-family: var(--sans); font-weight: 600; font-size: 13.5px; color: var(--muted);
+  border-bottom: 2px solid transparent;
+}
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── 3.6 Панель списка: счётчик, сортировка ────────────────────────────────── */
+.toolbar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-4);
+  flex-wrap: wrap; padding-block: var(--s-3); border-bottom: 1px solid var(--line);
+}
+.toolbar .count { font-family: var(--sans); font-size: var(--fs-sm); color: var(--muted); }
+.toolbar .count b { color: var(--ink); }
+
+/* ── 3.7 Пагинация ─────────────────────────────────────────────────────────── */
+.pager { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: var(--s-8); }
+.pager a, .pager span {
+  min-width: 42px; min-height: 42px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line-strong); font-family: var(--sans); font-size: 13px; font-weight: 600;
+  text-decoration: none; color: var(--ink-2); background: #fff; padding: 0 10px;
+}
+.pager a:hover { border-color: var(--ink); color: var(--ink); }
+.pager [aria-current="page"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.pager .gap { border: 0; background: transparent; color: var(--muted); min-width: 22px; }
+
+/* ── 3.8 Формы: состояния ──────────────────────────────────────────────────── */
+.field-hint { display: block; font-size: var(--fs-xs); color: var(--muted); margin-top: 6px; }
+.field-err  { display: block; font-size: var(--fs-xs); color: var(--err); margin-top: 6px; font-weight: 600; }
+.field.is-error input, .field.is-error select, .field.is-error textarea { border-color: var(--err); }
+.field input[disabled], .field select[disabled], .field textarea[disabled] {
+  background: var(--gray-bg); color: var(--muted); cursor: not-allowed;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--gray-plaque); }
+.field-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+@media (max-width: 620px) { .field-row { grid-template-columns: 1fr; } }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.45; }
+.check input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--ink); flex: none; }
+
+/* ── 3.9 Загрузка ──────────────────────────────────────────────────────────── */
+.skeleton { background: linear-gradient(90deg, #eeecea 25%, #f6f5f3 37%, #eeecea 63%); background-size: 400% 100%; animation: ds-shimmer 1.3s linear infinite; }
+.skeleton-line { height: 12px; margin-bottom: 8px; }
+.skeleton-visual { aspect-ratio: 4 / 3; }
+@keyframes ds-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+/* ── 3.10 Раскрывающийся блок (характеристики, FAQ) ────────────────────────── */
+.accordion { border: 1px solid var(--line); background: #fff; }
+.accordion + .accordion { border-top: 0; }
+.accordion > summary {
+  cursor: pointer; list-style: none; padding: 15px 18px;
+  font-family: var(--sans); font-weight: 600; font-size: 15px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.accordion > summary::-webkit-details-marker { display: none; }
+.accordion > summary::after { content: "+"; font-family: var(--sans); font-size: 18px; color: var(--muted); }
+.accordion[open] > summary::after { content: "–"; }
+.accordion[open] > summary { border-bottom: 1px solid var(--line); }
+.accordion .accordion-body { padding: 16px 18px 20px; font-size: 14.5px; line-height: 1.6; }
+
+/* ── 3.11 Акцентный блок (цитата, ключевой тезис) ──────────────────────────── */
+.callout {
+  border-left: 3px solid var(--forest); background: var(--wash-forest);
+  padding: clamp(20px, 2.4vw, 34px);
+}
+.callout q, .callout blockquote {
+  font-family: var(--serif); font-size: clamp(19px, 1.8vw, 26px); line-height: 1.3;
+  letter-spacing: -.01em; margin: 0; quotes: "«" "»";
+}
+.callout figcaption { font-family: var(--sans); font-size: var(--fs-xs); color: var(--muted); margin-top: 14px; letter-spacing: .04em; }
+
+/* ── 3.12 Показатели (KPI) ─────────────────────────────────────────────────── */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.stat { background: #fff; padding: var(--s-5) var(--s-5) var(--s-6); }
+.stat b { display: block; font-family: var(--sans); font-weight: 700; font-size: clamp(24px, 2.4vw, 36px); line-height: 1; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.stat span { display: block; font-family: var(--sans); font-size: var(--fs-xs); color: var(--muted); margin-top: 9px; line-height: 1.4; }
+@media (max-width: 900px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+
+/* ── 3.13 Таблица сравнения: липкий первый столбец ─────────────────────────── */
+table.data.compare th[scope="row"] {
+  position: sticky; left: 0; background: #fff; z-index: 2;
+  font-family: var(--sans); font-weight: 600; font-size: 13.5px;
+  box-shadow: 1px 0 0 var(--line);
+}
+table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage); }
+
+/* ── 3.14 Текстовая полоса статьи ──────────────────────────────────────────── */
+.prose { max-width: 72ch; }
+.prose h2 { margin-top: var(--s-14); margin-bottom: var(--s-4); }
+.prose h3 { margin-top: var(--s-10); margin-bottom: var(--s-3); }
+.prose p, .prose li { font-size: 16.5px; line-height: 1.65; }
+.prose ul, .prose ol { margin: 0 0 1em; padding-left: 1.15em; }
+.prose li { margin-bottom: .45em; }
+.prose a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+
+/* ── 3.15 Утилиты ритма ────────────────────────────────────────────────────── */
+.stack > * + * { margin-top: var(--s-4); }
+.stack-lg > * + * { margin-top: var(--s-8); }
+.cluster { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+.rule-brand { border: 0; border-top: 3px solid var(--amber); width: 64px; margin: 0 0 var(--s-5); }

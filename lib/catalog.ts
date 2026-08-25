@@ -135,10 +135,24 @@ export const families = [...catalog.families].sort((a, b) => a.order - b.order);
 export const models = catalog.models;
 export const skus = catalog.skus;
 export const grinders = catalog.grinders;
-export const parts = catalog.parts;
+/** Публичный каталог ЗИП показывает только физически доступные позиции. */
+export const parts = catalog.parts.filter((p) => p.stock > 0 && p.availability !== "on_order");
 export const dealers = catalog.dealers;
 export const chains = catalog.chains;
 export const analogs = catalog.analogs;
+
+/** Согласованная последовательность продуктовых линеек в российском каталоге. */
+export const CATALOG_LINEUP = [
+  { slug: "zoe-competition", label: "ZOE Competition", image: "/photo/official/zoe-competition.jpg" },
+  { slug: "f18-sb", label: "F18 Single Boiler", image: "/photo/official/f18-single-boiler.jpg" },
+  { slug: "f18-mb", label: "F18", image: "/photo/official/f18.jpg" },
+  { slug: "cafe-racer", label: "Cafe Racer", image: "/photo/official/cafe-racer.jpg" },
+  { slug: "opera", label: "Opera", image: "/photo/official/opera.jpg" },
+  { slug: "you", label: "You", image: "/photo/official/you.png" },
+] as const;
+export const catalogModels = CATALOG_LINEUP
+  .map((line) => models.find((model) => model.slug === line.slug))
+  .filter((model): model is Model => Boolean(model));
 
 /** Продаваемые сейчас позиции: без уценённых/б-у единиц. */
 export const liveSkus = skus.filter((s) => !s.markdown);

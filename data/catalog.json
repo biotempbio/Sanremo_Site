@@ -19,7 +19,8 @@
     "Fiamma Compass SE",
     "Wega Polaris"
    ],
-   "photo": "/photo/machine-red-lifestyle.webp"
+   "photo": "/photo/machine-red-lifestyle.webp",
+   "product": "/photo/model-zoe.webp"
   },
   {
    "slug": "d8",
@@ -39,7 +40,9 @@
     "Rancilio Classe 9",
     "Fiamma Compass DB"
    ],
-   "photo": "/photo/d8-workzone.webp"
+   "photo": "/photo/d8-workzone.webp",
+   "product": "/photo/model-d8.webp",
+   "lineup": "/photo/model-d8-lineup.webp"
   },
   {
    "slug": "f18",
@@ -58,7 +61,8 @@
     "Victoria Arduino White Eagle T3",
     "La Marzocco Linea PB"
    ],
-   "photo": "/photo/machine-marble.webp"
+   "photo": "/photo/machine-marble.webp",
+   "product": "/photo/model-f18.webp"
   },
   {
    "slug": "cafe-racer",
@@ -78,7 +82,8 @@
     "Rocket RS1",
     "Diamant Pro"
    ],
-   "photo": "/photo/cafe-racer-green-detail.webp"
+   "photo": "/photo/cafe-racer-green-detail.webp",
+   "product": "/photo/model-cafe-racer.webp"
   },
   {
    "slug": "you",
@@ -96,7 +101,8 @@
     "Victoria Arduino Eagle One Prima",
     "Dalla Corte Mina"
    ],
-   "photo": "/photo/display-detail.webp"
+   "photo": "/photo/display-detail.webp",
+   "product": null
   },
   {
    "slug": "opera",
@@ -116,7 +122,8 @@
     "Victoria Arduino Black Eagle",
     "Dalla Corte XT"
    ],
-   "photo": "/photo/studio-dark.webp"
+   "photo": "/photo/studio-dark.webp",
+   "product": null
   }
  ],
  "models": [
