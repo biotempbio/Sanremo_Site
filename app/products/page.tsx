@@ -21,6 +21,14 @@ export default function ProductsPage() {
   const rows: CatalogRow[] = catalogModels.map((m) => {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
+    const stocked = sk.filter((s) => s.free > 0);
+    const stockUnits = stocked.reduce((sum, s) => sum + s.free, 0);
+    const stockExecutions = new Set(
+      stocked.map((s) => [s.groups, s.color ?? "", s.edition ?? ""].join("|"))
+    ).size;
+    const stockColors = [...new Map(
+      stocked.filter((s) => s.color && s.colorHex).map((s) => [s.color!, { name: s.color!, hex: s.colorHex! }])
+    ).values()];
     const heights = [...new Set(sk.map((s) => s.groupHeight).filter(Boolean))] as string[];
     const line = CATALOG_LINEUP.find((item) => item.slug === m.slug)!;
     return {
@@ -35,10 +43,12 @@ export default function ProductsPage() {
       groups: m.groupsAvailable,
       heights,
       options: m.optionsAvailable,
-      colors: m.colorsAvailable,
+      colors: stockColors,
       priceFrom: m.priceFrom,
       priceTo: m.priceTo,
       inStockCount: m.inStockCount,
+      stockUnits,
+      stockExecutions,
       skuCount: m.skuCount,
       heroColor: "#1a1a1a",
       heroImage: line.image,

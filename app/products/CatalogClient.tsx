@@ -19,6 +19,8 @@ export interface CatalogRow {
   priceFrom: number | null;
   priceTo: number | null;
   inStockCount: number;
+  stockUnits: number;
+  stockExecutions: number;
   skuCount: number;
   heroColor: string | null;
   heroImage: string | null;
@@ -73,7 +75,7 @@ export default function CatalogClient({
       if (scen.length && !r.scenarios.some((s) => scen.includes(s))) return false;
       if (opts.length && !opts.every((o) => r.options.includes(o))) return false;
       if (vol.length && !r.volumeBands.some((v) => vol.includes(v))) return false;
-      if (stockOnly && r.inStockCount === 0) return false;
+      if (stockOnly && r.stockUnits === 0) return false;
       if (price.length) {
         const ok = price.some((id) => {
           const b = PRICE_BANDS.find((x) => x.id === id)!;
@@ -87,7 +89,7 @@ export default function CatalogClient({
       lineup: () => 0,
       "price-asc": (a, b) => (a.priceFrom ?? 0) - (b.priceFrom ?? 0),
       "price-desc": (a, b) => (b.priceFrom ?? 0) - (a.priceFrom ?? 0),
-      stock: (a, b) => b.inStockCount - a.inStockCount,
+      stock: (a, b) => b.stockUnits - a.stockUnits,
       name: (a, b) => a.name.localeCompare(b.name, "ru"),
     };
     return [...out].sort(cmp[sort]);
@@ -207,7 +209,7 @@ export default function CatalogClient({
                       {r.colors.slice(0, 8).map((c) => (
                         <i className="swatch" key={c.name} style={{ background: c.hex }} title={c.name} />
                       ))}
-                      <span className="tiny">{r.colors.length} исполн.</span>
+                      <span className="tiny">{r.colors.length} цветов на складе</span>
                     </div>
                   )}
                   <div className="card-foot">
@@ -215,9 +217,14 @@ export default function CatalogClient({
                       <span className="price-from">РРЦ от</span>
                       <span className="price num">{r.priceFrom?.toLocaleString("ru-RU")} ₽</span>
                     </div>
-                    <span className="stock-label">
-                      <i className={`dot ${r.inStockCount ? "st-in_stock" : "st-reserved"}`} />
-                      {r.inStockCount ? `${r.inStockCount} со склада` : "Уточнить наличие"}
+                    <span className="stock-label" style={{ alignItems: "flex-start" }}>
+                      <i className={`dot ${r.stockUnits ? "st-in_stock" : "st-reserved"}`} style={{ marginTop: 6 }} />
+                      {r.stockUnits ? (
+                        <span>
+                          <b>На складе {r.stockUnits} {machineWord(r.stockUnits)}</b>
+                          <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small>
+                        </span>
+                      ) : "Сейчас нет на складе"}
                     </span>
                   </div>
                 </div>
@@ -251,4 +258,22 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       {children}
     </button>
   );
+}
+
+function machineWord(n: number) {
+  const mod100 = n % 100;
+  const mod10 = n % 10;
+  if (mod100 >= 11 && mod100 <= 14) return "машин";
+  if (mod10 === 1) return "машина";
+  if (mod10 >= 2 && mod10 <= 4) return "машины";
+  return "машин";
+}
+
+function executionWord(n: number) {
+  const mod100 = n % 100;
+  const mod10 = n % 10;
+  if (mod100 >= 11 && mod100 <= 14) return "исполнений";
+  if (mod10 === 1) return "исполнение";
+  if (mod10 >= 2 && mod10 <= 4) return "исполнения";
+  return "исполнений";
 }
