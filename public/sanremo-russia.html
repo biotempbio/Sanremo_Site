@@ -656,9 +656,8 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">Показать телефон</button>
-              <button style="border:1px solid #141414;background:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">Сайт дилера</button>
-              <button style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Маршрут</button>
+              <button onClick="{{ d.visit }}" style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">Сайт дилера ↗</button>
+              <button onClick="{{ d.route }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Построить маршрут ↗</button>
             </div>
           </div>
         </sc-for>
@@ -1232,10 +1231,25 @@ const SCEN = [
 ];
 
 const DEALERS = [
-  { name: 'Дилер · название из справочника BIO', address: 'Москва · адрес, часы работы и зона работы из CMS', services: ['Продажа', 'Шоурум', 'Демонстрация', 'Монтаж', 'Гарантийный сервис'] },
-  { name: 'Дилер · название из справочника BIO', address: 'Санкт-Петербург · СЗФО', services: ['Продажа', 'Обучение', 'Гарантийный сервис', 'Запчасти'] },
-  { name: 'Дилер · название из справочника BIO', address: 'Екатеринбург · УрФО', services: ['Продажа', 'Монтаж', 'Запчасти'] },
-  { name: 'Дилер · название из справочника BIO', address: 'Краснодар · ЮФО', services: ['Продажа', 'Шоурум', 'Демонстрация'] }
+  { name: 'Торговый Дизайн', city: 'Москва', address: '125130, Москва, Старопетровский проезд, д. 11, корп. 1', website: 'https://t-d.ru/', services: ['Продажа'] },
+  { name: 'Территория кофе', city: 'Москва', address: 'Москва, ул. Правды, 17/19', website: 'https://coffeestate.ru/', services: ['Продажа'] },
+  { name: 'Ресторан комплект', city: 'Тольятти', address: '445043, Тольятти, ул. Транспортная, 11', website: 'https://r-komplekt.ru/', services: ['Продажа'] },
+  { name: 'Бобер Сервис', city: 'Санкт-Петербург', address: '195197, Санкт-Петербург, ул. Лабораторная, д. 14Г', website: 'https://bober.services/', services: ['Продажа'] },
+  { name: 'Red bus', city: 'Саратов', address: 'Саратов, ул. Чернышевского, 94', website: 'https://coffeebus.uds.app/c', services: ['Продажа'] },
+  { name: 'ЭНТЕРО.РУ', city: 'Москва', address: '127576, Москва, ул. Новгородская, д. 1, стр. 6, офис Г213', website: 'https://entero.ru/', services: ['Продажа'] },
+  { name: 'УНОКСШОП', city: 'Москва', address: '127015, Москва, ул. Новодмитровская, д. 5А, стр. 1, офис 303', website: 'https://unox-shop.ru/', services: ['Продажа'] },
+  { name: 'Алтэк', city: 'Санкт-Петербург', address: '197183, Санкт-Петербург, ул. Савушкина, д. 7, корп. 3', website: 'https://altekpro.ru/', services: ['Продажа'] },
+  { name: 'Компания Жар', city: 'Махачкала', address: 'Республика Дагестан, Махачкала, просп. Али-Гаджи Акушинского, 84а/1', website: 'https://complex-jar.ru/', services: ['Продажа'] },
+  { name: 'Клен', city: 'Москва', address: 'Москва, ул. Академика Челомея, д. 3', website: 'https://www.klenmarket.ru/', services: ['Продажа'] },
+  { name: 'АльфТорг', city: 'Санкт-Петербург', address: '197349, Санкт-Петербург, Комендантский проспект, д. 4, офис 525', website: 'https://alftorg.ru/', services: ['Продажа'] },
+  { name: 'Технофлот', city: 'Санкт-Петербург', address: '195273, Санкт-Петербург, Пискарёвский проспект, д. 63, лит. А', website: 'https://technoflot.com/', services: ['Продажа'] },
+  { name: 'Лира Маркет', city: 'Казань', address: 'Казань, ул. Космонавтов, д. 71', website: 'https://kazan.liramarket.ru/', services: ['Продажа'] },
+  { name: 'Секьюритимаг', city: 'Москва', address: 'Москва, ул. Привольная, д. 65/32', website: 'https://securitymag.ru/', services: ['Продажа'] },
+  { name: 'УК ТИМВАЙЗ', city: 'Новосибирск', address: 'Новосибирск, ул. Ипподромская, д. 15', website: 'https://teamwise.pro/', services: ['Продажа'] },
+  { name: 'Траст Холод', city: 'Москва', address: '109202, Москва, ул. 1-я Фрезерная, д. 2/1, корп. 2, офис 907', website: 'https://trust-holod.ru/', services: ['Продажа'] },
+  { name: 'Рефро', city: 'Москва', address: '109202, Москва, ул. 1-я Фрезерная, д. 2/1, корп. 2, помещение 1/3', website: 'https://www.refro.ru/', services: ['Продажа'] },
+  { name: 'Whitegoods', city: 'Москва', address: '125464, Москва, Волоколамское шоссе, д. 142, БЦ «Ирбис», офис 527', website: 'https://www.whitegoods.ru/', services: ['Продажа'] },
+  { name: 'Санремо-Эспрессомашины', city: 'Санкт-Петербург', address: 'Санкт-Петербург, Выборгская набережная, д. 29', website: 'https://sanremorus.ru/', services: ['Продажа'] }
 ];
 
 const HERO_CODE = { zoe: '205904', f18sb: '165355', f18: 'У5735', racer: '200333', opera: '201026', you: '178137' };
@@ -1846,7 +1860,10 @@ class Component extends DCLogic {
     const res = complete ? this.quizResult() : { items: [], logic: '' };
 
     const df = s.dealerF;
-    const dealerList = DEALERS.filter(d => df.every(x => d.services.indexOf(x) >= 0));
+    const dealerList = DEALERS.filter(d => df.every(x => d.services.indexOf(x) >= 0)).map(d => Object.assign({}, d, {
+      visit: () => window.open(d.website, '_blank', 'noopener,noreferrer'),
+      route: () => window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.address), '_blank', 'noopener,noreferrer')
+    }));
 
     const query = s.partsQuery.trim().toLowerCase();
     const nodes = [];
