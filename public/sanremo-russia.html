@@ -18,6 +18,28 @@
   a { color: #003E51; text-decoration: none; }
   a:hover { color: #C14E00; }
   button { font-family: 'PT Sans', Arial, sans-serif; cursor: pointer; }
+  button[style*="background:#141414"][style*="padding:"],
+  button[style*="border:1px solid #141414"][style*="background:#FFFFFF"][style*="padding:"] {
+    transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+  }
+  button[style*="background:#141414"][style*="padding:"]:hover,
+  button[style*="border:1px solid #141414"][style*="background:#FFFFFF"][style*="padding:"]:hover {
+    background: #2D483F !important;
+    color: #FFFFFF !important;
+    border-color: #2D483F !important;
+    transform: translateY(-2px);
+    box-shadow: 0 9px 22px rgba(45,72,63,.22);
+  }
+  button[style*="background:#141414"][style*="padding:"]:active,
+  button[style*="border:1px solid #141414"][style*="background:#FFFFFF"][style*="padding:"]:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 9px rgba(45,72,63,.18);
+  }
+  button[style*="background:#141414"][style*="padding:"]:focus-visible,
+  button[style*="border:1px solid #141414"][style*="background:#FFFFFF"][style*="padding:"]:focus-visible {
+    outline: 3px solid #7D9C91;
+    outline-offset: 3px;
+  }
   table { border-collapse: collapse; }
 </style>
 <meta name="description" content="Профессиональные кофемашины Sanremo в России: линейки ZOE Competition, F18, Café Racer, Opera, YOU. РРЦ, наличие на складе в Москве, подбор под поток, сервис и ЗИП. Официальный дистрибьютор — компания BIO." />
