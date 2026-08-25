@@ -1,27 +1,388 @@
-"use client";
-import { useMemo, useState } from "react";
-const machines=[
- {name:"ZOE Competition",tag:"Рациональная база",price:"462 900 ₽",flow:"до 200",stock:"В наличии",tone:"sand",formats:["Кофейня","Ресторан / пекарня"],cups:["до 100","100–200"]},
- {name:"D8",tag:"Универсальная платформа",price:"от 519 500 ₽",flow:"100–300",stock:"В наличии · 21 шт.",tone:"blue",formats:["Кофейня","Ресторан / пекарня","Сеть"],cups:["100–200","200–300"]},
- {name:"D8 PRO",tag:"Независимый контроль групп",price:"от 681 300 ₽",flow:"200–500",stock:"Ограниченное количество",tone:"black",formats:["Кофейня","Сеть","Обжарщик / лаборатория"],cups:["200–300","300–500"]},
- {name:"Café Racer",tag:"Дизайн и полный контроль",price:"от 1 137 500 ₽",flow:"300+",stock:"Под заказ",tone:"red",formats:["Кофейня","Сеть","Обжарщик / лаборатория"],cups:["300–500","500+"]}
-];
-function Arrow(){return <span aria-hidden>↗</span>}
-export default function Home(){
- const[menuOpen,setMenuOpen]=useState(false),[format,setFormat]=useState(""),[cups,setCups]=useState(""),[showResult,setShowResult]=useState(false);
- const matches=useMemo(()=>machines.filter(m=>(!format||m.formats.includes(format))&&(!cups||m.cups.includes(cups))).slice(0,3),[format,cups]);
- return <main>
-  <div className="trustbar"><span>Официальный дистрибьютор Sanremo в России — BIO</span><span className="trust-contact">8 800 500-64-95 · Москва</span></div>
-  <header className="header"><a className="logo" href="#top">SANREMO<small>COFFEE MACHINES</small></a><nav className={menuOpen?"nav nav-open":"nav"}><a href="#machines">Кофемашины</a><a href="#selector">Подобрать</a><a href="#solutions">Решения</a><a href="#compare">Сравнить</a><a href="#dealers">Где купить</a><a href="#service">Сервис</a></nav><button className="menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?"Закрыть":"Меню"}</button></header>
-  <section className="hero" id="top"><div className="hero-copy"><p className="eyebrow">Профессиональные кофемашины · Италия</p><h1>Машина, которая<br/>соответствует<br/><em>вашему потоку</em></h1><p className="lead">Выберите Sanremo по формату бизнеса, нагрузке и меню. С актуальной РРЦ, наличием в России и понятной логикой выбора.</p><div className="hero-actions"><a className="button primary" href="#selector">Подобрать модель <Arrow/></a><a className="button ghost" href="#machines">Смотреть каталог</a></div><div className="hero-facts"><span><b>12</b> моделей в российской матрице</span><span><b>18</b> городов дилерской сети</span></div></div><div className="hero-visual"><div className="model-tag"><span>Новая платформа</span><b>D8</b><small>точность без лишней сложности</small></div><div className="availability"><i/> В наличии в России</div></div></section>
-  <section className="quick-selector" id="selector"><div><p className="eyebrow">Начните с задачи</p><h2>Какая кофемашина нужна вашему бизнесу?</h2><p className="section-copy">Подбор — ориентир BIO. Учтём меню, пиковую нагрузку, число бариста и ограничения площадки.</p></div><div className="selector-fields"><label>Формат<select value={format} onChange={e=>{setFormat(e.target.value);setShowResult(false)}}><option value="">Любой формат</option><option>Кофейня</option><option>Ресторан / пекарня</option><option>Сеть</option><option>Обжарщик / лаборатория</option></select></label><label>Чашек в день<select value={cups} onChange={e=>{setCups(e.target.value);setShowResult(false)}}><option value="">Любая нагрузка</option><option>до 100</option><option>100–200</option><option>200–300</option><option>300–500</option><option>500+</option></select></label><button className="button dark" onClick={()=>setShowResult(true)}>Показать варианты <Arrow/></button>{showResult&&<div className="selector-result"><b>{matches.length?"Подходят: "+matches.map(m=>m.name).join(", "):"Нужна консультация специалиста BIO"}</b><span>{matches.length?"Ниже — РРЦ и наличие каждой модели.":"Сценарий нетипичный — поможем собрать конфигурацию."}</span></div>}</div></section>
-  <section className="catalog section" id="machines"><div className="section-head"><div><p className="eyebrow">Российская матрица</p><h2>От первой машины<br/>до R&D-флагмана</h2></div><p>Не просто линейки, а доступные в России конфигурации: группы, высота, опции, цвет, РРЦ и складской статус.</p></div><div className="machine-grid">{machines.map((m,i)=><article className={"machine-card "+m.tone} key={m.name}><div className="card-top"><span>0{i+1}</span><span>{m.flow} чашек / день</span></div><div className="machine-image" aria-hidden/><div className="machine-info"><p>{m.tag}</p><h3>{m.name}</h3><div><b>{m.price}</b><span className={m.stock.includes("В наличии")?"stock yes":"stock"}>{m.stock}</span></div><a href="#dealers">Конфигурации и характеристики <Arrow/></a></div></article>)}</div></section>
-  <section className="solutions section" id="solutions"><div className="section-head inverse"><div><p className="eyebrow">Не по статусу — по задаче</p><h2>Решения для<br/><em>реальной смены</em></h2></div><p>Поток, молочное меню, стабильность рецептов и простота обучения — четыре точки, с которых начинается выбор.</p></div><div className="solution-list"><article><span>01</span><h3>Первая кофейня</h3><p>ZOE Competition или D8 Basic: разумный CAPEX, понятная волюметрика, запас для роста.</p><b>до 200 чашек / день</b></article><article><span>02</span><h3>Высокий поток</h3><p>F18 MB или Café Racer: независимые системы, стабильный пар и контроль температуры.</p><b>300–500+ чашек / день</b></article><article><span>03</span><h3>Specialty и R&D</h3><p>D8 PRO или Opera: контроль групп, профилирование и повторяемость рецептов.</p><b>несколько сортов и рецептов</b></article></div></section>
-  <section className="compare section" id="compare"><div className="section-head"><div><p className="eyebrow">Сравнение без лозунгов</p><h2>D8 Basic <em>или</em><br/>D8 PRO?</h2></div><p>Сравниваем конкретные исполнения и объясняем, за какие функции стоит платить именно в вашем сценарии.</p></div><div className="comparison"><div className="compare-photo"/><div className="compare-table"><div><span>Архитектура</span><b>D8 Basic</b><b>D8 PRO</b></div><div><span>Контроль групп</span><b>Общий</b><b>Независимый</b></div><div><span>Дисплей</span><b>Основная группа</b><b>На каждой группе</b></div><div><span>Лучший сценарий</span><b>Ресторан, сеть</b><b>Specialty, высокий поток</b></div><div><span>РРЦ</span><b>от 519 500 ₽</b><b>от 681 300 ₽</b></div><a className="button primary" href="#dealers">Сравнить конфигурации <Arrow/></a></div></div></section>
-  <section className="case"><div className="case-copy"><p className="eyebrow">Кофейни выбирают Sanremo</p><h2>Проверка<br/><em>соревнованием</em></h2><p>D8 на Julius Meinl Barista Cup 2026. Рабочая площадка, где важны повторяемость, скорость и понятный интерфейс.</p><a href="#dealers">Смотреть российские кейсы <Arrow/></a></div></section>
-  <section className="dealer section" id="dealers"><div><p className="eyebrow">Где купить</p><h2>Найдите дилера<br/>в своём городе</h2><p>Продажа, демонстрация, обучение, монтаж и сервис. Если партнёра рядом нет — заявку примет BIO.</p><div className="city-search"><input aria-label="Город" placeholder="Введите город или регион"/><button aria-label="Найти">→</button></div><div className="cities"><span>Москва · 8 партнёров</span><span>Санкт-Петербург · 4</span><span>Екатеринбург · 3</span><span>Новосибирск · 2</span></div></div><div className="map-card"><div className="map-dot d1"/><div className="map-dot d2"/><div className="map-dot d3"/><div className="dealer-mini"><b>BIO / Москва</b><span>Шоурум · Обучение · Сервис</span><a href="#contact">Показать контакты <Arrow/></a></div></div></section>
-  <section className="service section" id="service"><div><p className="eyebrow">Сервис и запчасти</p><h2>Оборудование<br/>должно работать</h2></div><div className="service-cards"><article><b>01</b><h3>Запчасти по артикулу</h3><p>Поиск по модели, узлу и совместимости. Публичный складской статус без авторизации.</p><a href="#contact">Найти запчасть <Arrow/></a></article><article><b>02</b><h3>Подготовка к монтажу</h3><p>Вода, фильтрация, электрика, слив и пространство — чек-лист до приезда инженера.</p><a href="#contact">Получить чек-лист <Arrow/></a></article><article><b>03</b><h3>Сервисная сеть</h3><p>Гарантийные и постгарантийные работы с понятной зоной ответственности.</p><a href="#contact">Найти сервис <Arrow/></a></article></div></section>
-  <section className="cta" id="contact"><p className="eyebrow">Следующий шаг</p><h2>Соберём конфигурацию<br/><em>под вашу задачу</em></h2><p>Оставьте задачу, регион и срок запуска. Специалист BIO уточнит нагрузку и соединит с подходящим дилером.</p><div><a className="button primary" href="mailto:info@sanremomachines.ru">Получить консультацию <Arrow/></a><a className="button cta-ghost" href="tel:+78005006495">8 800 500-64-95</a></div></section>
-  <footer><a className="logo foot-logo" href="#top">SANREMO<small>COFFEE MACHINES</small></a><div><b>Каталог</b><a href="#machines">Кофемашины</a><a href="#selector">Подбор</a><a href="#compare">Сравнение</a></div><div><b>Поддержка</b><a href="#dealers">Дилеры</a><a href="#service">Сервис</a><a href="#service">Запчасти</a></div><div><b>BIO</b><span>Официальная дистрибуция<br/>Sanremo в России</span><span>© 2026 BIO</span></div></footer>
- </main>
+import { Header, Footer } from "./components/Chrome";
+import { MachineVisual, Price, Stock } from "./components/Bits";
+import {
+  families,
+  familyPriceFrom,
+  familyStockCount,
+  liveSkus,
+  models,
+  modelsOfFamily,
+  modelBySlug,
+  modelPath,
+  chains,
+  dealerCities,
+  parts,
+  SCENARIOS,
+  VOLUME_BANDS,
+  PRICE_DATE,
+} from "@/lib/catalog";
+
+export default function Home() {
+  const cities = dealerCities();
+  const inStock = liveSkus.filter((s) => s.availability === "in_stock" || s.availability === "limited");
+  const ladder = ["zoe", "d8", "f18", "cafe-racer", "opera"];
+
+  return (
+    <>
+      <Header active="/" />
+      <main>
+        {/* ── 1. Первый экран ─────────────────────────────────────────── */}
+        <section className="hero">
+          <div className="hero-img">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/photo/machine-marble.webp" alt="Профессиональная кофемашина Sanremo" />
+            <div className="hero-shade" />
+          </div>
+          <div className="wrap hero-inner">
+            <p className="eyebrow" style={{ color: "#c9c4bd" }}>Италия · Официальная дистрибуция в России</p>
+            <h1>Профессиональные кофемашины Sanremo в России</h1>
+            <p className="lead" style={{ marginTop: 22 }}>
+              Выбор по бизнес-задаче, а не по картинке: формат заведения, поток, меню и бюджет —
+              две-три обоснованные конфигурации с РРЦ, наличием и дилером в вашем регионе.
+            </p>
+            <div className="hero-actions">
+              <a className="btn btn-amber" href="/choose">Подобрать машину</a>
+              <a className="btn" href="/products">Смотреть каталог</a>
+            </div>
+            <div className="hero-facts">
+              <div>
+                <b className="num">{models.length}</b>
+                <span>моделей в российской матрице</span>
+              </div>
+              <div>
+                <b className="num">{liveSkus.length}</b>
+                <span>конфигураций с РРЦ</span>
+              </div>
+              <div>
+                <b className="num">{inStock.length}</b>
+                <span>позиций доступно со склада</span>
+              </div>
+              <div>
+                <b className="num">{parts.length}</b>
+                <span>артикулов запчастей в каталоге</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 2. Строка доверия ───────────────────────────────────────── */}
+        <section className="trustline">
+          <div className="wrap">
+            <div>
+              <b>Официальный дистрибьютор</b>
+              <span>Компания BIO отвечает за российский контур бренда</span>
+            </div>
+            <div>
+              <b>РРЦ и склад в России</b>
+              <span>Цены и наличие обновлены {PRICE_DATE}</span>
+            </div>
+            <div>
+              <b>Дилерская сеть</b>
+              <span>{cities.length} городов: продажа, монтаж, обучение</span>
+            </div>
+            <div>
+              <b>Сервис и запчасти</b>
+              <span>Каталог ЗИП с совместимостью и складским статусом</span>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 3. Вход по сценарию ─────────────────────────────────────── */}
+        <section className="section wrap">
+          <div className="sec-head">
+            <div>
+              <p className="eyebrow">Начните с задачи</p>
+              <h2>Что должна уметь машина в вашем заведении</h2>
+            </div>
+            <p className="lead">
+              Семь типовых сценариев. В каждом — основная рекомендация, экономичная альтернатива и
+              апгрейд с объяснением, за что вы доплачиваете.
+            </p>
+          </div>
+          <div className="grid g4">
+            {SCENARIOS.map((s) => {
+              const m = modelBySlug(s.main);
+              return (
+                <a key={s.id} className="card" href={`/solutions#${s.id}`} style={{ textDecoration: "none" }}>
+                  <div className="card-visual">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={s.photo} alt="" />
+                  </div>
+                  <div className="card-body">
+                    <h3>{s.title}</h3>
+                    <p className="small" style={{ margin: 0 }}>{s.question}</p>
+                    <div className="card-foot">
+                      <div>
+                        <span className="price-from">Рекомендация</span>
+                        <b style={{ fontFamily: "var(--sans)", fontSize: 16 }}>{m?.name}</b>
+                      </div>
+                      <span className="link-arrow">Подробнее</span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── 4. Вход по объёму ───────────────────────────────────────── */}
+        <section className="section bg-sage">
+          <div className="wrap">
+            <div className="sec-head">
+              <div>
+                <p className="eyebrow">Вход по потоку</p>
+                <h2>Сколько чашек в день вы готовите</h2>
+              </div>
+              <p className="small" style={{ maxWidth: "58ch" }}>
+                Диапазоны — редакционный ориентир BIO, а не паспортная производительность. Итог
+                зависит от меню, пиковой нагрузки, числа бариста, воды и кофемолок. Методику
+                публикуем на странице подбора.
+              </p>
+            </div>
+            <div className="grid g" style={{ gridTemplateColumns: "repeat(5, minmax(0,1fr))" }}>
+              {VOLUME_BANDS.map((b) => (
+                <a key={b.id} href={`/choose?volume=${b.id}`} className="card" style={{ textDecoration: "none" }}>
+                  <div className="card-body">
+                    <span className="plaque plaque-gray" style={{ alignSelf: "flex-start" }}>{b.label}</span>
+                    <p className="small" style={{ margin: 0 }}>
+                      {b.models
+                        .map((s) => modelBySlug(s)?.name)
+                        .filter(Boolean)
+                        .slice(0, 4)
+                        .join(" · ")}
+                    </p>
+                    <span className="link-arrow" style={{ marginTop: "auto" }}>Подобрать</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 5. Продуктовая лестница ─────────────────────────────────── */}
+        <section className="section wrap">
+          <div className="sec-head">
+            <div>
+              <p className="eyebrow">Продуктовая лестница</p>
+              <h2>От первой машины до R&amp;D-флагмана</h2>
+            </div>
+            <p className="lead">
+              Zoe → D8 → F18 → Café Racer / Opera. YOU — отдельный компактный specialty-маршрут для
+              точек с дефицитом места.
+            </p>
+          </div>
+          <div className="ladder">
+            {ladder.map((slug, i) => {
+              const f = families.find((x) => x.slug === slug)!;
+              return (
+                <a key={slug} href={`/products/${slug}`}>
+                  <span className="step">Ступень {i + 1}</span>
+                  <h3>{f.name}</h3>
+                  <p className="small" style={{ margin: 0, flex: 1 }}>{f.tagline}</p>
+                  <div>
+                    <span className="price-from">РРЦ от</span>
+                    <b className="num" style={{ fontFamily: "var(--sans)", fontSize: 17 }}>
+                      {familyPriceFrom(slug)?.toLocaleString("ru-RU")} ₽
+                    </b>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── 6. Модульные блоки семейств ─────────────────────────────── */}
+        {["cafe-racer", "d8", "f18"].map((slug, i) => {
+          const f = families.find((x) => x.slug === slug)!;
+          const fmodels = modelsOfFamily(slug);
+          const flip = i % 2 === 1;
+          return (
+            <section key={slug} className={i % 2 ? "bg-cream" : ""}>
+              <div className={`module ${flip ? "b" : "a"}`}>
+                {flip ? null : (
+                  <div className="module-photo">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={f.photo} alt={`Sanremo ${f.name}`} />
+                  </div>
+                )}
+                <div className="module-copy">
+                  <p className="eyebrow">Семейство · {f.architecture}</p>
+                  <h2>{f.name}</h2>
+                  <span className="plaque plaque-lg">{f.tagline}</span>
+                  <p className="lead">{f.territory}</p>
+                  <div className="grid g2" style={{ margin: "10px 0 22px", gap: 12 }}>
+                    {fmodels.map((m) => (
+                      <div key={m.slug} style={{ borderLeft: "2px solid var(--line-strong)", paddingLeft: 12 }}>
+                        <b style={{ fontFamily: "var(--sans)", fontSize: 15 }}>{m.name}</b>
+                        <div className="tiny">
+                          {m.groupsAvailable.join("/")} гр. · от {m.priceFrom?.toLocaleString("ru-RU")} ₽
+                          {m.inStockCount ? ` · ${m.inStockCount} на складе` : ""}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                    <a className="btn" href={`/products/${slug}`}>Семейство {f.name}</a>
+                    <a className="btn btn-sm" style={{ minHeight: 50 }} href={`/compare#${slug}`}>Прямые аналоги</a>
+                  </div>
+                </div>
+                {flip ? (
+                  <div className="module-photo flip">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={f.photo} alt={`Sanremo ${f.name}`} />
+                  </div>
+                ) : null}
+              </div>
+            </section>
+          );
+        })}
+
+        {/* ── 7. Наличие ──────────────────────────────────────────────── */}
+        <section className="section wrap">
+          <div className="sec-head">
+            <div>
+              <p className="eyebrow">Российский склад</p>
+              <h2>Что можно поставить в ближайшие недели</h2>
+            </div>
+            <p className="small" style={{ maxWidth: "56ch" }}>
+              Публичный статус наличия по данным дистрибьютора BIO, обновлён {PRICE_DATE}. Точное
+              количество и срок поставки подтверждает менеджер или дилер.
+            </p>
+          </div>
+          <div className="table-scroll">
+            <table className="data">
+              <thead>
+                <tr>
+                  <th>Конфигурация</th>
+                  <th>Групп</th>
+                  <th>Исполнение / цвет</th>
+                  <th className="num">РРЦ</th>
+                  <th>Наличие</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+                {inStock
+                  .sort((a, b) => a.rrp - b.rrp)
+                  .slice(0, 12)
+                  .map((s) => {
+                    const m = modelBySlug(s.model)!;
+                    return (
+                      <tr key={s.code}>
+                        <td>
+                          <b style={{ fontFamily: "var(--sans)" }}>{m.name}</b>
+                          <div className="tiny">{s.title}</div>
+                        </td>
+                        <td className="num">{s.groups ?? "—"}</td>
+                        <td>
+                          {s.color ?? "—"}
+                          {s.edition && s.edition !== "Base" ? ` · ${s.edition}` : ""}
+                        </td>
+                        <td className="num">{s.rrp.toLocaleString("ru-RU")} ₽</td>
+                        <td><Stock status={s.availability} free={s.free} /></td>
+                        <td><a className="link-arrow" href={modelPath(m)}>Карточка</a></td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ marginTop: 18 }}>
+            <a className="btn" href="/products">Весь каталог и фильтры</a>
+          </p>
+        </section>
+
+        {/* ── 8. Кофейни выбирают Sanremo ─────────────────────────────── */}
+        <section className="section bg-gray">
+          <div className="wrap">
+            <div className="sec-head">
+              <div>
+                <p className="eyebrow">Кофейни выбирают Sanremo</p>
+                <h2>Российские установки</h2>
+              </div>
+              <p className="small" style={{ maxWidth: "58ch" }}>
+                Сети и заведения, работающие на Sanremo. Публикация названий, логотипов и фотографий
+                — только после документального подтверждения установки и согласия клиента (ТЗ §13).
+              </p>
+            </div>
+            <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))" }}>
+              {chains.map((c) => (
+                <div key={c} className="card" style={{ padding: "26px 20px", alignItems: "center", justifyContent: "center" }}>
+                  <b style={{ fontFamily: "var(--sans)", fontSize: 17 }}>{c}</b>
+                  <span className="tiny">на подтверждении</span>
+                </div>
+              ))}
+            </div>
+            <p style={{ marginTop: 22 }}>
+              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями</a>
+            </p>
+          </div>
+        </section>
+
+        {/* ── 9. Сервис / запчасти / дилеры ───────────────────────────── */}
+        <section className="section wrap">
+          <div className="grid g3">
+            <div className="card">
+              <div className="card-body">
+                <p className="eyebrow">Где купить</p>
+                <h3>{dealerCities().length} городов дилерской сети</h3>
+                <p className="small">
+                  Продажа, шоурум, демонстрация, обучение, монтаж, гарантийный и постгарантийный
+                  сервис. Если партнёра рядом нет — заявку принимает BIO.
+                </p>
+                <div className="chips" style={{ marginTop: 6 }}>
+                  {cities.slice(0, 6).map((c) => (
+                    <span className="tag" key={c.city}>{c.city} · {c.count}</span>
+                  ))}
+                </div>
+                <a className="btn btn-block" style={{ marginTop: "auto" }} href="/dealers">Найти дилера</a>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-body">
+                <p className="eyebrow">Запчасти</p>
+                <h3>{parts.length} артикулов с совместимостью</h3>
+                <p className="small">
+                  Поиск по артикулу, названию, модели и узлу. Складской статус виден без
+                  авторизации; коммерческие условия — через дилера или BIO.
+                </p>
+                <a className="btn btn-block" style={{ marginTop: "auto" }} href="/parts">Найти запчасть</a>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-body">
+                <p className="eyebrow">Сервис</p>
+                <h3>Подготовка, монтаж, регламент</h3>
+                <p className="small">
+                  Вода, фильтрация, электрика, слив и пространство — до приезда инженера. Зоны
+                  ответственности BIO, дилера и сервисного партнёра описаны явно.
+                </p>
+                <a className="btn btn-block" style={{ marginTop: "auto" }} href="/service">Сервис и обслуживание</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 10. Финальный CTA ───────────────────────────────────────── */}
+        <section className="section bg-petrol">
+          <div className="wrap" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(0,1fr)", gap: "clamp(24px,4vw,70px)", alignItems: "center" }}>
+            <div>
+              <p className="eyebrow">Следующий шаг</p>
+              <h2>Соберём конфигурацию под вашу задачу</h2>
+              <p className="lead" style={{ marginTop: 16 }}>
+                Опишите формат, поток, меню, регион и срок запуска. Специалист BIO уточнит нагрузку,
+                проверит наличие и соединит с дилером, который работает в вашем городе.
+              </p>
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 24 }}>
+                <a className="btn btn-solid" href="/choose">Пройти подбор</a>
+                <a className="btn" href="tel:+78005006495">8 800 500-64-95</a>
+              </div>
+            </div>
+            <MachineVisual groups={3} color="#2d483f" label="Схема · 3 группы" />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }
