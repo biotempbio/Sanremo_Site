@@ -229,7 +229,7 @@
             <div style="font:600 12px/1 'PT Sans',sans-serif;color:#6E6E6A">{{ g.title }}</div>
             <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
               <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="3">
-                <button onClick="{{ o.toggle }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:9px 12px;font:500 12px/1 'PT Sans',sans-serif">{{ o.label }}</button>
+                <button onClick="{{ o.toggle }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:9px 12px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
               </sc-for>
             </div>
           </div>
@@ -329,7 +329,7 @@
             <div style="font:600 12px/1 'PT Sans',sans-serif;color:#6E6E6A">Российские исполнения ({{ p.skuCount }})</div>
             <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
               <sc-for list="{{ p.skuOptions }}" as="c" hint-placeholder-count="4">
-                <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 14px;font:500 12px/1.4 'PT Sans',sans-serif;text-align:left">{{ c.label }}</button>
+                <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 14px;font:500 12px/1.4 'PT Sans',sans-serif;text-align:left;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
               </sc-for>
             </div>
           </div>
@@ -491,7 +491,7 @@
             <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">{{ q.num }}. {{ q.title }}</div>
             <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
               <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
-                <button onClick="{{ o.pick }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:12px 16px;font:500 13px/1.2 'PT Sans',sans-serif" style-hover="border-color:#2D483F">{{ o.label }}</button>
+                <button onClick="{{ o.pick }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:12px 16px;font:500 13px/1.2 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
               </sc-for>
             </div>
             <sc-if value="{{ q.hasNote }}" hint-placeholder-val="{{ false }}">
@@ -577,7 +577,7 @@
       </div>
       <div style="margin-top:44px;padding-bottom:36px;display:flex;gap:10px;flex-wrap:wrap">
         <sc-for list="{{ scenPages }}" as="t" hint-placeholder-count="7">
-          <button onClick="{{ t.jump }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:11px 15px;font:500 12px/1 'PT Sans',sans-serif;color:#141414" style-hover="border-color:#141414">{{ t.title }}</button>
+          <button onClick="{{ t.jump }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:11px 15px;font:500 12px/1 'PT Sans',sans-serif;color:#141414;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.title }}</button>
         </sc-for>
       </div>
     </div>
@@ -640,7 +640,7 @@
       <div>
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
           <input value="{{ dealerQuery }}" onChange="{{ onDealerQuery }}" placeholder="Город, регион или адрес" aria-label="Поиск дилера по территории" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:13px 15px;font:400 14px/1 'PT Sans',sans-serif;color:#141414" />
-          <button onClick="{{ clearDealerQuery }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:13px 16px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Все города</button>
+          <button onClick="{{ clearDealerQuery }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:13px 16px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">Все города</button>
         </div>
         <div style="font:500 13px/1 'PT Sans',sans-serif;color:#6E6E6A">Найдено дилеров: {{ dealerCount }}</div>
         <sc-for list="{{ dealers }}" as="d" hint-placeholder-count="4">
@@ -807,7 +807,7 @@
       </div>
       <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
         <sc-for list="{{ kbChips }}" as="c" hint-placeholder-count="7">
-          <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:10px 14px;font:500 12px/1 'PT Sans',sans-serif">{{ c.label }}</button>
+          <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:10px 14px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
         </sc-for>
       </div>
       <div style="margin-top:16px;font:400 12px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ kbSummary }}</div>
@@ -842,10 +842,10 @@
     </div>
     <div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
       <sc-for list="{{ docTypes }}" as="t" hint-placeholder-count="5">
-        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif">{{ t.label }}</button>
+        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
       </sc-for>
       <sc-for list="{{ docLines }}" as="t" hint-placeholder-count="6">
-        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif">{{ t.label }}</button>
+        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
       </sc-for>
     </div>
     <div style="margin-top:14px;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ docsSummary }}</div>
@@ -932,7 +932,7 @@
     <p style="margin:14px 0 0;max-width:720px;font:400 16px/1.7 'PT Sans',sans-serif;color:#4A4A46">Выберите две или три линейки: поток, группы, архитектура бойлеров, управление, РРЦ и наличие — в одной таблице.</p>
     <div style="margin-top:26px;display:flex;gap:8px;flex-wrap:wrap">
       <sc-for list="{{ cmpChips }}" as="c" hint-placeholder-count="6">
-        <button onClick="{{ c.toggle }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 16px;font:600 12px/1 'PT Sans',sans-serif">{{ c.label }}</button>
+        <button onClick="{{ c.toggle }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 16px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
       </sc-for>
     </div>
     <div style="margin-top:12px;font:400 12px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ cmpHint }}</div>
