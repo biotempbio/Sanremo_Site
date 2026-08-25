@@ -31,7 +31,7 @@ export function Header({ active }: { active?: string }) {
         <div className="wrap">
           <a className="brand" href="/" aria-label="Sanremo — на главную">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-wordmark-black.png" alt="Sanremo Coffeemachines" />
+            <img src="/brand/sanremo-official-black-v2.png" alt="Sanremo Coffee Machines" />
           </a>
           <span className="hdr-trust">
             Профессиональные кофемашины
@@ -61,7 +61,7 @@ export function Footer() {
         <div className="cols">
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo-wordmark-white.png" alt="Sanremo Coffeemachines" style={{ width: 150 }} />
+            <img src="/brand/sanremo-official-white-v2.png" alt="Sanremo Coffee Machines" style={{ width: 150 }} />
             <p className="small" style={{ color: "#b9b6b1", marginTop: 18, maxWidth: "30ch" }}>
               Профессиональные кофемашины Sanremo в России: официальная дистрибуция, склад,
               дилерская сеть, сервис и запчасти.
