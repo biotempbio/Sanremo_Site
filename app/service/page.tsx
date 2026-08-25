@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
+import MailtoForm from "../components/MailtoForm";
 import { Crumbs } from "../components/Bits";
 import { parts, dealerCities, models } from "@/lib/catalog";
 
@@ -129,7 +130,7 @@ export default function ServicePage() {
                       {[...new Set(m.docs.map((d) => d.type))].join(", ") || "загружается"}
                     </td>
                     <td className="num">{m.docs.length ? m.docs.length : "—"}</td>
-                    <td><a className="link-arrow" href={`/parts?model=${m.slug}`}>Запчасти модели →</a></td>
+                    <td><a className="link-arrow" href={`/parts?model=${m.slug}`}>Запчасти модели</a></td>
                   </tr>
                 ))}
               </tbody>
@@ -152,32 +153,31 @@ export default function ServicePage() {
                 <li>Гарантийные обращения принимаются через дилера, продавшего оборудование.</li>
               </ul>
             </div>
-            <form className="grid g2" style={{ alignItems: "start" }}>
+            <MailtoForm subject="Сервисное обращение Sanremo" className="grid g2" style={{ alignItems: "start" }}>
               <label className="field"><span>Модель</span>
-                <select defaultValue="">
+                <select name="Модель" defaultValue="">
                   <option value="" disabled>Выберите модель</option>
                   {models.map((m) => <option key={m.slug}>{m.name}</option>)}
                 </select>
               </label>
-              <label className="field"><span>Серийный номер</span><input placeholder="например 24-08-13-N34C" /></label>
-              <label className="field"><span>Город</span><input placeholder="Москва" /></label>
-              <label className="field"><span>Контакт</span><input placeholder="телефон или e-mail" /></label>
+              <label className="field"><span>Серийный номер</span><input name="Серийный номер" placeholder="например 24-08-13-N34C" /></label>
+              <label className="field"><span>Город</span><input name="Город" placeholder="Москва" /></label>
+              <label className="field"><span>Контакт</span><input name="Контакт" placeholder="телефон или e-mail" required /></label>
               <label className="field" style={{ gridColumn: "1 / -1" }}>
                 <span>Симптом</span>
-                <textarea placeholder="Что происходит, когда началось, что уже проверяли" />
+                <textarea name="Симптом" placeholder="Что происходит, когда началось, что уже проверяли" />
               </label>
               <div style={{ gridColumn: "1 / -1" }}>
                 <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                   <input type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
                   <span>Согласен на обработку персональных данных для рассмотрения обращения</span>
                 </label>
-                <button className="btn btn-solid" type="button" style={{ marginTop: 14 }}>Отправить обращение</button>
+                <button className="btn btn-solid" type="submit" style={{ marginTop: 14 }}>Отправить обращение</button>
                 <p className="source-note" style={{ marginTop: 10 }}>
-                  Отправка подключается вместе с интеграцией CRM (ТЗ §19). Форма показана со всеми
-                  состояниями и обязательными согласиями.
+                  Обращение откроется в вашей почтовой программе и будет направлено в сервисную очередь BIO.
                 </p>
               </div>
-            </form>
+            </MailtoForm>
           </div>
         </section>
       </main>

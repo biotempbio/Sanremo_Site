@@ -53,6 +53,19 @@ export default function ConfigPicker({
 
   const current = byGroups.find((s) => s.code === code) ?? byGroups[0];
 
+  /** Цвет + исполнение, если один и тот же цвет встречается в нескольких версиях. */
+  const baseLabel = (s: PickerSku) => {
+    const base = s.color ?? s.edition ?? s.code;
+    const dup = byGroups.filter((x) => (x.color ?? x.edition ?? x.code) === base).length > 1;
+    return dup && s.edition && s.edition !== "Base" ? `${base} · ${s.edition}` : base;
+  };
+  const labelOf = (s: PickerSku) => {
+    const l = baseLabel(s);
+    return byGroups.filter((x) => baseLabel(x) === l).length > 1
+      ? `${l} · ${s.vendorCode ?? s.code}`
+      : l;
+  };
+
   const pickGroups = (g: number) => {
     setGroups(g);
     const pool = skus.filter((s) => s.groups === g);
@@ -100,7 +113,7 @@ export default function ConfigPicker({
                 style={{ display: "inline-flex", alignItems: "center", gap: 7 }}
               >
                 {s.colorHex ? <i className="swatch" style={{ background: s.colorHex, width: 13, height: 13 }} /> : null}
-                {s.color ?? s.edition ?? s.code}
+                {labelOf(s)}
               </button>
             ))}
           </div>

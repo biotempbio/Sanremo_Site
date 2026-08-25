@@ -24,7 +24,12 @@ export default async function DealersPage({ searchParams }: Props) {
     itemListElement: dealers.map((d, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      item: { "@type": "Organization", name: d.name, address: d.city ?? undefined },
+      item: {
+        "@type": "Organization",
+        name: d.name,
+        address: d.address ?? d.city ?? undefined,
+        url: d.site ?? undefined,
+      },
     })),
   };
 
@@ -54,7 +59,7 @@ export default async function DealersPage({ searchParams }: Props) {
 
         <section className="wrap section-tight">
           <DealersClient
-            dealers={dealers.map((d) => ({ name: d.name, city: d.city }))}
+            dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified }))}
             cities={cities}
             initialCity={city}
           />

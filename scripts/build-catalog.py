@@ -388,20 +388,93 @@ def main():
 
 
 def load_dealers():
+    """Список дилеров + обогащение адресами и сайтами (файл BIO)."""
     import pandas as pd
     df = pd.read_excel(os.path.join(SRC, "Санремо_Сети и дилеры.xlsx"))
     col_d, col_c = df.columns[1], df.columns[3]
-    dealers = []
+
+    # ── обогащение: адрес, сайт, примечание ──────────────────────────────
+    enrich = {}
+    for cand in (
+        os.path.join(SRC, "компании_адреса_и_сайты_обновлено.xlsx"),
+        os.path.join(os.path.dirname(__file__), "..", "data", "Дилеры_адреса_и_сайты.xlsx"),
+    ):
+        if not os.path.exists(cand):
+            continue
+        ex = pd.read_excel(cand)
+        for _, r in ex.iterrows():
+            name = str(r.get("Компания") or "").strip()
+            if not name:
+                continue
+            enrich[norm_name(name)] = {
+                "name": name,
+                "city": none_if_nan(r.get("Город")),
+                "address": none_if_nan(r.get("Адрес")),
+                "site": none_if_nan(r.get("Сайт")),
+                "status": none_if_nan(r.get("Статус")),
+                "note": none_if_nan(r.get("Примечание")),
+            }
+        break
+
+    dealers, used = [], set()
     for v in df[col_d].dropna().tolist()[1:]:
-        s = str(v).strip()
-        m = re.search(r"\s*г\.\s*([^,]+)$", s, re.I)
-        city = m.group(1).strip() if m else None
-        name = re.sub(r"\s*г\.\s*[^,]+$", "", s, flags=re.I).strip()
-        dealers.append({"name": name, "city": city, "raw": s})
+        raw = str(v).strip()
+        name, city = split_city(raw)
+        e = enrich.get(norm_name(name))
+        if e:
+            used.add(norm_name(name))
+        dealers.append({
+            "name": e["name"] if e else name,
+            "city": (e["city"] if e and e["city"] else city),
+            "address": e["address"] if e else None,
+            "site": e["site"] if e else None,
+            "note": e["note"] if e else None,
+            "verified": bool(e),
+            "raw": raw,
+        })
+
+    # партнёры, которых нет в исходном списке, но есть в файле контактов
+    for key, e in enrich.items():
+        if key in used:
+            continue
+        dealers.append({
+            "name": e["name"], "city": e["city"], "address": e["address"],
+            "site": e["site"], "note": e["note"], "verified": True, "raw": e["name"],
+        })
+
+    dealers.sort(key=lambda d: (not d["verified"], (d["city"] or "яяя"), d["name"]))
     chains = [str(v).strip() for v in df[col_c].dropna().tolist()[1:]]
-    # порядок сохраняем, дубли убираем
     chains = list(OrderedDict.fromkeys(chains))
+    print(f"   дилеров: {len(dealers)}, из них с адресом и сайтом: "
+          f"{sum(1 for d in dealers if d['verified'])}", file=sys.stderr)
     return dealers, chains
+
+
+def split_city(raw):
+    """«ИП Айвазов Э.Г. г.Махачкала» → («ИП Айвазов Э.Г.», «Махачкала»).
+    Берём последнее вхождение маркера «г.», чтобы не спутать его с инициалами."""
+    m = None
+    for mm in re.finditer(r"\s[гГ]\.\s*", raw):
+        m = mm
+    if not m:
+        return raw.strip(), None
+    city = raw[m.end():].split(",")[0].strip()
+    name = raw[: m.start()].strip()
+    return (name or raw.strip()), (city or None)
+
+
+def norm_name(s):
+    s = str(s).lower().replace("ё", "е")
+    s = re.sub(r"[«»\"'.,]", "", s)
+    s = re.sub(r"\b(ооо|ип|ао|зао|пао|ук)\b", "", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def none_if_nan(v):
+    if v is None:
+        return None
+    s = str(v).strip()
+    return None if s in ("", "nan", "NaT", "None") else s
 
 
 def load_analogs():

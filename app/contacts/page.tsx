@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
+import MailtoForm from "../components/MailtoForm";
 import { models, dealerCities } from "@/lib/catalog";
 
 export const metadata: Metadata = {
@@ -53,32 +54,32 @@ export default function ContactsPage() {
           <div className="grid g2" style={{ alignItems: "start" }}>
             <div>
               <h2 style={{ marginBottom: 20 }}>Запрос конфигурации</h2>
-              <form className="grid g2" style={{ alignItems: "start" }}>
-                <label className="field"><span>Имя</span><input placeholder="Как к вам обращаться" /></label>
-                <label className="field"><span>Телефон или e-mail</span><input placeholder="для ответа" /></label>
-                <label className="field"><span>Город или регион</span><input placeholder="Москва" /></label>
+              <MailtoForm subject="Запрос конфигурации Sanremo" className="grid g2" style={{ alignItems: "start" }}>
+                <label className="field"><span>Имя</span><input name="Имя" placeholder="Как к вам обращаться" required /></label>
+                <label className="field"><span>Телефон или e-mail</span><input name="Контакт" placeholder="для ответа" required /></label>
+                <label className="field"><span>Город или регион</span><input name="Регион" placeholder="Москва" /></label>
                 <label className="field"><span>Формат</span>
-                  <select defaultValue="">
+                  <select name="Формат" defaultValue="">
                     <option value="" disabled>Выберите формат</option>
                     <option>Кофейня</option><option>Сеть</option><option>Ресторан / пекарня</option>
                     <option>Отель / фуд-корнер</option><option>Specialty</option><option>Обжарщик / лаборатория</option>
                   </select>
                 </label>
                 <label className="field"><span>Интересующая модель</span>
-                  <select defaultValue="">
+                  <select name="Модель" defaultValue="">
                     <option value="">Ещё выбираю</option>
                     {models.map((m) => <option key={m.slug}>{m.name}</option>)}
                   </select>
                 </label>
                 <label className="field"><span>Срок запуска</span>
-                  <select defaultValue="">
+                  <select name="Срок запуска" defaultValue="">
                     <option value="" disabled>Выберите срок</option>
                     <option>В течение месяца</option><option>1–3 месяца</option><option>Более 3 месяцев</option>
                   </select>
                 </label>
                 <label className="field" style={{ gridColumn: "1 / -1" }}>
                   <span>Задача</span>
-                  <textarea placeholder="Поток, меню, число бариста, ограничения площадки" />
+                  <textarea name="Задача" placeholder="Поток, меню, число бариста, ограничения площадки" />
                 </label>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
@@ -89,13 +90,12 @@ export default function ContactsPage() {
                     <input type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} />
                     <span>Хочу получать новости о продуктах и обучении (необязательно)</span>
                   </label>
-                  <button className="btn btn-solid" type="button" style={{ marginTop: 14 }}>Отправить запрос</button>
+                  <button className="btn btn-solid" type="submit" style={{ marginTop: 14 }}>Отправить запрос</button>
                   <p className="source-note" style={{ marginTop: 10 }}>
-                    Отправка, маршрутизация по регионам и передача UTM подключаются вместе с
-                    интеграцией CRM (ТЗ §19).
+                    Запрос откроется в вашей почтовой программе и будет направлен в компанию BIO.
                   </p>
                 </div>
-              </form>
+              </MailtoForm>
             </div>
 
             <div>

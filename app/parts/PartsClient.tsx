@@ -153,7 +153,7 @@ export default function PartsClient({
                           {LABEL[p.availability]}
                         </span>
                       </td>
-                      <td><a className="link-arrow" href="/service">Запросить →</a></td>
+                      <td><a className="link-arrow" href="/service">Запросить</a></td>
                     </tr>
                   ))}
                 </tbody>

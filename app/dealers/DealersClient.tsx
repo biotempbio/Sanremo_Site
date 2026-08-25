@@ -2,7 +2,14 @@
 
 import { useMemo, useState } from "react";
 
-export interface DealerRow { name: string; city: string | null }
+export interface DealerRow {
+  name: string;
+  city: string | null;
+  address: string | null;
+  site: string | null;
+  note: string | null;
+  verified: boolean;
+}
 
 const SERVICES = ["Продажа", "Шоурум", "Демонстрация", "Обучение", "Монтаж", "Гарантийный сервис", "Запчасти"];
 
@@ -19,7 +26,8 @@ export default function DealersClient({
       if (!needle) return true;
       return (
         d.name.toLowerCase().includes(needle) ||
-        (d.city ?? "").toLowerCase().includes(needle)
+        (d.city ?? "").toLowerCase().includes(needle) ||
+        (d.address ?? "").toLowerCase().includes(needle)
       );
     });
   }, [dealers, q, city]);
@@ -83,17 +91,29 @@ export default function DealersClient({
                 <div className="card-body">
                   <p className="eyebrow" style={{ margin: 0 }}>{d.city ?? "Регион уточняется"}</p>
                   <h3>{d.name}</h3>
+                  {d.address ? (
+                    <p className="small" style={{ margin: 0 }}>{d.address}</p>
+                  ) : (
+                    <p className="tiny" style={{ margin: 0 }}>
+                      Адрес и контакты подставляются из справочника дилеров BIO.
+                    </p>
+                  )}
+                  {d.note ? <p className="tiny" style={{ margin: 0 }}>{d.note}</p> : null}
                   <div className="chips">
                     <span className="tag">Продажа</span>
                     <span className="tag">Консультация</span>
                   </div>
-                  <p className="tiny" style={{ margin: 0 }}>
-                    Контакты, адрес, часы работы и перечень услуг подставляются из справочника
-                    дилеров BIO.
-                  </p>
                   <div className="card-foot">
-                    <span className="tiny">Статус: активный</span>
-                    <a className="link-arrow" href="/contacts">Запросить контакт →</a>
+                    <span className="tiny">
+                      {d.verified ? "Адрес и сайт подтверждены" : "На проверке"}
+                    </span>
+                    {d.site ? (
+                      <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer">
+                        Сайт дилера
+                      </a>
+                    ) : (
+                      <a className="link-arrow" href="/contacts">Запросить контакт</a>
+                    )}
                   </div>
                 </div>
               </article>

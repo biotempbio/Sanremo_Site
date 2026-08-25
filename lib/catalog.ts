@@ -96,7 +96,16 @@ export interface Analog {
   note: string | null;
 }
 
-export interface Dealer { name: string; city: string | null; raw: string }
+export interface Dealer {
+  name: string;
+  city: string | null;
+  address: string | null;
+  site: string | null;
+  note: string | null;
+  /** true — адрес и сайт подтверждены справочником BIO */
+  verified: boolean;
+  raw: string;
+}
 
 interface Catalog {
   generatedFrom: string;
