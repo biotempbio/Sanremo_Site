@@ -2,69 +2,27 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sanremomachines.ru"),
-  title: {
-    default: "Sanremo Россия — профессиональные кофемашины, РРЦ и наличие",
-    template: "%s — Sanremo Россия",
-  },
+  title: "Sanremo Russia — профессиональные кофемашины",
   description:
-    "Официальная дистрибуция Sanremo в России: каталог профессиональных рожковых кофемашин, рекомендованные розничные цены, наличие на складе, дилерская сеть, сервис и запчасти. Компания BIO.",
+    "Официальный каталог профессиональных кофемашин Sanremo в России.",
   openGraph: {
-    type: "website",
-    locale: "ru_RU",
-    siteName: "Sanremo Россия",
+    title: "Sanremo Russia — профессиональные кофемашины",
+    description:
+      "Подбор кофемашины, каталог, сравнение, сервис и запчасти Sanremo.",
+    images: ["/og.png"],
   },
-};
-
-const ORG_SCHEMA = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://sanremomachines.ru/#bio",
-      name: "BIO",
-      description: "Официальный дистрибьютор профессиональных кофемашин Sanremo в России",
-      url: "https://sanremomachines.ru/",
-      areaServed: "RU",
-      telephone: "+7 800 600-43-00",
-      address: {
-        "@type": "PostalAddress",
-        postalCode: "117630",
-        addressLocality: "Москва",
-        streetAddress: "ул. Обручева, 23с1, БЦ «Геолог», 4 этаж",
-        addressCountry: "RU",
-      },
-    },
-    {
-      "@type": "Brand",
-      "@id": "https://sanremomachines.ru/#sanremo",
-      name: "Sanremo Coffee Machines",
-      description: "Итальянский производитель профессиональных рожковых кофемашин",
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://sanremomachines.ru/#website",
-      name: "Sanremo Россия",
-      inLanguage: "ru-RU",
-      publisher: { "@id": "https://sanremomachines.ru/#bio" },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: "https://sanremomachines.ru/search?q={search_term_string}",
-        "query-input": "required name=search_term_string",
-      },
-    },
-  ],
+  twitter: {
+    card: "summary_large_image",
+    title: "Sanremo Russia — профессиональные кофемашины",
+    description:
+      "Подбор кофемашины, каталог, сравнение, сервис и запчасти Sanremo.",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
-        />
-      </head>
       <body>{children}</body>
     </html>
   );
