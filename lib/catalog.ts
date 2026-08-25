@@ -154,6 +154,28 @@ export const catalogModels = CATALOG_LINEUP
   .map((line) => models.find((model) => model.slug === line.slug))
   .filter((model): model is Model => Boolean(model));
 
+const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
+  "zoe-competition": "/photo/official/zoe-competition.jpg",
+  "zoe-compact": "/photo/official/zoe-competition.jpg",
+  "zoe-sed": "/photo/official/zoe-competition.jpg",
+  "zoe-sap": "/photo/official/zoe-competition.jpg",
+  "f18-sb": "/photo/official/f18-single-boiler.jpg",
+  "f18-mb": "/photo/official/f18.jpg",
+  "cafe-racer": "/photo/official/cafe-racer.jpg",
+  opera: "/photo/official/opera.jpg",
+  you: "/photo/official/you.png",
+  d8: "/photo/official/d8-pro.jpg",
+  "d8-pro": "/photo/official/d8-pro.jpg",
+};
+export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
+export const officialImageForFamily = (slug: string) => {
+  const preferred: Record<string, string> = {
+    zoe: "zoe-competition", f18: "f18-mb", "cafe-racer": "cafe-racer",
+    opera: "opera", you: "you", d8: "d8-pro",
+  };
+  return officialImageForModel(preferred[slug] ?? "");
+};
+
 /** Продаваемые сейчас позиции: без уценённых/б-у единиц. */
 export const liveSkus = skus.filter((s) => !s.markdown);
 
@@ -228,33 +250,33 @@ export interface Scenario {
 /** Сценарные рекомендации — таблица ТЗ §9.2. Ориентир BIO, не паспортные данные. */
 export const SCENARIOS: Scenario[] = [
   { id: "first-cafe", title: "Первая кофейня", question: "Ограниченный CAPEX, нужен предсказуемый старт",
-    main: "zoe-competition", alt: "zoe-sed", upgrade: "d8",
-    logic: "Zoe — рациональная база с понятной волюметрикой. D8 даёт больше контроля и запас на рост потока.",
-    photo: "/photo/machine-red-lifestyle.webp" },
+    main: "zoe-competition", alt: null, upgrade: "f18-sb",
+    logic: "ZOE Competition — рациональная база для старта. F18 Single Boiler даёт запас на рост потока.",
+    photo: "/photo/official/zoe-competition.jpg" },
   { id: "bakery", title: "Пекарня и ресторан", question: "Меню без сложного обучения персонала",
-    main: "zoe-competition", alt: "zoe-sed", upgrade: "d8",
+    main: "zoe-competition", alt: null, upgrade: "f18-sb",
     logic: "Простота обучения и предсказуемая volumetric-работа важнее расширенного контроля рецепта.",
-    photo: "/photo/bar-crowd.webp" },
+    photo: "/photo/official/zoe-competition.jpg" },
   { id: "specialty", title: "Независимая specialty", question: "Контроль рецепта и несколько сортов",
-    main: "d8-pro", alt: "d8", upgrade: "f18-mb",
-    logic: "D8 PRO — value-доступ к premium-функциям. F18 в мультибойлерном исполнении — независимость систем.",
-    photo: "/photo/cafe-racer-green-detail.webp" },
+    main: "f18-mb", alt: "f18-sb", upgrade: "cafe-racer",
+    logic: "F18 обеспечивает независимость систем, Café Racer добавляет расширенный контроль.",
+    photo: "/photo/official/f18.jpg" },
   { id: "flow", title: "Высокий поток и молочное меню", question: "Пики, две-три смены бариста",
-    main: "f18-sb", alt: "d8-pro", upgrade: "f18-mb",
+    main: "f18-sb", alt: "zoe-competition", upgrade: "f18-mb",
     logic: "SB — рациональный поток. Мультибойлер и Café Racer — поток плюс контроль температуры.",
-    photo: "/photo/bar-action.webp" },
+    photo: "/photo/official/f18-single-boiler.jpg" },
   { id: "flagship", title: "Флагманская дизайн-кофейня", question: "Машина формирует образ точки",
     main: "cafe-racer", alt: "f18-mb", upgrade: "opera",
     logic: "Café Racer — первый образ бренда и одновременно рабочий инструмент. Opera — шаг к R&D.",
-    photo: "/photo/machine-pink-wall.webp" },
+    photo: "/photo/official/cafe-racer.jpg" },
   { id: "compact", title: "Компактный specialty и bar", question: "Дефицит места, но нужен профессиональный контроль",
-    main: "you", alt: null, upgrade: "d8",
+    main: "you", alt: null, upgrade: "f18-sb",
     logic: "YOU — compact professional с профилированием фаз экстракции, а не бытовая машина.",
-    photo: "/photo/display-detail.webp" },
+    photo: "/photo/official/you.png" },
   { id: "roaster", title: "Обжарщик и лаборатория", question: "Профилирование и повторяемость",
     main: "opera", alt: "cafe-racer", upgrade: null,
     logic: "Флагман R&D: инструмент профилирования и дифференциации меню.",
-    photo: "/photo/studio-dark.webp" },
+    photo: "/photo/official/opera.jpg" },
 ];
 
 export const modelPath = (m: Pick<Model, "slug" | "family">) => `/products/${m.family}/${m.slug}`;

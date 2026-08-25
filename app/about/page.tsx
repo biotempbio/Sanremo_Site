@@ -18,9 +18,9 @@ export default function AboutPage() {
       <main>
         <section>
           <div className="module a">
-            <div className="module-photo" style={{ minHeight: 400 }}>
+            <div className="module-photo" style={{ minHeight: 400, background: "#111", display: "grid", placeItems: "center", padding: 48 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/photo/sanremo-house-2.webp" alt="Sanremo House" />
+              <img src="/brand/sanremo-official-white-v4.svg" alt="Sanremo Coffee Machines" style={{ width: "min(72%,520px)", objectFit: "contain" }} />
             </div>
             <div className="module-copy">
               <p className="eyebrow">Бренд и российский контур</p>

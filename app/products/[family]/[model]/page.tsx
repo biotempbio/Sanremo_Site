@@ -17,7 +17,7 @@ import {
   money,
   moneyPrecise,
   kw,
-  imgUrl,
+  officialImageForModel,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
@@ -66,7 +66,7 @@ export default async function ModelPage({ params }: Props) {
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
     groupHeight: s.groupHeight, color: s.color, colorHex: s.colorHex, edition: s.edition,
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
-    power: s.power, voltage: s.voltage, image: imgUrl(s.image),
+    power: s.power, voltage: s.voltage, image: officialImageForModel(m.slug),
   }));
 
   const productSchema = {

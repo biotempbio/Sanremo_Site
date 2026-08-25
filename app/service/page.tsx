@@ -18,9 +18,11 @@ export default function ServicePage() {
       <main>
         <section>
           <div className="module a">
-            <div className="module-photo" style={{ minHeight: 380 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/photo/steam-wands.webp" alt="Сервисное обслуживание кофемашины" />
+            <div className="module-photo" style={{ minHeight: 380, background: "var(--petrol)", color: "white", display: "grid", placeItems: "center", padding: 48 }}>
+              <div>
+                <b className="num" style={{ display: "block", fontSize: "clamp(64px,10vw,150px)", lineHeight: .85 }}>{parts.length}</b>
+                <span style={{ display: "block", marginTop: 18, maxWidth: "20ch", fontSize: 18 }}>артикулов ЗИП в наличии</span>
+              </div>
             </div>
             <div className="module-copy">
               <p className="eyebrow">Инфраструктура владения</p>

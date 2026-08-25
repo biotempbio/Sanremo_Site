@@ -15,12 +15,13 @@ import {
   SCENARIOS,
   VOLUME_BANDS,
   PRICE_DATE,
+  officialImageForFamily,
 } from "@/lib/catalog";
 
 export default function Home() {
   const cities = dealerCities();
   const inStock = liveSkus.filter((s) => s.availability === "in_stock" || s.availability === "limited");
-  const ladder = ["zoe", "d8", "f18", "cafe-racer", "opera"];
+  const ladder = ["zoe", "f18", "cafe-racer", "opera", "you"];
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function Home() {
         <section className="hero">
           <div className="hero-img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photo/machine-marble.webp" alt="Профессиональная кофемашина Sanremo" />
+            <img src="/photo/official/f18.jpg" alt="Профессиональная кофемашина Sanremo F18" />
             <div className="hero-shade" />
           </div>
           <div className="wrap hero-inner">
@@ -167,8 +168,8 @@ export default function Home() {
               <h2>От первой машины до R&amp;D-флагмана</h2>
             </div>
             <p className="lead">
-              Zoe → D8 → F18 → Café Racer / Opera. YOU — отдельный компактный specialty-маршрут для
-              точек с дефицитом места.
+              ZOE Competition → F18 Single Boiler → F18 → Cafe Racer → Opera. You — отдельный
+              компактный specialty-маршрут для точек с дефицитом места.
             </p>
           </div>
           <div className="ladder">
@@ -192,7 +193,7 @@ export default function Home() {
         </section>
 
         {/* ── 6. Модульные блоки семейств ─────────────────────────────── */}
-        {["cafe-racer", "d8", "f18"].map((slug, i) => {
+        {["cafe-racer", "f18", "zoe"].map((slug, i) => {
           const f = families.find((x) => x.slug === slug)!;
           const fmodels = modelsOfFamily(slug);
           const flip = i % 2 === 1;
@@ -202,7 +203,7 @@ export default function Home() {
                 {flip ? null : (
                   <div className="module-photo">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={f.photo} alt={`Sanremo ${f.name}`} />
+                    <img src={officialImageForFamily(slug) ?? ""} alt={`Sanremo ${f.name}`} />
                   </div>
                 )}
                 <div className="module-copy">
@@ -229,7 +230,7 @@ export default function Home() {
                 {flip ? (
                   <div className="module-photo flip">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={f.photo} alt={`Sanremo ${f.name}`} />
+                    <img src={officialImageForFamily(slug) ?? ""} alt={`Sanremo ${f.name}`} />
                   </div>
                 ) : null}
               </div>
@@ -312,7 +313,7 @@ export default function Home() {
               ))}
             </div>
             <p style={{ marginTop: 22 }}>
-              <a className="link-arrow" href="/cases">Все кейсы с моделями и фотографиями →</a>
+              <a className="link-arrow" href="/cases">Статус российских кейсов →</a>
             </p>
           </div>
         </section>

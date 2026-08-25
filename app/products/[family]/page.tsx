@@ -11,7 +11,8 @@ import {
   analogsFor,
   PRICE_DATE,
   money,
-  imgUrl,
+  officialImageForFamily,
+  officialImageForModel,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string }> };
@@ -56,7 +57,7 @@ export default async function FamilyPage({ params }: Props) {
           <div className="module a">
             <div className="module-photo" style={{ minHeight: 420 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={f.photo} alt={`Sanremo ${f.name}`} />
+              <img src={officialImageForFamily(f.slug) ?? ""} alt={`Sanremo ${f.name}`} />
             </div>
             <div className="module-copy">
               <p className="eyebrow">Семейство · {f.architecture}</p>
@@ -98,7 +99,7 @@ export default async function FamilyPage({ params }: Props) {
               return (
                 <article className="card" key={m.slug}>
                   <div className="card-visual">
-                    <SkuImage src={imgUrl(hero?.image)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} label={m.name} />
+                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} label={m.name} />
                   </div>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}`}>{m.name}</a></h3>
