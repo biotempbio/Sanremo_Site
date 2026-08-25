@@ -6,6 +6,32 @@
    Фирменные цвета применяются дозированно, в т.ч. как 20% оттенки фонов.
    ========================================================================== */
 
+
+/* ── Шрифты (ТЗ §16.3) ─────────────────────────────────────────────────────
+   Из переданной папки ШРИФТЫ кириллицу имеет только семейство PT (лицензия OFL,
+   свободна для web). Cabinet Grotesk, Pally, Ranade, Supreme, Technor и Zodiak —
+   только латиница, для русскоязычного B2B-каталога не подходят.
+   Роли по §16.3 сохранены:
+     редакционный serif (роль Blacker) → PT Serif Bold
+     интерфейсный sans (роль Gotham)   → PT Root UI Medium / Bold
+     нейтральный текстовый sans        → PT Root UI Regular
+     артикулы, SKU и коды              → PT Mono
+   ────────────────────────────────────────────────────────────────────────── */
+@font-face { font-family: "PT Root UI"; src: url("/fonts/pt-root-ui-400.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Root UI"; src: url("/fonts/pt-root-ui-500.woff") format("woff");
+  font-weight: 500 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Root UI"; src: url("/fonts/pt-root-ui-700.woff") format("woff");
+  font-weight: 700 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Serif Web"; src: url("/fonts/pt-serif-400.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Serif Web"; src: url("/fonts/pt-serif-700.woff") format("woff");
+  font-weight: 700 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Mono Web"; src: url("/fonts/pt-mono-400.woff") format("woff");
+  font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "PT Mono Web"; src: url("/fonts/pt-mono-700.woff") format("woff");
+  font-weight: 700 900; font-style: normal; font-display: swap; }
+
 :root {
   /* официальные цвета бренда */
   --forest: #2d483f;
@@ -35,9 +61,10 @@
   --ok: #2d6a4a;
   --warn: #b06a11;
 
-  --serif: "Playfair Display", "Times New Roman", serif;   /* замена Blacker */
-  --sans: "Montserrat", "Helvetica Neue", Arial, sans-serif; /* замена Gotham */
-  --text: "Roboto", "Helvetica Neue", Arial, sans-serif;
+  --serif: "PT Serif Web", "Times New Roman", Georgia, serif;      /* роль Blacker */
+  --sans: "PT Root UI", "Helvetica Neue", Arial, sans-serif;       /* роль Gotham */
+  --text: "PT Root UI", "Helvetica Neue", Arial, sans-serif;       /* основной текст */
+  --mono: "PT Mono Web", "SFMono-Regular", Consolas, monospace;    /* артикулы и SKU */
 
   --pad: clamp(20px, 4.2vw, 68px);
   --maxw: 1520px;
@@ -53,6 +80,10 @@ body {
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
+  /* В kern-таблице PT Root UI пара «пробел + длинное тире» схлопывается почти
+     в ноль, из-за чего русское «Россия — компания» слипается. Кернинг выключен
+     глобально; собственные метрики PT дают корректный ритм. */
+  font-kerning: none;
 }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
@@ -77,6 +108,7 @@ p { margin: 0 0 1em; }
   margin: 0 0 14px;
 }
 .num { font-variant-numeric: tabular-nums; }
+.sku { font-family: var(--mono); font-size: .92em; letter-spacing: -.01em; }
 
 /* ── плашка: прямоугольная, без скругления, ширина по содержанию (§16.1) ── */
 .plaque {
@@ -90,8 +122,8 @@ p { margin: 0 0 1em; }
 
 /* ─────────────────────────────────────────────────────────────── раскладка ── */
 .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
-.section { padding: clamp(48px, 6vw, 104px) 0; }
-.section-tight { padding: clamp(32px, 3.5vw, 60px) 0; }
+.section { padding-block: clamp(48px, 6vw, 104px); }
+.section-tight { padding-block: clamp(32px, 3.5vw, 60px); }
 .bg-gray { background: var(--gray-bg); }
 .bg-sage { background: var(--sage-20); }
 .bg-cream { background: var(--cream-20); }
@@ -197,7 +229,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .header { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 40; }
 .header .wrap { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 42px); min-height: 76px; }
 .brand { display: block; flex: none; }
-.brand img { width: clamp(112px, 10vw, 148px); height: auto; }
+.brand img { width: clamp(136px, 11vw, 172px); height: auto; }
 .mainnav { display: flex; align-items: center; gap: clamp(10px, 1.5vw, 26px); margin-left: auto; }
 .mainnav a { font-family: var(--sans); font-weight: 600; font-size: 13.5px; text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
 .mainnav a:hover, .mainnav a[data-active="true"] { border-color: var(--ink); }
@@ -212,7 +244,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 @media (max-width: 1300px) { .hdr-trust { display: none; } }
 
 /* подвал */
-.footer { background: var(--ink); color: #b9b6b1; padding: clamp(40px, 4vw, 70px) 0 34px; margin-top: 0; }
+.footer { background: var(--ink); color: #b9b6b1; padding-block: clamp(40px, 4vw, 70px) 34px; }
 .footer a { text-decoration: none; color: #e7e5e1; }
 .footer a:hover { color: #fff; }
 .footer h4 { color: #fff; font-family: var(--sans); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 14px; }
@@ -223,7 +255,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .footer .fine { margin-top: 34px; padding-top: 20px; border-top: 1px solid #34322f; font-size: 12px; line-height: 1.6; color: #8b8884; }
 
 /* хлебные крошки */
-.crumbs { font-family: var(--sans); font-size: 12px; color: var(--muted); padding: 16px 0; display: flex; gap: 8px; flex-wrap: wrap; }
+.crumbs { font-family: var(--sans); font-size: 12px; color: var(--muted); padding-block: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
 .crumbs a { text-decoration: none; }
 .crumbs a:hover { text-decoration: underline; }
 
@@ -253,7 +285,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .hero-img { position: absolute; inset: 0; }
 .hero-img img { width: 100%; height: 100%; object-fit: cover; opacity: .78; }
 .hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.12) 100%); }
-.hero-inner { position: relative; padding-top: clamp(56px, 7vw, 130px); padding-bottom: clamp(40px, 4vw, 74px); }
+.hero-inner { position: relative; padding-block: clamp(56px, 7vw, 130px) clamp(40px, 4vw, 74px); }
 .hero h1 { color: #fff; max-width: 15ch; }
 .hero .lead { color: #ded9d3; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
