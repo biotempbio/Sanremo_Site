@@ -638,12 +638,11 @@
 
     <div style="margin-top:32px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start">
       <div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <sc-for list="{{ dealerFilters }}" as="f" hint-placeholder-count="5">
-            <button onClick="{{ f.toggle }}" style="border:1px solid #DCDCD8;background:{{ f.bg }};color:{{ f.fg }};padding:11px 15px;font:500 12px/1 'PT Sans',sans-serif">{{ f.label }}</button>
-          </sc-for>
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+          <input value="{{ dealerQuery }}" onChange="{{ onDealerQuery }}" placeholder="Город, регион или адрес" aria-label="Поиск дилера по территории" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:13px 15px;font:400 14px/1 'PT Sans',sans-serif;color:#141414" />
+          <button onClick="{{ clearDealerQuery }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:13px 16px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Все города</button>
         </div>
-        <div style="margin-top:14px;font:500 13px/1 'PT Sans',sans-serif;color:#6E6E6A">Дилеров по условиям: {{ dealerCount }}</div>
+        <div style="font:500 13px/1 'PT Sans',sans-serif;color:#6E6E6A">Найдено дилеров: {{ dealerCount }}</div>
         <sc-for list="{{ dealers }}" as="d" hint-placeholder-count="4">
           <div style="margin-top:16px;border:1px solid #E6E6E3;padding:22px 24px;display:grid;grid-template-columns:1fr 200px;gap:20px">
             <div>
@@ -656,8 +655,8 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button onClick="{{ d.visit }}" style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">Сайт дилера ↗</button>
-              <button onClick="{{ d.route }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Построить маршрут ↗</button>
+              <button onClick="{{ d.visit }}" style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">Сайт дилера</button>
+              <button onClick="{{ d.route }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Построить маршрут</button>
             </div>
           </div>
         </sc-for>
@@ -1390,7 +1389,7 @@ class Component extends DCLogic {
     page: 'home', line: 'zoe', sku: 0,
     f: { groups: null, height: null, stock: null, cups: null, scen: null, price: null, tech: [] },
     q: { format: null, cups: null, milk: null, groups: null, budget: null, width: null },
-    dealerF: [], partNode: null, partLine: null, partsQuery: '', docType: null, docLine: null,
+    dealerF: [], dealerQuery: '', partNode: null, partLine: null, partsQuery: '', docType: null, docLine: null,
     cmp: ['zoe', 'f18sb', 'f18'], kbQuery: '', kbModel: null, faqOpen: {}
   };
 
@@ -1860,7 +1859,10 @@ class Component extends DCLogic {
     const res = complete ? this.quizResult() : { items: [], logic: '' };
 
     const df = s.dealerF;
-    const dealerList = DEALERS.filter(d => df.every(x => d.services.indexOf(x) >= 0)).map(d => Object.assign({}, d, {
+    const dealerQuery = s.dealerQuery.trim().toLowerCase();
+    const dealerList = DEALERS.filter(d =>
+      !dealerQuery || (d.name + ' ' + d.city + ' ' + d.address).toLowerCase().indexOf(dealerQuery) >= 0
+    ).map(d => Object.assign({}, d, {
       visit: () => window.open(d.website, '_blank', 'noopener,noreferrer'),
       route: () => window.open('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.address), '_blank', 'noopener,noreferrer')
     }));
@@ -2138,6 +2140,9 @@ class Component extends DCLogic {
         label: l,
         toggle: () => this.setState({ dealerF: df.indexOf(l) >= 0 ? df.filter(x => x !== l) : df.concat([l]) })
       }, this.pill(df.indexOf(l) >= 0))),
+      dealerQuery: s.dealerQuery,
+      onDealerQuery: (e) => this.setState({ dealerQuery: e.target.value }),
+      clearDealerQuery: () => this.setState({ dealerQuery: '', dealerF: [] }),
       dealers: dealerList, dealerCount: dealerList.length,
 
       partsQuery: s.partsQuery,
