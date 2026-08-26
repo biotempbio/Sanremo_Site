@@ -382,7 +382,10 @@
           <div style="padding:20px 22px;border-bottom:1px solid #E6E6E3">
             <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap">
               <div style="font:700 13px/1 'PT Sans',sans-serif;color:#141414">Соберите исполнение</div>
-              <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ p.skuCount }} вариантов в России</div>
+              <div style="display:flex;align-items:baseline;gap:7px;color:#2D483F">
+                <span style="font:700 24px/1 'PT Serif',Georgia,serif">{{ p.lineUnits }}</span>
+                <span style="font:600 11px/1.25 'PT Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em">{{ p.lineUnitsLabel }}<br />линейки на складе</span>
+              </div>
             </div>
             <sc-if value="{{ p.showModifications }}" hint-placeholder-val="{{ true }}">
               <div style="margin-top:20px">
@@ -436,12 +439,6 @@
           </div>
         </div>
 
-        <div style="margin-top:20px;background:#F1F3F1;padding:18px 22px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#2D483F">Наличие линейки {{ p.family }}</div>
-          <div style="margin-top:10px;font:700 20px/1.3 'PT Serif',Georgia,serif;color:#141414">{{ p.lineStock }}</div>
-          <div style="margin-top:8px;font:400 13px/1.5 'PT Sans',sans-serif;color:#4A4A46">{{ p.availabilitySummary }}</div>
-        </div>
-
         <div style="margin-top:20px;border:1px solid #E6E6E3;padding:18px 22px">
           <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#003E51">Идентификация</div>
           <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font:400 12px/1.5 'PT Mono',Menlo,monospace;color:#4A4A46">
@@ -487,14 +484,18 @@
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
-      <h2 style="margin:0;font:700 30px/1.1 'PT Serif',Georgia,serif">Исполнения, РРЦ и наличие</h2>
-      <table style="margin-top:20px;width:100%;border:1px solid #E6E6E3">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:28px;flex-wrap:wrap">
+        <div>
+          <h2 style="margin:0;font:700 30px/1.1 'PT Serif',Georgia,serif">Другие исполнения {{ p.family }}</h2>
+          <div style="margin-top:9px;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ p.availabilitySummary }}</div>
+        </div>
+        <button onClick="{{ p.toggleConfigs }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:12px 18px;font:600 12px/1 'PT Sans',sans-serif" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ p.configToggleLabel }}</button>
+      </div>
+      <table style="margin-top:18px;width:100%;border:1px solid #E6E6E3">
         <thead>
           <tr style="background:#141414;color:#FFFFFF">
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Код BIO</th>
             <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Исполнение</th>
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Группы</th>
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Цвет</th>
+            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Конфигурация</th>
             <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">РРЦ</th>
             <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Наличие</th>
           </tr>
@@ -502,10 +503,8 @@
         <tbody>
           <sc-for list="{{ p.configRows }}" as="row" hint-placeholder-count="3">
             <tr style="border-bottom:1px solid #EFEFEC">
-              <td style="padding:13px 18px;font:400 12px/1.4 'PT Mono',Menlo,monospace;color:#4A4A46">{{ row.code }}</td>
               <td style="padding:13px 18px;font:400 13px/1.4 'PT Sans',sans-serif">{{ row.name }}</td>
-              <td style="padding:13px 18px;font:400 13px/1.4 'PT Sans',sans-serif">{{ row.groups }}</td>
-              <td style="padding:13px 18px;font:400 13px/1.4 'PT Sans',sans-serif">{{ row.color }}</td>
+              <td style="padding:13px 18px;font:400 12px/1.4 'PT Mono',Menlo,monospace;color:#6E6E6A">{{ row.detail }}</td>
               <td style="padding:13px 18px;font:500 13px/1.4 'PT Sans',sans-serif;white-space:nowrap">{{ row.price }}</td>
               <td style="padding:13px 18px;font:600 12px/1.4 'PT Sans',sans-serif;white-space:nowrap;color:{{ row.statusColor }}">{{ row.status }}</td>
             </tr>
@@ -1442,6 +1441,12 @@ function modificationTitle(m, lineId) {
   return 'Стандарт';
 }
 
+function groupCount(m) {
+  if (m.groups) return m.groups;
+  const hit = String(m.name || '').match(/(?:^|\s)([1-3])\s*(?:гр|gr)/i);
+  return hit ? parseInt(hit[1], 10) : 0;
+}
+
 function money(n) {
   if (!n && n !== 0) return 'по запросу';
   return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
@@ -1541,6 +1546,7 @@ const FAQ_DATA = [
 class Component extends DCLogic {
   state = {
     page: 'home', line: 'zoe', sku: 0, newsItem: 0,
+    showConfigs: false,
     f: { groups: null, height: null, stock: null, cups: null, scen: null, price: null, tech: [] },
     q: { format: null, cups: null, milk: null, groups: null, budget: null, width: null },
     dealerF: [], dealerQuery: '', partNode: null, partLine: null, partsQuery: '', docType: null, docLine: null,
@@ -1559,7 +1565,7 @@ class Component extends DCLogic {
   }
 
   go = (page) => { this.setState({ page: page }); this.pushUrl(page, this.state.line); };
-  openLine = (id) => { this.setState({ page: 'product', line: id, sku: 0 }); this.pushUrl('product', id); };
+  openLine = (id) => { this.setState({ page: 'product', line: id, sku: 0, showConfigs: false }); this.pushUrl('product', id); };
 
   componentDidMount() {
     try { document.documentElement.lang = 'ru'; } catch (e) {}
@@ -1983,7 +1989,7 @@ class Component extends DCLogic {
     const lineSkus = this.lineSkus(s.line);
     const sku = lineSkus[Math.min(s.sku, Math.max(lineSkus.length - 1, 0))] || {};
     const activeModification = modificationTitle(sku, s.line);
-    const activeGroups = sku.groups || 0;
+    const activeGroups = groupCount(sku);
     const activeColor = colorKey(sku.color);
     const pickClosest = (items, preferred) => {
       if (!items.length) return;
@@ -1997,13 +2003,14 @@ class Component extends DCLogic {
     };
     const modifications = uniqueBy(lineSkus, m => modificationTitle(m, s.line));
     const modificationSkus = lineSkus.filter(m => modificationTitle(m, s.line) === activeModification);
-    const groups = uniqueBy(modificationSkus, m => String(m.groups || '—'));
-    const colorSkus = modificationSkus.filter(m => (m.groups || 0) === activeGroups);
+    const groups = uniqueBy(modificationSkus, m => String(groupCount(m) || '—'));
+    const colorSkus = modificationSkus.filter(m => groupCount(m) === activeGroups);
     const colors = uniqueBy(colorSkus, m => colorKey(m.color) || 'без указания');
     const choiceStyle = active => active
       ? { bg: '#2D483F', fg: '#FFFFFF', border: '#2D483F' }
       : { bg: '#FFFFFF', fg: '#4A4A46', border: '#DCDCD8' };
     const lineStats = this.lineStats(lineSkus);
+    const inStockConfigSkus = lineSkus.filter(m => (m.stock || 0) > 0);
 
     const scenSeen = {}, SCEN_LIST = [];
     LINES.forEach(l => l.scen.forEach(x => { if (!scenSeen[x]) { scenSeen[x] = 1; SCEN_LIST.push(x); } }));
@@ -2289,11 +2296,11 @@ class Component extends DCLogic {
         showModifications: modifications.length > 1,
         modificationOptions: modifications.map(o => Object.assign({
           label: o.value,
-          pick: () => pickClosest(lineSkus.filter(m => modificationTitle(m, s.line) === o.value), m => (m.groups || 0) === activeGroups && colorKey(m.color) === activeColor)
+          pick: () => pickClosest(lineSkus.filter(m => modificationTitle(m, s.line) === o.value), m => groupCount(m) === activeGroups && colorKey(m.color) === activeColor)
         }, choiceStyle(o.value === activeModification))),
         groupOptions: groups.map(o => Object.assign({
           label: o.value === '—' ? '—' : o.value + ' гр.',
-          pick: () => pickClosest(modificationSkus.filter(m => String(m.groups || '—') === o.value), m => colorKey(m.color) === activeColor)
+          pick: () => pickClosest(modificationSkus.filter(m => String(groupCount(m) || '—') === o.value), m => colorKey(m.color) === activeColor)
         }, choiceStyle(String(activeGroups || '—') === o.value))),
         colorOptions: colors.map(o => Object.assign({
           label: colorTitle(o.item.color) || 'Без указания',
@@ -2322,11 +2329,16 @@ class Component extends DCLogic {
         ],
         specGroups: this.specGroups(sku),
         files: (sku.files || []).map(f => ({ label: f.type + ' · ' + f.name })),
-        configRows: lineSkus.map(m => ({
-          code: m.code, name: m.name, groups: m.groups ? m.groups + ' (' + m.height + ')' : m.height,
-          color: m.color, price: money(m.price), status: this.stockLabel(m),
+        configRows: (s.showConfigs ? lineSkus : (inStockConfigSkus.length ? inStockConfigSkus : lineSkus).slice(0, 5)).map(m => ({
+          name: m.name,
+          detail: (groupCount(m) ? groupCount(m) + ' ' + plural(groupCount(m), 'группа', 'группы', 'групп') : m.height) + ' · ' + (colorTitle(m.color) || 'цвет не указан'),
+          price: money(m.price), status: this.stockLabel(m),
           statusColor: (m.stock || 0) > 0 ? '#2D7A43' : '#C14E00'
         })),
+        toggleConfigs: () => this.setState({ showConfigs: !s.showConfigs }),
+        configToggleLabel: s.showConfigs ? 'Свернуть список' : 'Показать все ' + lineSkus.length,
+        lineUnits: lineStats.units,
+        lineUnitsLabel: plural(lineStats.units, 'кофемашина', 'кофемашины', 'кофемашин'),
         lineStock: lineStats.stockLine,
         availabilitySummary: lineSkus.length + ' ' + plural(lineSkus.length, 'исполнение', 'исполнения', 'исполнений') + ' · ' + lineStats.inStockSkus + ' сейчас на складе' + (lineSkus.length > lineStats.inStockSkus ? ' · остальные под заказ' : ''),
         lineVariants: lineStats.variantLine + ' — цвета, посадка групп и комплектации из выгрузки BIO',
