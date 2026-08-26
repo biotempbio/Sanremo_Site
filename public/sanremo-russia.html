@@ -491,6 +491,29 @@
     </div>
     </sc-if>
 
+    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1320px;margin:0 auto;padding:52px 40px 0">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid #141414;padding-bottom:14px">
+        <div>
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Конструкция крупным планом</div>
+          <h2 style="margin:11px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Детали ZOE 2026</h2>
+        </div>
+        <p style="max-width:440px;margin:0;text-align:right;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">Технические кадры показаны в собственном масштабе — без растягивания и случайной обрезки.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
+        <sc-for list="{{ p.zoeDetails }}" as="d" hint-placeholder-count="3">
+          <div style="min-width:0">
+            <div style="height:190px;background:#F1F1EF;overflow:hidden">{{ d.photo }}</div>
+            <div style="padding:14px 2px 0">
+              <div style="font:600 14px/1.35 'PT Sans',sans-serif;color:#141414">{{ d.title }}</div>
+              <div style="margin-top:6px;font:400 12px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ d.text }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
       <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'PT Sans',sans-serif">Кому подходит</div>
       <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
@@ -2125,10 +2148,7 @@ class Component extends DCLogic {
       { label: 'Total White · 3/4', photo: this.coverPhoto('/photo/zoe-2026/white-angle-cups.webp', 'Sanremo ZOE 2026 Total White с чашками, ракурс три четверти') },
       { label: 'Total White · спереди', photo: this.coverPhoto('/photo/zoe-2026/white-front.webp', 'Sanremo ZOE 2026 Total White, вид спереди') },
       { label: 'Total Inox · 3/4', photo: this.coverPhoto('/photo/zoe-2026/inox-angle.webp', 'Sanremo ZOE 2026 Total Inox, ракурс три четверти') },
-      { label: 'ZOE в кофейне', photo: this.coverPhoto('/photo/zoe-2026/barista-cafe.jpg', 'Бариста работает на кофемашине Sanremo ZOE 2026 в кофейне') },
-      { label: 'Группа и манометр', photo: this.coverPhoto('/photo/zoe-2026/group-detail.jpg', 'Группа, манометр и рабочая зона Sanremo ZOE 2026 крупным планом') },
-      { label: 'Боковой узел', photo: this.coverPhoto('/photo/zoe-2026/side-detail.jpg', 'Боковая панель, паровой кран и манометр Sanremo ZOE 2026') },
-      { label: 'Панель управления', photo: this.coverPhoto('/photo/zoe-2026/control-panel.jpg', 'Кнопки дозирования и дисплей Sanremo ZOE 2026 крупным планом') }
+      { label: 'ZOE в кофейне', photo: this.coverPhoto('/photo/zoe-2026/barista-cafe.jpg', 'Бариста работает на кофемашине Sanremo ZOE 2026 в кофейне') }
     ] : (L.id === 'd8' ? [
       { label: 'D8', photo: this.coverPhoto('/photo/d8-white.jpg', 'Кофемашина Sanremo D8 на белом фоне') },
       { label: 'D8 PRO', photo: this.coverPhoto('/photo/d8-pro-white.jpg', 'Кофемашина Sanremo D8 PRO на белом фоне') }
@@ -2475,6 +2495,11 @@ class Component extends DCLogic {
           { num: '04', title: 'Автоматическая очистка', text: 'Программируемый цикл сокращает ручные операции в закрытии смены.' },
           { num: '05', title: 'Высокая группа TALL', text: 'Посадка 142 мм рассчитана на стаканы навынос; работа с чашкой остаётся удобной.' },
           { num: '06', title: 'Сервисный доступ', text: 'Съёмные панели и обновлённая внутренняя компоновка упрощают доступ к компонентам.' }
+        ],
+        zoeDetails: [
+          { title: 'Группа и двойной манометр', text: 'Крупный план группы, рабочей зоны и индикации давления бойлера и насоса.', photo: this.coverPhoto('/photo/zoe-2026/group-detail.jpg', 'Группа, рабочая зона и двойной манометр Sanremo ZOE 2026') },
+          { title: 'Боковой сервисный узел', text: 'Паровой кран, манометр и доступная для обслуживания боковая часть корпуса.', photo: this.coverPhoto('/photo/zoe-2026/side-detail.jpg', 'Боковой сервисный узел Sanremo ZOE 2026') },
+          { title: 'Рабочая зона крупным планом', text: 'Нижняя часть корпуса, решётка поддона и элементы рабочей зоны.', photo: this.coverPhoto('/photo/zoe-2026/control-panel.jpg', 'Поддон и рабочая зона Sanremo ZOE 2026 крупным планом') }
         ],
         zoeOptions: [
           { title: 'Steam System', text: 'Опциональная автоматизация молока: до двух рецептов, контроль температуры и простая очистка.' },
