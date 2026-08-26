@@ -363,9 +363,9 @@
           <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:42px;height:48px;border:1px solid rgba(255,255,255,.55);background:rgba(20,20,20,.72);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s" style-hover="background:#2D483F">→</button>
           <div style="position:absolute;left:18px;bottom:16px;background:rgba(20,20,20,.82);color:#FFFFFF;padding:7px 10px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ p.activePhotoLabel }}</div>
         </div>
-        <div style="margin-top:10px;width:100%;max-width:100%;min-width:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;padding-bottom:7px;scrollbar-color:#2D483F #ECECE8;scrollbar-width:thin">
+        <div style="margin-top:10px;width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px">
           <sc-for list="{{ p.gallery }}" as="g" hint-placeholder-count="4">
-            <button onClick="{{ g.pick }}" title="{{ g.label }}" style="width:118px;height:82px;flex:0 0 118px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;display:flex;align-items:flex-end;overflow:hidden;position:relative;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">
+            <button onClick="{{ g.pick }}" title="{{ g.label }}" style="width:100%;height:82px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;display:flex;align-items:flex-end;overflow:hidden;position:relative;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">
               {{ g.photo }}
             </button>
           </sc-for>
@@ -2144,6 +2144,8 @@ class Component extends DCLogic {
       opacity: i === activeGalleryIndex ? '1' : '.72',
       pick: () => this.setState({ galleryIndex: i })
     }));
+    const galleryPageStart = Math.floor(activeGalleryIndex / 5) * 5;
+    const galleryVisible = gallery.slice(galleryPageStart, galleryPageStart + 5);
     const activeGallery = gallerySource[activeGalleryIndex] || gallerySource[0] || {};
 
     const scenSeen = {}, SCEN_LIST = [];
@@ -2435,7 +2437,7 @@ class Component extends DCLogic {
         executionSummary: L.id === 'zoe'
           ? 'Высокая посадка 142 мм · электронная дозировка · таймеры групп · автоматическая очистка'
           : [groupCount(sku) ? groupCount(sku) + ' ' + plural(groupCount(sku), 'группа', 'группы', 'групп') : '', colorTitle(sku.color), sku.height].filter(Boolean).join(' · '),
-        activePhoto: activeGallery.photo, activePhotoLabel: activeGallery.label, gallery: gallery,
+        activePhoto: activeGallery.photo, activePhotoLabel: activeGallery.label, gallery: galleryVisible,
         prevPhoto: () => this.setState({ galleryIndex: (activeGalleryIndex - 1 + gallerySource.length) % gallerySource.length }),
         nextPhoto: () => this.setState({ galleryIndex: (activeGalleryIndex + 1) % gallerySource.length }),
         code: sku.code || '—', vendor: sku.vendor || '—',
