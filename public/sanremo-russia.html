@@ -396,13 +396,13 @@
             <div style="margin-top:7px;font:500 12px/1 'PT Mono',Menlo,monospace;color:#2D483F">{{ p.code }}</div>
           </div>
         </div>
-        <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
         <div style="margin-top:38px;border-top:1px solid #141414;padding-top:22px">
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">ZOE 2026 · профессиональная платформа</div>
-          <h2 style="margin:13px 0 0;max-width:620px;font:700 30px/1.1 'PT Serif',Georgia,serif">Обновление легенды для ежедневной работы за стойкой</h2>
-          <p style="margin:17px 0 0;max-width:700px;font:400 15px/1.65 'PT Sans',sans-serif;color:#3C3C3A">Sanremo ZOE 2026 объединяет практичность версий SED и Competition в одной платформе. В центре — понятное электронное управление, быстрый доступ к узлам, стабильная теплообменная схема и конфигурации для разных форматов кофейного бизнеса.</p>
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">{{ p.storyEyebrow }}</div>
+          <h2 style="margin:13px 0 0;max-width:620px;font:700 30px/1.1 'PT Serif',Georgia,serif">{{ p.storyTitle }}</h2>
+          <p style="margin:17px 0 0;max-width:700px;font:400 15px/1.65 'PT Sans',sans-serif;color:#3C3C3A">{{ p.storyIntro }}</p>
           <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #E1E4E1;border-left:1px solid #E1E4E1">
-            <sc-for list="{{ p.zoeFacts }}" as="f" hint-placeholder-count="4">
+            <sc-for list="{{ p.storyFacts }}" as="f" hint-placeholder-count="4">
               <div style="padding:15px 16px;border-right:1px solid #E1E4E1;border-bottom:1px solid #E1E4E1">
                 <div style="font:700 19px/1 'PT Serif',Georgia,serif;color:#2D483F">{{ f.value }}</div>
                 <div style="margin-top:7px;font:500 11px/1.4 'PT Sans',sans-serif;color:#5E5E5A">{{ f.label }}</div>
@@ -499,7 +499,7 @@
       </div>
     </sc-if>
 
-    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
       <div>
         <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Ключевые технологии</div>
@@ -507,7 +507,7 @@
         <p style="margin:16px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#6E6E6A">Не перечень функций ради спецификации, а шесть свойств, которые влияют на скорость, повторяемость напитка и обслуживание.</p>
       </div>
       <div style="border-top:1px solid #141414">
-        <sc-for list="{{ p.zoeTech }}" as="t" hint-placeholder-count="6">
+        <sc-for list="{{ p.storyTech }}" as="t" hint-placeholder-count="6">
           <div style="display:grid;grid-template-columns:42px .72fr 1.28fr;gap:18px;padding:17px 0;border-bottom:1px solid #E6E6E3;align-items:start">
             <span style="font:400 11px/1.3 'PT Mono',Menlo,monospace;color:#7D9C91">{{ t.num }}</span>
             <strong style="font:600 14px/1.4 'PT Sans',sans-serif">{{ t.title }}</strong>
@@ -518,17 +518,17 @@
     </div>
     </sc-if>
 
-    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:52px 40px 0">
       <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid #141414;padding-bottom:14px">
         <div>
           <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Конструкция крупным планом</div>
-          <h2 style="margin:11px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Детали ZOE 2026</h2>
+          <h2 style="margin:11px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">{{ p.detailsTitle }}</h2>
         </div>
         <p style="max-width:440px;margin:0;text-align:right;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">Технические кадры показаны в собственном масштабе — без растягивания и случайной обрезки.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
-        <sc-for list="{{ p.zoeDetails }}" as="d" hint-placeholder-count="3">
+        <sc-for list="{{ p.storyDetails }}" as="d" hint-placeholder-count="3">
           <div style="min-width:0">
             <div style="height:190px;background:#F1F1EF;overflow:hidden">{{ d.photo }}</div>
             <div style="padding:14px 2px 0">
@@ -553,15 +553,15 @@
       </div>
     </div>
 
-    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <div style="background:#243F37;color:#FFFFFF;padding:38px 40px;display:grid;grid-template-columns:.78fr 1.22fr;gap:48px">
         <div>
           <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#AAC2B9">Опции платформы</div>
-          <h2 style="margin:14px 0 0;font:700 30px/1.12 'PT Serif',Georgia,serif">От первой кофейни до сетевого стандарта</h2>
+          <h2 style="margin:14px 0 0;font:700 30px/1.12 'PT Serif',Georgia,serif">{{ p.optionsTitle }}</h2>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.2)">
-          <sc-for list="{{ p.zoeOptions }}" as="o" hint-placeholder-count="4">
+          <sc-for list="{{ p.storyOptions }}" as="o" hint-placeholder-count="4">
             <div style="background:#243F37;padding:18px 20px">
               <div style="font:600 14px/1.35 'PT Sans',sans-serif">{{ o.title }}</div>
               <div style="margin-top:7px;font:400 12px/1.55 'PT Sans',sans-serif;color:#D7E2DE">{{ o.text }}</div>
@@ -624,12 +624,12 @@
       </table>
     </div>
 
-    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Перед выбором исполнения</div>
-      <h2 style="margin:12px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Вопросы о Sanremo ZOE 2026</h2>
+      <h2 style="margin:12px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Вопросы о {{ p.productTitle }}</h2>
       <div style="margin-top:22px;border-top:1px solid #141414">
-        <sc-for list="{{ p.zoeFaq }}" as="f" hint-placeholder-count="5">
+        <sc-for list="{{ p.storyFaq }}" as="f" hint-placeholder-count="5">
           <div style="display:grid;grid-template-columns:.72fr 1.28fr;gap:42px;padding:18px 0;border-bottom:1px solid #E6E6E3">
             <strong style="font:600 14px/1.45 'PT Sans',sans-serif">{{ f.q }}</strong>
             <span style="font:400 13px/1.6 'PT Sans',sans-serif;color:#5E5E5A">{{ f.a }}</span>
@@ -1683,6 +1683,57 @@ const CASE_DETAILS = {
 };
 const CASE_SLUG_BY_NAME = { 'Бистро 9/18':'bistro-9-18', 'St.Riders Coffee':'st-riders', 'CofeFest':'cofefest', 'Спэшл':'speshl', 'French Bakery SeDelice':'sedelice', 'Правда Кофе':'pravda-coffee', 'Кафе ВкусВилл':'vkusvill', 'Ванлав':'vanlav', 'Baggins Coffee':'baggins', 'Нотик Кофе':'notik', 'Coffee Combo':'coffee-combo', 'Coffee 4 Human':'coffee-4-human', 'Чайка кричала':'chaika-krichala' };
 
+const PRODUCT_STORIES = {
+  d8: {
+    eyebrow: 'D8 / D8 PRO · модульная платформа', title: 'Одна архитектура — два уровня контроля', intro: 'D8 собрана как гибкая single-boiler платформа для растущей кофейни. Базовая D8 закрывает стабильную ежедневную выдачу, а D8 PRO добавляет индивидуальную настройку групп, цветные дисплеи и расширенное энергосбережение.',
+    facts: [['7 доз','программируются для каждой группы'],['AISI 316L','нержавеющий бойлер'],['D8 / PRO','два уровня оснащения'],['5 цветов','и кастомные боковые панели']],
+    tech: [['Цифровой таймер','Контроль времени экстракции без внешнего секундомера.'],['Температура групп','В D8 общая настройка, в PRO — индивидуальная для каждой группы.'],['Цветной LCD','D8 PRO показывает параметры непосредственно на каждой группе.'],['ECO-программа','Теплоизоляция и недельное расписание снижают расход энергии.'],['Cold Touch','Прохладные паровые краны безопаснее и проще очищать.'],['IoT / app','Опциональный удалённый контроль и данные о работе машины.']],
+    images: ['/photo/product-stories/d8/01-p1.jpg','/photo/product-stories/d8/02-p5.jpg','/photo/product-stories/d8/03-p2.jpg','/photo/product-stories/d8/04-p3.jpg','/photo/product-stories/d8/05-p4.png'],
+    options: [['D8','Рациональная комплектация с общей настройкой температуры групп.'],['D8 PRO','Индивидуальная температура групп, LCD и расширенная штатная комплектация.'],['Standard / Tall','Две высоты рабочей зоны под чашку или высокий стакан.'],['Кастомизация','Copper Gold, Champagne, кожа и подсвечиваемые боковые панели.']],
+    faq: [['Чем D8 PRO отличается от D8?','PRO добавляет индивидуальную температуру каждой группы, цветные дисплеи и расширенную штатную комплектацию.'],['Это мультибойлер?','Нет. D8 — модульная single-boiler платформа с электронным контролем температуры групп.'],['Можно ли подключить приложение?','Да, IoT и приложение доступны как опция.'],['Сколько доз можно сохранить?','До семи программируемых доз.']]
+  },
+  f18sb: {
+    eyebrow: 'F18 Single Boiler · рабочая выносливость', title: 'Поток без лишней сложности', intro: 'F18 Single Boiler переносит узнаваемую архитектуру F18 в более простую и ремонтопригодную платформу. Это машина для заведений, где важнее всего скорость, стабильность и понятное управление сменой.',
+    facts: [['SR 61','термосифонная группа'],['20%+','экономия энергии'],['2–3 группы','для разного потока'],['Single Boiler','простая сервисная архитектура']],
+    tech: [['Группа SR 61','Хромированная латунная группа с оптимизированной термосифонной циркуляцией.'],['Многофункциональный дисплей','Контроль состояния и программирование основных функций.'],['Energy Saving','Изоляция и интеллектуальное управление снижают расход более чем на 20%.'],['Низковольтная электроника','Надёжная и безопасная система управления.'],['Высокая посадка','Удобная работа со стаканами навынос.'],['Литые опоры','Алюминиевые элементы усиливают конструкцию и визуально продолжают F18.']],
+    images: ['/photo/product-stories/f18sb/01-p3.png','/photo/product-stories/f18sb/02-p2.png','/photo/product-stories/f18sb/03-p4.png','/photo/product-stories/f18sb/04-p4.png','/photo/product-stories/f18sb/05-p4.png'],
+    options: [['2 или 3 группы','Конфигурация выбирается по пиковому часу.'],['Высокие группы','Работа с высокой чашкой и стаканом навынос.'],['Цветовые исполнения','Корпус можно вписать в концепцию кофейни.'],['Сетевой стандарт','Простая архитектура облегчает обучение и сервис нескольких точек.']],
+    faq: [['Кому подходит F18 SB?','Кофейням, ресторанам и обжарщикам, которым нужны надёжность, скорость и простое обслуживание.'],['Чем отличается от F18?','F18 SB — single-boiler; F18 — мультибойлер с независимым контролем и расширенной рецептурой.'],['Есть энергосбережение?','Да, заявленная экономия превышает 20%.'],['Сколько групп доступно?','Двух- и трёхгрупповые исполнения.']]
+  },
+  f18: {
+    eyebrow: 'F18 · multiboiler realtime stability', title: 'Независимый кофе и пар в пиковый час', intro: 'F18 создана для интенсивной кофейной программы: мультибойлерная система разделяет приготовление кофе и работу с паром, а сенсорный интерфейс собирает настройки и сервисные параметры в одном месте.',
+    facts: [['±0,2 °C','электронная стабильность'],['Multiboiler','независимые контуры'],['Flowactive','настройка предсмачивания'],['Touch screen','единый центр управления']],
+    tech: [['Realtime Stability','Температура поддерживается электронно с точностью ±0,2 °C.'],['Flowactive System','Время низкого давления задаётся для каждой выбранной дозы.'],['Мультибойлер','Кофе и пар работают независимо и не отбирают ресурс друг у друга.'],['Touch-интерфейс','Параметры, пресеты и сервис доступны с одного экрана.'],['Высокая нагрузка','Архитектура рассчитана на плотный поток напитков.'],['Повторяемость','Настройки помогают сохранять рецепт между бариста и сменами.']],
+    images: ['/photo/product-stories/f18/01-p1.png','/photo/product-stories/f18/02-p2.png','/photo/official/f18.jpg','/photo/model-f18.webp'],
+    options: [['2 или 3 группы','Выбор под пиковую нагрузку и число бариста.'],['Flowactive','Управляемое предсмачивание для разных рецептов.'],['Multiboiler','Независимая температура и стабильный пар.'],['Сервисные пресеты','Быстрая настройка и контроль состояния машины.']],
+    faq: [['Для чего нужен Flowactive?','Чтобы задавать время низкого давления отдельно для каждой дозы и точнее работать с экстракцией.'],['Чем F18 сильнее F18 SB?','Мультибойлером, независимостью кофе и пара и более точным управлением температурой.'],['Есть сенсорный экран?','Да, экран управляет рабочими и сервисными параметрами.'],['Кому подходит F18?','Specialty-кофейням, сетям и точкам с высоким молочным и кофейным потоком.']]
+  },
+  racer: {
+    eyebrow: 'Café Racer · born to run', title: 'Технология как часть интерьера', intro: 'Café Racer соединяет мультибойлерную стабильность с открытым характером кастомного мотоцикла. Это флагманская машина для заведений, где производительность и визуальный образ стойки одинаково важны.',
+    facts: [['до 40%','экономия энергии'],['< 8%','влажность пара в молоке'],['WCE','официальная машина финалов'],['19 исполнений','в российской матрице']],
+    tech: [['Термостабильность','Независимые контуры удерживают рецепт от первого до последнего кофе.'],['Dry Steam','Мощный сухой пар с минимальным количеством конденсата.'],['Low Pressure Pre-infusion','Бережное насыщение таблетки перед основной экстракцией.'],['Energy Saving','Изоляция и умное управление экономят до 40% энергии.'],['Точный контроль','Параметры повторяются между группами и сменами.'],['Открытое шасси','Конструкция отсылает к лёгкой раме café racer и облегчает визуальный контроль.']],
+    images: ['/photo/product-stories/racer/01-p2.jpg','/photo/product-stories/racer/02-p3.jpg','/photo/product-stories/racer/03-p5.jpg','/photo/product-stories/racer/04-p7.jpg','/photo/cafe-racer-cafe-user.png'],
+    options: [['Naked','Прозрачные боковины показывают конструкцию машины.'],['Freedom','Фирменные оттенки и подсвеченный логотип.'],['Custom Renegade','Индивидуальные материалы и цветовые сочетания.'],['Dolomiti / Racing','Готовые характерные исполнения для флагманской точки.']],
+    faq: [['Почему Café Racer называют флагманской?','Она соединяет мультибойлерную технологию, высокую стабильность и широкую кастомизацию.'],['Что означает Dry Steam?','Пар содержит меньше конденсата и стабильнее нагревает молоко.'],['Есть ли энергосбережение?','Да, производитель заявляет экономию до 40%.'],['Можно ли заказать индивидуальную отделку?','Да, линейка включает готовые и кастомные исполнения.']]
+  },
+  opera: {
+    eyebrow: 'Opera · контроль трёх фаз', title: 'Профиль экстракции как рабочий инструмент', intro: 'Opera создавалась вместе с бариста, обжарщиками и техниками. Система CDS управляет тремя фазами экстракции и сохраняет кривые давления — для лаборатории, флагманского бара и сложной работы с зерном.',
+    facts: [['3 фазы','контроль CDS'],['до 40%','экономия энергии'],['Pressure profiles','сохранение кривых'],['App','управление параметрами']],
+    tech: [['CDS System','Точное управление предсмачиванием, экстракцией и завершающей фазой.'],['Профили давления','Кривые давления сохраняются и повторяются для разных сортов.'],['Управление через app','Параметры доступны в отдельном приложении.'],['Мультибойлер','Каждая группа работает независимо.'],['Energy Saving','Теплоизоляция и логика управления экономят до 40%.'],['Командная разработка','Архитектура учитывает работу бариста, обжарщика и сервисного инженера.']],
+    images: ['/photo/product-stories/opera/03-p3.jpg','/photo/product-stories/opera/01-p2.png','/photo/product-stories/opera/04-p6.jpg','/photo/product-stories/opera/05-p7.jpg','/photo/product-stories/opera/08-p9.jpg'],
+    options: [['Steel','Классическая стальная отделка с настраиваемой задней панелью.'],['Black','Контрастное флагманское исполнение.'],['White','Светлая архитектурная версия.'],['Профили рецептов','Сохранение разных кривых под сорта и обжарку.']],
+    faq: [['Что такое CDS?','Система точного управления тремя фазами экстракции.'],['Можно ли сохранять давление?','Да, Opera сохраняет разные кривые давления для рецептов.'],['Для кого предназначена Opera?','Для обжарщиков, лабораторий и флагманских кофеен со сложной рецептурой.'],['Есть удалённое управление?','Да, параметры доступны через специализированное приложение.']]
+  },
+  you: {
+    eyebrow: 'YOU · your coffee lab', title: 'Одногруппная лаборатория вкуса', intro: 'YOU — компактная профессиональная мультибойлерная машина для полного контроля рецепта. Профили можно выбирать, сохранять и менять вручную с paddle, превращая небольшую стойку в рабочую лабораторию.',
+    facts: [['6 + 12','готовых и своих профилей'],['2 бойлера','AISI 316'],['3 схемы','бак, водопровод или full'],['70 л','производительность помпы']],
+    tech: [['Профили экстракции','Шесть стандартных и двенадцать полностью настраиваемых рецептов.'],['Paddle','Ручное управление фазами непосредственно на группе.'],['Multiboiler','Кофейный и сервисный бойлеры выполнены из AISI 316.'],['Constant Stability','Электронный контроль давления и температуры при длительной работе.'],['Три подключения','Бак, водопровод или совмещённая конфигурация.'],['Эргономика','Рычаги start/stop и Cold Touch краны для воды и пара.']],
+    images: ['/photo/product-stories/you/01-p1.jpg','/photo/product-stories/you/02-p2.jpg','/photo/product-stories/you/03-p2.jpg','/photo/product-stories/you/04-p1.jpg','/photo/official/you.png'],
+    options: [['Tank','Автономная работа от встроенного бака.'],['Mains','Прямое подключение к водопроводу.'],['Full','Обе схемы подключения в одной машине.'],['Manual profiles','Управление фазами экстракции с paddle.']],
+    faq: [['YOU — бытовая машина?','Нет, это профессиональная одногруппная мультибойлерная платформа.'],['Сколько профилей можно использовать?','Шесть стандартных и двенадцать полностью настраиваемых, плюс ручные профили с paddle.'],['Можно работать без водопровода?','Да, доступна конфигурация с баком.'],['Кому подходит YOU?','Компактным specialty-барам, лабораториям и обжарщикам.']]
+  }
+};
+
 const FAQ_DATA = [
   { title: 'Покупка и цены', items: [
     { q: 'Чем РРЦ отличается от цены дилера?', a: 'РРЦ — рекомендованная розничная цена, ориентир для сравнения линеек. Итоговую цену с монтажом, водоподготовкой и кофемолкой формирует дилер под конкретную точку.' },
@@ -1806,12 +1857,13 @@ class Component extends DCLogic {
     if (typeof document === 'undefined') return;
     const s = this.state;
     const L = LINES.filter(l => l.id === s.line)[0] || LINES[0];
+    const productStory = PRODUCT_STORIES[L.id];
     const conf = s.page === 'product'
       ? (L.id === 'zoe'
         ? { title: 'Sanremo ZOE 2026 — цена, характеристики, наличие | BIO',
             desc: 'Профессиональная кофемашина Sanremo ZOE 2026: ZOE Competition TALL CB, высокие группы, электронная дозировка, технологии, РРЦ и наличие в России.' }
-        : { title: 'Кофемашина Sanremo ' + L.name + ' — РРЦ, исполнения, наличие | BIO',
-            desc: L.tagline + ' Официальный дистрибьютор Sanremo в России — компания BIO.' })
+        : { title: 'Кофемашина Sanremo ' + L.name + ' — технологии, РРЦ и наличие | BIO',
+            desc: (productStory ? productStory.intro : L.tagline) + ' Официальный дистрибьютор Sanremo в России — компания BIO.' })
       : (SEO[s.page] || SEO.home);
     const url = SITE + this.pathFor(s.page, s.line);
     document.title = conf.title;
@@ -1839,9 +1891,10 @@ class Component extends DCLogic {
     if (s.page === 'product') {
       const skus = this.lineSkus(L.id);
       const img = heroImg(L.id, skus);
+      const productStory = PRODUCT_STORIES[L.id];
       graph.push({
         '@type': 'Product', name: L.id === 'zoe' ? 'Профессиональная кофемашина Sanremo ZOE 2026' : 'Кофемашина Sanremo ' + L.name,
-        description: L.id === 'zoe' ? 'Sanremo ZOE 2026 в исполнениях ZOE Competition TALL CB: характеристики, технологии, цены и наличие в России.' : L.tagline, url: url,
+        description: L.id === 'zoe' ? 'Sanremo ZOE 2026 в исполнениях ZOE Competition TALL CB: характеристики, технологии, цены и наличие в России.' : (productStory ? productStory.intro : L.tagline), url: url,
         image: img || undefined, brand: { '@type': 'Brand', name: 'Sanremo' },
         category: 'Профессиональные кофемашины',
         offers: skus.map(m => ({
@@ -1851,13 +1904,13 @@ class Component extends DCLogic {
           url: url + m.code + '/', seller: { '@id': SITE + '/#org' }
         }))
       });
-      if (L.id === 'zoe') graph.push({
+      if (L.id === 'zoe' || productStory) graph.push({
         '@type': 'FAQPage',
-        mainEntity: [
+        mainEntity: (productStory ? productStory.faq.map(x => ({ q: x[0], a: x[1] })) : [
           { q: 'Для каких заведений подходит Sanremo ZOE 2026?', a: 'Для первой кофейни, пекарни, ресторана и сетевой точки с регламентированным рабочим процессом.' },
           { q: 'Что означает TALL CB?', a: 'TALL обозначает высокую посадку группы под стаканы и высокие чашки; CB — конкретное исполнение платформы в российском ассортименте.' },
           { q: 'Есть ли автоматическая очистка групп?', a: 'Да, платформа поддерживает программируемый автоматический цикл очистки групп.' }
-        ].map(it => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } }))
+        ]).map(it => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } }))
       });
     } else if (s.page === 'catalog' || s.page === 'compare') {
       graph.push({
@@ -2211,6 +2264,7 @@ class Component extends DCLogic {
       : { bg: '#FFFFFF', fg: '#4A4A46', border: '#DCDCD8' };
     const lineStats = this.lineStats(lineSkus);
     const inStockConfigSkus = lineSkus.filter(m => (m.stock || 0) > 0);
+    const productStory = PRODUCT_STORIES[L.id] || null;
     const gallerySource = L.id === 'zoe' ? [
       { label: 'Выбранное исполнение', photo: this.photo(sku.img, sku.name || 'Sanremo ZOE 2026', 410, true) },
       { label: 'Total Black · спереди', photo: this.coverPhoto('/photo/zoe-2026/black-front.webp', 'Sanremo ZOE 2026 Total Black, вид спереди') },
@@ -2219,15 +2273,12 @@ class Component extends DCLogic {
       { label: 'Total White · спереди', photo: this.coverPhoto('/photo/zoe-2026/white-front.webp', 'Sanremo ZOE 2026 Total White, вид спереди') },
       { label: 'Total Inox · 3/4', photo: this.coverPhoto('/photo/zoe-2026/inox-angle.webp', 'Sanremo ZOE 2026 Total Inox, ракурс три четверти') },
       { label: 'ZOE в кофейне', photo: this.coverPhoto('/photo/zoe-2026/barista-cafe.jpg', 'Бариста работает на кофемашине Sanremo ZOE 2026 в кофейне') }
-    ] : (L.id === 'd8' ? [
-      { label: 'D8', photo: this.coverPhoto('/photo/d8-white.jpg', 'Кофемашина Sanremo D8 на белом фоне') },
-      { label: 'D8 PRO', photo: this.coverPhoto('/photo/d8-pro-white.jpg', 'Кофемашина Sanremo D8 PRO на белом фоне') }
     ] : [
       { label: 'Выбранное исполнение', photo: this.photo(sku.img, sku.name || L.name, 410, true) },
-      { label: 'Рабочая зона', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Рабочая зона кофемашины Sanremo') },
-      { label: 'Органы управления', photo: this.coverPhoto('/photo/cafe-racer-green-detail.webp', 'Органы управления Sanremo Café Racer') },
-      { label: 'Кофейня', photo: this.coverPhoto('/photo/cafe-racer-cafe-user.png', 'Кофемашина Sanremo в кофейне') }
-    ]);
+    ].concat((productStory ? productStory.images : []).map((url, i) => ({
+      label: L.name + ' · каталог ' + String(i + 1).padStart(2, '0'),
+      photo: this.coverPhoto(url, 'Sanremo ' + L.name + ', официальная фотография ' + (i + 1))
+    })));
     const activeGalleryIndex = Math.min(s.galleryIndex || 0, Math.max(gallerySource.length - 1, 0));
     const gallery = gallerySource.map((g, i) => Object.assign({}, g, {
       border: i === activeGalleryIndex ? '#2D483F' : '#E0E0DC',
@@ -2241,6 +2292,22 @@ class Component extends DCLogic {
     const activeGalleryAlt = activeGallery.photo && activeGallery.photo.props ? activeGallery.photo.props.alt : activeGallery.label;
     const activeGalleryPhoto = React.createElement('img', { key: 'gallery-' + activeGalleryIndex, src: activeGallerySrc, alt: activeGalleryAlt || '', style: { width: '100%', height: '100%', objectFit: 'contain', display: 'block' } });
     const activeGalleryPhotoLarge = React.createElement('img', { key: 'gallery-large-' + activeGalleryIndex, src: activeGallerySrc, alt: activeGalleryAlt || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' } });
+    const story = productStory ? {
+      eyebrow: productStory.eyebrow,
+      title: productStory.title,
+      intro: productStory.intro,
+      facts: productStory.facts.map(x => ({ value: x[0], label: x[1] })),
+      tech: productStory.tech.map((x, i) => ({ num: String(i + 1).padStart(2, '0'), title: x[0], text: x[1] })),
+      detailsTitle: 'Детали ' + L.name,
+      details: productStory.images.slice(1, 4).map((url, i) => ({
+        title: ['Рабочая зона и управление', 'Архитектура корпуса', 'Профессиональная среда'][i],
+        text: ['Узлы, с которыми бариста работает в течение смены.', 'Конструкция, материалы и доступ к ключевым компонентам.', 'Официальная съёмка модели и её характер в пространстве.'][i],
+        photo: this.coverPhoto(url, 'Деталь кофемашины Sanremo ' + L.name)
+      })),
+      optionsTitle: 'Конфигурация ' + L.name,
+      options: productStory.options.map(x => ({ title: x[0], text: x[1] })),
+      faq: productStory.faq.map(x => ({ q: x[0], a: x[1] }))
+    } : null;
 
     const scenSeen = {}, SCEN_LIST = [];
     LINES.forEach(l => l.scen.forEach(x => { if (!scenSeen[x]) { scenSeen[x] = 1; SCEN_LIST.push(x); } }));
@@ -2528,11 +2595,11 @@ class Component extends DCLogic {
       catalogEmpty: catalog.length === 0,
 
       p: {
-        family: L.name, role: L.role, tagline: L.tagline, isZoe: L.id === 'zoe',
-        productTitle: L.id === 'zoe' ? 'Sanremo ZOE 2026' : L.name,
+        family: L.name, role: L.role, tagline: L.tagline, isZoe: L.id === 'zoe', hasStory: L.id === 'zoe' || !!story,
+        productTitle: L.id === 'zoe' ? 'Sanremo ZOE 2026' : 'Sanremo ' + L.name,
         productLead: L.id === 'zoe'
           ? 'Профессиональная коммерческая кофемашина в исполнениях ZOE Competition TALL CB: высокая посадка групп, электронная дозировка и понятное управление для стабильной ежедневной работы.'
-          : L.tagline,
+          : (story ? story.intro : L.tagline),
         skuName: sku.name || L.name, photo: this.photo(sku.img, sku.name, 390, true),
         desc: L.id === 'zoe'
           ? 'Двухгрупповая автоматическая кофемашина Sanremo ZOE 2026 в исполнении Competition TALL CB. Высокая посадка 142 мм, электронная дозировка, таймер каждой группы, программируемое предсмачивание, подсветка рабочей зоны и автоматический цикл очистки. Теплообменная схема, сервисный бойлер AISI 316L объёмом 10 л, питание 220 В; мощность ТЭНа 2,7 кВт, максимальная потребляемая мощность 3,2 кВт.'
@@ -2569,6 +2636,43 @@ class Component extends DCLogic {
         stockDetail: this.props.showExactStock
           ? ('склад ' + (sku.stock || 0) + ' шт · доступно ' + (sku.access || 0) + ' шт')
           : '',
+        storyEyebrow: story ? story.eyebrow : 'ZOE 2026 · профессиональная платформа',
+        storyTitle: story ? story.title : 'Обновление легенды для ежедневной работы за стойкой',
+        storyIntro: story ? story.intro : 'Sanremo ZOE 2026 объединяет практичность версий SED и Competition в одной платформе. В центре — понятное электронное управление, быстрый доступ к узлам, стабильная теплообменная схема и конфигурации для разных форматов кофейного бизнеса.',
+        storyFacts: story ? story.facts : [
+          { value: '2 группы', label: 'Выбранное исполнение Competition TALL CB' },
+          { value: '142 мм', label: 'Высокая посадка под стакан и высокую чашку' },
+          { value: '10 л', label: 'Бойлер AISI 316L выбранного исполнения' },
+          { value: '220 В', label: 'Подключение выбранного российского SKU' }
+        ],
+        storyTech: story ? story.tech : [
+          { num: '01', title: 'Электронная дозировка', text: 'Программируемые порции помогают повторять рецепт и разгружают бариста в пиковый час.' },
+          { num: '02', title: 'Таймеры групп', text: 'Время пролива видно на дисплеях: проще контролировать экстракцию и обучать команду.' },
+          { num: '03', title: 'Предсмачивание', text: 'Отдельная настройка задержки клапана для одинарной и двойной порции.' },
+          { num: '04', title: 'Автоматическая очистка', text: 'Программируемый цикл сокращает ручные операции в закрытии смены.' },
+          { num: '05', title: 'Высокая группа TALL', text: 'Посадка 142 мм рассчитана на стаканы навынос; работа с чашкой остаётся удобной.' },
+          { num: '06', title: 'Сервисный доступ', text: 'Съёмные панели и обновлённая внутренняя компоновка упрощают доступ к компонентам.' }
+        ],
+        detailsTitle: story ? story.detailsTitle : 'Детали ZOE 2026',
+        storyDetails: story ? story.details : [
+          { title: 'Группа и двойной манометр', text: 'Крупный план группы, рабочей зоны и индикации давления бойлера и насоса.', photo: this.coverPhoto('/photo/zoe-2026/group-detail.jpg', 'Группа, рабочая зона и двойной манометр Sanremo ZOE 2026') },
+          { title: 'Боковой сервисный узел', text: 'Паровой кран, манометр и доступная для обслуживания боковая часть корпуса.', photo: this.coverPhoto('/photo/zoe-2026/side-detail.jpg', 'Боковой сервисный узел Sanremo ZOE 2026') },
+          { title: 'Рабочая зона крупным планом', text: 'Нижняя часть корпуса, решётка поддона и элементы рабочей зоны.', photo: this.coverPhoto('/photo/zoe-2026/control-panel.jpg', 'Поддон и рабочая зона Sanremo ZOE 2026 крупным планом') }
+        ],
+        optionsTitle: story ? story.optionsTitle : 'Оснащение и варианты ZOE 2026',
+        storyOptions: story ? story.options : [
+          { title: 'Steam System', text: 'Опциональная автоматизация молока: до двух рецептов, контроль температуры и простая очистка.' },
+          { title: 'Sanremo Link', text: 'Проводная синхронизация кофемашины и совместимой кофемолки с коррекцией помола в реальном времени.' },
+          { title: 'Standard / Tall', text: 'Две высоты рабочей зоны: 83 мм для классической чашки и 140–142 мм для высокого стакана.' },
+          { title: 'Отделки корпуса', text: 'Total Black, Total White, Black & White, White & Black, Total Inox и специальные цвета.' }
+        ],
+        storyFaq: story ? story.faq : [
+          { q: 'Для каких заведений подходит ZOE 2026?', a: 'Для первой кофейни, пекарни, ресторана и сетевой точки, где важны предсказуемая выдача напитков и понятное обслуживание.' },
+          { q: 'Что означает Competition TALL CB?', a: 'Это конкретное исполнение новой ZOE 2026 в российском ассортименте. TALL обозначает высокую посадку группы под стаканы; цена и наличие относятся к выбранному коду BIO.' },
+          { q: 'Чем отличаются Standard и Tall?', a: 'Standard рассчитан на классическую чашку, Tall — на высокий стакан. Для выбранного TALL CB в карточке используется посадка 142 мм.' },
+          { q: 'Есть ли автоматическая очистка?', a: 'Да, предусмотрен программируемый автоматический цикл очистки групп и функция короткой промывки.' },
+          { q: 'Кофемолка входит в комплект?', a: 'Нет. Кофемолку подбирают отдельно под рецепт, пиковую нагрузку и число бариста; для совместимых комплектов доступна опция Sanremo Link.' }
+        ],
         zoeFacts: [
           { value: '2 группы', label: 'Выбранное исполнение Competition TALL CB' },
           { value: '142 мм', label: 'Высокая посадка под стакан и высокую чашку' },
