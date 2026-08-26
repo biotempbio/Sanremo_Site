@@ -368,9 +368,15 @@
             </button>
           </sc-for>
         </div>
-        <div style="margin-top:16px;border:1px solid #E6E6E3;padding:20px 22px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Описание исполнения</div>
-          <p style="margin:12px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#3C3C3A">{{ p.desc }}</p>
+        <div style="margin-top:16px;border-top:1px solid #141414;padding:15px 2px 0;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start">
+          <div>
+            <div style="font:600 14px/1.35 'PT Sans',sans-serif;color:#141414">{{ p.skuName }}</div>
+            <div style="margin-top:7px;font:400 12px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ p.executionSummary }}</div>
+          </div>
+          <div style="text-align:right;white-space:nowrap">
+            <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">КОД BIO</div>
+            <div style="margin-top:7px;font:500 12px/1 'PT Mono',Menlo,monospace;color:#2D483F">{{ p.code }}</div>
+          </div>
         </div>
       </div>
       <div>
@@ -2426,6 +2432,9 @@ class Component extends DCLogic {
         desc: L.id === 'zoe'
           ? 'Двухгрупповая автоматическая кофемашина Sanremo ZOE 2026 в исполнении Competition TALL CB. Высокая посадка 142 мм, электронная дозировка, таймер каждой группы, программируемое предсмачивание, подсветка рабочей зоны и автоматический цикл очистки. Теплообменная схема, сервисный бойлер AISI 316L объёмом 10 л, питание 220 В; мощность ТЭНа 2,7 кВт, максимальная потребляемая мощность 3,2 кВт.'
           : (sku.desc || 'Описание исполнения загружается из карточки BIO.'),
+        executionSummary: L.id === 'zoe'
+          ? 'Высокая посадка 142 мм · электронная дозировка · таймеры групп · автоматическая очистка'
+          : [groupCount(sku) ? groupCount(sku) + ' ' + plural(groupCount(sku), 'группа', 'группы', 'групп') : '', colorTitle(sku.color), sku.height].filter(Boolean).join(' · '),
         activePhoto: activeGallery.photo, activePhotoLabel: activeGallery.label, gallery: gallery,
         code: sku.code || '—', vendor: sku.vendor || '—',
         skuCount: lineSkus.length,
