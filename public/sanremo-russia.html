@@ -1564,8 +1564,27 @@ class Component extends DCLogic {
       .sort((a, b) => (a.price || 0) - (b.price || 0));
   }
 
-  go = (page) => { this.setState({ page: page }); this.pushUrl(page, this.state.line); };
-  openLine = (id) => { this.setState({ page: 'product', line: id, sku: 0, showConfigs: false }); this.pushUrl('product', id); };
+  scrollPageTop = () => {
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    } catch (e) {}
+  };
+
+  go = (page) => {
+    this.scrollPageTop();
+    this.setState({ page: page });
+    this.pushUrl(page, this.state.line);
+    try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
+  };
+
+  openLine = (id) => {
+    this.scrollPageTop();
+    this.setState({ page: 'product', line: id, sku: 0, showConfigs: false });
+    this.pushUrl('product', id);
+    try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
+  };
 
   componentDidMount() {
     try { document.documentElement.lang = 'ru'; } catch (e) {}
