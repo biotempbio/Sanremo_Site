@@ -380,11 +380,40 @@
 
         <div style="margin-top:26px;border:1px solid #E6E6E3">
           <div style="padding:20px 22px;border-bottom:1px solid #E6E6E3">
-            <div style="font:600 12px/1 'PT Sans',sans-serif;color:#6E6E6A">Российские исполнения ({{ p.skuCount }})</div>
-            <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
-              <sc-for list="{{ p.skuOptions }}" as="c" hint-placeholder-count="4">
-                <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 14px;font:500 12px/1.4 'PT Sans',sans-serif;text-align:left;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
-              </sc-for>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap">
+              <div style="font:700 13px/1 'PT Sans',sans-serif;color:#141414">Соберите исполнение</div>
+              <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ p.skuCount }} вариантов в России</div>
+            </div>
+            <sc-if value="{{ p.showModifications }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:20px">
+                <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Модификация</div>
+                <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ p.modificationOptions }}" as="c" hint-placeholder-count="5">
+                    <button onClick="{{ c.pick }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <div style="margin-top:20px">
+              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Количество групп</div>
+              <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ p.groupOptions }}" as="c" hint-placeholder-count="3">
+                  <button onClick="{{ c.pick }}" style="min-width:44px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="margin-top:20px">
+              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Цвет</div>
+              <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ p.colorOptions }}" as="c" hint-placeholder-count="5">
+                  <button onClick="{{ c.pick }}" title="{{ c.label }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:8px 11px;display:flex;align-items:center;gap:8px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F"><span style="width:16px;height:16px;display:block;flex:none;border:1px solid #BFC2BE;background:{{ c.swatch }}"></span>{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="margin-top:18px;padding:12px 14px;background:#F4F4F2;border-left:3px solid #2D483F">
+              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6E6E6A">Выбрано</div>
+              <div style="margin-top:7px;font:600 13px/1.4 'PT Sans',sans-serif;color:#141414">{{ p.selectedConfiguration }}</div>
+              <div style="margin-top:5px;font:400 11px/1.4 'PT Mono',Menlo,monospace;color:#8A8A85">{{ p.skuName }}</div>
             </div>
           </div>
           <div style="padding:20px 22px;background:#FAFAF9">
@@ -410,12 +439,7 @@
         <div style="margin-top:20px;background:#F1F3F1;padding:18px 22px">
           <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#2D483F">Наличие линейки {{ p.family }}</div>
           <div style="margin-top:10px;font:700 20px/1.3 'PT Serif',Georgia,serif;color:#141414">{{ p.lineStock }}</div>
-          <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-            <sc-for list="{{ p.swatches }}" as="sw" hint-placeholder-count="4">
-              <span title="{{ sw.title }}" style="width:22px;height:22px;border:1px solid #C9CFCB;background:{{ sw.bg }};display:block"></span>
-            </sc-for>
-            <span style="font:400 13px/1 'PT Sans',sans-serif;color:#4A4A46">{{ p.swatchLabel }}</span>
-          </div>
+          <div style="margin-top:8px;font:400 13px/1.5 'PT Sans',sans-serif;color:#4A4A46">{{ p.availabilitySummary }}</div>
         </div>
 
         <div style="margin-top:20px;border:1px solid #E6E6E3;padding:18px 22px">
@@ -1404,6 +1428,20 @@ function colorHex(name) {
   return null;
 }
 
+function modificationTitle(m, lineId) {
+  const name = String(m.name || '');
+  if (lineId === 'racer') {
+    const variants = ['Custom Renegade', 'Full White', 'Dolomiti', 'Freedom', 'Racing', 'Naked'];
+    for (let i = 0; i < variants.length; i++) if (name.toLowerCase().indexOf(variants[i].toLowerCase()) >= 0) return variants[i];
+    return 'Classic';
+  }
+  if (lineId === 'd8') return /D8\s*PRO/i.test(name) ? 'D8 PRO' : 'D8';
+  if (lineId === 'zoe') return /экономайзер|economizer/i.test(name) ? 'Economizer' : 'Стандарт';
+  if (lineId === 'f18') return /SB/i.test(name) ? 'Single Boiler' : 'Multi Boiler';
+  if (lineId === 'you') return /PDL/i.test(name) ? 'PDL' : 'Стандарт';
+  return 'Стандарт';
+}
+
 function money(n) {
   if (!n && n !== 0) return 'по запросу';
   return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' ₽';
@@ -1944,6 +1982,28 @@ class Component extends DCLogic {
     const L = LINES.filter(l => l.id === s.line)[0];
     const lineSkus = this.lineSkus(s.line);
     const sku = lineSkus[Math.min(s.sku, Math.max(lineSkus.length - 1, 0))] || {};
+    const activeModification = modificationTitle(sku, s.line);
+    const activeGroups = sku.groups || 0;
+    const activeColor = colorKey(sku.color);
+    const pickClosest = (items, preferred) => {
+      if (!items.length) return;
+      const target = items.filter(preferred)[0] || items[0];
+      this.setState({ sku: lineSkus.indexOf(target) });
+    };
+    const uniqueBy = (items, valueOf) => {
+      const seen = {}, out = [];
+      items.forEach(item => { const value = valueOf(item); if (!seen[value]) { seen[value] = 1; out.push({ value: value, item: item }); } });
+      return out;
+    };
+    const modifications = uniqueBy(lineSkus, m => modificationTitle(m, s.line));
+    const modificationSkus = lineSkus.filter(m => modificationTitle(m, s.line) === activeModification);
+    const groups = uniqueBy(modificationSkus, m => String(m.groups || '—'));
+    const colorSkus = modificationSkus.filter(m => (m.groups || 0) === activeGroups);
+    const colors = uniqueBy(colorSkus, m => colorKey(m.color) || 'без указания');
+    const choiceStyle = active => active
+      ? { bg: '#2D483F', fg: '#FFFFFF', border: '#2D483F' }
+      : { bg: '#FFFFFF', fg: '#4A4A46', border: '#DCDCD8' };
+    const lineStats = this.lineStats(lineSkus);
 
     const scenSeen = {}, SCEN_LIST = [];
     LINES.forEach(l => l.scen.forEach(x => { if (!scenSeen[x]) { scenSeen[x] = 1; SCEN_LIST.push(x); } }));
@@ -2226,10 +2286,21 @@ class Component extends DCLogic {
         skuName: sku.name || L.name, photo: this.photo(sku.img, sku.name, 390, true), desc: sku.desc || 'Описание исполнения загружается из карточки BIO.',
         code: sku.code || '—', vendor: sku.vendor || '—',
         skuCount: lineSkus.length,
-        skuOptions: lineSkus.map((m, i) => Object.assign({
-          label: m.name + ' · ' + money(m.price),
-          pick: () => this.setState({ sku: i })
-        }, this.pill(sku.code === m.code))),
+        showModifications: modifications.length > 1,
+        modificationOptions: modifications.map(o => Object.assign({
+          label: o.value,
+          pick: () => pickClosest(lineSkus.filter(m => modificationTitle(m, s.line) === o.value), m => (m.groups || 0) === activeGroups && colorKey(m.color) === activeColor)
+        }, choiceStyle(o.value === activeModification))),
+        groupOptions: groups.map(o => Object.assign({
+          label: o.value === '—' ? '—' : o.value + ' гр.',
+          pick: () => pickClosest(modificationSkus.filter(m => String(m.groups || '—') === o.value), m => colorKey(m.color) === activeColor)
+        }, choiceStyle(String(activeGroups || '—') === o.value))),
+        colorOptions: colors.map(o => Object.assign({
+          label: colorTitle(o.item.color) || 'Без указания',
+          swatch: colorHex(o.item.color) || '#E6E6E3',
+          pick: () => pickClosest(colorSkus.filter(m => (colorKey(m.color) || 'без указания') === o.value), () => true)
+        }, choiceStyle(o.value === (activeColor || 'без указания')))),
+        selectedConfiguration: [activeModification, activeGroups ? activeGroups + ' ' + plural(activeGroups, 'группа', 'группы', 'групп') : '', colorTitle(sku.color)].filter(Boolean).join(' · '),
         price: money(sku.price),
         stockLabel: 'Наличие: ' + this.stockLabel(sku),
         stockDetail: this.props.showExactStock
@@ -2256,9 +2327,9 @@ class Component extends DCLogic {
           color: m.color, price: money(m.price), status: this.stockLabel(m),
           statusColor: (m.stock || 0) > 0 ? '#2D7A43' : '#C14E00'
         })),
-        swatches: this.swatches(lineSkus), swatchLabel: lineSkus.length + ' исполн.',
-        lineStock: this.lineStats(lineSkus).stockLine,
-        lineVariants: this.lineStats(lineSkus).variantLine + ' — цвета, посадка групп и комплектации из выгрузки BIO',
+        lineStock: lineStats.stockLine,
+        availabilitySummary: lineSkus.length + ' ' + plural(lineSkus.length, 'исполнение', 'исполнения', 'исполнений') + ' · ' + lineStats.inStockSkus + ' сейчас на складе' + (lineSkus.length > lineStats.inStockSkus ? ' · остальные под заказ' : ''),
+        lineVariants: lineStats.variantLine + ' — цвета, посадка групп и комплектации из выгрузки BIO',
         partsCount: (sku.spareParts || []).length,
         diffs: [
           { title: 'Место в матрице', sub: L.diff },
