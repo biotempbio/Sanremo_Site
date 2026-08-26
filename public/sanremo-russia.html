@@ -45,8 +45,10 @@
     .cases-ru-grid { grid-template-columns: 1fr !important; }
     .cases-ru-grid > article { grid-column: 1 / -1 !important; }
     .cases-ru-grid > article > div:first-child { height: 300px !important; }
-    .case-project-gallery { grid-template-columns: 1fr !important; }
-    .case-project-gallery > div { grid-column: 1 / -1 !important; height: 300px !important; }
+    .case-product-layout { grid-template-columns: 1fr !important; gap: 30px !important; padding-left: 20px !important; padding-right: 20px !important; }
+    .case-product-main { height: 340px !important; }
+    .case-product-thumbs { grid-template-columns: repeat(3,minmax(0,1fr)) !important; }
+    .case-product-thumb { height: 72px !important; }
   }
   .case-card-button:hover .case-card-photo img { transform: scale(1.018); }
   .case-card-button:focus-visible { outline: 3px solid #2D483F; outline-offset: 4px; }
@@ -1126,22 +1128,42 @@
   </sc-if>
 
   <sc-if value="{{ isCaseProject }}" hint-placeholder-val="{{ false }}">
-  <div style="max-width:1320px;margin:0 auto;padding:0 40px 86px">
-    <button onClick="{{ backToCases }}" style="border:0;background:none;padding:0;font:500 13px/1 'PT Sans',sans-serif;color:#777772">← Все кофейни</button>
-    <div style="margin-top:24px;border-top:1px solid #141414;padding-top:22px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:54px;align-items:start">
-      <div>
-        <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ activeCase.city }}</div>
-        <h1 style="margin:12px 0 0;font:700 48px/1.05 'PT Serif',Georgia,serif">{{ activeCase.client }}</h1>
+  <div class="case-product-layout" style="max-width:1320px;margin:0 auto;padding:0 40px 86px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start">
+    <div style="min-width:0">
+      <button onClick="{{ backToCases }}" style="border:0;background:none;padding:0;font:500 13px/1 'PT Sans',sans-serif;color:#777772">← Все кофейни</button>
+      <div class="case-product-main" style="margin-top:24px;background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        {{ activeCase.activePhoto }}
+        <button onClick="{{ activeCase.prevPhoto }}" aria-label="Предыдущая фотография" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">←</button>
+        <button onClick="{{ activeCase.nextPhoto }}" aria-label="Следующая фотография" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">→</button>
+        <div style="position:absolute;right:18px;bottom:16px;background:rgba(20,20,20,.7);color:#FFFFFF;padding:7px 9px;font:10px/1 'PT Mono',Menlo,monospace">{{ activeCase.photoCounter }}</div>
       </div>
-      <div>
-        <p style="margin:0;font:400 16px/1.65 'PT Sans',sans-serif;color:#4A4A46">{{ activeCase.task }}</p>
-        <div style="margin-top:20px;border-top:1px solid #E6E6E3;padding-top:14px;font:600 12px/1.3 'PT Sans',sans-serif;color:#2D483F">{{ activeCase.model }}</div>
+      <div class="case-product-thumbs" style="margin-top:12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
+        <sc-for list="{{ activeCase.gallery }}" as="g" hint-placeholder-count="4">
+          <button class="case-product-thumb" onClick="{{ g.pick }}" aria-label="Показать фотографию {{ g.num }}" style="height:82px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;overflow:hidden;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">{{ g.photo }}</button>
+        </sc-for>
       </div>
     </div>
-    <div class="case-project-gallery" style="margin-top:38px;display:grid;grid-template-columns:repeat(12,1fr);gap:16px">
-      <sc-for list="{{ activeCase.gallery }}" as="g" hint-placeholder-count="4">
-        <div style="grid-column:span {{ g.span }};height:{{ g.height }};overflow:hidden;background:#F1F1EF">{{ g.photo }}</div>
-      </sc-for>
+    <div style="padding-top:38px">
+      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Проект Sanremo · {{ activeCase.city }}</div>
+      <h1 style="margin:13px 0 0;font:700 42px/1.06 'PT Serif',Georgia,serif">{{ activeCase.client }}</h1>
+      <p style="margin:18px 0 0;font:400 16px/1.65 'PT Sans',sans-serif;color:#3C3C3A">{{ activeCase.task }}</p>
+      <div style="margin-top:28px;border:1px solid #E6E6E3">
+        <div style="padding:20px 22px">
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Оборудование проекта</div>
+          <div style="margin-top:10px;font:700 20px/1.2 'PT Serif',Georgia,serif;color:#2D483F">{{ activeCase.model }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #E6E6E3">
+          <div style="padding:17px 22px;border-right:1px solid #E6E6E3">
+            <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">ЛОКАЦИЯ</div>
+            <div style="margin-top:8px;font:600 13px/1.45 'PT Sans',sans-serif">{{ activeCase.city }}</div>
+          </div>
+          <div style="padding:17px 22px">
+            <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">ФОТОГРАФИИ</div>
+            <div style="margin-top:8px;font:600 13px/1.45 'PT Sans',sans-serif">{{ activeCase.photoCount }}</div>
+          </div>
+        </div>
+      </div>
+      <button onClick="{{ backToCases }}" style="margin-top:24px;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Смотреть другие кейсы</button>
     </div>
   </div>
   </sc-if>
@@ -1826,7 +1848,7 @@ class Component extends DCLogic {
       if (id) this.setState({ page: 'product', line: id, sku: 0 });
     }
     const cm = /\/kejsy\/([a-z0-9-]+)\/?/.exec(p || '');
-    if (cm) this.setState({ page: 'case-project', caseSlug: cm[1] });
+    if (cm) this.setState({ page: 'case-project', caseSlug: cm[1], galleryIndex: 0 });
   }
 
   pathFor(page, line) {
@@ -2418,12 +2440,21 @@ class Component extends DCLogic {
     const racerSkus = this.lineSkus('racer');
     const heroSku = racerSkus.filter(x => x.code === HERO_CODE.racer)[0] || racerSkus.filter(x => x.img)[0] || {};
     const caseDetail = CASE_DETAILS[s.caseSlug] || CASE_DETAILS['bistro-9-18'];
+    const casePhotoIndex = Math.min(s.galleryIndex || 0, Math.max(caseDetail.photos.length - 1, 0));
+    const casePhotoStart = Math.floor(casePhotoIndex / 4) * 4;
     const activeCase = Object.assign({}, caseDetail, {
+      activePhoto: this.coverPhoto(caseDetail.photos[casePhotoIndex], caseDetail.client + ' — фотография проекта ' + (casePhotoIndex + 1)),
+      photoCounter: String(casePhotoIndex + 1).padStart(2, '0') + ' / ' + String(caseDetail.photos.length).padStart(2, '0'),
+      photoCount: caseDetail.photos.length + ' ' + plural(caseDetail.photos.length, 'кадр проекта', 'кадра проекта', 'кадров проекта'),
+      prevPhoto: () => this.setState({ galleryIndex: (casePhotoIndex - 1 + caseDetail.photos.length) % caseDetail.photos.length }),
+      nextPhoto: () => this.setState({ galleryIndex: (casePhotoIndex + 1) % caseDetail.photos.length }),
       gallery: caseDetail.photos.map((url, i) => ({
-        span: i === 0 ? '12' : (i % 3 === 0 ? '7' : '5'),
-        height: i === 0 ? '610px' : '390px',
+        num: i + 1,
+        border: i === casePhotoIndex ? '#2D483F' : '#E0E0DC',
+        opacity: i === casePhotoIndex ? '1' : '.72',
+        pick: () => this.setState({ galleryIndex: i }),
         photo: this.coverPhoto(url, caseDetail.client + ' — фотография проекта ' + (i + 1))
-      }))
+      })).slice(casePhotoStart, casePhotoStart + 4)
     });
 
     return {
@@ -2438,7 +2469,7 @@ class Component extends DCLogic {
       goHome: () => this.go('home'), goCatalog: () => this.go('catalog'), goChoose: () => this.go('choose'),
       goSolutions: () => this.go('solutions'), goDealers: () => this.go('dealers'),
       goService: () => this.go('service'), goNews: () => this.go('news'), goCases: () => this.go('cases'), goDocs: () => this.go('docs'),
-      backToCases: () => this.go('cases'), activeCase: activeCase,
+      backToCases: () => { this.setState({ galleryIndex: 0 }); this.go('cases'); }, activeCase: activeCase,
       goCompare: () => this.go('compare'), goFaq: () => this.go('faq'), goPartner: () => this.go('partner'),
 
       docTypes: DOC_TYPES.map(t => Object.assign({
@@ -2832,7 +2863,7 @@ class Component extends DCLogic {
           photo: slug === 'chaika-krichala' ? this.coverPhoto(detail.photos[0], 'Кафе-пекарня Чайка кричала в Геленджике') : c.photo,
           open: () => {
             this.scrollPageTop();
-            this.setState({ page: 'case-project', caseSlug: slug });
+            this.setState({ page: 'case-project', caseSlug: slug, galleryIndex: 0 });
             try { history.pushState({ page: 'case-project', caseSlug: slug }, '', '/kejsy/' + slug + '/'); } catch (e) {}
             try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
           }
