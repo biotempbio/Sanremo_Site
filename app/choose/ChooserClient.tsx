@@ -59,7 +59,6 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
   const [budget, setBudget] = useState<string>("any");
   const [width, setWidth] = useState<string>("");
   const [profiling, setProfiling] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const result = useMemo(() => {
     const fmt = FORMATS.find((f) => f.id === format);
@@ -96,7 +95,7 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
 
   return (
     <div className="chooser">
-      <form className="chooser-form" onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}>
+      <form className="chooser-form" onSubmit={(e) => e.preventDefault()}>
         <fieldset>
           <legend className="eyebrow">1. Формат бизнеса</legend>
           <div className="chips">

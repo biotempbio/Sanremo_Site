@@ -22,6 +22,8 @@ import {
 
 type Props = { params: Promise<{ family: string; model: string }> };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return models.map((m) => ({ family: m.family, model: m.slug }));
 }

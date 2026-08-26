@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: "Sanremo Russia — профессиональные кофемашины",
   description:
     "Официальный каталог профессиональных кофемашин Sanremo в России.",

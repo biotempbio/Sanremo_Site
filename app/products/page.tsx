@@ -8,8 +8,8 @@ import {
   skusOfModel,
   familyBySlug,
   VOLUME_BANDS,
-  liveSkus,
 } from "@/lib/catalog";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Каталог профессиональных кофемашин Sanremo — РРЦ и наличие в России",
@@ -65,7 +65,7 @@ export default function ProductsPage() {
       "@type": "ListItem",
       position: i + 1,
       name: `Sanremo ${r.name}`,
-      url: `https://sanremomachines.ru/products/${r.family}/${r.slug}`,
+      url: new URL(`products/${r.family}/${r.slug}/`, siteUrl).toString(),
     })),
   };
 

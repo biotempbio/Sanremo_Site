@@ -41,8 +41,8 @@ export default function SolutionsPage() {
 
         {SCENARIOS.map((s, i) => {
           const main = modelBySlug(s.main);
-          const alt = s.alt ? modelBySlug(s.alt) : null;
-          const up = s.upgrade ? modelBySlug(s.upgrade) : null;
+          const alt = s.alt ? modelBySlug(s.alt) : undefined;
+          const up = s.upgrade ? modelBySlug(s.upgrade) : undefined;
           const bands = VOLUME_BANDS.filter((b) => b.models.includes(s.main));
           const flip = i % 2 === 1;
           return (

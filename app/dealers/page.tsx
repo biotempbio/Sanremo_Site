@@ -10,10 +10,7 @@ export const metadata: Metadata = {
     "Авторизованные дилеры Sanremo в России: продажа, шоурум, демонстрация, обучение, монтаж и сервис. Поиск по городу и региону. Если партнёра рядом нет — заявку принимает дистрибьютор BIO.",
 };
 
-type Props = { searchParams: Promise<{ city?: string }> };
-
-export default async function DealersPage({ searchParams }: Props) {
-  const { city } = await searchParams;
+export default function DealersPage() {
   const cities = dealerCities();
 
   const schema = {
@@ -61,7 +58,7 @@ export default async function DealersPage({ searchParams }: Props) {
           <DealersClient
             dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified }))}
             cities={cities}
-            initialCity={city}
+            initialCity={undefined}
           />
         </section>
 

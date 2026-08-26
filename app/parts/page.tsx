@@ -10,10 +10,7 @@ export const metadata: Metadata = {
     "Каталог запасных частей Sanremo в России: поиск по артикулу, названию, модели и узлу, подтверждённая совместимость, рекомендованная цена и складской статус. Поиск открыт без авторизации.",
 };
 
-type Props = { searchParams: Promise<{ model?: string; q?: string }> };
-
-export default async function PartsPage({ searchParams }: Props) {
-  const { model } = await searchParams;
+export default function PartsPage() {
 
   const rows: PartRow[] = parts.map((p) => {
     const linked = p.fits.map((c) => skuByCode(c)).filter(Boolean);
@@ -60,7 +57,7 @@ export default async function PartsPage({ searchParams }: Props) {
               slug: m.slug,
               name: CATALOG_LINEUP.find((line) => line.slug === m.slug)?.label ?? m.name,
             }))}
-            initialModel={model}
+            initialModel={undefined}
           />
         </section>
 
