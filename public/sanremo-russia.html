@@ -355,15 +355,15 @@
 
   <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
   <div style="padding-bottom:80px">
-    <div style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.15fr 1fr;gap:48px">
-      <div>
+    <div style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px">
+      <div style="min-width:0">
         <div style="background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
           {{ p.activePhoto }}
           <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:48px;border:1px solid rgba(255,255,255,.55);background:rgba(20,20,20,.72);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s" style-hover="background:#2D483F">←</button>
           <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:42px;height:48px;border:1px solid rgba(255,255,255,.55);background:rgba(20,20,20,.72);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s" style-hover="background:#2D483F">→</button>
           <div style="position:absolute;left:18px;bottom:16px;background:rgba(20,20,20,.82);color:#FFFFFF;padding:7px 10px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ p.activePhotoLabel }}</div>
         </div>
-        <div style="margin-top:10px;display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">
+        <div style="margin-top:10px;width:100%;max-width:100%;min-width:0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;padding-bottom:7px;scrollbar-color:#2D483F #ECECE8;scrollbar-width:thin">
           <sc-for list="{{ p.gallery }}" as="g" hint-placeholder-count="4">
             <button onClick="{{ g.pick }}" title="{{ g.label }}" style="width:118px;height:82px;flex:0 0 118px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;display:flex;align-items:flex-end;overflow:hidden;position:relative;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">
               {{ g.photo }}
