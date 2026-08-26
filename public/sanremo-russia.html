@@ -45,7 +45,12 @@
     .cases-ru-grid { grid-template-columns: 1fr !important; }
     .cases-ru-grid > article { grid-column: 1 / -1 !important; }
     .cases-ru-grid > article > div:first-child { height: 300px !important; }
+    .case-project-gallery { grid-template-columns: 1fr !important; }
+    .case-project-gallery > div { grid-column: 1 / -1 !important; height: 300px !important; }
   }
+  .case-card-button:hover .case-card-photo img { transform: scale(1.018); }
+  .case-card-button:focus-visible { outline: 3px solid #2D483F; outline-offset: 4px; }
+  .case-card-photo img { transition: transform .28s ease; }
   @keyframes galleryFade { from { opacity: .35; } to { opacity: 1; } }
   .product-gallery-active img { animation: galleryFade .3s ease; }
   @media (prefers-reduced-motion: reduce) { .product-gallery-active img { animation: none; } }
@@ -232,7 +237,6 @@
       <div style="padding:40px 0 40px 56px">
         <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">Кейсы</div>
         <h2 style="margin:14px 0 0;font:700 34px/1.12 'PT Serif',Georgia,serif">Кофейни выбирают Sanremo</h2>
-        <p style="margin:18px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#3C3C3A;max-width:480px">Российские установки с подтверждённой моделью, конфигурацией, форматом точки и согласием клиента на публикацию названия и фотографий.</p>
         <span style="margin-top:28px;display:inline-block;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Смотреть кейсы</span>
       </div>
     </button>
@@ -1121,6 +1125,27 @@
   </div>
   </sc-if>
 
+  <sc-if value="{{ isCaseProject }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1320px;margin:0 auto;padding:0 40px 86px">
+    <button onClick="{{ backToCases }}" style="border:0;background:none;padding:0;font:500 13px/1 'PT Sans',sans-serif;color:#777772">← Все кофейни</button>
+    <div style="margin-top:24px;border-top:1px solid #141414;padding-top:22px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr);gap:54px;align-items:start">
+      <div>
+        <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ activeCase.city }}</div>
+        <h1 style="margin:12px 0 0;font:700 48px/1.05 'PT Serif',Georgia,serif">{{ activeCase.client }}</h1>
+      </div>
+      <div>
+        <p style="margin:0;font:400 16px/1.65 'PT Sans',sans-serif;color:#4A4A46">{{ activeCase.task }}</p>
+        <div style="margin-top:20px;border-top:1px solid #E6E6E3;padding-top:14px;font:600 12px/1.3 'PT Sans',sans-serif;color:#2D483F">{{ activeCase.model }}</div>
+      </div>
+    </div>
+    <div class="case-project-gallery" style="margin-top:38px;display:grid;grid-template-columns:repeat(12,1fr);gap:16px">
+      <sc-for list="{{ activeCase.gallery }}" as="g" hint-placeholder-count="4">
+        <div style="grid-column:span {{ g.span }};height:{{ g.height }};overflow:hidden;background:#F1F1EF">{{ g.photo }}</div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
   <sc-if value="{{ isCases }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <h1 style="margin:0;font:700 44px/1.08 'PT Serif',Georgia,serif">Кофейни выбирают Sanremo</h1>
@@ -1132,20 +1157,21 @@
     </div>
     <div class="cases-ru-grid" style="margin-top:22px;display:grid;grid-template-columns:repeat(12,1fr);gap:34px 22px">
       <sc-for list="{{ casesRu }}" as="c" hint-placeholder-count="3">
-        <article style="grid-column:span {{ c.span }};min-width:0;border-top:1px solid #141414;padding-top:10px">
-          <div style="background:#F4F4F2;height:{{ c.height }};display:flex;align-items:stretch;overflow:hidden;position:relative">
+        <article style="grid-column:span {{ c.span }};min-width:0;border-top:1px solid #141414;padding-top:10px;display:flex">
+          <button class="case-card-button" onClick="{{ c.open }}" aria-label="Открыть проект {{ c.client }}" style="width:100%;border:0;background:#FFFFFF;padding:0;text-align:left;display:flex;flex-direction:column;cursor:pointer">
+          <div class="case-card-photo" style="background:#F4F4F2;height:{{ c.height }};display:flex;align-items:stretch;overflow:hidden;position:relative">
             {{ c.photo }}
-            <span style="position:absolute;left:12px;bottom:12px;background:rgba(20,20,20,.78);color:#FFFFFF;padding:7px 9px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ c.slot }}</span>
           </div>
-          <div style="padding:17px 2px 0">
+          <div style="padding:17px 2px 0;display:flex;flex-direction:column;flex:1;width:100%">
             <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ c.city }}</div>
             <div style="margin-top:9px;font:700 22px/1.15 'PT Serif',Georgia,serif">{{ c.client }}</div>
             <div style="margin-top:10px;font:400 13px/1.6 'PT Sans',sans-serif;color:#5A5A56">{{ c.task }}</div>
-            <div style="margin-top:14px;border-top:1px solid #EFEFEC;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px">
+            <div style="margin-top:auto;padding-top:18px;border-top:1px solid #EFEFEC;display:flex;justify-content:space-between;align-items:center;gap:10px">
               <span style="font:500 12px/1 'PT Sans',sans-serif;color:#2D483F">{{ c.model }}</span>
               <span style="font:600 10px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">{{ c.state }}</span>
             </div>
           </div>
+          </button>
         </article>
       </sc-for>
     </div>
@@ -1640,6 +1666,23 @@ const KB = [
 
 const KB_TINT = { 'Инструкция': '#003E51', 'Регламент': '#2D7A43', 'Диагностика': '#C14E00' };
 
+const CASE_DETAILS = {
+  'bistro-9-18': { city: 'Нижний Новгород · Ивановский съезд, 9/18', client: 'Бистро 9/18', model: 'Sanremo Café Racer', task: 'Городское бистро у стен Кремля соединяет европейские завтраки, ужины и specialty-кофе. Светлый зал, стеклоблоки и открытая стойка делают кофейную станцию частью интерьера.', photos: ['/photo/case-projects/bistro/photo-0.webp','/photo/case-projects/bistro/photo-1.webp','/photo/case-projects/bistro/photo-2.webp','/photo/case-projects/bistro/photo-6.webp'] },
+  'st-riders': { city: 'Москва · Таганская', client: 'St.Riders Coffee', model: 'Оборудование Sanremo', task: 'Кофейня рядом с Марксистской построена вокруг культуры движения: мотоцикл в зале, трансляции экстремальных чемпионатов и сдержанный индустриальный интерьер.', photos: ['/photo/case-projects/st-riders/photo_1_2026-08-26_10-06-03.jpg','/photo/case-projects/st-riders/photo_2_2026-08-26_10-06-04.jpg','/photo/case-projects/st-riders/photo_3_2026-08-26_10-06-04.jpg','/photo/case-projects/st-riders/photo_4_2026-08-26_10-06-04.jpg','/photo/case-projects/st-riders/photo_5_2026-08-26_10-06-04.jpg'] },
+  'cofefest': { city: 'Москва · городская сеть', client: 'CofeFest', model: 'Оборудование Sanremo', task: 'Московская сеть развивает разные форматы — от кофеен в деловых и медицинских центрах до полноценных городских кафе.', photos: ['/photo/case-projects/cofefest/photo-0.webp','/photo/case-projects/cofefest/photo-1.webp','/photo/case-projects/cofefest/photo-2.webp','/photo/case-projects/cofefest/photo-3.webp'] },
+  'speshl': { city: 'Санкт-Петербург · Большая Конюшенная', client: 'Спэшл', model: 'Оборудование Sanremo', task: 'Петербургская specialty-кофейня с европейской кухней занимает исторический фасад на Большой Конюшенной.', photos: ['/photo/case-projects/speshl/photo-0.webp','/photo/case-projects/speshl/photo-1.webp','/photo/case-projects/speshl/photo-2.webp','/photo/case-projects/speshl/photo-3.webp','/photo/case-projects/speshl/photo-4.webp','/photo/case-projects/speshl/photo-5.webp'] },
+  'sedelice': { city: 'Москва · кофейня-пекарня', client: 'French Bakery SeDelice', model: 'Sanremo Café Racer', task: 'Формат собственной пекарни соединяет кофе, выпечку на сливочном масле и полноценное городское меню.', photos: ['/photo/case-projects/sedelice/0fa857df39bc5426b9dc92d693867ce0_w1200_h630.webp','/photo/case-projects/sedelice/photo_2026-08-26_11-02-21.jpg'] },
+  'pravda-coffee': { city: 'Москва · сеть кофеен', client: 'Правда Кофе', model: 'Sanremo D8', task: 'Сеть работает в плотном московском потоке и делает ставку на понятную стойку, быстрое обслуживание и узнаваемую графику.', photos: ['/photo/case-projects/pravda/photo_2026-08-26_10-54-36.jpg','/photo/case-projects/pravda/photo_2026-08-26_10-54-49.jpg'] },
+  'vkusvill': { city: 'Москва · кафе в ритейле', client: 'Кафе ВкусВилл', model: 'Оборудование Sanremo', task: 'Кофейный формат вырос из зон быстрого перекуса внутри магазинов в отдельные городские пространства.', photos: ['/photo/case-projects/vkusvill/photo_2026-08-26_11-15-33.jpg','/photo/case-projects/vkusvill/photo_2026-08-26_11-15-50.jpg','/photo/case-projects/vkusvill/photo_2026-08-26_11-16-00.jpg','/photo/case-projects/vkusvill/photo_2026-08-26_11-16-05.jpg'] },
+  'vanlav': { city: 'Санкт-Петербург · Невский проспект', client: 'Ванлав', model: 'Оборудование Sanremo', task: 'Кондитерская на Невском работает вокруг десертов, кофе и эмоциональных городских встреч.', photos: ['/photo/case-projects/vanlav/photo-0.webp','/photo/case-projects/vanlav/photo-1.webp','/photo/case-projects/vanlav/photo-3.webp'] },
+  'baggins': { city: 'Санкт-Петербург · городская сеть', client: 'Baggins Coffee', model: 'Оборудование Sanremo', task: 'Петербургская сеть строит узнаваемый мир вокруг легенды о козе — символе открытия кофе.', photos: ['/photo/case-projects/baggins/photo_2_2026-08-26_10-24-10.jpg','/photo/case-projects/baggins/photo_3_2026-08-26_10-24-10.jpg'] },
+  'notik': { city: 'Санкт-Петербург · Литейный, 31', client: 'Нотик Кофе', model: 'Sanremo Café Racer', task: 'Гастрокофейня связана с собственным производством и продажей зерна. Светлый интерьер и открытая кофейная стойка собирают цельную продуктовую историю.', photos: ['/photo/case-projects/notik/photo-0.webp','/photo/case-projects/notik/photo-1.webp','/photo/case-projects/notik/photo-2.webp','/photo/case-projects/notik/photo-3.webp','/photo/case-projects/notik/photo-4.webp','/photo/case-projects/notik/photo-5.webp'] },
+  'coffee-combo': { city: 'Москва · экспресс-кофейня', client: 'Coffee Combo', model: 'Оборудование Sanremo', task: 'Сеть экспресс-кофеен работает в торговых центрах и на маршрутах ежедневного трафика.', photos: ['/photo/case-projects/combo/photo_2026-08-19_09-00-34.jpg','/photo/case-projects/combo/photo_2026-08-26_10-12-59.jpg','/photo/case-projects/combo/photo_2026-08-26_10-13-21.jpg'] },
+  'coffee-4-human': { city: 'Тахтамукай · Республика Адыгея', client: 'Coffee 4 Human', model: 'Оборудование Sanremo', task: 'Локальная кофейня встречает гостя прямой вывеской и собственным кофейным образом.', photos: ['/photo/case-projects/coffee4human/photo_2026-07-03_15-57-22.jpg','/photo/case-projects/coffee4human/photo_2026-07-03_15-57-28.jpg','/photo/case-projects/coffee4human/photo_2026-07-03_15-57-37.jpg','/photo/case-projects/coffee4human/photo_2026-07-03_15-57-39.jpg'] },
+  'chaika-krichala': { city: 'Геленджик · кафе-пекарня', client: 'Чайка кричала', model: 'Оборудование Sanremo', task: 'Морское кафе-пекарня соединяет собственную выпечку, спокойный курортный интерьер и полноценную кофейную станцию Sanremo.', photos: ['/photo/case-projects/chaika/photo_7_2026-08-26_10-17-02.jpg','/photo/case-projects/chaika/photo_6_2026-08-26_10-17-02.jpg','/photo/case-projects/chaika/photo_8_2026-08-26_10-17-02.jpg','/photo/case-projects/chaika/photo_5_2026-08-26_10-17-02.jpg','/photo/case-projects/chaika/photo_4_2026-08-26_10-17-02.jpg','/photo/case-projects/chaika/photo_2_2026-08-26_10-17-02.jpg'] }
+};
+const CASE_SLUG_BY_NAME = { 'Бистро 9/18':'bistro-9-18', 'St.Riders Coffee':'st-riders', 'CofeFest':'cofefest', 'Спэшл':'speshl', 'French Bakery SeDelice':'sedelice', 'Правда Кофе':'pravda-coffee', 'Кафе ВкусВилл':'vkusvill', 'Ванлав':'vanlav', 'Baggins Coffee':'baggins', 'Нотик Кофе':'notik', 'Coffee Combo':'coffee-combo', 'Coffee 4 Human':'coffee-4-human', 'Чайка кричала':'chaika-krichala' };
+
 const FAQ_DATA = [
   { title: 'Покупка и цены', items: [
     { q: 'Чем РРЦ отличается от цены дилера?', a: 'РРЦ — рекомендованная розничная цена, ориентир для сравнения линеек. Итоговую цену с монтажом, водоподготовкой и кофемолкой формирует дилер под конкретную точку.' },
@@ -1668,7 +1711,7 @@ const FAQ_DATA = [
 
 class Component extends DCLogic {
   state = {
-    page: 'home', line: 'zoe', sku: 0, newsItem: 0,
+    page: 'home', line: 'zoe', sku: 0, newsItem: 0, caseSlug: 'bistro-9-18',
     showConfigs: false, galleryIndex: 0, photoOpen: false,
     f: { groups: null, height: null, stock: null, cups: null, scen: null, price: null, tech: [] },
     q: { format: null, cups: null, milk: null, groups: null, budget: null, width: null },
@@ -1731,10 +1774,13 @@ class Component extends DCLogic {
       const id = Object.keys(SLUG).filter(k => SLUG[k] === m[1])[0];
       if (id) this.setState({ page: 'product', line: id, sku: 0 });
     }
+    const cm = /\/kejsy\/([a-z0-9-]+)\/?/.exec(p || '');
+    if (cm) this.setState({ page: 'case-project', caseSlug: cm[1] });
   }
 
   pathFor(page, line) {
     if (page === 'product') return '/kofemashiny/' + (SLUG[line || this.state.line] || '') + '/';
+    if (page === 'case-project') return '/kejsy/' + this.state.caseSlug + '/';
     return (SEO[page] || SEO.home).path;
   }
 
@@ -2304,6 +2350,14 @@ class Component extends DCLogic {
     const crumbs = { home: 'Обзор', catalog: 'Кофемашины', product: L.name, choose: 'Подобрать', solutions: 'Решения', dealers: 'Где купить', service: 'Сервис и запчасти', news: 'Актуальное', cases: 'Кейсы', docs: 'Документы', compare: 'Сравнение линеек', faq: 'Вопросы и ответы', partner: 'Стать дилером' };
     const racerSkus = this.lineSkus('racer');
     const heroSku = racerSkus.filter(x => x.code === HERO_CODE.racer)[0] || racerSkus.filter(x => x.img)[0] || {};
+    const caseDetail = CASE_DETAILS[s.caseSlug] || CASE_DETAILS['bistro-9-18'];
+    const activeCase = Object.assign({}, caseDetail, {
+      gallery: caseDetail.photos.map((url, i) => ({
+        span: i === 0 ? '12' : (i % 3 === 0 ? '7' : '5'),
+        height: i === 0 ? '610px' : '390px',
+        photo: this.coverPhoto(url, caseDetail.client + ' — фотография проекта ' + (i + 1))
+      }))
+    });
 
     return {
       crumb: crumbs[s.page],
@@ -2311,12 +2365,13 @@ class Component extends DCLogic {
       partCountWord: plural(db.parts.filter(p => (p.stock || 0) > 0).length, 'позиция', 'позиции', 'позиций'),
       isHome: s.page === 'home', isCatalog: s.page === 'catalog', isProduct: s.page === 'product',
       isChoose: s.page === 'choose', isSolutions: s.page === 'solutions', isDealers: s.page === 'dealers',
-      isService: s.page === 'service', isNews: s.page === 'news', isCases: s.page === 'cases', isDocs: s.page === 'docs',
+      isService: s.page === 'service', isNews: s.page === 'news', isCases: s.page === 'cases', isCaseProject: s.page === 'case-project', isDocs: s.page === 'docs',
       isCompare: s.page === 'compare', isFaq: s.page === 'faq', isPartner: s.page === 'partner',
 
       goHome: () => this.go('home'), goCatalog: () => this.go('catalog'), goChoose: () => this.go('choose'),
       goSolutions: () => this.go('solutions'), goDealers: () => this.go('dealers'),
       goService: () => this.go('service'), goNews: () => this.go('news'), goCases: () => this.go('cases'), goDocs: () => this.go('docs'),
+      backToCases: () => this.go('cases'), activeCase: activeCase,
       goCompare: () => this.go('compare'), goFaq: () => this.go('faq'), goPartner: () => this.go('partner'),
 
       docTypes: DOC_TYPES.map(t => Object.assign({
@@ -2666,7 +2721,19 @@ class Component extends DCLogic {
         { span: '7', height: '350px', city: 'Москва · экспресс-кофейня', client: 'Coffee Combo', slot: 'интерьер · торговый центр', photo: this.coverPhoto('/photo/cases-ru/combo.jpg', 'Интерьер Coffee Combo в московском торговом центре'), task: 'Сеть экспресс-кофеен работает в торговых центрах и на маршрутах ежедневного трафика. Панорамное остекление, длинная витрина и открытая кофейная зона помогают точке оставаться заметной внутри большого пространства.', model: 'Оборудование Sanremo', state: 'Москва' },
         { span: '5', height: '350px', city: 'Тахтамукай · Республика Адыгея', client: 'Coffee 4 Human', slot: 'фасад · локальная кофейня', photo: this.coverPhoto('/photo/cases-ru/coffee-4-human.jpg', 'Вывеска Coffee 4 Human в Адыгее'), task: 'Локальная кофейня встречает гостя прямой вывеской и собственным кофейным образом. В кадре фасад и карта Sanremo — лаконичная история о том, как профессиональное оборудование приходит в региональный проект.', model: 'Оборудование Sanremo', state: 'Адыгея' },
         { span: '12', height: '430px', city: 'Геленджик · кафе-пекарня', client: 'Чайка кричала', slot: 'у моря · кафе-пекарня', photo: this.coverPhoto('/photo/cases-ru/chaika.jpg', 'Фирменная упаковка кафе-пекарни Чайка кричала в Геленджике'), task: 'Морское кафе-пекарня говорит с гостем легко и без столичного пафоса: голубая графика, простая упаковка и курортный ритм. Кофе здесь сопровождает выпечку и прогулку по Геленджику.', model: 'Оборудование Sanremo', state: 'Геленджик' }
-      ],
+      ].map(c => {
+        const slug = CASE_SLUG_BY_NAME[c.client];
+        const detail = CASE_DETAILS[slug];
+        return Object.assign({}, c, {
+          photo: slug === 'chaika-krichala' ? this.coverPhoto(detail.photos[0], 'Кафе-пекарня Чайка кричала в Геленджике') : c.photo,
+          open: () => {
+            this.scrollPageTop();
+            this.setState({ page: 'case-project', caseSlug: slug });
+            try { history.pushState({ page: 'case-project', caseSlug: slug }, '', '/kejsy/' + slug + '/'); } catch (e) {}
+            try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
+          }
+        });
+      }),
       casesWorld: [
         { tag: 'World Coffee Events', photo: this.coverPhoto('/photo/official-sanremo-community.jpg', 'Команда Sanremo на международном кофейном событии'), title: 'Официальная машина финалов WLAC и WCIGS', text: 'С 2018 года Café Racer — машина финалов чемпионатов World Latte Art и Coffee in Good Spirits: на ней работают лучшие бариста мира.', model: 'Café Racer' },
         { tag: 'HOST · Sanremo House', photo: this.coverPhoto('/photo/sanremo-house-3.webp', 'Выставочный стенд Sanremo с кофемашинами'), title: 'Живое пространство вокруг кофейных технологий', text: 'Выставочные стенды Sanremo работают как настоящие кофейные бары: машины показаны в потоке, с бариста и гостями.', model: 'Café Racer + D8' },
