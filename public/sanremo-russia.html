@@ -41,6 +41,11 @@
     outline-offset: 3px;
   }
   table { border-collapse: collapse; }
+  @media (max-width: 760px) {
+    .cases-ru-grid { grid-template-columns: 1fr !important; }
+    .cases-ru-grid > article { grid-column: 1 / -1 !important; }
+    .cases-ru-grid > article > div:first-child { height: 300px !important; }
+  }
 </style>
 <meta name="description" content="Профессиональные кофемашины Sanremo в России: линейки ZOE Competition, F18, Café Racer, Opera, YOU. РРЦ, наличие на складе в Москве, подбор под поток, сервис и ЗИП. Официальный дистрибьютор — компания BIO." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -1101,28 +1106,29 @@
   <sc-if value="{{ isCases }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <h1 style="margin:0;font:700 44px/1.08 'PT Serif',Georgia,serif">Кофейни выбирают Sanremo</h1>
-    <p style="margin:14px 0 0;max-width:680px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Российские установки идут первыми: они ближе к решению о покупке. Блок «Sanremo в мире» показывает, что бренд стоит на стойках лучших кофеен и на финалах мировых чемпионатов.</p>
+    <p style="margin:14px 0 0;max-width:760px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Тринадцать живых пространств — от петербургской specialty-кофейни до московской сети и кафе у моря. Здесь важна не только машина за стойкой, но и характер места, в котором она работает каждый день.</p>
 
     <div style="margin-top:36px;display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-bottom:1px solid #E6E6E3;padding-bottom:12px">
-      <h2 style="margin:0;font:700 28px/1.1 'PT Serif',Georgia,serif">Россия</h2>
+      <h2 style="margin:0;font:700 28px/1.1 'PT Serif',Georgia,serif">Кофейни России</h2>
+      <span style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">13 установок · фотографии из проектов</span>
     </div>
-    <div style="margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+    <div class="cases-ru-grid" style="margin-top:22px;display:grid;grid-template-columns:repeat(12,1fr);gap:34px 22px">
       <sc-for list="{{ casesRu }}" as="c" hint-placeholder-count="3">
-        <div style="border:1px solid #E6E6E3">
-          <div style="background:#F4F4F2;height:200px;display:flex;align-items:stretch;overflow:hidden;position:relative">
+        <article style="grid-column:span {{ c.span }};min-width:0;border-top:1px solid #141414;padding-top:10px">
+          <div style="background:#F4F4F2;height:{{ c.height }};display:flex;align-items:stretch;overflow:hidden;position:relative">
             {{ c.photo }}
-            <span style="position:absolute;left:10px;bottom:10px;background:rgba(20,20,20,.76);color:#FFFFFF;padding:6px 8px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ c.slot }}</span>
+            <span style="position:absolute;left:12px;bottom:12px;background:rgba(20,20,20,.78);color:#FFFFFF;padding:7px 9px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ c.slot }}</span>
           </div>
-          <div style="padding:22px 24px">
+          <div style="padding:17px 2px 0">
             <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ c.city }}</div>
-            <div style="margin-top:10px;font:700 20px/1.15 'PT Serif',Georgia,serif">{{ c.client }}</div>
+            <div style="margin-top:9px;font:700 22px/1.15 'PT Serif',Georgia,serif">{{ c.client }}</div>
             <div style="margin-top:10px;font:400 13px/1.6 'PT Sans',sans-serif;color:#5A5A56">{{ c.task }}</div>
             <div style="margin-top:14px;border-top:1px solid #EFEFEC;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px">
               <span style="font:500 12px/1 'PT Sans',sans-serif;color:#2D483F">{{ c.model }}</span>
-              <span style="font:700 11px/1 'PT Sans',sans-serif;color:#C14E00">{{ c.state }}</span>
+              <span style="font:600 10px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">{{ c.state }}</span>
             </div>
           </div>
-        </div>
+        </article>
       </sc-for>
     </div>
 
@@ -2621,9 +2627,19 @@ class Component extends DCLogic {
         { who: 'Сервисный партнёр', what: 'Регламентное обслуживание и ремонт в своём регионе.' }
       ],
       casesRu: [
-        { city: 'Москва · спешелти-кофейня', client: 'Кейс в подготовке', slot: 'атмосферный референс · кофейня', photo: this.coverPhoto('/photo/cafe-racer-cafe-user.png', 'Sanremo Café Racer в интерьере кофейни'), task: 'Поток в пиковый час и молочное меню; модель и конфигурация — из документов поставки.', model: 'модель уточняется', state: 'ожидает согласия' },
-        { city: 'Санкт-Петербург · пекарня', client: 'Кейс в подготовке', slot: 'официальная фотосъёмка Sanremo', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Бариста работает за кофемашиной Sanremo'), task: 'Простота обучения персонала и стабильность при смешанном меню.', model: 'модель уточняется', state: 'ожидает согласия' },
-        { city: 'Регион · сеть', client: 'Кейс в подготовке', slot: 'рабочая зона · фотосъёмка', photo: this.coverPhoto('/photo/bar-action.webp', 'Рабочая зона кофемашины Sanremo'), task: 'Стандартизация точек, единый сервисный контур и запчасти.', model: 'модель уточняется', state: 'черновик CMS' }
+        { span: '7', height: '390px', city: 'Нижний Новгород · Ивановский съезд, 9/18', client: 'Бистро 9/18', slot: 'интерьер · завтраки у Кремля', photo: this.coverPhoto('/photo/cases-ru/bistro-9-18.webp', 'Светлый интерьер Бистро 9/18 в Нижнем Новгороде'), task: 'Городское бистро у стен Кремля соединяет европейские завтраки, ужины и specialty-кофе. Светлый зал, стеклоблоки и открытая стойка делают кофейную станцию частью интерьера, а не техническим уголком.', model: 'Sanremo Café Racer', state: 'Нижний Новгород' },
+        { span: '5', height: '390px', city: 'Москва · Таганская', client: 'St.Riders Coffee', slot: 'интерьер · скорость и культура', photo: this.coverPhoto('/photo/cases-ru/st-riders.jpg', 'Мотоцикл в интерьере St.Riders Coffee в Москве'), task: 'Кофейня рядом с Марксистской построена вокруг культуры движения: мотоцикл в зале, трансляции экстремальных чемпионатов и сдержанный индустриальный интерьер. Кофе здесь звучит как часть общего ритма места.', model: 'Оборудование Sanremo', state: 'Москва' },
+        { span: '4', height: '310px', city: 'Москва · городская сеть', client: 'CofeFest', slot: 'фасад · сетевой формат', photo: this.coverPhoto('/photo/cases-ru/cofefest.webp', 'Фасад кофейни CofeFest в Москве'), task: 'Московская сеть развивает разные форматы — от кофеен в деловых и медицинских центрах до полноценных городских кафе. Узнаваемая вывеска и прозрачный фасад работают на быстрый контакт с гостем.', model: 'Оборудование Sanremo', state: 'Москва' },
+        { span: '4', height: '310px', city: 'Санкт-Петербург · Большая Конюшенная', client: 'Спэшл', slot: 'фасад · specialty coffee', photo: this.coverPhoto('/photo/cases-ru/speshl.webp', 'Фасад кофейни Спэшл в Санкт-Петербурге'), task: 'Петербургская specialty-кофейня с европейской кухней занимает исторический фасад на Большой Конюшенной. Неброская золотая вывеска задаёт камерный тон ещё до входа.', model: 'Оборудование Sanremo', state: 'Санкт-Петербург' },
+        { span: '4', height: '310px', city: 'Москва · кофейня-пекарня', client: 'French Bakery SeDelice', slot: 'интерьер · кофе и выпечка', photo: this.coverPhoto('/photo/cases-ru/sedelice.webp', 'Интерьер кофейни-пекарни French Bakery SeDelice в Москве'), task: 'Формат собственной пекарни соединяет кофе, выпечку на сливочном масле и полноценное городское меню. Свет, цветные кресла и открытая стойка создают пространство для неспешной посадки.', model: 'Sanremo Café Racer', state: 'Москва' },
+        { span: '5', height: '360px', city: 'Москва · сеть кофеен', client: 'Правда Кофе', slot: 'стойка · городской поток', photo: this.coverPhoto('/photo/cases-ru/pravda-coffee.jpg', 'Стойка кофейни Правда Кофе в Москве'), task: 'Сеть работает в плотном московском потоке и делает ставку на понятную стойку, быстрое обслуживание и узнаваемую графику. Открытая рабочая зона показывает гостю весь процесс приготовления.', model: 'Sanremo D8', state: 'Москва' },
+        { span: '7', height: '360px', city: 'Москва · кафе в ритейле', client: 'Кафе ВкусВилл', slot: 'фасад · отдельный формат кафе', photo: this.coverPhoto('/photo/cases-ru/vkusvill.jpg', 'Фасад московского ВкусВилл с зоной кафе'), task: 'Кафейный формат вырос из зон быстрого перекуса внутри магазинов в отдельные городские пространства. Здесь кофе дополняет готовую еду и авторские напитки, а знакомый зелёный фасад остаётся главным ориентиром.', model: 'Оборудование Sanremo', state: 'Москва' },
+        { span: '4', height: '320px', city: 'Санкт-Петербург · Невский проспект', client: 'Ванлав', slot: 'город · десерты и кофе', photo: this.coverPhoto('/photo/cases-ru/vanlav.webp', 'Стакан Ванлав на фоне центра Санкт-Петербурга'), task: 'Кондитерская на Невском работает вокруг десертов, кофе и эмоциональных городских встреч. Иллюстрированный стакан с Исаакиевским собором превращает напиток навынос в часть прогулки по Петербургу.', model: 'Оборудование Sanremo', state: 'Санкт-Петербург' },
+        { span: '4', height: '320px', city: 'Санкт-Петербург · городская сеть', client: 'Baggins Coffee', slot: 'интерьер · северный характер', photo: this.coverPhoto('/photo/cases-ru/baggins.jpg', 'Фирменная неоновая вывеска Baggins Coffee в Санкт-Петербурге'), task: 'Одна из крупнейших петербургских сетей строит узнаваемый мир вокруг легенды о козе — символе открытия кофе. Неон, графика и тёмная палитра создают собственный северный характер пространства.', model: 'Оборудование Sanremo', state: 'Санкт-Петербург' },
+        { span: '4', height: '320px', city: 'Санкт-Петербург · Литейный, 31', client: 'Нотик Кофе', slot: 'интерьер · кофе и обжарка', photo: this.coverPhoto('/photo/cases-ru/notik.webp', 'Светлый интерьер Нотик Кофе в Санкт-Петербурге'), task: 'Гастрокофейня связана с собственным производством и продажей зерна. Светлый интерьер, открытая полка с пачками кофе и белая Café Racer собирают вокруг стойки цельную продуктовую историю.', model: 'Sanremo Café Racer', state: 'Санкт-Петербург' },
+        { span: '7', height: '350px', city: 'Москва · экспресс-кофейня', client: 'Coffee Combo', slot: 'интерьер · торговый центр', photo: this.coverPhoto('/photo/cases-ru/combo.jpg', 'Интерьер Coffee Combo в московском торговом центре'), task: 'Сеть экспресс-кофеен работает в торговых центрах и на маршрутах ежедневного трафика. Панорамное остекление, длинная витрина и открытая кофейная зона помогают точке оставаться заметной внутри большого пространства.', model: 'Оборудование Sanremo', state: 'Москва' },
+        { span: '5', height: '350px', city: 'Тахтамукай · Республика Адыгея', client: 'Coffee 4 Human', slot: 'фасад · локальная кофейня', photo: this.coverPhoto('/photo/cases-ru/coffee-4-human.jpg', 'Вывеска Coffee 4 Human в Адыгее'), task: 'Локальная кофейня встречает гостя прямой вывеской и собственным кофейным образом. В кадре фасад и карта Sanremo — лаконичная история о том, как профессиональное оборудование приходит в региональный проект.', model: 'Оборудование Sanremo', state: 'Адыгея' },
+        { span: '12', height: '430px', city: 'Геленджик · кафе-пекарня', client: 'Чайка кричала', slot: 'у моря · кафе-пекарня', photo: this.coverPhoto('/photo/cases-ru/chaika.jpg', 'Фирменная упаковка кафе-пекарни Чайка кричала в Геленджике'), task: 'Морское кафе-пекарня говорит с гостем легко и без столичного пафоса: голубая графика, простая упаковка и курортный ритм. Кофе здесь сопровождает выпечку и прогулку по Геленджику.', model: 'Оборудование Sanremo', state: 'Геленджик' }
       ],
       casesWorld: [
         { tag: 'World Coffee Events', photo: this.coverPhoto('/photo/official-sanremo-community.jpg', 'Команда Sanremo на международном кофейном событии'), title: 'Официальная машина финалов WLAC и WCIGS', text: 'С 2018 года Café Racer — машина финалов чемпионатов World Latte Art и Coffee in Good Spirits: на ней работают лучшие бариста мира.', model: 'Café Racer' },
