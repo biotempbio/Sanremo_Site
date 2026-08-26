@@ -46,6 +46,9 @@
     .cases-ru-grid > article { grid-column: 1 / -1 !important; }
     .cases-ru-grid > article > div:first-child { height: 300px !important; }
   }
+  @keyframes galleryFade { from { opacity: .35; } to { opacity: 1; } }
+  .product-gallery-active img { animation: galleryFade .3s ease; }
+  @media (prefers-reduced-motion: reduce) { .product-gallery-active img { animation: none; } }
 </style>
 <meta name="description" content="Профессиональные кофемашины Sanremo в России: линейки ZOE Competition, F18, Café Racer, Opera, YOU. РРЦ, наличие на складе в Москве, подбор под поток, сервис и ЗИП. Официальный дистрибьютор — компания BIO." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -363,12 +366,16 @@
     <div style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px">
       <div style="min-width:0">
         <div style="background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          {{ p.activePhoto }}
-          <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:48px;border:1px solid rgba(255,255,255,.55);background:rgba(20,20,20,.72);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s" style-hover="background:#2D483F">←</button>
-          <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:42px;height:48px;border:1px solid rgba(255,255,255,.55);background:rgba(20,20,20,.72);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s" style-hover="background:#2D483F">→</button>
-          <div style="position:absolute;left:18px;bottom:16px;background:rgba(20,20,20,.82);color:#FFFFFF;padding:7px 10px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ p.activePhotoLabel }}</div>
+          <button class="product-gallery-active" onClick="{{ p.openPhoto }}" title="Открыть фотографию крупно" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:zoom-in">{{ p.activePhoto }}</button>
+          <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">←</button>
+          <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">→</button>
+          <div style="position:absolute;right:18px;bottom:16px;background:rgba(20,20,20,.7);color:#FFFFFF;padding:7px 9px;font:10px/1 'PT Mono',Menlo,monospace">{{ p.photoCounter }}</div>
         </div>
-        <div style="margin-top:10px;width:100%;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px">
+        <div style="margin-top:11px;display:flex;align-items:baseline;justify-content:space-between;gap:18px">
+          <div style="font:500 12px/1.4 'PT Sans',sans-serif;color:#4A4A46">{{ p.activePhotoLabel }}</div>
+          <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">нажмите для увеличения</div>
+        </div>
+        <div style="margin-top:12px;width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
           <sc-for list="{{ p.gallery }}" as="g" hint-placeholder-count="4">
             <button onClick="{{ g.pick }}" title="{{ g.label }}" style="width:100%;height:82px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;display:flex;align-items:flex-end;overflow:hidden;position:relative;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">
               {{ g.photo }}
@@ -476,6 +483,17 @@
         </div>
       </div>
     </div>
+
+    <sc-if value="{{ p.photoOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.94);display:flex;align-items:center;justify-content:center;padding:42px 76px">
+        <button onClick="{{ p.closePhoto }}" title="Закрыть" style="position:absolute;right:24px;top:22px;width:48px;height:48px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:300 28px/1 'PT Sans',sans-serif">×</button>
+        <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif">←</button>
+        <div class="product-gallery-active" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">{{ p.activePhotoLarge }}</div>
+        <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif">→</button>
+        <div style="position:absolute;left:30px;bottom:24px;color:#FFFFFF;font:400 12px/1.4 'PT Sans',sans-serif">{{ p.activePhotoLabel }}</div>
+        <div style="position:absolute;right:30px;bottom:24px;color:#B8B8B3;font:400 11px/1 'PT Mono',Menlo,monospace">{{ p.photoCounter }}</div>
+      </div>
+    </sc-if>
 
     <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
@@ -1651,7 +1669,7 @@ const FAQ_DATA = [
 class Component extends DCLogic {
   state = {
     page: 'home', line: 'zoe', sku: 0, newsItem: 0,
-    showConfigs: false, galleryIndex: 0,
+    showConfigs: false, galleryIndex: 0, photoOpen: false,
     f: { groups: null, height: null, stock: null, cups: null, scen: null, price: null, tech: [] },
     q: { format: null, cups: null, milk: null, groups: null, budget: null, width: null },
     dealerF: [], dealerQuery: '', partNode: null, partLine: null, partsQuery: '', docType: null, docLine: null,
@@ -2170,9 +2188,13 @@ class Component extends DCLogic {
       opacity: i === activeGalleryIndex ? '1' : '.72',
       pick: () => this.setState({ galleryIndex: i })
     }));
-    const galleryPageStart = Math.floor(activeGalleryIndex / 5) * 5;
-    const galleryVisible = gallery.slice(galleryPageStart, galleryPageStart + 5);
+    const galleryPageStart = Math.floor(activeGalleryIndex / 4) * 4;
+    const galleryVisible = gallery.slice(galleryPageStart, galleryPageStart + 4);
     const activeGallery = gallerySource[activeGalleryIndex] || gallerySource[0] || {};
+    const activeGallerySrc = activeGallery.photo && activeGallery.photo.props ? activeGallery.photo.props.src : '';
+    const activeGalleryAlt = activeGallery.photo && activeGallery.photo.props ? activeGallery.photo.props.alt : activeGallery.label;
+    const activeGalleryPhoto = React.createElement('img', { key: 'gallery-' + activeGalleryIndex, src: activeGallerySrc, alt: activeGalleryAlt || '', style: { width: '100%', height: '100%', objectFit: 'contain', display: 'block' } });
+    const activeGalleryPhotoLarge = React.createElement('img', { key: 'gallery-large-' + activeGalleryIndex, src: activeGallerySrc, alt: activeGalleryAlt || '', style: { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' } });
 
     const scenSeen = {}, SCEN_LIST = [];
     LINES.forEach(l => l.scen.forEach(x => { if (!scenSeen[x]) { scenSeen[x] = 1; SCEN_LIST.push(x); } }));
@@ -2463,7 +2485,11 @@ class Component extends DCLogic {
         executionSummary: L.id === 'zoe'
           ? 'Высокая посадка 142 мм · электронная дозировка · таймеры групп · автоматическая очистка'
           : [groupCount(sku) ? groupCount(sku) + ' ' + plural(groupCount(sku), 'группа', 'группы', 'групп') : '', colorTitle(sku.color), sku.height].filter(Boolean).join(' · '),
-        activePhoto: activeGallery.photo, activePhotoLabel: activeGallery.label, gallery: galleryVisible,
+        activePhoto: activeGalleryPhoto, activePhotoLarge: activeGalleryPhotoLarge, activePhotoLabel: activeGallery.label, gallery: galleryVisible,
+        photoCounter: String(activeGalleryIndex + 1).padStart(2, '0') + ' / ' + String(gallerySource.length).padStart(2, '0'),
+        photoOpen: !!s.photoOpen,
+        openPhoto: () => this.setState({ photoOpen: true }),
+        closePhoto: () => this.setState({ photoOpen: false }),
         prevPhoto: () => this.setState({ galleryIndex: (activeGalleryIndex - 1 + gallerySource.length) % gallerySource.length }),
         nextPhoto: () => this.setState({ galleryIndex: (activeGalleryIndex + 1) % gallerySource.length }),
         code: sku.code || '—', vendor: sku.vendor || '—',
