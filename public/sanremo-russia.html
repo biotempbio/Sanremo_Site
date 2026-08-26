@@ -378,6 +378,21 @@
             <div style="margin-top:7px;font:500 12px/1 'PT Mono',Menlo,monospace;color:#2D483F">{{ p.code }}</div>
           </div>
         </div>
+        <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top:38px;border-top:1px solid #141414;padding-top:22px">
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">ZOE 2026 · профессиональная платформа</div>
+          <h2 style="margin:13px 0 0;max-width:620px;font:700 30px/1.1 'PT Serif',Georgia,serif">Обновление легенды для ежедневной работы за стойкой</h2>
+          <p style="margin:17px 0 0;max-width:700px;font:400 15px/1.65 'PT Sans',sans-serif;color:#3C3C3A">Sanremo ZOE 2026 объединяет практичность версий SED и Competition в одной платформе. В центре — понятное электронное управление, быстрый доступ к узлам, стабильная теплообменная схема и конфигурации для разных форматов кофейного бизнеса.</p>
+          <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #E1E4E1;border-left:1px solid #E1E4E1">
+            <sc-for list="{{ p.zoeFacts }}" as="f" hint-placeholder-count="4">
+              <div style="padding:15px 16px;border-right:1px solid #E1E4E1;border-bottom:1px solid #E1E4E1">
+                <div style="font:700 19px/1 'PT Serif',Georgia,serif;color:#2D483F">{{ f.value }}</div>
+                <div style="margin-top:7px;font:500 11px/1.4 'PT Sans',sans-serif;color:#5E5E5A">{{ f.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
       </div>
       <div>
         <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Линейка {{ p.family }} · {{ p.role }}</div>
@@ -456,27 +471,6 @@
     </div>
 
     <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
-    <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
-      <div style="border-top:1px solid #141414;padding-top:22px;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
-        <div>
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">ZOE 2026 · профессиональная платформа</div>
-          <h2 style="margin:14px 0 0;font:700 34px/1.08 'PT Serif',Georgia,serif">Обновление легенды для ежедневной работы за стойкой</h2>
-        </div>
-        <div>
-          <p style="margin:0;font:400 17px/1.65 'PT Sans',sans-serif;color:#3C3C3A">Sanremo ZOE 2026 объединяет практичность версий SED и Competition в одной платформе. В центре — понятное электронное управление, быстрый доступ к узлам, стабильная теплообменная схема и конфигурации для разных форматов кофейного бизнеса.</p>
-          <p style="margin:16px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#6E6E6A">Выше выбрано конкретное российское исполнение ZOE Competition TALL CB: его цена, цвет, комплектация и наличие меняются в конфигураторе. Характеристики ниже также относятся к выбранному коду BIO.</p>
-        </div>
-      </div>
-      <div style="margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #E1E4E1;background:#E1E4E1;gap:1px">
-        <sc-for list="{{ p.zoeFacts }}" as="f" hint-placeholder-count="4">
-          <div style="background:#F4F6F4;padding:22px">
-            <div style="font:700 25px/1 'PT Serif',Georgia,serif;color:#2D483F">{{ f.value }}</div>
-            <div style="margin-top:9px;font:500 12px/1.45 'PT Sans',sans-serif;color:#4A4A46">{{ f.label }}</div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
       <div>
         <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Ключевые технологии</div>
