@@ -2236,10 +2236,8 @@ class Component extends DCLogic {
           ? ('склад ' + (sku.stock || 0) + ' шт · доступно ' + (sku.access || 0) + ' шт')
           : '',
         gallery: L.id === 'd8' ? [
-          { label: 'линейка D8', photo: this.coverPhoto('/photo/model-d8-lineup.webp', 'Линейка кофемашин Sanremo D8 и D8 PRO') },
-          { label: 'рабочая зона', photo: this.coverPhoto('/photo/d8-workzone.webp', 'Рабочая зона кофемашины Sanremo D8') },
-          { label: 'D8 PRO', photo: this.coverPhoto('/photo/official/d8-pro.jpg', 'Кофемашина Sanremo D8 PRO') },
-          { label: 'боковой ракурс', photo: this.coverPhoto('/d8-detail.jpg', 'Детали корпуса Sanremo D8') }
+          { label: 'D8', photo: this.coverPhoto('/photo/d8-white.jpg', 'Кофемашина Sanremo D8 на белом фоне') },
+          { label: 'D8 PRO', photo: this.coverPhoto('/photo/d8-pro-white.jpg', 'Кофемашина Sanremo D8 PRO на белом фоне') }
         ] : [
           { label: 'рабочая зона', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Рабочая зона кофемашины Sanremo') },
           { label: 'органы управления', photo: this.coverPhoto('/photo/cafe-racer-green-detail.webp', 'Органы управления Sanremo Café Racer') },
