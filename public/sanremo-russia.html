@@ -357,15 +357,15 @@
   <div style="padding-bottom:80px">
     <div style="max-width:1320px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.15fr 1fr;gap:48px">
       <div>
-        <div style="background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;padding:24px">
-          {{ p.photo }}
+        <div style="background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          {{ p.activePhoto }}
+          <div style="position:absolute;left:18px;bottom:16px;background:rgba(20,20,20,.82);color:#FFFFFF;padding:7px 10px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ p.activePhotoLabel }}</div>
         </div>
-        <div style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div style="margin-top:10px;display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">
           <sc-for list="{{ p.gallery }}" as="g" hint-placeholder-count="4">
-            <div style="background:#F4F4F2;height:92px;display:flex;align-items:flex-end;overflow:hidden;position:relative">
+            <button onClick="{{ g.pick }}" title="{{ g.label }}" style="width:118px;height:82px;flex:0 0 118px;border:2px solid {{ g.border }};background:#F4F4F2;padding:0;display:flex;align-items:flex-end;overflow:hidden;position:relative;opacity:{{ g.opacity }};transition:border-color .15s,opacity .15s" style-hover="border-color:#2D483F;opacity:1">
               {{ g.photo }}
-              <span style="position:absolute;left:7px;bottom:7px;background:rgba(20,20,20,.75);color:#FFFFFF;padding:5px 7px;font:10px/1.3 'PT Mono',Menlo,monospace">{{ g.label }}</span>
-            </div>
+            </button>
           </sc-for>
         </div>
         <div style="margin-top:16px;border:1px solid #E6E6E3;padding:20px 22px">
@@ -375,8 +375,8 @@
       </div>
       <div>
         <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Линейка {{ p.family }} · {{ p.role }}</div>
-        <h1 style="margin:12px 0 0;font:700 42px/1.06 'PT Serif',Georgia,serif">{{ p.family }}</h1>
-        <p style="margin:14px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#3C3C3A">{{ p.tagline }}</p>
+        <h1 style="margin:12px 0 0;font:700 42px/1.06 'PT Serif',Georgia,serif">{{ p.productTitle }}</h1>
+        <p style="margin:14px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#3C3C3A">{{ p.productLead }}</p>
 
         <div style="margin-top:26px;border:1px solid #E6E6E3">
           <div style="padding:20px 22px;border-bottom:1px solid #E6E6E3">
@@ -449,6 +449,46 @@
       </div>
     </div>
 
+    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
+      <div style="border-top:1px solid #141414;padding-top:22px;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
+        <div>
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">ZOE 2026 · профессиональная платформа</div>
+          <h2 style="margin:14px 0 0;font:700 34px/1.08 'PT Serif',Georgia,serif">Обновление легенды для ежедневной работы за стойкой</h2>
+        </div>
+        <div>
+          <p style="margin:0;font:400 17px/1.65 'PT Sans',sans-serif;color:#3C3C3A">Sanremo ZOE 2026 объединяет практичность версий SED и Competition в одной платформе. В центре — понятное электронное управление, быстрый доступ к узлам, стабильная теплообменная схема и конфигурации для разных форматов кофейного бизнеса.</p>
+          <p style="margin:16px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#6E6E6A">Выше выбрано конкретное российское исполнение ZOE Competition TALL CB: его цена, цвет, комплектация и наличие меняются в конфигураторе. Характеристики ниже также относятся к выбранному коду BIO.</p>
+        </div>
+      </div>
+      <div style="margin-top:30px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #E1E4E1;background:#E1E4E1;gap:1px">
+        <sc-for list="{{ p.zoeFacts }}" as="f" hint-placeholder-count="4">
+          <div style="background:#F4F6F4;padding:22px">
+            <div style="font:700 25px/1 'PT Serif',Georgia,serif;color:#2D483F">{{ f.value }}</div>
+            <div style="margin-top:9px;font:500 12px/1.45 'PT Sans',sans-serif;color:#4A4A46">{{ f.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
+      <div>
+        <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Ключевые технологии</div>
+        <h2 style="margin:14px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Что меняется в рабочей смене</h2>
+        <p style="margin:16px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#6E6E6A">Не перечень функций ради спецификации, а шесть свойств, которые влияют на скорость, повторяемость напитка и обслуживание.</p>
+      </div>
+      <div style="border-top:1px solid #141414">
+        <sc-for list="{{ p.zoeTech }}" as="t" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:42px .72fr 1.28fr;gap:18px;padding:17px 0;border-bottom:1px solid #E6E6E3;align-items:start">
+            <span style="font:400 11px/1.3 'PT Mono',Menlo,monospace;color:#7D9C91">{{ t.num }}</span>
+            <strong style="font:600 14px/1.4 'PT Sans',sans-serif">{{ t.title }}</strong>
+            <span style="font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ t.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
       <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'PT Sans',sans-serif">Кому подходит</div>
       <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
@@ -460,6 +500,25 @@
         </sc-for>
       </div>
     </div>
+
+    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
+      <div style="background:#243F37;color:#FFFFFF;padding:38px 40px;display:grid;grid-template-columns:.78fr 1.22fr;gap:48px">
+        <div>
+          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#AAC2B9">Опции платформы</div>
+          <h2 style="margin:14px 0 0;font:700 30px/1.12 'PT Serif',Georgia,serif">От первой кофейни до сетевого стандарта</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.2)">
+          <sc-for list="{{ p.zoeOptions }}" as="o" hint-placeholder-count="4">
+            <div style="background:#243F37;padding:18px 20px">
+              <div style="font:600 14px/1.35 'PT Sans',sans-serif">{{ o.title }}</div>
+              <div style="margin-top:7px;font:400 12px/1.55 'PT Sans',sans-serif;color:#D7E2DE">{{ o.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <h2 style="margin:0;font:700 24px/1.15 'PT Serif',Georgia,serif">Технические характеристики выбранного исполнения</h2>
@@ -512,6 +571,21 @@
         </tbody>
       </table>
     </div>
+
+    <sc-if value="{{ p.isZoe }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
+      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Перед выбором исполнения</div>
+      <h2 style="margin:12px 0 0;font:700 30px/1.1 'PT Serif',Georgia,serif">Вопросы о Sanremo ZOE 2026</h2>
+      <div style="margin-top:22px;border-top:1px solid #141414">
+        <sc-for list="{{ p.zoeFaq }}" as="f" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:.72fr 1.28fr;gap:42px;padding:18px 0;border-bottom:1px solid #E6E6E3">
+            <strong style="font:600 14px/1.45 'PT Sans',sans-serif">{{ f.q }}</strong>
+            <span style="font:400 13px/1.6 'PT Sans',sans-serif;color:#5E5E5A">{{ f.a }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px">
       <div style="background:#F1F3F1;padding:32px">
@@ -1546,7 +1620,7 @@ const FAQ_DATA = [
 class Component extends DCLogic {
   state = {
     page: 'home', line: 'zoe', sku: 0, newsItem: 0,
-    showConfigs: false,
+    showConfigs: false, galleryIndex: 0,
     f: { groups: null, height: null, stock: null, cups: null, scen: null, price: null, tech: [] },
     q: { format: null, cups: null, milk: null, groups: null, budget: null, width: null },
     dealerF: [], dealerQuery: '', partNode: null, partLine: null, partsQuery: '', docType: null, docLine: null,
@@ -1581,7 +1655,7 @@ class Component extends DCLogic {
 
   openLine = (id) => {
     this.scrollPageTop();
-    this.setState({ page: 'product', line: id, sku: 0, showConfigs: false });
+    this.setState({ page: 'product', line: id, sku: 0, showConfigs: false, galleryIndex: 0 });
     this.pushUrl('product', id);
     try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
   };
@@ -1638,8 +1712,11 @@ class Component extends DCLogic {
     const s = this.state;
     const L = LINES.filter(l => l.id === s.line)[0] || LINES[0];
     const conf = s.page === 'product'
-      ? { title: 'Кофемашина Sanremo ' + L.name + ' — РРЦ, исполнения, наличие | BIO',
-          desc: L.tagline + ' Официальный дистрибьютор Sanremo в России — компания BIO.' }
+      ? (L.id === 'zoe'
+        ? { title: 'Sanremo ZOE 2026 — цена, характеристики, наличие | BIO',
+            desc: 'Профессиональная кофемашина Sanremo ZOE 2026: ZOE Competition TALL CB, высокие группы, электронная дозировка, технологии, РРЦ и наличие в России.' }
+        : { title: 'Кофемашина Sanremo ' + L.name + ' — РРЦ, исполнения, наличие | BIO',
+            desc: L.tagline + ' Официальный дистрибьютор Sanremo в России — компания BIO.' })
       : (SEO[s.page] || SEO.home);
     const url = SITE + this.pathFor(s.page, s.line);
     document.title = conf.title;
@@ -1668,7 +1745,8 @@ class Component extends DCLogic {
       const skus = this.lineSkus(L.id);
       const img = heroImg(L.id, skus);
       graph.push({
-        '@type': 'Product', name: 'Кофемашина Sanremo ' + L.name, description: L.tagline, url: url,
+        '@type': 'Product', name: L.id === 'zoe' ? 'Профессиональная кофемашина Sanremo ZOE 2026' : 'Кофемашина Sanremo ' + L.name,
+        description: L.id === 'zoe' ? 'Sanremo ZOE 2026 в исполнениях ZOE Competition TALL CB: характеристики, технологии, цены и наличие в России.' : L.tagline, url: url,
         image: img || undefined, brand: { '@type': 'Brand', name: 'Sanremo' },
         category: 'Профессиональные кофемашины',
         offers: skus.map(m => ({
@@ -1677,6 +1755,14 @@ class Component extends DCLogic {
           availability: (m.stock || 0) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/PreOrder',
           url: url + m.code + '/', seller: { '@id': SITE + '/#org' }
         }))
+      });
+      if (L.id === 'zoe') graph.push({
+        '@type': 'FAQPage',
+        mainEntity: [
+          { q: 'Для каких заведений подходит Sanremo ZOE 2026?', a: 'Для первой кофейни, пекарни, ресторана и сетевой точки с регламентированным рабочим процессом.' },
+          { q: 'Что означает TALL CB?', a: 'TALL обозначает высокую посадку группы под стаканы и высокие чашки; CB — конкретное исполнение платформы в российском ассортименте.' },
+          { q: 'Есть ли автоматическая очистка групп?', a: 'Да, платформа поддерживает программируемый автоматический цикл очистки групп.' }
+        ].map(it => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } }))
       });
     } else if (s.page === 'catalog' || s.page === 'compare') {
       graph.push({
@@ -2013,7 +2099,7 @@ class Component extends DCLogic {
     const pickClosest = (items, preferred) => {
       if (!items.length) return;
       const target = items.filter(preferred)[0] || items[0];
-      this.setState({ sku: lineSkus.indexOf(target) });
+      this.setState({ sku: lineSkus.indexOf(target), galleryIndex: 0 });
     };
     const uniqueBy = (items, valueOf) => {
       const seen = {}, out = [];
@@ -2030,6 +2116,29 @@ class Component extends DCLogic {
       : { bg: '#FFFFFF', fg: '#4A4A46', border: '#DCDCD8' };
     const lineStats = this.lineStats(lineSkus);
     const inStockConfigSkus = lineSkus.filter(m => (m.stock || 0) > 0);
+    const gallerySource = L.id === 'zoe' ? [
+      { label: 'Выбранное исполнение', photo: this.photo(sku.img, sku.name || 'Sanremo ZOE 2026', 410, true) },
+      { label: 'Total Black · спереди', photo: this.coverPhoto('/photo/zoe-2026/black-front.webp', 'Sanremo ZOE 2026 Total Black, вид спереди') },
+      { label: 'Total Black · 3/4', photo: this.coverPhoto('/photo/zoe-2026/black-angle-cups.webp', 'Sanremo ZOE 2026 Total Black с чашками, ракурс три четверти') },
+      { label: 'Total White · 3/4', photo: this.coverPhoto('/photo/zoe-2026/white-angle-cups.webp', 'Sanremo ZOE 2026 Total White с чашками, ракурс три четверти') },
+      { label: 'Total White · спереди', photo: this.coverPhoto('/photo/zoe-2026/white-front.webp', 'Sanremo ZOE 2026 Total White, вид спереди') },
+      { label: 'Total Inox · 3/4', photo: this.coverPhoto('/photo/zoe-2026/inox-angle.webp', 'Sanremo ZOE 2026 Total Inox, ракурс три четверти') }
+    ] : (L.id === 'd8' ? [
+      { label: 'D8', photo: this.coverPhoto('/photo/d8-white.jpg', 'Кофемашина Sanremo D8 на белом фоне') },
+      { label: 'D8 PRO', photo: this.coverPhoto('/photo/d8-pro-white.jpg', 'Кофемашина Sanremo D8 PRO на белом фоне') }
+    ] : [
+      { label: 'Выбранное исполнение', photo: this.photo(sku.img, sku.name || L.name, 410, true) },
+      { label: 'Рабочая зона', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Рабочая зона кофемашины Sanremo') },
+      { label: 'Органы управления', photo: this.coverPhoto('/photo/cafe-racer-green-detail.webp', 'Органы управления Sanremo Café Racer') },
+      { label: 'Кофейня', photo: this.coverPhoto('/photo/cafe-racer-cafe-user.png', 'Кофемашина Sanremo в кофейне') }
+    ]);
+    const activeGalleryIndex = Math.min(s.galleryIndex || 0, Math.max(gallerySource.length - 1, 0));
+    const gallery = gallerySource.map((g, i) => Object.assign({}, g, {
+      border: i === activeGalleryIndex ? '#2D483F' : '#E0E0DC',
+      opacity: i === activeGalleryIndex ? '1' : '.72',
+      pick: () => this.setState({ galleryIndex: i })
+    }));
+    const activeGallery = gallerySource[activeGalleryIndex] || gallerySource[0] || {};
 
     const scenSeen = {}, SCEN_LIST = [];
     LINES.forEach(l => l.scen.forEach(x => { if (!scenSeen[x]) { scenSeen[x] = 1; SCEN_LIST.push(x); } }));
@@ -2308,8 +2417,16 @@ class Component extends DCLogic {
       catalogEmpty: catalog.length === 0,
 
       p: {
-        family: L.name, role: L.role, tagline: L.tagline,
-        skuName: sku.name || L.name, photo: this.photo(sku.img, sku.name, 390, true), desc: sku.desc || 'Описание исполнения загружается из карточки BIO.',
+        family: L.name, role: L.role, tagline: L.tagline, isZoe: L.id === 'zoe',
+        productTitle: L.id === 'zoe' ? 'Sanremo ZOE 2026' : L.name,
+        productLead: L.id === 'zoe'
+          ? 'Профессиональная коммерческая кофемашина в исполнениях ZOE Competition TALL CB: высокая посадка групп, электронная дозировка и понятное управление для стабильной ежедневной работы.'
+          : L.tagline,
+        skuName: sku.name || L.name, photo: this.photo(sku.img, sku.name, 390, true),
+        desc: L.id === 'zoe'
+          ? 'Двухгрупповая автоматическая кофемашина Sanremo ZOE 2026 в исполнении Competition TALL CB. Высокая посадка 142 мм, электронная дозировка, таймер каждой группы, программируемое предсмачивание, подсветка рабочей зоны и автоматический цикл очистки. Теплообменная схема, сервисный бойлер AISI 316L объёмом 10 л, питание 220 В; мощность ТЭНа 2,7 кВт, максимальная потребляемая мощность 3,2 кВт.'
+          : (sku.desc || 'Описание исполнения загружается из карточки BIO.'),
+        activePhoto: activeGallery.photo, activePhotoLabel: activeGallery.label, gallery: gallery,
         code: sku.code || '—', vendor: sku.vendor || '—',
         skuCount: lineSkus.length,
         showModifications: modifications.length > 1,
@@ -2332,14 +2449,32 @@ class Component extends DCLogic {
         stockDetail: this.props.showExactStock
           ? ('склад ' + (sku.stock || 0) + ' шт · доступно ' + (sku.access || 0) + ' шт')
           : '',
-        gallery: L.id === 'd8' ? [
-          { label: 'D8', photo: this.coverPhoto('/photo/d8-white.jpg', 'Кофемашина Sanremo D8 на белом фоне') },
-          { label: 'D8 PRO', photo: this.coverPhoto('/photo/d8-pro-white.jpg', 'Кофемашина Sanremo D8 PRO на белом фоне') }
-        ] : [
-          { label: 'рабочая зона', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Рабочая зона кофемашины Sanremo') },
-          { label: 'органы управления', photo: this.coverPhoto('/photo/cafe-racer-green-detail.webp', 'Органы управления Sanremo Café Racer') },
-          { label: 'боковой ракурс', photo: this.coverPhoto('/photo/steam-wands.webp', 'Боковой ракурс кофемашины Sanremo') },
-          { label: 'кофейня', photo: this.coverPhoto('/photo/cafe-racer-cafe-user.png', 'Кофемашина Sanremo в кофейне') }
+        zoeFacts: [
+          { value: '2 группы', label: 'Выбранное исполнение Competition TALL CB' },
+          { value: '142 мм', label: 'Высокая посадка под стакан и высокую чашку' },
+          { value: '10 л', label: 'Бойлер AISI 316L выбранного исполнения' },
+          { value: '220 В', label: 'Подключение выбранного российского SKU' }
+        ],
+        zoeTech: [
+          { num: '01', title: 'Электронная дозировка', text: 'Программируемые порции помогают повторять рецепт и разгружают бариста в пиковый час.' },
+          { num: '02', title: 'Таймеры групп', text: 'Время пролива видно на дисплеях: проще контролировать экстракцию и обучать команду.' },
+          { num: '03', title: 'Предсмачивание', text: 'Отдельная настройка задержки клапана для одинарной и двойной порции.' },
+          { num: '04', title: 'Автоматическая очистка', text: 'Программируемый цикл сокращает ручные операции в закрытии смены.' },
+          { num: '05', title: 'Высокая группа TALL', text: 'Посадка 142 мм рассчитана на стаканы навынос; работа с чашкой остаётся удобной.' },
+          { num: '06', title: 'Сервисный доступ', text: 'Съёмные панели и обновлённая внутренняя компоновка упрощают доступ к компонентам.' }
+        ],
+        zoeOptions: [
+          { title: 'Steam System', text: 'Опциональная автоматизация молока: до двух рецептов, контроль температуры и простая очистка.' },
+          { title: 'Sanremo Link', text: 'Проводная синхронизация кофемашины и совместимой кофемолки с коррекцией помола в реальном времени.' },
+          { title: 'Standard / Tall', text: 'Две высоты рабочей зоны: 83 мм для классической чашки и 140–142 мм для высокого стакана.' },
+          { title: 'Отделки корпуса', text: 'Total Black, Total White, Black & White, White & Black, Total Inox и специальные цвета.' }
+        ],
+        zoeFaq: [
+          { q: 'Для каких заведений подходит ZOE 2026?', a: 'Для первой кофейни, пекарни, ресторана и сетевой точки, где важны предсказуемая выдача напитков и понятное обслуживание.' },
+          { q: 'Что означает Competition TALL CB?', a: 'Это конкретное исполнение новой ZOE 2026 в российском ассортименте. TALL обозначает высокую посадку группы под стаканы; цена и наличие относятся к выбранному коду BIO.' },
+          { q: 'Чем отличаются Standard и Tall?', a: 'Standard рассчитан на классическую чашку, Tall — на высокий стакан. Для выбранного TALL CB в карточке используется посадка 142 мм.' },
+          { q: 'Есть ли автоматическая очистка?', a: 'Да, предусмотрен программируемый автоматический цикл очистки групп и функция короткой промывки.' },
+          { q: 'Кофемолка входит в комплект?', a: 'Нет. Кофемолку подбирают отдельно под рецепт, пиковую нагрузку и число бариста; для совместимых комплектов доступна опция Sanremo Link.' }
         ],
         fit: [
           { title: L.scen[0], sub: 'Основной сценарий линейки: подтверждается исполнением и регламентом обслуживания.' },
