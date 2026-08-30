@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/inject-agent-seo.mjs",
     "start": "next start",
     "dev:sites": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
     "build:sites": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
