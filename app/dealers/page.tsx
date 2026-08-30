@@ -36,22 +36,12 @@ export default function DealersPage() {
       <Crumbs items={[{ href: "/", label: "Главная" }, { label: "Где купить" }]} />
       <main>
         <section className="wrap" style={{ paddingBottom: 30 }}>
-          <div className="sec-head">
-            <div>
-              <p className="eyebrow">Дилерская сеть · {dealers.length} партнёров в {cities.length} городах</p>
-              <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>Где купить Sanremo</h1>
-            </div>
-            <div>
-              <p className="lead" style={{ marginBottom: 12 }}>
-                Сайт не продаёт оборудование. Здесь вы выбираете подходящего продавца или шоурум:
-                кто рядом, кто показывает машину вживую, кто монтирует и обслуживает.
-              </p>
-              <p className="source-note">
-                Источник: справочник дилеров компании BIO. Публикуются только активные партнёры;
-                у каждой записи хранится служебный статус и дата проверки.
-              </p>
-            </div>
-          </div>
+          <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>Где купить</h1>
+          <p className="lead" style={{ maxWidth: "74ch" }}>
+            Сайт не продаёт машины. Выберите дилера или шоурум: продажа, демонстрация, обучение,
+            монтаж, гарантийный и постгарантийный сервис, запчасти. Регион определяется подсказкой,
+            но выбирается вручную.
+          </p>
         </section>
 
         <section className="wrap section-tight">
@@ -60,35 +50,6 @@ export default function DealersPage() {
             cities={cities}
             initialCity={undefined}
           />
-        </section>
-
-        <section className="section bg-gray">
-          <div className="wrap">
-            <div className="grid g3">
-              <div>
-                <p className="eyebrow">Карта</p>
-                <h3>Карта партнёров</h3>
-                <p className="small">Выберите город в списке выше, чтобы найти ближайшего партнёра.</p>
-              </div>
-              <div>
-                <p className="eyebrow">Аналитика</p>
-                <h3>Измеряемые переходы</h3>
-                <p className="small">
-                  Исходящие переходы на сайты дилеров и клики по телефону размечаются UTM и
-                  событиями, чтобы BIO видела отдачу от переданных лидов.
-                </p>
-              </div>
-              <div>
-                <p className="eyebrow">Стать партнёром</p>
-                <h3>Дилерам</h3>
-                <p className="small">
-                  Регион, компания, опыт и ресурсы — заявка уходит channel-менеджеру BIO. Партнёры
-                  получают карточки, характеристики, РРЦ и медиаматериалы в едином виде.
-                </p>
-                <a className="btn btn-sm" href="/contacts" style={{ marginTop: 8 }}>Стать дилером</a>
-              </div>
-            </div>
-          </div>
         </section>
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
