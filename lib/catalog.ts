@@ -271,7 +271,7 @@ export const SCENARIOS: Scenario[] = [
     photo: "/photo/official/cafe-racer.jpg" },
   { id: "compact", title: "Компактный specialty и bar", question: "Дефицит места, но нужен профессиональный контроль",
     main: "you", alt: null, upgrade: "f18-sb",
-    logic: "YOU — compact professional с профилированием фаз экстракции, а не бытовая машина.",
+    logic: "YOU — компактная high-end машина с профилированием фаз экстракции для specialty-кофейни, лаборатории или продвинутой домашней кофейной зоны.",
     photo: "/photo/official/you.png" },
   { id: "roaster", title: "Обжарщик и лаборатория", question: "Профилирование и повторяемость",
     main: "opera", alt: "cafe-racer", upgrade: null,
