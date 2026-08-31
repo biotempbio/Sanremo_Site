@@ -193,8 +193,12 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
               </div>
               <p className="candidate-count"><b>{selection.ranked.length}</b> из {models.length}</p>
             </div>
-            <p className="small candidate-help">Ответьте на все шесть вопросов. На каждом шаге здесь остаются модели, которые соответствуют уже выбранным условиям.</p>
-            <div className="candidate-list">
+            <p className="small candidate-help">
+              {answered === 0
+                ? "Сейчас показан весь модельный ряд. Каждый ответ слева убирает неподходящие варианты."
+                : `Учтено условий: ${answered} из 6. Ниже остаются только модели, прошедшие выбранные фильтры.`}
+            </p>
+            <div className="candidate-list" aria-live="polite">
               {selection.ranked.map((r) => <CandidateRow key={r.m.slug} m={r.m} />)}
             </div>
           </>
