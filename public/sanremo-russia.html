@@ -1855,6 +1855,16 @@ class Component extends DCLogic {
     try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
   };
 
+  openChooser = (preset) => {
+    const params = new URLSearchParams();
+    const values = preset || {};
+    if (values.format) params.set('format', values.format);
+    if (values.volume) params.set('volume', values.volume);
+    const target = '/choose/' + (params.toString() ? '?' + params.toString() : '');
+    try { window.top.location.assign(target); }
+    catch (e) { window.location.assign(target); }
+  };
+
   openLine = (id) => {
     this.scrollPageTop();
     this.setState({ page: 'product', line: id, sku: 0, showConfigs: false, galleryIndex: 0 });
@@ -2509,7 +2519,7 @@ class Component extends DCLogic {
       isService: s.page === 'service', isNews: s.page === 'news', isCases: s.page === 'cases', isCaseProject: s.page === 'case-project', isDocs: s.page === 'docs',
       isCompare: s.page === 'compare', isFaq: s.page === 'faq', isPartner: s.page === 'partner',
 
-      goHome: () => this.go('home'), goCatalog: () => this.go('catalog'), goChoose: () => this.go('choose'),
+      goHome: () => this.go('home'), goCatalog: () => this.go('catalog'), goChoose: () => this.openChooser(),
       goSolutions: () => this.go('solutions'), goDealers: () => this.go('dealers'),
       goService: () => this.go('service'), goNews: () => this.go('news'), goCases: () => this.go('cases'), goDocs: () => this.go('docs'),
       backToCases: () => { this.setState({ galleryIndex: 0 }); this.go('cases'); }, activeCase: activeCase,
@@ -2616,23 +2626,16 @@ class Component extends DCLogic {
         { title: 'Дилерская сеть', sub: 'Продажа, шоурумы, монтаж и сервис' }
       ],
       scenarios: SCEN.map(x => {
-        const preset = x.title === 'Первая кофейня' ? { format: 'Кофейня' }
-          : x.title === 'Ресторан и пекарня' ? { format: 'Ресторан / пекарня' }
-          : x.title === 'Specialty' ? { format: 'Specialty' }
-          : x.title === 'Высокий поток' ? { cups: '300–500' }
-          : x.title === 'Компактный формат' ? { width: 'до 600 мм' }
-          : x.title === 'Сеть и проект' ? { format: 'Сеть' } : {};
-        return { title: x.title, sub: x.sub, open: () => {
-          this.setState({ q: Object.assign({}, s.q, preset) });
-          this.go('choose');
-        } };
+        const preset = x.title === 'Первая кофейня' ? { format: 'cafe' }
+          : x.title === 'Ресторан и пекарня' ? { format: 'resto' }
+          : x.title === 'Specialty' ? { format: 'specialty' }
+          : x.title === 'Высокий поток' ? { volume: '300-500' }
+          : x.title === 'Сеть и проект' ? { format: 'chain' } : {};
+        return { title: x.title, sub: x.sub, open: () => this.openChooser(preset) };
       }),
       volumes: CUPS.map(c => ({
         label: c.label,
-        open: () => {
-          this.setState({ q: Object.assign({}, s.q, { cups: c.label.replace(' чашек', '') }) });
-          this.go('choose');
-        }
+        open: () => this.openChooser({ volume: c.label === 'до 100 чашек' ? 'u100' : c.label.replace(' чашек', '').replace('–', '-') })
       })),
       lines: LINES.map(l => this.lineCard(l, this.lineSkus(l.id))),
       tech: [
@@ -2856,7 +2859,7 @@ class Component extends DCLogic {
         return {
           title: x.title, url: x.url, sub: x.sub, photo: this.photo(first.img, x.title, 172),
           models: x.ids.map(id => LINES.filter(l => l.id === id)[0].name),
-          open: () => this.go('choose')
+          open: () => this.openChooser()
         };
       }),
 
