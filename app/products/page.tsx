@@ -8,7 +8,6 @@ import {
   skusOfModel,
   familyBySlug,
   VOLUME_BANDS,
-  liveSkus,
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {

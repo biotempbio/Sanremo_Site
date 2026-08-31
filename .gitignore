@@ -38,3 +38,8 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+/dist-bundle/
+/preview/
+/_backup_prev/
+/_to_delete/
+*.tsbuildinfo

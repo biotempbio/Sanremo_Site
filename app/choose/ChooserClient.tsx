@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface ChooserModel {
   slug: string;
@@ -51,14 +51,22 @@ const BUDGETS = [
   { id: "b4", label: "до 1 500 000 ₽", max: 1_500_000 },
 ];
 
-export default function ChooserClient({ models, initialVolume, initialFormat }: { models: ChooserModel[]; initialVolume?: string; initialFormat?: string }) {
-  const [format, setFormat] = useState<string>(initialFormat ?? "");
-  const [volume, setVolume] = useState<string>(initialVolume ?? "");
+export default function ChooserClient({ models }: { models: ChooserModel[] }) {
+  const [format, setFormat] = useState<string>("");
+  const [volume, setVolume] = useState<string>("");
   const [milk, setMilk] = useState<string>("");
   const [groups, setGroups] = useState<string>("");
   const [budget, setBudget] = useState<string>("");
   const [width, setWidth] = useState<string>("");
   const [profiling, setProfiling] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedFormat = params.get("format");
+    const requestedVolume = params.get("volume");
+    if (requestedFormat && FORMATS.some((item) => item.id === requestedFormat)) setFormat(requestedFormat);
+    if (requestedVolume && VOLUMES.some((item) => item.id === requestedVolume)) setVolume(requestedVolume);
+  }, []);
   const selection = useMemo(() => {
     const fmt = FORMATS.find((f) => f.id === format);
     const maxBudget = BUDGETS.find((b) => b.id === budget)?.max ?? Infinity;

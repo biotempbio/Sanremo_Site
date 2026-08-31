@@ -10,11 +10,7 @@ export const metadata: Metadata = {
     "Подберите профессиональную кофемашину Sanremo: формат заведения, чашек в день, доля молочных напитков, число групп, бюджет и ограничения площадки. Результат — 2–3 конфигурации с РРЦ и наличием.",
 };
 
-type Props = { searchParams: Promise<{ volume?: string; format?: string }> };
-
-export default async function ChoosePage({ searchParams }: Props) {
-  const { volume, format } = await searchParams;
-
+export default function ChoosePage() {
   const rows: ChooserModel[] = models.map((m) => {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
@@ -65,7 +61,7 @@ export default async function ChoosePage({ searchParams }: Props) {
           </div>
         </section>
         <section className="wrap section-tight">
-          <ChooserClient models={rows} initialVolume={volume} initialFormat={format} />
+          <ChooserClient models={rows} />
         </section>
       </main>
       <Footer />

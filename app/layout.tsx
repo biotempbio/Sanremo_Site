@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://staging.sanremomachines.ru";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "Sanremo Russia — профессиональные кофемашины",
   description:
     "Официальный каталог профессиональных кофемашин Sanremo в России.",
