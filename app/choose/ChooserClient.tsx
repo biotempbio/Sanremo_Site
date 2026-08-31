@@ -51,8 +51,8 @@ const BUDGETS = [
   { id: "b4", label: "до 1 500 000 ₽", max: 1_500_000 },
 ];
 
-export default function ChooserClient({ models, initialVolume }: { models: ChooserModel[]; initialVolume?: string }) {
-  const [format, setFormat] = useState<string>("");
+export default function ChooserClient({ models, initialVolume, initialFormat }: { models: ChooserModel[]; initialVolume?: string; initialFormat?: string }) {
+  const [format, setFormat] = useState<string>(initialFormat ?? "");
   const [volume, setVolume] = useState<string>(initialVolume ?? "");
   const [milk, setMilk] = useState<string>("");
   const [groups, setGroups] = useState<string>("");

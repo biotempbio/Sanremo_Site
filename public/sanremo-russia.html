@@ -1478,7 +1478,7 @@ const LINES = [
   { id: 'd8', match: /\bD8\b/i, name: 'D8 / D8 PRO', role: 'Гибридная платформа',
     tagline: 'D8 и D8 PRO: гибридные группы с PID, бойлер AISI 316L, версии на 1–3 группы и независимый контроль каждой группы в PRO.',
     tags: ['1–3 высокие группы', 'PID', 'D8 / D8 PRO'],
-    scen: ['Первая кофейня', 'Independent specialty', 'Высокий поток', 'Сеть и проект'],
+    scen: ['Первая кофейня', 'Specialty', 'Высокий поток', 'Сеть и проект'],
     diff: 'Мост между ZOE и F18: больше контроля и модульности без перехода к флагманскому бюджету.' },
   { id: 'f18sb', match: /F18\s?SB/i, name: 'F18 Single Boiler', role: 'Потоковая однобойлерная',
     tagline: 'Однобойлерная платформа F18 для интенсивной смены: понятный workflow, 2–3 высокие группы.',
@@ -1488,12 +1488,12 @@ const LINES = [
   { id: 'f18', match: /^(?!.*SB).*F18/i, name: 'F18', role: 'Технологичная платформа',
     tagline: 'Контроль параметров и специальные задачи: высокий поток, несколько сортов, развитие кофейной программы.',
     tags: ['2–3 высокие группы', 'контроль температуры', 'specialty'],
-    scen: ['Independent specialty', 'Высокий поток', 'Флагманская точка'],
+    scen: ['Specialty', 'Высокий поток', 'Флагманская точка'],
     diff: 'Технологический шаг вверх от F18 SB: больше контроля и возможностей рецептуры.' },
   { id: 'racer', match: /CAFE RACER|CAFÉ RACER/i, name: 'Café Racer', role: 'Дизайн-объект',
     tagline: 'Вкус, workflow и визуальный образ кофейни: исполнения Naked, Freedom, Racing, Custom Renegade, Dolomiti.',
     tags: ['19 исполнений', 'Naked / Freedom', 'дизайн-акцент'],
-    scen: ['Флагманская точка', 'Independent specialty', 'Лаборатория обжарщика'],
+    scen: ['Флагманская точка', 'Specialty', 'Лаборатория обжарщика'],
     diff: 'Выбирается, когда машина участвует и в интерьере, и в кофейной программе.' },
   { id: 'opera', match: /OPERA/i, name: 'Opera', role: 'R&D-флагман',
     tagline: 'Профилирование и работа с рецептами: повторяемость для обжарщика и лаборатории, внешняя помпа в опции.',
@@ -1503,7 +1503,7 @@ const LINES = [
   { id: 'you', match: /\bYOU\b/i, name: 'YOU', role: 'Compact specialty',
     tagline: 'Одна группа PDL и профессиональный контроль рецепта при дефиците места. Не бытовая машина.',
     tags: ['1 группа PDL', 'компактная', 'specialty'],
-    scen: ['Компактный формат', 'Independent specialty'],
+    scen: ['Компактный формат', 'Specialty'],
     diff: 'Самостоятельная линейка: выбор по ограничению площадки, а не по бюджету.' }
 ];
 
@@ -1547,7 +1547,7 @@ const PRICE_BUCKETS = [
 const SCEN = [
   { title: 'Первая кофейня', sub: 'Ограниченный CAPEX, обучение персонала, предсказуемый результат в чашке.' },
   { title: 'Ресторан и пекарня', sub: 'Меню без сложного обучения: волюметрика, пар, стабильность.' },
-  { title: 'Independent specialty', sub: 'Контроль параметров, несколько сортов, развитие программы.' },
+  { title: 'Specialty', sub: 'Контроль параметров, несколько сортов, развитие программы.' },
   { title: 'Высокий поток', sub: 'Пиковый час, молочное меню, две-три группы и паровая мощность.' },
   { title: 'Компактный формат', sub: 'Ограничение по ширине, мощности и организации рабочего места.' },
   { title: 'Сеть и проект', sub: 'Стандартизация точек, сервис, запчасти и география поставки.' }
@@ -2052,7 +2052,7 @@ class Component extends DCLogic {
         body: 'Простота обучения и предсказуемая volumetric-работа важнее расширенного контроля рецепта.',
         cups: '100–200 чашек/день, 200–300 чашек/день',
         picks: [['Рекомендация', 'zoe'], ['Апгрейд', 'd8'], ['Запас по потоку', 'f18sb']] },
-      { key: 's3', title: 'Независимая specialty', badge: 'Контроль рецепта и несколько сортов',
+      { key: 's3', title: 'Specialty', badge: 'Контроль рецепта и несколько сортов',
         body: 'D8 PRO даёт индивидуальный контроль групп в рациональном бюджете. F18 и Café Racer развивают поток и возможности кофейной программы.',
         cups: '200–300 чашек/день, 300–500 чашек/день',
         picks: [['Рекомендация', 'd8'], ['Альтернатива', 'f18'], ['Апгрейд', 'racer']] },
@@ -2608,10 +2608,24 @@ class Component extends DCLogic {
         { title: 'Запчасти', sub: db.parts.filter(p => (p.stock || 0) > 0).length + ' позиций ЗИП в наличие' },
         { title: 'Дилерская сеть', sub: 'Продажа, шоурумы, монтаж и сервис' }
       ],
-      scenarios: SCEN.map(x => ({ title: x.title, sub: x.sub, open: () => this.go('choose') })),
+      scenarios: SCEN.map(x => {
+        const preset = x.title === 'Первая кофейня' ? { format: 'Кофейня' }
+          : x.title === 'Ресторан и пекарня' ? { format: 'Ресторан / пекарня' }
+          : x.title === 'Specialty' ? { format: 'Specialty' }
+          : x.title === 'Высокий поток' ? { cups: '300–500' }
+          : x.title === 'Компактный формат' ? { width: 'до 600 мм' }
+          : x.title === 'Сеть и проект' ? { format: 'Сеть' } : {};
+        return { title: x.title, sub: x.sub, open: () => {
+          this.setState({ q: Object.assign({}, s.q, preset) });
+          this.go('choose');
+        } };
+      }),
       volumes: CUPS.map(c => ({
         label: c.label,
-        open: () => this.setState({ page: 'catalog', f: Object.assign({}, s.f, { cups: c.label }) })
+        open: () => {
+          this.setState({ q: Object.assign({}, s.q, { cups: c.label.replace(' чашек', '') }) });
+          this.go('choose');
+        }
       })),
       lines: LINES.map(l => this.lineCard(l, this.lineSkus(l.id))),
       tech: [
