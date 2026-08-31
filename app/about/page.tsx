@@ -16,13 +16,8 @@ export default function AboutPage() {
       <Header active="/about" />
       <Crumbs items={[{ href: "/", label: "Главная" }, { label: "О компании" }]} />
       <main>
-        <section>
-          <div className="module a">
-            <div className="module-photo" style={{ minHeight: 400, background: "#111", display: "grid", placeItems: "center", padding: 48 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/sanremo-official-white-v4.svg" alt="Sanremo Coffee Machines" style={{ width: "min(72%,520px)", objectFit: "contain" }} />
-            </div>
-            <div className="module-copy">
+        <section className="section wrap">
+          <div style={{ maxWidth: "880px" }}>
               <p className="eyebrow">Бренд и российский контур</p>
               <h1>Sanremo и BIO</h1>
               <span className="plaque plaque-lg">Итальянский продукт, российская инфраструктура</span>
@@ -31,7 +26,6 @@ export default function AboutPage() {
                 и оператор российского рынка. Сайт объединяет итальянскую идентичность продукта с
                 инфраструктурой владения в России.
               </p>
-            </div>
           </div>
         </section>
 
