@@ -1860,7 +1860,7 @@ class Component extends DCLogic {
     const values = preset || {};
     if (values.format) params.set('format', values.format);
     if (values.volume) params.set('volume', values.volume);
-    const target = '/choose/' + (params.toString() ? '?' + params.toString() : '');
+    const target = 'https://staging.sanremomachines.ru/choose/' + (params.toString() ? '?' + params.toString() : '');
     try { window.top.location.assign(target); }
     catch (e) { window.location.assign(target); }
   };
@@ -2466,7 +2466,7 @@ class Component extends DCLogic {
         category: 'Новинка · 2026',
         title: 'Обновление легенды: новая Sanremo ZOE 2026',
         lead: 'Глубокий рестайлинг одной из самых популярных коммерческих платформ Sanremo: решения ZOE SED и Competition объединены в одну модульную линейку.',
-        photoUrl: '/photo/news-zoe-2026.jpg',
+        photoUrl: '/photo/news-zoe-2026-v2.jpg',
         photoAlt: 'Новая профессиональная кофемашина Sanremo ZOE 2026',
         paragraphs: [
           'Инженеры сосредоточились на надёжности, удобстве обслуживания и функциях, которые действительно нужны за стойкой. Новая электроника упрощает программирование, выводит коды ошибок на экран и добавляет быстрое меню предсмачивания.',
@@ -2479,7 +2479,7 @@ class Component extends DCLogic {
         category: 'Технологии · ZOE 2026',
         title: 'Steam Easy: стабильное молочное меню одним нажатием',
         lead: 'Интегрированная система автоматического вспенивания помогает повторять текстуру молока и сокращает время обучения команды.',
-        photoUrl: '/photo/news-zoe-steam-easy.jpg',
+        photoUrl: '/photo/news-zoe-steam-easy-v2.jpg',
         photoAlt: 'Белая кофемашина Sanremo ZOE 2026 с чашками',
         paragraphs: [
           'Steam Easy встраивается непосредственно в корпус машины, экономит место на стойке и управляется с дисплея.',
@@ -2616,8 +2616,8 @@ class Component extends DCLogic {
       newsParagraphs: activeNews.paragraphs.map((text, i) => ({ key: 'np' + i, text: text })),
       newsPoints: activeNews.points.map((text, i) => ({ key: 'nk' + i, text: text })),
 
-      heroPhoto: this.coverPhoto('/photo/home-hero-cafe-racer.jpg', 'Кофемашина Sanremo Café Racer в светлом интерьере кофейни'),
-      casesLeadPhoto: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Бариста работает за профессиональной кофемашиной Sanremo'),
+      heroPhoto: this.coverPhoto('/photo/home-hero-cafe-racer-v2.jpg', 'Кофемашина Sanremo Café Racer в светлом интерьере кофейни'),
+      casesLeadPhoto: this.coverPhoto('/photo/official-sanremo-cafe-v2.jpg', 'Бариста работает за профессиональной кофемашиной Sanremo'),
       trust: [
         { title: 'Официальный дистрибьютор', sub: 'Компания BIO — российский контур бренда' },
         { title: 'РРЦ', sub: 'Решение на любой бюджет — от ' + money(Math.min.apply(null, allSkus.map(m => m.price).filter(Boolean).concat([9e9]))) },
@@ -2935,7 +2935,7 @@ class Component extends DCLogic {
       casesWorld: [
         { tag: 'World Coffee Events', photo: this.coverPhoto('/photo/official-sanremo-community.jpg', 'Команда Sanremo на международном кофейном событии'), title: 'Официальная машина финалов WLAC и WCIGS', text: 'С 2018 года Café Racer — машина финалов чемпионатов World Latte Art и Coffee in Good Spirits: на ней работают лучшие бариста мира.', model: 'Café Racer' },
         { tag: 'HOST · Sanremo House', photo: this.coverPhoto('/photo/sanremo-house-3.webp', 'Выставочный стенд Sanremo с кофемашинами'), title: 'Живое пространство вокруг кофейных технологий', text: 'Выставочные стенды Sanremo работают как настоящие кофейные бары: машины показаны в потоке, с бариста и гостями.', model: 'Café Racer + D8' },
-        { tag: 'Sanremo Highlights', photo: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Работа бариста за кофемашиной Sanremo'), title: 'Кофейная программа начинается за стойкой', text: 'Рабочая зона показывает то, чего не видно в каталожном рендере: посадку бариста, доступ к группам и темп выдачи напитков.', model: 'Opera + Café Racer' },
+        { tag: 'Sanremo Highlights', photo: this.coverPhoto('/photo/official-sanremo-cafe-v2.jpg', 'Работа бариста за кофемашиной Sanremo'), title: 'Кофейная программа начинается за стойкой', text: 'Рабочая зона показывает то, чего не видно в каталожном рендере: посадку бариста, доступ к группам и темп выдачи напитков.', model: 'Opera + Café Racer' },
         { tag: 'Sanremo House', photo: this.coverPhoto('/photo/sanremo-house-2.webp', 'Интерьер выставочного кофейного бара Sanremo'), title: 'От выставочного стенда до кофейни', text: 'Машины Sanremo показывают в реальном окружении — среди кофемолок, рабочей мебели, чашек и людей.', model: 'все линейки' }
       ]
     };
