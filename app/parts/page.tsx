@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function PartsPage() {
-
   const rows: PartRow[] = parts.map((p) => {
     const linked = p.fits.map((c) => skuByCode(c)).filter(Boolean);
     const names = [...new Set(linked.map((s) => s!.modelName))];
@@ -43,7 +42,7 @@ export default function PartsPage() {
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
                 Поиск по артикулу, названию, модели и узлу. В каталоге показаны только запчасти,
-                доступные на складе BIO.
+                доступные на складе в Москве.
               </p>
             </div>
           </div>
@@ -57,7 +56,6 @@ export default function PartsPage() {
               slug: m.slug,
               name: CATALOG_LINEUP.find((line) => line.slug === m.slug)?.label ?? m.name,
             }))}
-            initialModel={undefined}
           />
         </section>
 

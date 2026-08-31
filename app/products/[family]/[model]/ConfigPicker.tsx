@@ -22,7 +22,7 @@ export interface PickerSku {
 }
 
 const LABEL: Record<PickerSku["availability"], string> = {
-  in_stock: "На складе",
+  in_stock: "На складе в Москве",
   limited: "Ограниченное количество",
   reserved: "Зарезервировано",
   on_order: "Под заказ",

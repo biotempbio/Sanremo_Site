@@ -48,7 +48,6 @@ export default function DealersPage() {
           <DealersClient
             dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified }))}
             cities={cities}
-            initialCity={undefined}
           />
         </section>
 

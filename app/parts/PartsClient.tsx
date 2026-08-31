@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface PartRow {
   code: string;
@@ -18,23 +18,30 @@ const LABEL: Record<PartRow["availability"], string> = {
   in_stock: "В наличии",
   limited: "Мало",
   reserved: "Зарезервировано",
-  on_order: "Нет на складе",
+  on_order: "Нет на складе в Москве",
 };
 
 const PAGE = 40;
 
 export default function PartsClient({
-  parts, nodes, models, initialModel,
+  parts, nodes, models,
 }: {
   parts: PartRow[];
   nodes: { node: string; count: number }[];
   models: { slug: string; name: string }[];
-  initialModel?: string;
 }) {
   const [q, setQ] = useState("");
   const [node, setNode] = useState("");
-  const [model, setModel] = useState(initialModel ?? "");
+  const [model, setModel] = useState("");
   const [limit, setLimit] = useState(PAGE);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedModel = params.get("model");
+    const requestedQuery = params.get("q");
+    if (requestedModel && models.some((item) => item.slug === requestedModel)) setModel(requestedModel);
+    if (requestedQuery) setQ(requestedQuery);
+  }, [models]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();

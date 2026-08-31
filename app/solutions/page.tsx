@@ -111,7 +111,7 @@ export default function SolutionsPage() {
   );
 }
 
-function Pick({ label, m }: { label: string; m: ReturnType<typeof modelBySlug> }) {
+function Pick({ label, m }: { label: string; m: ReturnType<typeof modelBySlug> | null }) {
   if (!m) return <div />;
   const f = familyBySlug(m.family)!;
   return (

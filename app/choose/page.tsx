@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function ChoosePage() {
-
   const rows: ChooserModel[] = models.map((m) => {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
@@ -50,8 +49,8 @@ export default function ChoosePage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                Шесть вопросов о реальной смене — и две-три обоснованные конфигурации с
-                рекомендованной ценой, наличием и переходом к дилеру.
+                Шесть вопросов о формате, меню и планах вашей кофейни — чтобы последовательно
+                сузить выбор до подходящих моделей и получить обоснованные рекомендации.
               </p>
               <p className="source-note">
                 Подбор — редакционная рекомендация BIO. Мы не выдаём одно число «чашек в день» за
@@ -62,7 +61,7 @@ export default function ChoosePage() {
           </div>
         </section>
         <section className="wrap section-tight">
-          <ChooserClient models={rows} initialVolume={undefined} />
+          <ChooserClient models={rows} />
         </section>
       </main>
       <Footer />

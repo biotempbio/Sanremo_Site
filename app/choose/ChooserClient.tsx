@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface ChooserModel {
   slug: string;
@@ -51,21 +51,42 @@ const BUDGETS = [
   { id: "b4", label: "до 1 500 000 ₽", max: 1_500_000 },
 ];
 
-export default function ChooserClient({ models, initialVolume }: { models: ChooserModel[]; initialVolume?: string }) {
+export default function ChooserClient({ models }: { models: ChooserModel[] }) {
   const [format, setFormat] = useState<string>("");
-  const [volume, setVolume] = useState<string>(initialVolume ?? "");
+  const [volume, setVolume] = useState<string>("");
   const [milk, setMilk] = useState<string>("");
   const [groups, setGroups] = useState<string>("");
-  const [budget, setBudget] = useState<string>("any");
+  const [budget, setBudget] = useState<string>("");
   const [width, setWidth] = useState<string>("");
   const [profiling, setProfiling] = useState(false);
 
-  const result = useMemo(() => {
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedFormat = params.get("format");
+    const requestedVolume = params.get("volume");
+    if (requestedFormat && FORMATS.some((item) => item.id === requestedFormat)) setFormat(requestedFormat);
+    if (requestedVolume && VOLUMES.some((item) => item.id === requestedVolume)) setVolume(requestedVolume);
+  }, []);
+  const selection = useMemo(() => {
     const fmt = FORMATS.find((f) => f.id === format);
     const maxBudget = BUDGETS.find((b) => b.id === budget)?.max ?? Infinity;
     const w = width ? parseInt(width, 10) : null;
 
-    const scored = models
+    const narrow = (rows: ChooserModel[], test: (m: ChooserModel) => boolean) => {
+      const next = rows.filter(test);
+      return next.length ? next : rows;
+    };
+
+    let candidates = [...models];
+    if (fmt) candidates = narrow(candidates, (m) => m.scenarios.some((s) => fmt.scen.includes(s)));
+    if (volume) candidates = narrow(candidates, (m) => m.volumeBands.includes(volume));
+    if (milk === "high") candidates = narrow(candidates, (m) => /мультибойлер|Multiboiler/i.test(m.architecture) || m.options.includes("AutoSteam"));
+    if (groups) candidates = narrow(candidates, (m) => m.groups.includes(Number(groups)));
+    if (profiling) candidates = narrow(candidates, (m) => /мультибойлер|Multiboiler|профилирован/i.test(m.architecture));
+    if (budget) candidates = narrow(candidates, (m) => (m.priceFrom ?? 0) <= maxBudget);
+    if (w) candidates = narrow(candidates, (m) => !m.minWidth || m.minWidth <= w);
+
+    const ranked = candidates
       .map((m) => {
         let score = 0;
         const why: string[] = [];
@@ -75,23 +96,22 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
         if (milk === "high" && m.options.includes("AutoSteam")) { score += 1; why.push("AutoSteam"); }
         if (groups && m.groups.includes(Number(groups))) { score += 2; why.push(`есть исполнение на ${groups} группы`); }
         if (profiling && /мультибойлер|Multiboiler|профилирован/i.test(m.architecture)) { score += 3; why.push("контроль температуры и профилирование"); }
-        if (m.inStockCount > 0) { score += 1; why.push(`${m.inStockCount} конфигураций со склада`); }
+        if (m.inStockCount > 0) { score += 1; why.push(`${m.inStockCount} конфигураций на складе в Москве`); }
         return { m, score, why };
       })
-      .filter((r) => (r.m.priceFrom ?? 0) <= maxBudget)
-      .filter((r) => (w && r.m.minWidth ? r.m.minWidth <= w : true))
       .sort((a, b) => b.score - a.score || (a.m.priceFrom ?? 0) - (b.m.priceFrom ?? 0));
 
-    if (!scored.length) return null;
-    const main = scored[0];
-    const cheaper = scored.find((r) => r.m.slug !== main.m.slug && (r.m.priceFrom ?? 0) < (main.m.priceFrom ?? 0));
-    const upgrade = scored.find(
-      (r) => r.m.slug !== main.m.slug && r.m.slug !== cheaper?.m.slug && (r.m.priceFrom ?? 0) > (main.m.priceFrom ?? 0)
-    );
-    return { main, cheaper, upgrade, total: scored.length };
+    const main = ranked[0];
+    const byPrice = [...ranked].sort((a, b) => (a.m.priceFrom ?? Infinity) - (b.m.priceFrom ?? Infinity));
+    const cheaper = main && byPrice.find((r) => r.m.slug !== main.m.slug);
+    const upgrade = main && [...byPrice].reverse().find((r) => r.m.slug !== main.m.slug && r.m.slug !== cheaper?.m.slug);
+    const recommendations = [main, cheaper, upgrade].filter(Boolean) as typeof ranked;
+    const recommended = new Set(recommendations.map((r) => r.m.slug));
+    return { ranked, recommendations, other: ranked.filter((r) => !recommended.has(r.m.slug)) };
   }, [models, format, volume, milk, groups, budget, width, profiling]);
 
-  const answered = [format, volume, milk, groups, width].filter(Boolean).length + (profiling ? 1 : 0);
+  const answered = [format, volume, milk, groups || (profiling ? "profiling" : ""), budget, width].filter(Boolean).length;
+  const complete = answered === 6;
 
   return (
     <div className="chooser">
@@ -147,11 +167,12 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
           <label className="field">
             <span>5. Бюджет (РРЦ)</span>
             <select value={budget} onChange={(e) => setBudget(e.target.value)}>
+              <option value="" disabled>Выберите бюджет</option>
               {BUDGETS.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}
             </select>
           </label>
           <label className="field">
-            <span>Ограничение по ширине, мм</span>
+            <span>6. Ограничение по ширине, мм</span>
             <input inputMode="numeric" placeholder="например 800" value={width}
                    onChange={(e) => setWidth(e.target.value.replace(/\D/g, ""))} />
           </label>
@@ -163,14 +184,20 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
       </form>
 
       <div className="chooser-result">
-        {!result ? (
-          <div className="empty">
-            <h3>Под эти ограничения готовой конфигурации нет</h3>
-            <p className="small" style={{ maxWidth: "44ch", margin: "10px auto 0" }}>
-              Чаще всего дело в бюджете или ширине рабочей зоны. Опишите задачу — специалист BIO
-              подберёт подходящий вариант.
-            </p>
-          </div>
+        {!complete ? (
+          <>
+            <div className="candidate-head">
+              <div>
+                <p className="eyebrow">Выбор сужается по вашим ответам</p>
+                <h2>Подходящие модели</h2>
+              </div>
+              <p className="candidate-count"><b>{selection.ranked.length}</b> из {models.length}</p>
+            </div>
+            <p className="small candidate-help">Ответьте на все шесть вопросов. На каждом шаге здесь остаются модели, которые соответствуют уже выбранным условиям.</p>
+            <div className="candidate-list">
+              {selection.ranked.map((r) => <CandidateRow key={r.m.slug} m={r.m} />)}
+            </div>
+          </>
         ) : (
           <>
             <div className="sec-head" style={{ marginBottom: 22 }}>
@@ -179,15 +206,21 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
                 <h2>Две-три обоснованные конфигурации</h2>
               </div>
               <p className="small" style={{ maxWidth: "50ch" }}>
-                Подходящих моделей в матрице: {result.total}. Ниже — основная рекомендация,
+                Подходящих моделей в матрице: {selection.ranked.length}. Ниже — основная рекомендация,
                 экономичная альтернатива и апгрейд с объяснением, за что доплата.
               </p>
             </div>
             <div className="grid g3">
-              <ResultCard tone="main" title="Основная рекомендация" r={result.main} />
-              {result.cheaper && <ResultCard tone="alt" title="Экономичная альтернатива" r={result.cheaper} />}
-              {result.upgrade && <ResultCard tone="up" title="Апгрейд" r={result.upgrade} />}
+              {selection.recommendations.map((r, index) => (
+                <ResultCard key={r.m.slug} tone={index === 0 ? "main" : index === 1 ? "alt" : "up"}
+                  title={index === 0 ? "Основная рекомендация" : index === 1 ? "Экономичная альтернатива" : "Апгрейд"} r={r} />
+              ))}
             </div>
+
+            {selection.other.length > 0 && <div className="other-results">
+              <div className="candidate-head"><h3>Другие подходящие модели</h3><span className="tiny">Можно выбрать самостоятельно</span></div>
+              <div className="candidate-list">{selection.other.map((r) => <CandidateRow key={r.m.slug} m={r.m} />)}</div>
+            </div>}
 
             <div className="notice" style={{ marginTop: 24 }}>
               <b>Как читать результат.</b> Это редакционная рекомендация BIO по вашим ответам, а не
@@ -218,6 +251,16 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
         .chooser-form fieldset { border: 0; margin: 0; padding: 0; }
         .chooser-form legend { padding: 0; margin-bottom: 10px; }
         .chooser-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .candidate-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 16px; }
+        .candidate-count { margin: 0; white-space: nowrap; color: var(--muted); }
+        .candidate-count b { color: var(--ink); font-size: 28px; }
+        .candidate-help { max-width: 64ch; margin: 0 0 24px; }
+        .candidate-list { border-top: 1px solid var(--ink); }
+        .candidate-row { display: grid; grid-template-columns: minmax(0,1fr) auto auto; gap: 24px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); }
+        .candidate-row h3 { margin: 2px 0 0; }
+        .candidate-row .price { font-size: 18px; white-space: nowrap; }
+        .candidate-row .stock-label { min-width: 150px; }
+        .other-results { margin-top: 34px; }
         .chooser-cta { margin-top: 28px; padding: 26px; background: var(--ink); color: #fff;
           display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 20px; align-items: center; }
         .chooser-cta h3 { color: #fff; }
@@ -229,6 +272,11 @@ export default function ChooserClient({ models, initialVolume }: { models: Choos
           .chooser { grid-template-columns: 1fr; }
           .chooser-form { border-right: 0; border-bottom: 1px solid var(--line); padding: 0 0 26px; }
           .chooser-cta { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 620px) {
+          .chooser-two { grid-template-columns: 1fr; }
+          .candidate-row { grid-template-columns: 1fr auto; gap: 10px 16px; }
+          .candidate-row .stock-label { grid-column: 1 / -1; }
         }
       `}</style>
     </div>
@@ -260,10 +308,23 @@ function ResultCard({
           </div>
           <span className="stock-label">
             <i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-            {m.inStockCount ? "Со склада" : "Под заказ"}
+            {m.inStockCount ? "На складе в Москве" : "Под заказ"}
           </span>
         </div>
       </div>
+    </article>
+  );
+}
+
+function CandidateRow({ m }: { m: ChooserModel }) {
+  return (
+    <article className="candidate-row">
+      <div>
+        <p className="eyebrow" style={{ margin: 0 }}>{m.familyName}</p>
+        <h3><a href={`/products/${m.family}/${m.slug}`}>{m.name}</a></h3>
+      </div>
+      <span className="price num">{m.priceFrom ? `от ${m.priceFrom.toLocaleString("ru-RU")} ₽` : "Цена по запросу"}</span>
+      <span className="stock-label"><i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />{m.inStockCount ? "На складе в Москве" : "Под заказ"}</span>
     </article>
   );
 }

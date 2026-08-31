@@ -158,7 +158,7 @@ export default function CatalogClient({
         </Group>
 
         <Group title="Наличие">
-          <Chip on={stockOnly} onClick={() => setStockOnly(!stockOnly)}>Только со склада</Chip>
+          <Chip on={stockOnly} onClick={() => setStockOnly(!stockOnly)}>Только на складе в Москве</Chip>
         </Group>
 
       </aside>
@@ -174,7 +174,7 @@ export default function CatalogClient({
               <option value="price-asc">РРЦ: по возрастанию</option>
               <option value="lineup">Порядок линейки</option>
               <option value="price-desc">РРЦ: по убыванию</option>
-              <option value="stock">Сначала со склада</option>
+              <option value="stock">Сначала склад в Москве</option>
               <option value="name">По названию</option>
             </select>
           </label>
@@ -209,7 +209,7 @@ export default function CatalogClient({
                       {r.colors.slice(0, 8).map((c) => (
                         <i className="swatch" key={c.name} style={{ background: c.hex }} title={c.name} />
                       ))}
-                      <span className="tiny">{r.colors.length} цветов на складе</span>
+                      <span className="tiny">{r.colors.length} цветов на складе в Москве</span>
                     </div>
                   )}
                   <div className="card-foot">
@@ -221,10 +221,10 @@ export default function CatalogClient({
                       <i className={`dot ${r.stockUnits ? "st-in_stock" : "st-reserved"}`} style={{ marginTop: 6 }} />
                       {r.stockUnits ? (
                         <span>
-                          <b>На складе {r.stockUnits} {machineWord(r.stockUnits)}</b>
+                          <b>На складе в Москве {r.stockUnits} {machineWord(r.stockUnits)}</b>
                           <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small>
                         </span>
-                      ) : "Сейчас нет на складе"}
+                      ) : "Сейчас нет на складе в Москве"}
                     </span>
                   </div>
                 </div>

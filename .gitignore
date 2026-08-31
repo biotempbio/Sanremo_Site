@@ -39,4 +39,8 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
-data/seo-agent-artifacts/
+/dist-bundle/
+/preview/
+/_backup_prev/
+/_to_delete/
+*.tsbuildinfo

@@ -14,7 +14,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "public/**",
-    "work/**",
+    "_backup_prev/**",
+    "_to_delete/**",
+    "scripts/**",
     "next-env.d.ts",
   ]),
   eslint.configs.recommended,
@@ -27,6 +29,7 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "@next/next/no-html-link-for-pages": "off",
+      "react-hooks/set-state-in-effect": "off",
     },
     languageOptions: {
       globals: {

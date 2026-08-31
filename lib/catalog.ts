@@ -144,6 +144,7 @@ export const analogs = catalog.analogs;
 /** Согласованная последовательность продуктовых линеек в российском каталоге. */
 export const CATALOG_LINEUP = [
   { slug: "zoe-competition", label: "ZOE Competition", image: "/photo/official/zoe-competition.jpg" },
+  { slug: "d8", label: "D8 / D8 PRO", image: "/photo/official/d8-pro.jpg" },
   { slug: "f18-sb", label: "F18 Single Boiler", image: "/photo/official/f18-single-boiler.jpg" },
   { slug: "f18-mb", label: "F18", image: "/photo/official/f18.jpg" },
   { slug: "cafe-racer", label: "Cafe Racer", image: "/photo/official/cafe-racer.jpg" },
@@ -224,7 +225,7 @@ export const moneyPrecise = (v: number) =>
   `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(v)} ₽`;
 
 export const AVAILABILITY_LABEL: Record<Availability, string> = {
-  in_stock: "На складе",
+  in_stock: "На складе в Москве",
   limited: "Ограниченное количество",
   reserved: "Зарезервировано",
   on_order: "Под заказ",
@@ -271,7 +272,7 @@ export const SCENARIOS: Scenario[] = [
     photo: "/photo/official/cafe-racer.jpg" },
   { id: "compact", title: "Компактный specialty и bar", question: "Дефицит места, но нужен профессиональный контроль",
     main: "you", alt: null, upgrade: "f18-sb",
-    logic: "YOU — compact professional с профилированием фаз экстракции, а не бытовая машина.",
+    logic: "YOU — компактная high-end машина с профилированием фаз экстракции для specialty-кофейни, лаборатории или продвинутой домашней кофейной зоны.",
     photo: "/photo/official/you.png" },
   { id: "roaster", title: "Обжарщик и лаборатория", question: "Профилирование и повторяемость",
     main: "opera", alt: "cafe-racer", upgrade: null,

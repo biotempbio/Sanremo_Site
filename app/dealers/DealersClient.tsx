@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface DealerRow {
   name: string;
@@ -12,10 +12,18 @@ export interface DealerRow {
 }
 
 export default function DealersClient({
-  dealers, cities, initialCity,
-}: { dealers: DealerRow[]; cities: { city: string; count: number }[]; initialCity?: string }) {
-  const [q, setQ] = useState(initialCity ?? "");
-  const [city, setCity] = useState<string>(initialCity ?? "");
+  dealers, cities,
+}: { dealers: DealerRow[]; cities: { city: string; count: number }[] }) {
+  const [q, setQ] = useState("");
+  const [city, setCity] = useState<string>("");
+
+  useEffect(() => {
+    const requestedCity = new URLSearchParams(window.location.search).get("city");
+    if (requestedCity && cities.some((item) => item.city === requestedCity)) {
+      setCity(requestedCity);
+      setQ(requestedCity);
+    }
+  }, [cities]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
