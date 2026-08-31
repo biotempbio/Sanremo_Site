@@ -2330,7 +2330,12 @@ class Component extends DCLogic {
       { label: 'Total White · спереди', photo: this.coverPhoto('/photo/zoe-2026/white-front.webp', 'Sanremo ZOE 2026 Total White, вид спереди') },
       { label: 'Total Inox · 3/4', photo: this.coverPhoto('/photo/zoe-2026/inox-angle.webp', 'Sanremo ZOE 2026 Total Inox, ракурс три четверти') },
       { label: 'ZOE в кофейне', photo: this.coverPhoto('/photo/zoe-2026/barista-cafe.jpg', 'Бариста работает на кофемашине Sanremo ZOE 2026 в кофейне') }
-    ] : [
+    ] : L.id === 'you' ? [
+      { label: 'YOU · чёрный матовый', photo: this.photo('/photo/official/you.png', 'Sanremo YOU, чёрный матовый', 410, true) }
+    ].concat(productStory.images.filter(url => url !== '/photo/official/you.png').map((url, i) => ({
+      label: 'YOU · официальный каталог ' + String(i + 1).padStart(2, '0'),
+      photo: this.coverPhoto(url, 'Sanremo YOU, официальная фотография ' + (i + 1))
+    }))) : [
       { label: 'Выбранное исполнение', photo: this.photo(sku.img, sku.name || L.name, 410, true) },
     ].concat((productStory ? productStory.images : []).map((url, i) => ({
       label: L.name + ' · каталог ' + String(i + 1).padStart(2, '0'),
