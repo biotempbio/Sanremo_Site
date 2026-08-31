@@ -63,7 +63,7 @@ export function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/sanremo-official-white-v4.svg" alt="Sanremo Coffee Machines" style={{ width: 150 }} />
             <p className="small" style={{ color: "#b9b6b1", marginTop: 18, maxWidth: "30ch" }}>
-              Профессиональные кофемашины Sanremo в России: официальная дистрибуция, склад,
+              Профессиональные кофемашины Sanremo в России: официальная дистрибуция, склад в Москве,
               дилерская сеть, сервис и запчасти.
             </p>
           </div>

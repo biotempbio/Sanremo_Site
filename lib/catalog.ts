@@ -224,7 +224,7 @@ export const moneyPrecise = (v: number) =>
   `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(v)} ₽`;
 
 export const AVAILABILITY_LABEL: Record<Availability, string> = {
-  in_stock: "На складе",
+  in_stock: "На складе в Москве",
   limited: "Ограниченное количество",
   reserved: "Зарезервировано",
   on_order: "Под заказ",

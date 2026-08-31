@@ -61,7 +61,7 @@ export default function AboutPage() {
                 <span className="plaque" style={{ alignSelf: "flex-start" }}>Дистрибьютор в России</span>
                 <h3>Компания BIO</h3>
                 <p className="small" style={{ margin: 0 }}>
-                  Ассортимент и рекомендованные розничные цены, склад в России, дилерская сеть,
+                  Ассортимент и рекомендованные розничные цены, склад в Москве, дилерская сеть,
                   каталог запчастей, обучение, коммерческая и сервисная маршрутизация.
                 </p>
                 <ul className="small" style={{ paddingLeft: 18, margin: "6px 0 0" }}>

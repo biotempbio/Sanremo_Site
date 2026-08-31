@@ -133,7 +133,7 @@
         <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;color:#7D9C91;text-transform:uppercase">Sanremo Russia · дистрибуция BIO</div>
         <h1 style="margin:20px 0 0;font:700 56px/1.06 'Playfair Display',Georgia,serif;letter-spacing:-.01em;text-wrap:pretty">Профессиональные кофемашины Sanremo в России</h1>
         <div style="margin:26px 0 0;display:inline-block;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 15px/1 'PT Sans',sans-serif">Выбор по бизнес-задаче, а не по картинке</div>
-        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'PT Sans',sans-serif;color:#3C3C3A;text-wrap:pretty">Семь линеек для всех сценариев — от стартапа до кофейной сети, от базовых характеристик до специальных настроек. Оборудование и ЗИП всегда на складе BIO в ассортименте и нужном количестве. Продажа и сервис — через дилерскую сеть.</p>
+        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'PT Sans',sans-serif;color:#3C3C3A;text-wrap:pretty">Семь линеек для всех сценариев — от стартапа до кофейной сети, от базовых характеристик до специальных настроек. Оборудование и ЗИП — на складе в Москве, в ассортименте и нужном количестве. Продажа и сервис — через дилерскую сеть.</p>
         <div style="margin:32px 0 0;display:flex;gap:12px">
           <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Подобрать машину</button>
           <button onClick="{{ goCatalog }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Смотреть каталог</button>
@@ -260,7 +260,7 @@
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px">
       <div style="background:#D7C4B7;padding:36px 34px;display:flex;flex-direction:column">
         <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#4A3B33;text-transform:uppercase">Сервис и запчасти</div>
-        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Playfair Display',Georgia,serif;color:#2A211C">{{ partCount }} {{ partCountWord }} ЗИП на складе BIO</h3>
+        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Playfair Display',Georgia,serif;color:#2A211C">{{ partCount }} {{ partCountWord }} ЗИП на складе в Москве</h3>
         <p style="margin:14px 0 24px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A3B33;max-width:440px">Поиск детали по артикулу, названию и узлу; совместимость, статус наличия и способ получения — через дилера или напрямую в BIO.</p>
         <button onClick="{{ goService }}" style="margin-top:auto;align-self:flex-start;border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Найти запчасть</button>
       </div>
@@ -439,7 +439,7 @@
               <div style="font:700 13px/1 'PT Sans',sans-serif;color:#141414">Соберите исполнение</div>
               <div style="display:flex;align-items:baseline;gap:7px;color:#2D483F">
                 <span style="font:700 24px/1 'Playfair Display',Georgia,serif">{{ p.lineUnits }}</span>
-                <span style="font:600 11px/1.25 'PT Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em">{{ p.lineUnitsLabel }}<br />линейки на складе</span>
+                <span style="font:600 11px/1.25 'PT Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em">{{ p.lineUnitsLabel }}<br />линейки на складе в Москве</span>
               </div>
             </div>
             <sc-if value="{{ p.showModifications }}" hint-placeholder-val="{{ true }}">
@@ -938,7 +938,7 @@
 
         <sc-if value="{{ partsEmpty }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:20px;background:#F1F3F1;padding:28px 30px">
-            <div style="font:700 16px/1.3 'PT Sans',sans-serif">По этому запросу на складе ничего нет</div>
+            <div style="font:700 16px/1.3 'PT Sans',sans-serif">По этому запросу на складе в Москве ничего нет</div>
             <div style="margin-top:8px;font:400 14px/1.6 'PT Sans',sans-serif;color:#4A4A46">Снимите фильтр линейки или узла — либо отправьте артикул в сервисный запрос, проверим поставку.</div>
           </div>
         </sc-if>
@@ -2134,7 +2134,7 @@ class Component extends DCLogic {
     return {
       units: units, inStockSkus: inStockSkus, nColors: nColors,
       stockLine: units > 0
-        ? ('На складе ' + units + ' ' + plural(units, 'машина', 'машины', 'машин') + ' в ' + inStockSkus + ' ' + plural(inStockSkus, 'исполнении', 'исполнениях', 'исполнениях'))
+        ? ('На складе в Москве ' + units + ' ' + plural(units, 'машина', 'машины', 'машин') + ' в ' + inStockSkus + ' ' + plural(inStockSkus, 'исполнении', 'исполнениях', 'исполнениях'))
         : 'Под заказ · поставка по запросу',
       variantLine: skus.length + ' ' + plural(skus.length, 'исполнение', 'исполнения', 'исполнений')
         + (nColors ? ' · ' + nColors + ' ' + plural(nColors, 'цвет', 'цвета', 'цветов') : '')
@@ -2240,10 +2240,10 @@ class Component extends DCLogic {
         return {
           role: r.role, tag: L.name.toUpperCase(), name: L.name, why: L.tagline,
           configs: inStock
-            ? (inStock + ' ' + plural(inStock, 'исполнение', 'исполнения', 'исполнений') + ' со склада')
+            ? (inStock + ' ' + plural(inStock, 'исполнение', 'исполнения', 'исполнений') + ' на складе в Москве')
             : 'поставка по запросу',
           price: prices.length ? money(Math.min.apply(null, prices)) : 'по запросу',
-          status: inStock ? 'Со склада' : 'Под заказ',
+          status: inStock ? 'На складе в Москве' : 'Под заказ',
           dot: inStock ? '#2D7A43' : '#B9B9B4',
           border: r.primary ? '2px solid #141414' : '1px solid #E6E6E3',
           badgeBg: r.primary ? '#141414' : '#D7C4B7',
@@ -2770,7 +2770,7 @@ class Component extends DCLogic {
         lineUnits: lineStats.units,
         lineUnitsLabel: plural(lineStats.units, 'кофемашина', 'кофемашины', 'кофемашин'),
         lineStock: lineStats.stockLine,
-        availabilitySummary: lineSkus.length + ' ' + plural(lineSkus.length, 'исполнение', 'исполнения', 'исполнений') + ' · ' + lineStats.inStockSkus + ' сейчас на складе' + (lineSkus.length > lineStats.inStockSkus ? ' · остальные под заказ' : ''),
+        availabilitySummary: lineSkus.length + ' ' + plural(lineSkus.length, 'исполнение', 'исполнения', 'исполнений') + ' · ' + lineStats.inStockSkus + ' сейчас на складе в Москве' + (lineSkus.length > lineStats.inStockSkus ? ' · остальные под заказ' : ''),
         lineVariants: lineStats.variantLine + ' — цвета, посадка групп и комплектации из выгрузки BIO',
         partsCount: (sku.spareParts || []).length,
         diffs: [

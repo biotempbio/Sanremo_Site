@@ -318,7 +318,7 @@ export default async function ModelPage({ params }: Props) {
                     <CmpRow label="Конфигураций в РФ" a={String(m.skuCount)} rest={siblings.map((s) => String(s.skuCount))} />
                     <CmpRow label="Опции" a={m.optionsAvailable.join(", ") || "—"} rest={siblings.map((s) => s.optionsAvailable.join(", ") || "—")} />
                     <CmpRow label="РРЦ от" a={money(m.priceFrom)} rest={siblings.map((s) => money(s.priceFrom))} />
-                    <CmpRow label="Со склада" a={String(m.inStockCount)} rest={siblings.map((s) => String(s.inStockCount))} />
+                    <CmpRow label="На складе в Москве" a={String(m.inStockCount)} rest={siblings.map((s) => String(s.inStockCount))} />
                     <CmpRow
                       label="Карточка"
                       a="—"
@@ -474,7 +474,7 @@ export default async function ModelPage({ params }: Props) {
                 ["Можно ли купить машину на сайте?",
                  "Нет. Сайт публикует рекомендованную розничную цену и наличие, а продажу, монтаж и обслуживание выполняет авторизованный дилер или отдел продаж BIO."],
                 ["Что означает статус наличия?",
-                 "«На складе» — позиция доступна к отгрузке, «Ограниченное количество» — остаток меньше трёх единиц, «Под заказ» — поставка формируется партией. Точное количество и срок подтверждает менеджер."],
+                 "«На складе в Москве» — позиция доступна к отгрузке, «Ограниченное количество» — остаток меньше трёх единиц, «Под заказ» — поставка формируется партией. Точное количество и срок подтверждает менеджер."],
                 ["Отличается ли комплектация от европейской?",
                  "Публикуются только конфигурации, поддерживаемые российским дистрибьютором: сочетание групп, высоты, опций и цвета из матрицы BIO."],
                 ["Как обстоит дело с запчастями?",

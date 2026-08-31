@@ -18,7 +18,7 @@ const LABEL: Record<PartRow["availability"], string> = {
   in_stock: "В наличии",
   limited: "Мало",
   reserved: "Зарезервировано",
-  on_order: "Нет на складе",
+  on_order: "Нет на складе в Москве",
 };
 
 const PAGE = 40;

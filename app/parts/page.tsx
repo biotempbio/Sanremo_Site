@@ -46,7 +46,7 @@ export default async function PartsPage({ searchParams }: Props) {
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
                 Поиск по артикулу, названию, модели и узлу. В каталоге показаны только запчасти,
-                доступные на складе BIO.
+                доступные на складе в Москве.
               </p>
             </div>
           </div>

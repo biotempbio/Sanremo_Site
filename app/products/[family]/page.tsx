@@ -115,7 +115,7 @@ export default async function FamilyPage({ params }: Props) {
                       </div>
                       <span className="stock-label">
                         <i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-                        {m.inStockCount ? `${m.inStockCount} со склада` : "Под заказ"}
+                        {m.inStockCount ? `${m.inStockCount} на складе в Москве` : "Под заказ"}
                       </span>
                     </div>
                   </div>
@@ -135,7 +135,7 @@ export default async function FamilyPage({ params }: Props) {
               </div>
               <p className="source-note" style={{ maxWidth: "56ch" }}>
                 Источник: файл ассортимента и прайс РРЦ компании BIO, обновлён {PRICE_DATE}.
-                Точное количество на складе и срок поставки подтверждает менеджер.
+                Точное количество на складе в Москве и срок поставки подтверждает менеджер.
               </p>
             </div>
             <div className="table-scroll">
