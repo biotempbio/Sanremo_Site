@@ -678,9 +678,9 @@
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
-      <h2 style="margin:0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Связанные линейки Sanremo</h2>
+      <h2 style="margin:0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Весь модельный ряд Sanremo</h2>
       <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
-        <sc-for list="{{ p.related }}" as="r" hint-placeholder-count="3">
+        <sc-for list="{{ p.related }}" as="r" hint-placeholder-count="6">
           <button onClick="{{ r.open }}" style="border:1px solid #E6E6E3;background:#FFFFFF;padding:0;text-align:left;display:block">
             <div style="background:#F4F4F2;height:160px;display:flex;align-items:center;justify-content:center;padding:12px">
               {{ r.photo }}
@@ -2817,7 +2817,7 @@ class Component extends DCLogic {
           { title: 'Диапазон РРЦ линейки', sub: lineSkus.length ? money(lineSkus[0].price) + ' — ' + money(lineSkus[lineSkus.length - 1].price) + ' по исполнениям' : 'уточняется' },
           { title: 'Переход вверх', sub: 'Апгрейд обоснован задачей и требуемым контролем, а не ценой.' }
         ],
-        related: LINES.filter(l => l.id !== L.id).slice(0, 3).map(l => {
+        related: LINES.filter(l => l.id !== L.id).map(l => {
           const sk = this.lineSkus(l.id);
           const im = heroImg(l.id, sk);
           return { name: l.name, why: l.diff, photo: this.photo(im, l.name, 136), open: () => this.openLine(l.id) };

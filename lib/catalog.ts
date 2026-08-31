@@ -144,6 +144,7 @@ export const analogs = catalog.analogs;
 /** Согласованная последовательность продуктовых линеек в российском каталоге. */
 export const CATALOG_LINEUP = [
   { slug: "zoe-competition", label: "ZOE Competition", image: "/photo/official/zoe-competition.jpg" },
+  { slug: "d8", label: "D8 / D8 PRO", image: "/photo/official/d8-pro.jpg" },
   { slug: "f18-sb", label: "F18 Single Boiler", image: "/photo/official/f18-single-boiler.jpg" },
   { slug: "f18-mb", label: "F18", image: "/photo/official/f18.jpg" },
   { slug: "cafe-racer", label: "Cafe Racer", image: "/photo/official/cafe-racer.jpg" },

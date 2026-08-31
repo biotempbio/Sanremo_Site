@@ -18,6 +18,7 @@ import {
   moneyPrecise,
   kw,
   officialImageForModel,
+  catalogModels,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
@@ -61,6 +62,7 @@ export default async function ModelPage({ params }: Props) {
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
   const feats = bullets(m.description);
   const cities = dealerCities().slice(0, 8);
+  const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
 
   const pickerSkus: PickerSku[] = sk.map((s) => ({
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
@@ -501,30 +503,27 @@ export default async function ModelPage({ params }: Props) {
           </div>
         </section>
 
-        {/* 7.2.12 — другие подходящие модели */}
+        {/* 7.2.12 — весь модельный ряд */}
         <section className="section wrap">
           <div className="sec-head">
             <div>
-              <p className="eyebrow">Рядом по задаче</p>
-              <h2>Другие подходящие модели</h2>
+              <p className="eyebrow">Каталог Sanremo</p>
+              <h2>Весь модельный ряд Sanremo</h2>
             </div>
             <p className="small" style={{ maxWidth: "54ch" }}>
-              Подборка по сценарию и диапазону нагрузки, а не случайная карусель каталога.
+              Остальные шесть линеек бренда — от рациональной базы до флагманских инструментов
+              контроля и профилирования.
             </p>
           </div>
-          <div className="grid g4">
-            {models
-              .filter((x) => x.slug !== m.slug)
-              .map((x) => ({
-                x,
-                score:
-                  VOLUME_BANDS.filter((b) => b.models.includes(x.slug) && b.models.includes(m.slug)).length * 2 +
-                  (familyBySlug(x.family)!.scenarios.filter((s) => f.scenarios.includes(s)).length),
-              }))
-              .sort((a, b) => b.score - a.score)
-              .slice(0, 4)
-              .map(({ x }) => (
+          <div className="grid g3">
+            {catalogModels
+              .filter((x) => x.slug !== currentLineSlug)
+              .map((x) => (
                 <article className="card" key={x.slug}>
+                  <div className="card-media">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={officialImageForModel(x.slug)} alt={`Sanremo ${x.name}`} />
+                  </div>
                   <div className="card-body">
                     <p className="eyebrow" style={{ margin: 0 }}>{familyBySlug(x.family)!.name}</p>
                     <h3><a href={`/products/${x.family}/${x.slug}`}>{x.name}</a></h3>
