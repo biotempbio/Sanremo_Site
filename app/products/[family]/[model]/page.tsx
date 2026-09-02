@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const f = familyBySlug(m.family)!;
   return {
     title: `Sanremo ${m.name} — характеристики, РРЦ ${money(m.priceFrom)}, наличие`,
-    description: `Sanremo ${m.name}: ${f.tagline}. Полная спецификация, доступные в России исполнения и цвета, рекомендованная розничная цена, складской статус, документы, запчастии и дилеры.`,
+    description: `Sanremo ${m.name}: ${f.tagline}. Полная спецификация, доступные в России исполнения и цвета, рекомендованная розничная цена, наличие, документы, запчасти и дилеры.`,
   };
 }
 
@@ -122,10 +122,6 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Кому подходит</p>
                 <h2>Сценарии, в которых {m.name} — рациональный выбор</h2>
               </div>
-              <p className="small" style={{ maxWidth: "54ch" }}>
-                Сценарии и диапазоны нагрузки — редакционная рекомендация BIO, а не паспортная
-                производительность производителя.
-              </p>
             </div>
             <div className="grid g3">
               {f.scenarios.map((s) => (
@@ -142,7 +138,7 @@ export default async function ModelPage({ params }: Props) {
               {bands.length > 0 && (
                 <div className="card" style={{ background: "var(--ink)", color: "#fff", borderColor: "var(--ink)" }}>
                   <div className="card-body">
-                    <h3 style={{ color: "#fff" }}>Ориентир по потоку</h3>
+                    <h3 style={{ color: "#fff" }}>Рабочий поток</h3>
                     <div className="chips">
                       {bands.map((b) => (
                         <span className="tag" key={b.id} style={{ background: "transparent", color: "#fff", borderColor: "#5a5854" }}>
@@ -150,17 +146,9 @@ export default async function ModelPage({ params }: Props) {
                         </span>
                       ))}
                     </div>
-                    <p className="tiny" style={{ color: "#b9b6b1", margin: 0 }}>
-                      Зависит от меню, пиковой нагрузки, числа бариста, воды и кофемолок.
-                    </p>
                   </div>
                 </div>
               )}
-            </div>
-            <div className="notice calm" style={{ marginTop: 24 }}>
-              <b>Ограничения.</b> Проверьте ширину рабочей зоны ({hero?.sizeNet ? `${hero.sizeNet.w} мм` : "см. габариты"}),
-              допустимую мощность и фазность ({hero?.power ? `${kw(hero.power)} кВт` : "см. таблицу"},{" "}
-              {hero?.voltage ? `${hero.voltage} В` : "напряжение уточняется"}), подготовку воды и слив.
             </div>
           </div>
         </section>
@@ -173,10 +161,6 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Ключевые функции</p>
                 <h2>Что это даёт в смене</h2>
               </div>
-              <p className="source-note" style={{ maxWidth: "54ch" }}>
-                Формулировки функций — по данным производителя (эксплуатационная документация
-                Sanremo). Числовые заявления производителя не пересчитываются и не усиливаются.
-              </p>
             </div>
             <div className="grid g2">
               {feats.map((b, i) => (
@@ -199,10 +183,6 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Спецификация</p>
                 <h2>Технические характеристики</h2>
               </div>
-              <p className="source-note" style={{ maxWidth: "54ch" }}>
-                Единый справочник полей и единиц измерения для всех моделей и конкурентов. Пустые
-                поля не выводятся. Источник: выгрузка BIO и документация Sanremo, проверено {PRICE_DATE}.
-              </p>
             </div>
             <div className="grid g2" style={{ alignItems: "start" }}>
               <div>
@@ -251,10 +231,7 @@ export default async function ModelPage({ params }: Props) {
               <p className="eyebrow">Российские конфигурации</p>
               <h2>SKU, исполнение, РРЦ и наличие</h2>
             </div>
-            <p className="small" style={{ maxWidth: "54ch" }}>
-              Публичный статус наличия. Точное количество раскрывается по правилу публикации BIO;
-              срок поставки подтверждает менеджер или дилер.
-            </p>
+            <p className="small" style={{ maxWidth: "54ch" }}>Доступные исполнения, рекомендованные цены и складской статус.</p>
           </div>
           <div className="table-scroll">
             <table className="data">
@@ -342,11 +319,6 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Прямые аналоги рынка</p>
                 <h2>С чем реально сравнивают {m.name}</h2>
               </div>
-              <p className="source-note" style={{ maxWidth: "54ch" }}>
-                Цены конкурентов — публичные РРЦ, собранные в мастер-каталоге российского рынка;
-                перед публикацией каждая позиция перепроверяется. Сравнивать следует сопоставимые
-                исполнения, а не семейства целиком.
-              </p>
             </div>
             <div className="table-scroll">
               <table className="data">
@@ -380,7 +352,7 @@ export default async function ModelPage({ params }: Props) {
               </table>
             </div>
             <p style={{ marginTop: 18 }}>
-              <a className="btn" href="/compare">Детальные сравнения с методикой</a>
+              <a className="btn" href="/compare">Детальное сравнение</a>
             </p>
           </section>
         )}
@@ -393,10 +365,7 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Владение</p>
                 <h2>Сервис, расходники и запчасти для {m.name}</h2>
               </div>
-              <p className="small" style={{ maxWidth: "54ch" }}>
-                Совместимость подтверждена связями «запчасть ↔ конфигурация» в базе BIO.
-                Артикулов, связанных с этой моделью: <b>{Math.max(modelParts.length, partCodes.length)}</b>.
-              </p>
+              <p className="small" style={{ maxWidth: "54ch" }}>Запчастей для модели: <b>{Math.max(modelParts.length, partCodes.length)}</b>.</p>
             </div>
             {modelParts.length > 0 ? (
               <div className="table-scroll">
@@ -446,9 +415,6 @@ export default async function ModelPage({ params }: Props) {
                 <p className="eyebrow">Документы</p>
                 <h2>Инструкции, схемы и спецификации</h2>
               </div>
-              <p className="source-note" style={{ maxWidth: "54ch" }}>
-                Ключевые факты дублируются в тексте страницы и не спрятаны только в PDF (ТЗ §17.3).
-              </p>
             </div>
             <div className="grid g3">
               {m.docs.map((d) => (
@@ -476,7 +442,7 @@ export default async function ModelPage({ params }: Props) {
                 ["Можно ли купить машину на сайте?",
                  "Нет. Сайт публикует рекомендованную розничную цену и наличие, а продажу, монтаж и обслуживание выполняет авторизованный дилер или отдел продаж BIO."],
                 ["Что означает статус наличия?",
-                 "«На складе в Москве» — позиция доступна к отгрузке, «Ограниченное количество» — остаток меньше трёх единиц, «Под заказ» — поставка формируется партией. Точное количество и срок подтверждает менеджер."],
+                 "«На складе в Москве» — позиция доступна к отгрузке, «Ограниченное количество» — остаток меньше трёх единиц, «Под заказ» — поставка формируется партией."],
                 ["Отличается ли комплектация от европейской?",
                  "Публикуются только конфигурации, поддерживаемые российским дистрибьютором: сочетание групп, высоты, опций и цвета из матрицы BIO."],
                 ["Как обстоит дело с запчастями?",

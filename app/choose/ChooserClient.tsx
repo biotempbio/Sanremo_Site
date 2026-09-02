@@ -134,10 +134,6 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
                       onClick={() => setVolume(volume === v.id ? "" : v.id)}>{v.label}</button>
             ))}
           </div>
-          <p className="tiny" style={{ marginTop: 8 }}>
-            Диапазон — ориентир BIO. Отдельно уточним пиковый час: он определяет число групп сильнее,
-            чем дневной итог.
-          </p>
         </fieldset>
 
         <fieldset>
@@ -206,7 +202,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
                 <h2>Две-три обоснованные конфигурации</h2>
               </div>
               <p className="small" style={{ maxWidth: "50ch" }}>
-                Подходящих моделей в матрице: {selection.ranked.length}. Ниже — основная рекомендация,
+                Подходящих моделей: {selection.ranked.length}. Ниже — основная рекомендация,
                 экономичная альтернатива и апгрейд с объяснением, за что доплата.
               </p>
             </div>

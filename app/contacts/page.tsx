@@ -33,13 +33,13 @@ export default function ContactsPage() {
         <section className="wrap" style={{ paddingBottom: 30 }}>
           <div className="sec-head">
             <div>
-              <p className="eyebrow">Российский контур бренда</p>
-              <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>Контакты</h1>
+              <p className="eyebrow">Официальная поддержка Sanremo в России</p>
+              <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>Обсудим ваш проект</h1>
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                Компания BIO — официальный дистрибьютор Sanremo в России. Отвечаем за ассортимент,
-                рекомендованные цены, склад, дилерскую сеть, запчасти и сервисную маршрутизацию.
+                Расскажите о формате, меню и планируемой нагрузке. Команда BIO поможет выбрать
+                конфигурацию, проверить наличие и связаться с подходящим дилером.
               </p>
             </div>
           </div>

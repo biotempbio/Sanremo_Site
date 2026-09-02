@@ -10,7 +10,7 @@ const NAV = [
   { href: "/dealers", label: "Где купить" },
   { href: "/service", label: "Сервис и запчасти" },
   { href: "/cases", label: "Кейсы" },
-  { href: "/about", label: "О компании" },
+  { href: "/about", label: "О Sanremo" },
 ];
 
 export function Header({ active }: { active?: string }) {
@@ -97,7 +97,7 @@ export function Footer() {
             </nav>
           </div>
           <div>
-            <h4>Российский контур</h4>
+            <h4>Sanremo в России</h4>
             <p className="small" style={{ color: "#e7e5e1" }}>
               Компания BIO
               <br />

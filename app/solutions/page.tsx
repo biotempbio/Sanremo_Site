@@ -23,12 +23,8 @@ export default function SolutionsPage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                Семь сценариев, которые закрывают почти все запросы российского рынка. В каждом —
-                основная рекомендация, экономичная альтернатива и апгрейд.
-              </p>
-              <p className="source-note">
-                Рекомендации по сценариям — редакционная позиция BIO, отделённая от заявленной
-                производителем производительности (ТЗ Приложение C).
+                Выберите формат проекта — покажем основную рекомендацию, доступную альтернативу и
+                вариант с дополнительным запасом возможностей.
               </p>
             </div>
           </div>
@@ -61,13 +57,13 @@ export default function SolutionsPage() {
                   <p className="lead" style={{ marginTop: 18 }}>{s.logic}</p>
                   {bands.length > 0 && (
                     <p className="small" style={{ margin: "0 0 16px" }}>
-                      Ориентир по потоку: {bands.map((b) => b.label).join(", ")}.
+                      Рабочий поток: {bands.map((b) => b.label).join(", ")}.
                     </p>
                   )}
                   <div className="grid g3" style={{ gap: 12, marginBottom: 20 }}>
                     <Pick label="Рекомендация" m={main} />
                     <Pick label="Альтернатива" m={alt} />
-                    <Pick label="Апгрейд" m={up} />
+                    <Pick label="Больше возможностей" m={up} />
                   </div>
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     <a className="btn btn-solid" href="/choose">Уточнить подбор</a>
@@ -88,7 +84,7 @@ export default function SolutionsPage() {
         <section className="section wrap">
           <div className="sec-head">
             <div>
-              <p className="eyebrow">Методика</p>
+              <p className="eyebrow">Практика</p>
               <h2>Как мы считаем нагрузку</h2>
             </div>
           </div>

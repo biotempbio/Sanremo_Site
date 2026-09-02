@@ -127,7 +127,7 @@ export default function CatalogClient({
           ))}
         </Group>
 
-        <Group title="Ориентир по потоку">
+        <Group title="Рабочий поток">
           {bands.map((b) => (
             <Chip key={b.id} on={vol.includes(b.id)} onClick={() => setVol(toggle(vol, b.id))}>{b.label}</Chip>
           ))}
@@ -182,7 +182,7 @@ export default function CatalogClient({
 
         {filtered.length === 0 ? (
           <div className="empty">
-            <h3>Под эти условия в российской матрице моделей нет</h3>
+            <h3>Под эти условия подходящих моделей не найдено</h3>
             <p className="small" style={{ maxWidth: "48ch", margin: "10px auto 18px" }}>
               Снимите часть фильтров или опишите задачу — специалист BIO подберёт конфигурацию.
             </p>

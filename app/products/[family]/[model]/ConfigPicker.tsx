@@ -129,7 +129,7 @@ export default function ConfigPicker({
               {current.rrp.toLocaleString("ru-RU")} ₽
             </span>
             <p className="tiny" style={{ margin: "6px 0 0" }}>
-              обновлено {priceDate} · не является предложением интернет-магазина
+              обновлено {priceDate}
             </p>
           </div>
           <div>
@@ -157,9 +157,6 @@ export default function ConfigPicker({
           <a className="btn" href="/compare">Сравнить</a>
         </div>
 
-        <p className="source-note">
-          Официальная дистрибуция и данные по России — компания BIO.
-        </p>
       </div>
 
       <style>{`

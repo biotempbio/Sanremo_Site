@@ -8,24 +8,39 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Mono&display=swap" rel="stylesheet" />
 <script src="./sanremo-data.js"></script>
 <style>
   @font-face {
     font-family: 'Playfair Display';
-    src: url('./fonts/PlayfairDisplay-Variable.ttf') format('truetype');
+    src: url('./fonts/oswald-cyrillic-variable.woff2') format('woff2');
     font-style: normal;
-    font-weight: 400 900;
+    font-weight: 200 700;
     font-display: swap;
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
   }
   @font-face {
     font-family: 'Playfair Display';
-    src: url('./fonts/PlayfairDisplay-Italic-Variable.ttf') format('truetype');
-    font-style: italic;
-    font-weight: 400 900;
+    src: url('./fonts/oswald-latin-variable.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 200 700;
     font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+  }
+  @font-face {
+    font-family: 'PT Sans';
+    src: url('./fonts/roboto-cyrillic-variable.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  @font-face {
+    font-family: 'PT Sans';
+    src: url('./fonts/roboto-latin-variable.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
   }
   body { margin: 0; background: #FFFFFF; color: #141414; font-family: 'PT Sans', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
   * { box-sizing: border-box; }
@@ -56,6 +71,16 @@
   }
   table { border-collapse: collapse; }
   @media (max-width: 760px) {
+    .site-topbar { display: none !important; }
+    .site-header { min-height: 64px !important; padding: 0 20px !important; gap: 14px !important; justify-content: space-between !important; }
+    .site-header-nav { display: none !important; }
+    .site-header-cta { padding: 12px 15px !important; font-size: 12px !important; }
+    .site-crumbs { padding: 12px 20px !important; }
+    .home-hero { padding: 12px 20px 28px !important; grid-template-columns: 1fr !important; }
+    .home-hero-copy { padding: 26px 0 30px !important; }
+    .home-hero-title { font-size: 43px !important; line-height: 1.02 !important; }
+    .home-hero-photo { height: 300px !important; }
+    .home-hero-actions { flex-wrap: wrap !important; }
     .cases-ru-grid { grid-template-columns: 1fr !important; }
     .cases-ru-grid > article { grid-column: 1 / -1 !important; }
     .cases-ru-grid > article > div:first-child { height: 300px !important; }
@@ -92,7 +117,7 @@
 <div style="min-height:100vh;background:#FFFFFF">
 
   <div style="background:#2D483F;color:#FFFFFF">
-    <div style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:24px;font:500 12px/1.5 'PT Sans',sans-serif;letter-spacing:.02em;flex-wrap:wrap">
+    <div class="site-topbar" style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:24px;font:500 12px/1.5 'PT Sans',sans-serif;letter-spacing:.02em;flex-wrap:wrap">
       <span style="opacity:.92">Официальный дистрибьютор Sanremo в России — компания BIO</span>
       <div style="display:flex;gap:22px;align-items:center;opacity:.92;flex-wrap:wrap">
         <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
@@ -102,11 +127,11 @@
   </div>
 
   <div style="border-bottom:1px solid #E6E6E3;background:#FFFFFF;position:sticky;top:0;z-index:50">
-    <div style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:76px;display:flex;align-items:center;gap:28px">
+    <div class="site-header" style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:76px;display:flex;align-items:center;gap:28px">
       <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;flex:none;display:block">
-        <img src="https://static.tildacdn.com/tild3766-6332-4263-b263-383765366235/Opera__2024-09-16_09.png" alt="Sanremo Coffee Machines" style="height:34px;display:block" />
+        <img src="./brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" style="width:176px;height:auto;display:block" />
       </button>
-      <div style="display:flex;gap:18px;align-items:center;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.01em;flex:1;min-width:0;white-space:nowrap;flex-wrap:wrap;row-gap:8px">
+      <div class="site-header-nav" style="display:flex;gap:18px;align-items:center;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.01em;flex:1;min-width:0;white-space:nowrap;flex-wrap:wrap;row-gap:8px">
         <button onClick="{{ goCatalog }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Кофемашины</button>
         <button onClick="{{ goCompare }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Сравнение</button>
         <button onClick="{{ goChoose }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Подобрать</button>
@@ -114,13 +139,14 @@
         <button onClick="{{ goDealers }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Где купить</button>
         <button onClick="{{ goService }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Сервис</button>
         <button onClick="{{ goCases }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Кейсы</button>
+        <button onClick="{{ goAbout }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">О Sanremo</button>
         <button onClick="{{ goPartner }}" style="border:0;background:none;padding:0;color:#C14E00;white-space:nowrap;flex:none">Стать дилером</button>
       </div>
-      <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 22px;font:600 13px/1 'PT Sans',sans-serif;white-space:nowrap;flex:none">Подобрать машину</button>
+      <button class="site-header-cta" onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 22px;font:600 13px/1 'PT Sans',sans-serif;white-space:nowrap;flex:none">Подобрать машину</button>
     </div>
   </div>
 
-  <div style="max-width:1320px;margin:0 auto;padding:14px 40px;font:400 12px/1 'PT Sans',sans-serif;color:#8A8A85;display:flex;gap:8px">
+  <div class="site-crumbs" style="max-width:1320px;margin:0 auto;padding:14px 40px;font:400 12px/1 'PT Sans',sans-serif;color:#8A8A85;display:flex;gap:8px">
     <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;font:400 12px/1 'PT Sans',sans-serif;color:#8A8A85">Главная</button>
     <span>/</span>
     <span style="color:#141414">{{ crumb }}</span>
@@ -128,18 +154,18 @@
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
   <div>
-    <div style="max-width:1320px;margin:0 auto;padding:0 40px 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center">
-      <div style="padding:44px 56px 44px 0">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;color:#7D9C91;text-transform:uppercase">Sanremo Russia · дистрибуция BIO</div>
-        <h1 style="margin:20px 0 0;font:700 56px/1.06 'Playfair Display',Georgia,serif;letter-spacing:-.01em;text-wrap:pretty">Профессиональные кофемашины Sanremo в России</h1>
-        <div style="margin:26px 0 0;display:inline-block;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 15px/1 'PT Sans',sans-serif">Выбор по бизнес-задаче, а не по картинке</div>
-        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'PT Sans',sans-serif;color:#3C3C3A;text-wrap:pretty">Семь линеек для всех сценариев — от стартапа до кофейной сети, от базовых характеристик до специальных настроек. Оборудование и ЗИП — на складе в Москве, в ассортименте и нужном количестве. Продажа и сервис — через дилерскую сеть.</p>
-        <div style="margin:32px 0 0;display:flex;gap:12px">
+    <div class="home-hero" style="max-width:1320px;margin:0 auto;padding:0 40px 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center">
+      <div class="home-hero-copy" style="padding:44px 56px 44px 0">
+        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;color:#7D9C91;text-transform:uppercase">Профессиональные кофемашины из Италии</div>
+        <h1 class="home-hero-title" style="margin:20px 0 0;font:700 56px/1.06 'Playfair Display',Georgia,serif;letter-spacing:-.01em;text-wrap:pretty">Sanremo. Центр вашего кофейного проекта</h1>
+        <div style="margin:26px 0 0;display:inline-block;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 15px/1 'PT Sans',sans-serif">Вкус, ритм работы и впечатление гостя</div>
+        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'PT Sans',sans-serif;color:#3C3C3A;text-wrap:pretty">Шесть профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. Официальные поставки и дилерская сеть по всей России. Сравните модели или воспользуйтесь подборщиком Sanremo — он предложит варианты под формат, поток и меню.</p>
+        <div class="home-hero-actions" style="margin:32px 0 0;display:flex;gap:12px">
           <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Подобрать машину</button>
           <button onClick="{{ goCatalog }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Смотреть каталог</button>
         </div>
       </div>
-      <div style="background:#F4F4F2;height:460px;display:flex;align-items:stretch;justify-content:center;overflow:hidden">
+      <div class="home-hero-photo" style="background:#F4F4F2;height:460px;display:flex;align-items:stretch;justify-content:center;overflow:hidden">
         {{ heroPhoto }}
       </div>
     </div>
@@ -172,8 +198,7 @@
 
       <div style="margin-top:40px;background:#F1F3F1;padding:28px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap">
         <div style="min-width:260px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#2D483F;text-transform:uppercase">Ориентир по чашкам в день</div>
-          <div style="margin-top:8px;font:400 13px/1.5 'PT Sans',sans-serif;color:#4A4A46;max-width:300px">Итог зависит от меню, пикового часа, числа бариста, воды и кофемолок.</div>
+          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#2D483F;text-transform:uppercase">Рабочий поток</div>
         </div>
         <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
           <sc-for list="{{ volumes }}" as="v" hint-placeholder-count="5">
@@ -273,7 +298,7 @@
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
-      <h2 style="margin:0;font:700 34px/1.1 'Playfair Display',Georgia,serif">Технологии без маркетингового тумана</h2>
+      <h2 style="margin:0;font:700 34px/1.1 'Playfair Display',Georgia,serif">Технологии, которые работают в смене</h2>
       <div style="margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
         <sc-for list="{{ tech }}" as="t" hint-placeholder-count="4">
           <div style="background:#FFFFFF;padding:24px 22px">
@@ -287,7 +312,7 @@
     <div style="margin-top:72px;background:#2D483F">
       <div style="max-width:1320px;margin:0 auto;padding:56px 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center">
         <div>
-          <h2 style="margin:0;font:700 36px/1.12 'Playfair Display',Georgia,serif;color:#FFFFFF">Отправьте задачу — вернём 2–3 обоснованных варианта</h2>
+        <h2 style="margin:0;font:700 36px/1.12 'Playfair Display',Georgia,serif;color:#FFFFFF">Подберём 2–3 конфигурации под ваш проект</h2>
           <p style="margin:16px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#D8E0DB;max-width:560px">Формат точки, чашки в день, меню, ограничения по мощности и ширине, бюджет и регион. Ответ содержит РРЦ, наличие и контакт дилера.</p>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -657,7 +682,7 @@
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px">
       <div style="background:#F1F3F1;padding:32px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Место в матрице Sanremo</div>
+        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Роль в линейке Sanremo</div>
         <div style="margin-top:16px">
           <sc-for list="{{ p.diffs }}" as="d" hint-placeholder-count="3">
             <div style="padding:12px 0;border-bottom:1px solid #DDE3DE">
@@ -743,7 +768,7 @@
         <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:20px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start">
             <h2 style="margin:0;font:700 40px/1.08 'Playfair Display',Georgia,serif">Две-три обоснованные конфигурации</h2>
-            <p style="margin:6px 0 0;font:400 15px/1.6 'PT Sans',sans-serif;color:#6E6E6A">Подходящих исполнений в матрице: {{ quizMatchCount }}. Ниже — основная рекомендация, экономичная альтернатива и апгрейд с объяснением, за что доплата.</p>
+            <p style="margin:6px 0 0;font:400 15px/1.6 'PT Sans',sans-serif;color:#6E6E6A">Подходящих исполнений: {{ quizMatchCount }}. Ниже — основная рекомендация, доступная альтернатива и вариант с большим запасом возможностей.</p>
           </div>
 
           <div style="margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch">
@@ -830,7 +855,7 @@
     </sc-for>
 
     <div style="border-top:1px solid #E6E6E3;max-width:1320px;margin:0 auto;padding:80px 40px 90px">
-      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Методика</div>
+      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Практика</div>
       <h2 style="margin:18px 0 0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Как мы считаем нагрузку</h2>
       <div style="margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:38px">
         <div style="border-top:2px solid #141414;padding-top:22px">
@@ -853,7 +878,7 @@
   <sc-if value="{{ isDealers }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Где купить</h1>
-    <p style="margin:14px 0 0;max-width:680px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Сайт не продаёт машины. Выберите дилера или шоурум: продажа, демонстрация, обучение, монтаж, гарантийный и постгарантийный сервис, запчасти. Регион определяется подсказкой, но выбирается вручную.</p>
+    <p style="margin:14px 0 0;max-width:680px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Найдите официального партнёра рядом: познакомьтесь с машиной вживую, получите консультацию по проекту, монтаж, обучение и дальнейшее обслуживание.</p>
 
     <div style="margin-top:32px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start">
       <div>
@@ -909,7 +934,7 @@
   <sc-if value="{{ isService }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Сервис и запчасти</h1>
-    <p style="margin:14px 0 0;max-width:700px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">{{ partCount }} позиций ЗИП, стёкол, плат и нагревательных элементов на складе в Москве — все показанные позиции есть в наличие. Начните с линейки или введите артикул, код либо название.</p>
+    <p style="margin:14px 0 0;max-width:700px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">{{ partCount }} позиций ЗИП, стёкол, плат и нагревательных элементов на складе в Москве — все показанные позиции есть в наличии. Начните с линейки или введите артикул, код либо название.</p>
 
     <div style="margin-top:32px;display:grid;grid-template-columns:1fr 360px;gap:36px;align-items:start">
       <div>
@@ -1411,7 +1436,7 @@
   <div style="background:#141414;color:#FFFFFF">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
       <div>
-        <img src="https://static.tildacdn.com/tild6438-3530-4337-a337-623561323735/footer-logo.svg" alt="Sanremo" style="height:44px;display:block" />
+        <img src="./brand/sanremo-official-white-v4.svg" alt="Sanremo Coffee Machines" style="width:196px;height:auto;display:block" />
         <div style="margin-top:18px;font:400 13px/1.7 'PT Sans',sans-serif;color:#B8B8B4;max-width:340px">Компания BIO — официальный дистрибьютор профессиональных кофемашин Sanremo в России.</div>
         <div style="margin-top:16px;font:400 13px/1.7 'PT Sans',sans-serif;color:#E4E4E1">117630, Москва, ул. Обручева, 23с1<br />БЦ «Геолог», 4 этаж<br />8 (800) 600-43-00 — бесплатно по России</div>
       </div>
@@ -1470,18 +1495,18 @@ const DOC_COMMON = [
 ];
 
 const LINES = [
-  { id: 'zoe', match: /ZOE COMPETITION/i, name: 'ZOE Competition', role: 'Рациональная база',
+  { id: 'zoe', match: /ZOE COMPETITION/i, name: 'ZOE Competition', role: 'Уверенный профессиональный старт',
     tagline: 'Автомат с волюметрикой, высокие группы, автоочистка и economizer: первая кофейня, пекарня или ресторан.',
     tags: ['2 высокие группы', 'автомат', 'economizer'],
     scen: ['Первая кофейня', 'Ресторан и пекарня', 'Сеть и проект'],
-    diff: 'База матрицы: наименьшая РРЦ при полном профессиональном рабочем процессе.' },
-  { id: 'd8', match: /\bD8\b/i, name: 'D8 / D8 PRO', role: 'Гибридная платформа',
+    diff: 'Понятная в работе профессиональная машина для уверенного запуска первой точки.' },
+  { id: 'd8', match: /\bD8\b/i, name: 'D8 / D8 PRO', role: 'Точный контроль с запасом для роста',
     tagline: 'D8 и D8 PRO: гибридные группы с PID, бойлер AISI 316L, версии на 1–3 группы и независимый контроль каждой группы в PRO.',
     tags: ['1–3 высокие группы', 'PID', 'D8 / D8 PRO'],
     scen: ['Первая кофейня', 'Specialty', 'Высокий поток', 'Сеть и проект'],
     diff: 'Мост между ZOE и F18: больше контроля и модульности без перехода к флагманскому бюджету.' },
   { id: 'f18sb', match: /F18\s?SB/i, name: 'F18 Single Boiler', role: 'Потоковая однобойлерная',
-    tagline: 'Однобойлерная платформа F18 для интенсивной смены: понятный workflow, 2–3 высокие группы.',
+    tagline: 'Однобойлерная платформа F18 для интенсивной смены: понятная работа команды и 2–3 высокие группы.',
     tags: ['2–3 группы', 'single boiler', 'высокий поток'],
     scen: ['Высокий поток', 'Ресторан и пекарня', 'Сеть и проект'],
     diff: 'Отдельная линейка, а не исполнение F18: проще архитектура, ниже РРЦ.' },
@@ -1490,18 +1515,18 @@ const LINES = [
     tags: ['2–3 высокие группы', 'контроль температуры', 'specialty'],
     scen: ['Specialty', 'Высокий поток', 'Флагманская точка'],
     diff: 'Технологический шаг вверх от F18 SB: больше контроля и возможностей рецептуры.' },
-  { id: 'racer', match: /CAFE RACER|CAFÉ RACER/i, name: 'Café Racer', role: 'Дизайн-объект',
-    tagline: 'Вкус, workflow и визуальный образ кофейни: исполнения Naked, Freedom, Racing, Custom Renegade, Dolomiti.',
+  { id: 'racer', match: /CAFE RACER|CAFÉ RACER/i, name: 'Café Racer', role: 'Центр кофейного пространства',
+    tagline: 'Точность приготовления, удобство бариста и выразительный образ кофейни: Naked, Freedom, Racing, Custom Renegade и Dolomiti.',
     tags: ['19 исполнений', 'Naked / Freedom', 'дизайн-акцент'],
     scen: ['Флагманская точка', 'Specialty', 'Лаборатория обжарщика'],
     diff: 'Выбирается, когда машина участвует и в интерьере, и в кофейной программе.' },
-  { id: 'opera', match: /OPERA/i, name: 'Opera', role: 'R&D-флагман',
+  { id: 'opera', match: /OPERA/i, name: 'Opera', role: 'Инструмент исследования вкуса',
     tagline: 'Профилирование и работа с рецептами: повторяемость для обжарщика и лаборатории, внешняя помпа в опции.',
     tags: ['высокие и низкие группы', 'профилирование', 'R&D'],
     scen: ['Лаборатория обжарщика', 'Флагманская точка'],
-    diff: 'Верх матрицы: выбирается по задачам рецептуры, а не по потоку.' },
-  { id: 'you', match: /\bYOU\b/i, name: 'YOU', role: 'Compact specialty',
-    tagline: 'Компактная high-end машина с профессиональной мультибойлерной архитектурой и точным контролем рецепта.',
+    diff: 'Выбор для сложной рецептуры, исследования вкуса и повторяемости профилей.' },
+  { id: 'you', match: /\bYOU\b/i, name: 'YOU', role: 'Флагманский контроль в компактном формате',
+    tagline: 'Флагманский контроль рецепта и профессиональная мультибойлерная архитектура в компактном корпусе.',
     tags: ['1 группа PDL', 'компактная', 'specialty'],
     scen: ['Компактный формат', 'Specialty'],
     diff: 'Самостоятельная линейка: выбор по ограничению площадки, а не по бюджету.' }
@@ -1545,7 +1570,7 @@ const PRICE_BUCKETS = [
 ];
 
 const SCEN = [
-  { title: 'Первая кофейня', sub: 'Ограниченный CAPEX, обучение персонала, предсказуемый результат в чашке.' },
+  { title: 'Первая кофейня', sub: 'Контролируемый стартовый бюджет, обучение команды и стабильный результат в чашке.' },
   { title: 'Ресторан и пекарня', sub: 'Меню без сложного обучения: волюметрика, пар, стабильность.' },
   { title: 'Specialty', sub: 'Контроль параметров, несколько сортов, развитие программы.' },
   { title: 'Высокий поток', sub: 'Пиковый час, молочное меню, две-три группы и паровая мощность.' },
@@ -1787,7 +1812,7 @@ const PRODUCT_STORIES = {
     tech: [['Профили экстракции','Шесть стандартных и двенадцать полностью настраиваемых рецептов.'],['Paddle','Ручное управление фазами непосредственно на группе.'],['Multiboiler','Кофейный и сервисный бойлеры выполнены из AISI 316.'],['Constant Stability','Электронный контроль давления и температуры при длительной работе.'],['Три подключения','Бак, водопровод или совмещённая конфигурация.'],['Эргономика','Рычаги start/stop и Cold Touch краны для воды и пара.']],
     images: ['/photo/product-stories/you/01-p1.jpg','/photo/product-stories/you/02-p2.jpg','/photo/product-stories/you/03-p2.jpg','/photo/product-stories/you/04-p1.jpg','/photo/official/you.png'],
     options: [['Tank','Автономная работа от встроенного бака.'],['Mains','Прямое подключение к водопроводу.'],['Full','Обе схемы подключения в одной машине.'],['Manual profiles','Управление фазами экстракции с paddle.']],
-    faq: [['Что отличает YOU?','Это компактная high-end машина с профессиональной мультибойлерной архитектурой, точным контролем температуры и множеством профилей экстракции.'],['Сколько профилей можно использовать?','Шесть стандартных и двенадцать полностью настраиваемых, плюс ручные профили с paddle.'],['Можно работать без водопровода?','Да, доступна конфигурация с баком.'],['Кому подходит YOU?','Specialty-кофейням, кофейным лабораториям и требовательным домашним пользователям, которым нужен профессиональный результат в компактном формате.']]
+    faq: [['Что отличает YOU?','Это компактная машина флагманского уровня с профессиональной мультибойлерной архитектурой, точным контролем температуры и множеством профилей экстракции.'],['Сколько профилей можно использовать?','Шесть стандартных и двенадцать полностью настраиваемых, плюс ручные профили с paddle.'],['Можно работать без водопровода?','Да, доступна конфигурация с баком.'],['Кому подходит YOU?','Specialty-кофейням, кофейным лабораториям и требовательным домашним пользователям, которым нужен профессиональный результат в компактном формате.']]
   }
 };
 
@@ -2044,12 +2069,12 @@ class Component extends DCLogic {
       return pr.length ? Math.min.apply(null, pr) : 0;
     };
     const DATA = [
-      { key: 's1', title: 'Первая кофейня', badge: 'Ограниченный CAPEX, нужен предсказуемый старт',
-        body: 'ZOE Competition — рациональная база для старта. D8 добавляет PID-контроль и запас на развитие кофейной программы.',
+      { key: 's1', title: 'Первая кофейня', badge: 'Контролируемый бюджет и уверенный старт',
+        body: 'ZOE Competition помогает быстро выстроить стабильную работу. D8 добавляет PID-контроль и запас на развитие кофейной программы.',
         cups: '100–200 чашек/день, 200–300 чашек/день',
         picks: [['Рекомендация', 'zoe'], ['Апгрейд', 'd8'], ['Запас по потоку', 'f18sb']] },
       { key: 's2', title: 'Пекарня и ресторан', badge: 'Меню без сложного обучения персонала',
-        body: 'Простота обучения и предсказуемая volumetric-работа важнее расширенного контроля рецепта.',
+        body: 'Быстрое обучение команды и автоматическое дозирование помогают сохранять темп и повторяемость напитков.',
         cups: '100–200 чашек/день, 200–300 чашек/день',
         picks: [['Рекомендация', 'zoe'], ['Апгрейд', 'd8'], ['Запас по потоку', 'f18sb']] },
       { key: 's3', title: 'Specialty', badge: 'Контроль рецепта и несколько сортов',
@@ -2065,7 +2090,7 @@ class Component extends DCLogic {
         cups: '300–500 чашек/день, 500+ чашек/день',
         picks: [['Рекомендация', 'racer'], ['Альтернатива', 'f18'], ['Апгрейд', 'opera']] },
       { key: 's6', title: 'Компактный specialty и bar', badge: 'Дефицит места, но нужен профессиональный контроль',
-        body: 'YOU — компактная high-end машина с профилированием фаз экстракции для specialty-кофейни, лаборатории или продвинутой домашней кофейной зоны.',
+        body: 'YOU даёт флагманский контроль фаз экстракции в компактном формате — для specialty-кофейни, лаборатории или продуманной домашней кофейной зоны.',
         cups: 'до 100 чашек/день, 100–200 чашек/день',
         picks: [['Рекомендация', 'you'], ['Апгрейд', 'f18sb']] },
       { key: 's7', title: 'Обжарщик и лаборатория', badge: 'Профилирование и повторяемость',
@@ -2080,7 +2105,7 @@ class Component extends DCLogic {
       return {
         key: d.key, num: (i + 1) < 10 ? '0' + (i + 1) : '' + (i + 1),
         title: d.title, badge: d.badge, body: d.body,
-        cupsLine: 'Ориентир по потоку: ' + d.cups + '.',
+        cupsLine: 'Рабочий поток: ' + d.cups + '.',
         picks: d.picks.map(p => ({
           kind: p[0], name: nameOf(p[1]),
           price: 'от ' + money(priceOf(p[1])),
@@ -2106,7 +2131,7 @@ class Component extends DCLogic {
 
   stockLabel(m) {
     const s = m.stock || 0;
-    if (s > 0) return 'в наличие · ' + s + ' ' + plural(s, 'шт', 'шт', 'шт');
+    if (s > 0) return 'в наличии · ' + s + ' ' + plural(s, 'шт', 'шт', 'шт');
     const a = m.access || 0;
     if (a > 0) return 'под заказ · ' + a + ' шт · поставка 60 дней';
     return 'под заказ · поставка 60 дней';
@@ -2476,7 +2501,8 @@ class Component extends DCLogic {
         points: ['До двух рецептов', 'Обычное и растительное молоко', 'Настройка с дисплея', 'Минимальное обучение команды']
       }
     ];
-    const activeNews = newsItems[s.newsItem] || newsItems[0];
+    const selectedNews = newsItems[s.newsItem];
+    const activeNews = selectedNews && !selectedNews.placeholder ? selectedNews : newsItems.find(n => !n.placeholder) || newsItems[0];
     const crumbs = { home: 'Обзор', catalog: 'Кофемашины', product: L.name, choose: 'Подобрать', solutions: 'Решения', dealers: 'Где купить', service: 'Сервис и запчасти', news: 'Актуальное', cases: 'Кейсы', docs: 'Документы', compare: 'Сравнение линеек', faq: 'Вопросы и ответы', partner: 'Стать дилером' };
     const racerSkus = this.lineSkus('racer');
     const heroSku = racerSkus.filter(x => x.code === HERO_CODE.racer)[0] || racerSkus.filter(x => x.img)[0] || {};
@@ -2511,7 +2537,7 @@ class Component extends DCLogic {
       goSolutions: () => this.go('solutions'), goDealers: () => this.go('dealers'),
       goService: () => this.go('service'), goNews: () => this.go('news'), goCases: () => this.go('cases'), goDocs: () => this.go('docs'),
       backToCases: () => { this.setState({ galleryIndex: 0 }); this.go('cases'); }, activeCase: activeCase,
-      goCompare: () => this.go('compare'), goFaq: () => this.go('faq'), goPartner: () => this.go('partner'),
+      goCompare: () => this.go('compare'), goFaq: () => this.go('faq'), goAbout: () => { window.top.location.href = '/about/'; }, goPartner: () => this.go('partner'),
 
       docTypes: DOC_TYPES.map(t => Object.assign({
         label: t, pick: () => this.setState({ docType: s.docType === t ? null : t })
@@ -2565,7 +2591,7 @@ class Component extends DCLogic {
       ],
       partnerWhy: [
         { title: 'Дилерская цена и прайс', text: 'Прозрачная матрица скидок по линейкам и объёму, РРЦ как единый ориентир на рынке.' },
-        { title: 'Склад в Москве', text: 'Машины и ЗИП в наличие: не нужно замораживать деньги в собственных остатках.' },
+        { title: 'Склад в Москве', text: 'Машины и запчасти в наличии: запуск и обслуживание без лишнего ожидания.' },
         { title: 'Обучение и сертификация', text: 'Технический курс для инженеров и бариста-подготовка перед первыми продажами.' },
         { title: 'Поддержка проектов', text: 'Помощь в подборе под точку, расчёт водоподготовки, материалы и фото для предложений.' }
       ],
@@ -2592,7 +2618,7 @@ class Component extends DCLogic {
         { label: 'Профиль', ph: 'Оборудование, обжарка, сервис' }
       ],
 
-      newsCards: newsItems.map((n, i) => ({
+      newsCards: newsItems.map((n, i) => ({ n, i })).filter(x => !x.n.placeholder).map(({ n, i }) => ({
         category: n.category, title: n.title, lead: n.lead,
         hasPhoto: !!n.photoUrl, isPlaceholder: !!n.placeholder,
         photo: n.photoUrl ? this.coverPhoto(n.photoUrl, n.photoAlt) : null,
@@ -2604,13 +2630,13 @@ class Component extends DCLogic {
       newsParagraphs: activeNews.paragraphs.map((text, i) => ({ key: 'np' + i, text: text })),
       newsPoints: activeNews.points.map((text, i) => ({ key: 'nk' + i, text: text })),
 
-      heroPhoto: this.coverPhoto('/photo/cafe-racer-cafe-user.png', 'Кофемашина Sanremo Café Racer в интерьере кофейни'),
+      heroPhoto: this.coverPhoto('/photo/home-hero-cafe-racer-v2.jpg', 'Кофемашина Sanremo Café Racer в светлом интерьере кофейни'),
       casesLeadPhoto: this.coverPhoto('/photo/official-sanremo-cafe.jpg', 'Бариста работает за профессиональной кофемашиной Sanremo'),
       trust: [
         { title: 'Официальный дистрибьютор', sub: 'Компания BIO — российский контур бренда' },
         { title: 'РРЦ', sub: 'Решение на любой бюджет — от ' + money(Math.min.apply(null, allSkus.map(m => m.price).filter(Boolean).concat([9e9]))) },
-        { title: 'Склад в России', sub: 'Более 150 кофемашин всегда в наличие' },
-        { title: 'Запчасти', sub: db.parts.filter(p => (p.stock || 0) > 0).length + ' позиций ЗИП в наличие' },
+        { title: 'Склад в России', sub: 'Актуальное наличие профессиональных кофемашин в Москве' },
+        { title: 'Запчасти', sub: db.parts.filter(p => (p.stock || 0) > 0).length + ' позиций ЗИП в наличии' },
         { title: 'Дилерская сеть', sub: 'Продажа, шоурумы, монтаж и сервис' }
       ],
       scenarios: SCEN.map(x => {
@@ -2665,7 +2691,7 @@ class Component extends DCLogic {
             label: h,
             toggle: () => this.setState({ f: Object.assign({}, s.f, { height: s.f.height === h ? null : h }) })
           }, this.pill(s.f.height === h))) },
-        { title: 'Наличие', options: [{ k: 'stock', label: 'только в наличие' }].map(o => Object.assign({
+        { title: 'Наличие', options: [{ k: 'stock', label: 'только в наличии' }].map(o => Object.assign({
             label: o.label,
             toggle: () => this.setState({ f: Object.assign({}, s.f, { stock: s.f.stock ? null : true }) })
           }, this.pill(!!s.f.stock))) }
@@ -2813,7 +2839,7 @@ class Component extends DCLogic {
         lineVariants: lineStats.variantLine + ' — цвета, посадка групп и комплектации из выгрузки BIO',
         partsCount: (sku.spareParts || []).length,
         diffs: [
-          { title: 'Место в матрице', sub: L.diff },
+          { title: 'Роль в линейке', sub: L.diff },
           { title: 'Диапазон РРЦ линейки', sub: lineSkus.length ? money(lineSkus[0].price) + ' — ' + money(lineSkus[lineSkus.length - 1].price) + ' по исполнениям' : 'уточняется' },
           { title: 'Переход вверх', sub: 'Апгрейд обоснован задачей и требуемым контролем, а не ценой.' }
         ],
@@ -2826,7 +2852,7 @@ class Component extends DCLogic {
 
       quiz: [
         { num: '1', title: 'Формат бизнеса', key: 'format', options: ['Кофейня', 'Сеть', 'Ресторан / пекарня', 'Отель / фуд-корнер', 'Specialty', 'Флагманская точка', 'Обжарщик / лаборатория'] },
-        { num: '2', title: 'Чашек в день', key: 'cups', options: ['до 100', '100–200', '200–300', '300–500', '500+'], note: 'Диапазон — ориентир. Отдельно уточним пиковый час: он определяет число групп сильнее, чем дневной итог.' },
+        { num: '2', title: 'Чашек в день', key: 'cups', options: ['до 100', '100–200', '200–300', '300–500', '500+'] },
         { num: '3', title: 'Доля молочных напитков', key: 'milk', options: ['Мало молочных', 'Половина меню', 'Преимущественно молочное'] },
         { num: '4', title: 'Рабочее место и рецепты', key: 'groups', options: ['1 группа', '2 группы', '3 группы', 'Нужен контроль и профилирование'] },
         { num: '5', title: 'Бюджет (РРЦ)', key: 'budget', options: ['до 450 000 ₽', '450 000 – 700 000 ₽', '700 000 – 1 000 000 ₽', 'от 1 000 000 ₽'] },
@@ -2845,7 +2871,7 @@ class Component extends DCLogic {
       scenPages: this.scenPages().map(p => Object.assign({}, p, { jump: () => this.scenJump(p.key) })),
 
       solutions: [
-        { title: 'Выбор по объёму', url: '/solutions/by-volume', sub: 'Диапазоны чашек в день и пиковый час; методика расчёта опубликована.', ids: ['zoe', 'd8', 'f18sb'] },
+        { title: 'Выбор по объёму', url: '/solutions/by-volume', sub: 'Модели для разного объёма и ритма работы.', ids: ['zoe', 'd8', 'f18sb'] },
         { title: 'Specialty', url: '/solutions/specialty', sub: 'Несколько сортов, контроль параметров, профилирование.', ids: ['d8', 'f18', 'racer'] },
         { title: 'Пекарня и ресторан', url: '/solutions/bakery-restaurant', sub: 'Меню без сложного обучения, волюметрика, пар и сервис.', ids: ['zoe', 'd8', 'f18sb'] },
         { title: 'Компактный формат', url: '/solutions/compact', sub: 'Ограничение по ширине, мощности и рабочему месту.', ids: ['you', 'zoe'] }
@@ -2883,7 +2909,7 @@ class Component extends DCLogic {
       parts: partsAll.slice(0, 25).map(p => ({
         code: p.code, name: p.name, node: p.node,
         fits: p.fits || 'по схеме модели',
-        status: 'в наличие'
+        status: 'в наличии'
       })),
       partsFound: partsAll.length, partsShown: Math.min(partsAll.length, 25),
       install: [

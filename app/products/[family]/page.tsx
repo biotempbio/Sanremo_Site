@@ -9,7 +9,6 @@ import {
   modelsOfFamily,
   skusOfModel,
   analogsFor,
-  PRICE_DATE,
   money,
   officialImageForFamily,
   officialImageForModel,
@@ -88,8 +87,8 @@ export default async function FamilyPage({ params }: Props) {
               <h2>Модели и версии</h2>
             </div>
             <p className="small" style={{ maxWidth: "56ch" }}>
-              Показана реально поддерживаемая матрица BIO, а не маркетинговая линейка
-              производителя целиком. Позиции без российских поставок в каталоге не публикуются.
+              Показаны модели и исполнения, доступные для заказа через официальную сеть BIO.
+              Актуальное наличие и сроки поставки указаны в карточках конфигураций.
             </p>
           </div>
           <div className="grid g3">
@@ -133,10 +132,6 @@ export default async function FamilyPage({ params }: Props) {
                 <p className="eyebrow">Матрица</p>
                 <h2>Модель × группы × исполнение × РРЦ</h2>
               </div>
-              <p className="source-note" style={{ maxWidth: "56ch" }}>
-                Источник: файл ассортимента и прайс РРЦ компании BIO, обновлён {PRICE_DATE}.
-                Точное количество на складе в Москве и срок поставки подтверждает менеджер.
-              </p>
             </div>
             <div className="table-scroll">
               <table className="data">
@@ -191,10 +186,6 @@ export default async function FamilyPage({ params }: Props) {
                     </span>
                   ))}
                 </div>
-                <p className="source-note" style={{ marginTop: 10 }}>
-                  Фотография каждого публикуемого цвета подключается из медиабиблиотеки Sanremo/BIO.
-                  Подменять реальное исполнение рендером другого SKU запрещено (ТЗ §8.1).
-                </p>
               </div>
             )}
           </div>

@@ -80,7 +80,7 @@ export default function DesignSystemPage() {
       <header className="header">
         <div className="wrap">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="brand" src="/sanremo-logo.png" alt="Sanremo" style={{ width: 132 }} />
+          <img className="brand" src="/brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" style={{ width: 176 }} />
           <span className="plaque" style={{ marginLeft: 18 }}>Дизайн-система</span>
           <span className="hdr-trust" style={{ marginLeft: "auto" }}>
             Внутренний документ. Норматив — Sanremo Brand Guidelines 2026, v1.0
