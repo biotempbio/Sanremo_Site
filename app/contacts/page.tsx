@@ -97,7 +97,7 @@ export default function ContactsPage() {
                   <h3>Официальный дистрибьютор Sanremo в России</h3>
                   <p style={{ margin: 0 }}>
                     <b style={{ fontFamily: "var(--sans)", fontSize: 21 }}>
-                      <a href="tel:+78006004300" style={{ textDecoration: "none" }}>8 (800) 600-43-00</a>
+                      <a href="tel:+74953633801" style={{ textDecoration: "none" }}>8-495-363-3801</a>
                     </b>
                   </p>
                   <p className="small" style={{ margin: 0 }}>
@@ -109,7 +109,7 @@ export default function ContactsPage() {
                     БЦ «Геолог», 4 этаж
                   </p>
                   <p className="tiny" style={{ margin: 0 }}>
-                    Бесплатный звонок по России
+                    Москва
                   </p>
                   <div className="chips">
                     {dealerCities().slice(0, 5).map((c) => (

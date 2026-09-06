@@ -21,7 +21,7 @@ export function Header({ active }: { active?: string }) {
         <div className="wrap">
           <span>Официальный дистрибьютор Sanremo в России — компания BIO</span>
           <span>
-            <a href="tel:+78006004300">8 (800) 600-43-00</a>
+            <a href="tel:+74953633801">8-495-363-3801</a>
             {" · "}
             <a href="/contacts">Контакты</a>
           </span>
@@ -108,9 +108,9 @@ export function Footer() {
               <br />
               БЦ «Геолог», 4 этаж
               <br />
-              <a href="tel:+78006004300">8 (800) 600-43-00</a>
+              <a href="tel:+74953633801">8-495-363-3801</a>
               <br />
-              Бесплатный звонок по России
+              Москва
               <br />
               <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
             </p>
