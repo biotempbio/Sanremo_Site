@@ -11,7 +11,7 @@
 <script src="./sanremo-data.js"></script>
 <style>
   @font-face {
-    font-family: 'Playfair Display';
+    font-family: 'Oswald Web';
     src: url('./fonts/oswald-cyrillic-variable.woff2') format('woff2');
     font-style: normal;
     font-weight: 200 700;
@@ -19,7 +19,7 @@
     unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
   }
   @font-face {
-    font-family: 'Playfair Display';
+    font-family: 'Oswald Web';
     src: url('./fonts/oswald-latin-variable.woff2') format('woff2');
     font-style: normal;
     font-weight: 200 700;
@@ -27,7 +27,7 @@
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
   }
   @font-face {
-    font-family: 'PT Sans';
+    font-family: 'Roboto Web';
     src: url('./fonts/roboto-cyrillic-variable.woff2') format('woff2');
     font-style: normal;
     font-weight: 100 900;
@@ -35,18 +35,18 @@
     unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
   }
   @font-face {
-    font-family: 'PT Sans';
+    font-family: 'Roboto Web';
     src: url('./fonts/roboto-latin-variable.woff2') format('woff2');
     font-style: normal;
     font-weight: 100 900;
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
   }
-  body { margin: 0; background: #FFFFFF; color: #141414; font-family: 'PT Sans', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: #FFFFFF; color: #141414; font-family: 'Roboto Web', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
   * { box-sizing: border-box; }
   a { color: #003E51; text-decoration: none; }
   a:hover { color: #C14E00; }
-  button { font-family: 'PT Sans', Arial, sans-serif; cursor: pointer; }
+  button { font-family: 'Roboto Web', Arial, sans-serif; cursor: pointer; }
   button:is([style*="background:#141414"],[style*="background: rgb(20, 20, 20)"])[style*="padding:"],
   button:is([style*="border:1px solid #141414"],[style*="border: 1px solid rgb(20, 20, 20)"]):is([style*="background:#FFFFFF"],[style*="background: rgb(255, 255, 255)"])[style*="padding:"] {
     transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
@@ -117,7 +117,7 @@
 <div style="min-height:100vh;background:#FFFFFF">
 
   <div style="background:#2D483F;color:#FFFFFF">
-    <div class="site-topbar" style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:24px;font:500 12px/1.5 'PT Sans',sans-serif;letter-spacing:.02em;flex-wrap:wrap">
+    <div class="site-topbar" style="max-width:1320px;margin:0 auto;padding:0 40px;min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:24px;font:500 12px/1.5 'Roboto Web',sans-serif;letter-spacing:.02em;flex-wrap:wrap">
       <span style="opacity:.92">Официальный дистрибьютор Sanremo в России — компания BIO</span>
       <div style="display:flex;gap:22px;align-items:center;opacity:.92;flex-wrap:wrap">
         <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
@@ -131,7 +131,7 @@
       <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;flex:none;display:block">
         <img src="./brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" style="width:176px;height:auto;display:block" />
       </button>
-      <div class="site-header-nav" style="display:flex;gap:18px;align-items:center;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.01em;flex:1;min-width:0;white-space:nowrap;flex-wrap:wrap;row-gap:8px">
+      <div class="site-header-nav" style="display:flex;gap:18px;align-items:center;font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.01em;flex:1;min-width:0;white-space:nowrap;flex-wrap:wrap;row-gap:8px">
         <button onClick="{{ goCatalog }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Кофемашины</button>
         <button onClick="{{ goCompare }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Сравнение</button>
         <button onClick="{{ goChoose }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">Подобрать</button>
@@ -142,12 +142,12 @@
         <button onClick="{{ goAbout }}" style="border:0;background:none;padding:0;color:#141414;white-space:nowrap;flex:none">О Sanremo</button>
         <button onClick="{{ goPartner }}" style="border:0;background:none;padding:0;color:#C14E00;white-space:nowrap;flex:none">Стать дилером</button>
       </div>
-      <button class="site-header-cta" onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 22px;font:600 13px/1 'PT Sans',sans-serif;white-space:nowrap;flex:none">Подобрать машину</button>
+      <button class="site-header-cta" onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 22px;font:600 13px/1 'Roboto Web',sans-serif;white-space:nowrap;flex:none">Подобрать машину</button>
     </div>
   </div>
 
-  <div class="site-crumbs" style="max-width:1320px;margin:0 auto;padding:14px 40px;font:400 12px/1 'PT Sans',sans-serif;color:#8A8A85;display:flex;gap:8px">
-    <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;font:400 12px/1 'PT Sans',sans-serif;color:#8A8A85">Главная</button>
+  <div class="site-crumbs" style="max-width:1320px;margin:0 auto;padding:14px 40px;font:400 12px/1 'Roboto Web',sans-serif;color:#8A8A85;display:flex;gap:8px">
+    <button onClick="{{ goHome }}" style="border:0;background:none;padding:0;font:400 12px/1 'Roboto Web',sans-serif;color:#8A8A85">Главная</button>
     <span>/</span>
     <span style="color:#141414">{{ crumb }}</span>
   </div>
@@ -156,13 +156,13 @@
   <div>
     <div class="home-hero" style="max-width:1320px;margin:0 auto;padding:0 40px 24px;display:grid;grid-template-columns:1.05fr 1fr;gap:0;align-items:center">
       <div class="home-hero-copy" style="padding:44px 56px 44px 0">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;color:#7D9C91;text-transform:uppercase">Профессиональные кофемашины из Италии</div>
-        <h1 class="home-hero-title" style="margin:20px 0 0;font:700 56px/1.06 'Playfair Display',Georgia,serif;letter-spacing:-.01em;text-wrap:pretty">Sanremo. Центр вашего кофейного проекта</h1>
-        <div style="margin:26px 0 0;display:inline-block;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 15px/1 'PT Sans',sans-serif">Вкус, ритм работы и впечатление гостя</div>
-        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'PT Sans',sans-serif;color:#3C3C3A;text-wrap:pretty">Шесть профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. Официальные поставки и дилерская сеть по всей России. Сравните модели или воспользуйтесь подборщиком Sanremo — он предложит варианты под формат, поток и меню.</p>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.14em;color:#7D9C91;text-transform:uppercase">Профессиональные кофемашины из Италии</div>
+        <h1 class="home-hero-title" style="margin:20px 0 0;font:700 56px/1.06 'Oswald Web',Georgia,serif;letter-spacing:-.01em;text-wrap:pretty">Sanremo. Центр вашего кофейного проекта</h1>
+        <div style="margin:26px 0 0;display:inline-block;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 15px/1 'Roboto Web',sans-serif">Вкус, ритм работы и впечатление гостя</div>
+        <p style="margin:24px 0 0;max-width:520px;font:400 17px/1.6 'Roboto Web',sans-serif;color:#3C3C3A;text-wrap:pretty">Шесть профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. Официальные поставки и дилерская сеть по всей России. Сравните модели или воспользуйтесь подборщиком Sanremo — он предложит варианты под формат, поток и меню.</p>
         <div class="home-hero-actions" style="margin:32px 0 0;display:flex;gap:12px">
-          <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Подобрать машину</button>
-          <button onClick="{{ goCatalog }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Смотреть каталог</button>
+          <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'Roboto Web',sans-serif">Подобрать машину</button>
+          <button onClick="{{ goCatalog }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:16px 26px;font:600 14px/1 'Roboto Web',sans-serif">Смотреть каталог</button>
         </div>
       </div>
       <div class="home-hero-photo" style="background:#F4F4F2;height:460px;display:flex;align-items:stretch;justify-content:center;overflow:hidden">
@@ -174,8 +174,8 @@
       <div style="max-width:1320px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(5,1fr)">
         <sc-for list="{{ trust }}" as="t" hint-placeholder-count="5">
           <div style="padding:22px 20px;border-right:1px solid #E6E6E3">
-            <div style="font:600 12px/1.4 'PT Sans',sans-serif;letter-spacing:.02em;color:#141414">{{ t.title }}</div>
-            <div style="margin-top:6px;font:400 12px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ t.sub }}</div>
+            <div style="font:600 12px/1.4 'Roboto Web',sans-serif;letter-spacing:.02em;color:#141414">{{ t.title }}</div>
+            <div style="margin-top:6px;font:400 12px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">{{ t.sub }}</div>
           </div>
         </sc-for>
       </div>
@@ -183,33 +183,33 @@
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px">
-        <h2 style="margin:0;font:700 34px/1.1 'Playfair Display',Georgia,serif">Начните с задачи</h2>
-        <span style="font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A;max-width:420px">Сценарий определяет класс машины: число групп, посадку, бойлер и требования к пару.</span>
+        <h2 style="margin:0;font:700 34px/1.1 'Oswald Web',Georgia,serif">Начните с задачи</h2>
+        <span style="font:400 13px/1.5 'Roboto Web',sans-serif;color:#6E6E6A;max-width:420px">Сценарий определяет класс машины: число групп, посадку, бойлер и требования к пару.</span>
       </div>
       <div style="margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
         <sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="6">
           <button onClick="{{ s.open }}" style="border:0;background:#FFFFFF;padding:26px 24px;text-align:left;display:block">
-            <div style="font:600 15px/1.3 'PT Sans',sans-serif;color:#141414">{{ s.title }}</div>
-            <div style="margin-top:8px;font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ s.sub }}</div>
-            <div style="margin-top:14px;font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;color:#C14E00;text-transform:uppercase">Подобрать →</div>
+            <div style="font:600 15px/1.3 'Roboto Web',sans-serif;color:#141414">{{ s.title }}</div>
+            <div style="margin-top:8px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ s.sub }}</div>
+            <div style="margin-top:14px;font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;color:#C14E00;text-transform:uppercase">Подобрать →</div>
           </button>
         </sc-for>
       </div>
 
       <div style="margin-top:40px;background:#F1F3F1;padding:28px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap">
         <div style="min-width:260px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#2D483F;text-transform:uppercase">Рабочий поток</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#2D483F;text-transform:uppercase">Рабочий поток</div>
         </div>
         <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
           <sc-for list="{{ volumes }}" as="v" hint-placeholder-count="5">
-            <button onClick="{{ v.open }}" style="border:1px solid #2D483F;background:#FFFFFF;color:#2D483F;padding:16px 10px;font:700 13px/1.2 'PT Sans',sans-serif;text-align:center;transition:background .15s,color .15s" style-hover="background:#2D483F;color:#FFFFFF">{{ v.label }}</button>
+            <button onClick="{{ v.open }}" style="border:1px solid #2D483F;background:#FFFFFF;color:#2D483F;padding:16px 10px;font:700 13px/1.2 'Roboto Web',sans-serif;text-align:center;transition:background .15s,color .15s" style-hover="background:#2D483F;color:#FFFFFF">{{ v.label }}</button>
           </sc-for>
         </div>
       </div>
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
-      <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'PT Sans',sans-serif">Актуальные линейки 2026</div>
+      <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'Roboto Web',sans-serif">Актуальные линейки 2026</div>
       <div style="margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:stretch">
         <sc-for list="{{ lines }}" as="m" hint-placeholder-count="7">
           <button onClick="{{ m.open }}" style="border:0;background:none;padding:0;text-align:left;display:flex;flex-direction:column;height:100%">
@@ -218,19 +218,19 @@
             </div>
             <div style="padding:16px 0 0;display:flex;flex-direction:column;height:100%">
               <div style="display:flex;flex-direction:column;gap:6px">
-                <span style="font:700 22px/1.1 'Playfair Display',Georgia,serif">{{ m.name }}</span>
-                <span style="font:600 11px/1.2 'PT Sans',sans-serif;letter-spacing:.08em;color:#7D9C91;text-transform:uppercase">{{ m.role }}</span>
+                <span style="font:700 22px/1.1 'Oswald Web',Georgia,serif">{{ m.name }}</span>
+                <span style="font:600 11px/1.2 'Roboto Web',sans-serif;letter-spacing:.08em;color:#7D9C91;text-transform:uppercase">{{ m.role }}</span>
               </div>
-              <div style="margin-top:8px;padding-bottom:16px;font:400 13px/1.55 'PT Sans',sans-serif;color:#5A5A56">{{ m.tagline }}</div>
+              <div style="margin-top:8px;padding-bottom:16px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#5A5A56">{{ m.tagline }}</div>
               <div style="margin-top:auto;padding-top:12px;border-top:1px solid #E6E6E3;display:flex;flex-direction:column;gap:6px">
-                <div style="font:700 15px/1.2 'PT Sans',sans-serif;color:#141414;white-space:nowrap">РРЦ от {{ m.priceFrom }}</div>
+                <div style="font:700 15px/1.2 'Roboto Web',sans-serif;color:#141414;white-space:nowrap">РРЦ от {{ m.priceFrom }}</div>
                 <div style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow:hidden">
                   <sc-for list="{{ m.swatches }}" as="sw" hint-placeholder-count="3">
                     <span title="{{ sw.title }}" style="width:16px;height:16px;flex:none;border:1px solid #D0D0CB;background:{{ sw.bg }};display:block"></span>
                   </sc-for>
-                  <span style="font:400 12px/1 'PT Sans',sans-serif;color:#6E6E6A;white-space:nowrap;margin-left:2px">{{ m.variantLine }}</span>
+                  <span style="font:400 12px/1 'Roboto Web',sans-serif;color:#6E6E6A;white-space:nowrap;margin-left:2px">{{ m.variantLine }}</span>
                 </div>
-                <span style="font:700 12px/1.35 'PT Sans',sans-serif;color:#C14E00">{{ m.stockLine }}</span>
+                <span style="font:700 12px/1.35 'Roboto Web',sans-serif;color:#C14E00">{{ m.stockLine }}</span>
               </div>
             </div>
           </button>
@@ -241,10 +241,10 @@
     <div style="max-width:1320px;margin:0 auto;padding:72px 40px 0">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px">
         <div>
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">Актуальное</div>
-          <h2 style="margin:12px 0 0;font:700 36px/1.1 'Playfair Display',Georgia,serif">Новинки и технологии Sanremo</h2>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">Актуальное</div>
+          <h2 style="margin:12px 0 0;font:700 36px/1.1 'Oswald Web',Georgia,serif">Новинки и технологии Sanremo</h2>
         </div>
-        <button onClick="{{ goNews }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:14px 22px;font:600 13px/1 'PT Sans',sans-serif;transition:background .15s,color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">Смотреть всё</button>
+        <button onClick="{{ goNews }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:14px 22px;font:600 13px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">Смотреть всё</button>
       </div>
       <div style="margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
         <sc-for list="{{ newsCards }}" as="n" hint-placeholder-count="3">
@@ -254,16 +254,16 @@
               <sc-if value="{{ n.isPlaceholder }}">
                 <div style="height:100%;background:#2D483F;color:#FFFFFF;padding:26px;display:flex;flex-direction:column;justify-content:space-between">
                   <span style="font:400 12px/1 'PT Mono',Menlo,monospace;letter-spacing:.1em">SANREMO × FIORENZATO</span>
-                  <span style="font:700 50px/1 'Playfair Display',Georgia,serif">S ↔ F</span>
-                  <span style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase">Материал готовится</span>
+                  <span style="font:700 50px/1 'Oswald Web',Georgia,serif">S ↔ F</span>
+                  <span style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase">Материал готовится</span>
                 </div>
               </sc-if>
             </div>
             <div style="padding:22px 24px 26px;display:flex;flex-direction:column;flex:1">
-              <div style="font:600 11px/1.2 'PT Sans',sans-serif;letter-spacing:.1em;color:#7D9C91;text-transform:uppercase">{{ n.category }}</div>
-              <h3 style="margin:12px 0 0;font:700 24px/1.16 'Playfair Display',Georgia,serif">{{ n.title }}</h3>
-              <p style="margin:13px 0 0;font:400 14px/1.55 'PT Sans',sans-serif;color:#555550">{{ n.lead }}</p>
-              <span style="margin-top:auto;padding-top:20px;font:700 12px/1 'PT Sans',sans-serif;color:#2D483F">Читать материал</span>
+              <div style="font:600 11px/1.2 'Roboto Web',sans-serif;letter-spacing:.1em;color:#7D9C91;text-transform:uppercase">{{ n.category }}</div>
+              <h3 style="margin:12px 0 0;font:700 24px/1.16 'Oswald Web',Georgia,serif">{{ n.title }}</h3>
+              <p style="margin:13px 0 0;font:400 14px/1.55 'Roboto Web',sans-serif;color:#555550">{{ n.lead }}</p>
+              <span style="margin-top:auto;padding-top:20px;font:700 12px/1 'Roboto Web',sans-serif;color:#2D483F">Читать материал</span>
             </div>
           </button>
         </sc-for>
@@ -275,35 +275,35 @@
         {{ casesLeadPhoto }}
       </div>
       <div style="padding:40px 0 40px 56px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">Кейсы</div>
-        <h2 style="margin:14px 0 0;font:700 34px/1.12 'Playfair Display',Georgia,serif">Кофейни выбирают Sanremo</h2>
-        <p style="margin:18px 0 0;max-width:510px;font:400 15px/1.65 'PT Sans',sans-serif;color:#4A4A46">От независимых specialty-кофеен до ресторанов и сетевых проектов — оборудование Sanremo работает за стойками по всему миру. В российских кейсах показываем, как кофемашина становится частью интерьера, сервиса и ежедневного ритма заведения.</p>
-        <span style="margin-top:28px;display:inline-block;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Смотреть кейсы</span>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">Кейсы</div>
+        <h2 style="margin:14px 0 0;font:700 34px/1.12 'Oswald Web',Georgia,serif">Кофейни выбирают Sanremo</h2>
+        <p style="margin:18px 0 0;max-width:510px;font:400 15px/1.65 'Roboto Web',sans-serif;color:#4A4A46">От независимых specialty-кофеен до ресторанов и сетевых проектов — оборудование Sanremo работает за стойками по всему миру. В российских кейсах показываем, как кофемашина становится частью интерьера, сервиса и ежедневного ритма заведения.</p>
+        <span style="margin-top:28px;display:inline-block;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Смотреть кейсы</span>
       </div>
     </button>
 
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px">
       <div style="background:#D7C4B7;padding:36px 34px;display:flex;flex-direction:column">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#4A3B33;text-transform:uppercase">Сервис и запчасти</div>
-        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Playfair Display',Georgia,serif;color:#2A211C">{{ partCount }} {{ partCountWord }} ЗИП на складе в Москве</h3>
-        <p style="margin:14px 0 24px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A3B33;max-width:440px">Поиск детали по артикулу, названию и узлу; совместимость, статус наличия и способ получения — через дилера или напрямую в BIO.</p>
-        <button onClick="{{ goService }}" style="margin-top:auto;align-self:flex-start;border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Найти запчасть</button>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#4A3B33;text-transform:uppercase">Сервис и запчасти</div>
+        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Oswald Web',Georgia,serif;color:#2A211C">{{ partCount }} {{ partCountWord }} ЗИП на складе в Москве</h3>
+        <p style="margin:14px 0 24px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#4A3B33;max-width:440px">Поиск детали по артикулу, названию и узлу; совместимость, статус наличия и способ получения — через дилера или напрямую в BIO.</p>
+        <button onClick="{{ goService }}" style="margin-top:auto;align-self:flex-start;border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Найти запчасть</button>
       </div>
       <div style="border:1px solid #E6E6E3;padding:36px 34px;display:flex;flex-direction:column">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#003E51;text-transform:uppercase">Где купить</div>
-        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Playfair Display',Georgia,serif">Дилеры и шоурумы</h3>
-        <p style="margin:14px 0 24px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A4A46;max-width:440px">Выбор по региону и услуге: продажа, демонстрация, обучение, монтаж, гарантийный сервис и запчасти. Если дилера нет — заявка в BIO.</p>
-        <button onClick="{{ goDealers }}" style="margin-top:auto;align-self:flex-start;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Выбрать регион</button>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#003E51;text-transform:uppercase">Где купить</div>
+        <h3 style="margin:14px 0 0;font:700 28px/1.15 'Oswald Web',Georgia,serif">Дилеры и шоурумы</h3>
+        <p style="margin:14px 0 24px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#4A4A46;max-width:440px">Выбор по региону и услуге: продажа, демонстрация, обучение, монтаж, гарантийный сервис и запчасти. Если дилера нет — заявка в BIO.</p>
+        <button onClick="{{ goDealers }}" style="margin-top:auto;align-self:flex-start;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Выбрать регион</button>
       </div>
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
-      <h2 style="margin:0;font:700 34px/1.1 'Playfair Display',Georgia,serif">Технологии, которые работают в смене</h2>
+      <h2 style="margin:0;font:700 34px/1.1 'Oswald Web',Georgia,serif">Технологии, которые работают в смене</h2>
       <div style="margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
         <sc-for list="{{ tech }}" as="t" hint-placeholder-count="4">
           <div style="background:#FFFFFF;padding:24px 22px">
-            <div style="font:600 14px/1.3 'PT Sans',sans-serif">{{ t.title }}</div>
-            <div style="margin-top:8px;font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ t.sub }}</div>
+            <div style="font:600 14px/1.3 'Roboto Web',sans-serif">{{ t.title }}</div>
+            <div style="margin-top:8px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ t.sub }}</div>
           </div>
         </sc-for>
       </div>
@@ -312,12 +312,12 @@
     <div style="margin-top:72px;background:#2D483F">
       <div style="max-width:1320px;margin:0 auto;padding:56px 40px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center">
         <div>
-        <h2 style="margin:0;font:700 36px/1.12 'Playfair Display',Georgia,serif;color:#FFFFFF">Подберём 2–3 конфигурации под ваш проект</h2>
-          <p style="margin:16px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#D8E0DB;max-width:560px">Формат точки, чашки в день, меню, ограничения по мощности и ширине, бюджет и регион. Ответ содержит РРЦ, наличие и контакт дилера.</p>
+        <h2 style="margin:0;font:700 36px/1.12 'Oswald Web',Georgia,serif;color:#FFFFFF">Подберём 2–3 конфигурации под ваш проект</h2>
+          <p style="margin:16px 0 0;font:400 16px/1.6 'Roboto Web',sans-serif;color:#D8E0DB;max-width:560px">Формат точки, чашки в день, меню, ограничения по мощности и ширине, бюджет и регион. Ответ содержит РРЦ, наличие и контакт дилера.</p>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button onClick="{{ goChoose }}" style="border:0;background:#C14E00;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Пройти подбор</button>
-          <button onClick="{{ goDealers }}" style="border:1px solid #FFFFFF;background:none;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'PT Sans',sans-serif">Найти дилера</button>
+          <button onClick="{{ goChoose }}" style="border:0;background:#C14E00;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'Roboto Web',sans-serif">Пройти подбор</button>
+          <button onClick="{{ goDealers }}" style="border:1px solid #FFFFFF;background:none;color:#FFFFFF;padding:16px 26px;font:600 14px/1 'Roboto Web',sans-serif">Найти дилера</button>
         </div>
       </div>
     </div>
@@ -326,44 +326,44 @@
 
   <sc-if value="{{ isCatalog }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
-    <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Кофемашины Sanremo</h1>
+    <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Кофемашины Sanremo</h1>
 
     <div style="margin-top:32px;display:grid;grid-template-columns:250px 1fr;gap:40px;align-items:start">
       <div style="border:1px solid #E6E6E3;padding:22px 20px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#141414">Фильтры</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#141414">Фильтры</div>
         <sc-for list="{{ filterGroups }}" as="g" hint-placeholder-count="3">
           <div style="margin-top:22px">
-            <div style="font:600 12px/1 'PT Sans',sans-serif;color:#6E6E6A">{{ g.title }}</div>
+            <div style="font:600 12px/1 'Roboto Web',sans-serif;color:#6E6E6A">{{ g.title }}</div>
             <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
               <sc-for list="{{ g.options }}" as="o" hint-placeholder-count="3">
-                <button onClick="{{ o.toggle }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:9px 12px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
+                <button onClick="{{ o.toggle }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:9px 12px;font:500 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
               </sc-for>
             </div>
           </div>
         </sc-for>
-        <button onClick="{{ resetFilters }}" style="margin-top:26px;border:0;background:none;padding:0;font:500 12px/1 'PT Sans',sans-serif;color:#C14E00">Сбросить фильтры</button>
+        <button onClick="{{ resetFilters }}" style="margin-top:26px;border:0;background:none;padding:0;font:500 12px/1 'Roboto Web',sans-serif;color:#C14E00">Сбросить фильтры</button>
       </div>
 
       <div>
         <sc-if value="{{ cupsActive }}" hint-placeholder-val="{{ false }}">
           <div style="margin-bottom:18px;background:#F1F3F1;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
             <div>
-              <div style="font:700 16px/1.3 'PT Sans',sans-serif;color:#141414">{{ cupsTitle }}</div>
-              <div style="margin-top:6px;font:400 13px/1.5 'PT Sans',sans-serif;color:#4A4A46">{{ cupsNote }}</div>
+              <div style="font:700 16px/1.3 'Roboto Web',sans-serif;color:#141414">{{ cupsTitle }}</div>
+              <div style="margin-top:6px;font:400 13px/1.5 'Roboto Web',sans-serif;color:#4A4A46">{{ cupsNote }}</div>
             </div>
-            <button onClick="{{ clearCups }}" style="border:1px solid #2D483F;background:#FFFFFF;color:#2D483F;padding:11px 16px;font:600 12px/1 'PT Sans',sans-serif">Показать все линейки</button>
+            <button onClick="{{ clearCups }}" style="border:1px solid #2D483F;background:#FFFFFF;color:#2D483F;padding:11px 16px;font:600 12px/1 'Roboto Web',sans-serif">Показать все линейки</button>
           </div>
         </sc-if>
         <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E6E6E3;padding-bottom:12px;gap:16px;flex-wrap:wrap">
-          <span style="font:500 13px/1.4 'PT Sans',sans-serif;color:#6E6E6A">Линеек: {{ foundCount }} · исполнений: {{ foundSkus }}</span>
+          <span style="font:500 13px/1.4 'Roboto Web',sans-serif;color:#6E6E6A">Линеек: {{ foundCount }} · исполнений: {{ foundSkus }}</span>
         </div>
         <sc-if value="{{ catalogEmpty }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:24px;background:#F1F3F1;padding:32px">
-            <div style="font:600 16px/1.3 'PT Sans',sans-serif">По выбранным условиям ничего не найдено</div>
-            <div style="margin-top:10px;font:400 14px/1.6 'PT Sans',sans-serif;color:#4A4A46;max-width:520px">Снимите один из фильтров или опишите задачу — подберём вариант вручную.</div>
+            <div style="font:600 16px/1.3 'Roboto Web',sans-serif">По выбранным условиям ничего не найдено</div>
+            <div style="margin-top:10px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#4A4A46;max-width:520px">Снимите один из фильтров или опишите задачу — подберём вариант вручную.</div>
             <div style="margin-top:18px;display:flex;gap:10px">
-              <button onClick="{{ resetFilters }}" style="border:1px solid #141414;background:#FFFFFF;padding:13px 20px;font:600 13px/1 'PT Sans',sans-serif">Сбросить фильтры</button>
-              <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 20px;font:600 13px/1 'PT Sans',sans-serif">Перейти к подбору</button>
+              <button onClick="{{ resetFilters }}" style="border:1px solid #141414;background:#FFFFFF;padding:13px 20px;font:600 13px/1 'Roboto Web',sans-serif">Сбросить фильтры</button>
+              <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 20px;font:600 13px/1 'Roboto Web',sans-serif">Перейти к подбору</button>
             </div>
           </div>
         </sc-if>
@@ -373,30 +373,30 @@
               {{ m.photoM }}
             </button>
             <button onClick="{{ m.open }}" style="border:0;background:#FFFFFF;padding:24px 28px;text-align:left;display:block" style-hover="background:#FAFAF9">
-              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#7D9C91">{{ m.role }}</div>
-              <div style="margin-top:8px;font:700 26px/1.1 'Playfair Display',Georgia,serif">{{ m.name }}</div>
-              <div style="margin-top:8px;font:400 14px/1.55 'PT Sans',sans-serif;color:#5A5A56;max-width:440px">{{ m.tagline }}</div>
+              <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#7D9C91">{{ m.role }}</div>
+              <div style="margin-top:8px;font:700 26px/1.1 'Oswald Web',Georgia,serif">{{ m.name }}</div>
+              <div style="margin-top:8px;font:400 14px/1.55 'Roboto Web',sans-serif;color:#5A5A56;max-width:440px">{{ m.tagline }}</div>
               <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
                 <sc-for list="{{ m.tags }}" as="tag" hint-placeholder-count="3">
-                  <span style="background:#F1F1EF;padding:7px 10px;font:500 11px/1 'PT Sans',sans-serif;color:#4A4A46">{{ tag }}</span>
+                  <span style="background:#F1F1EF;padding:7px 10px;font:500 11px/1 'Roboto Web',sans-serif;color:#4A4A46">{{ tag }}</span>
                 </sc-for>
               </div>
             </button>
             <div style="border-left:1px solid #E6E6E3;padding:24px 22px;display:flex;flex-direction:column;justify-content:space-between">
               <div>
                 <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">РРЦ от</div>
-                <div style="margin-top:6px;font:700 18px/1.2 'PT Sans',sans-serif">{{ m.priceFrom }}</div>
-                <div style="margin-top:14px;font:700 12px/1.35 'PT Sans',sans-serif;color:#C14E00">{{ m.stockLine }}</div>
+                <div style="margin-top:6px;font:700 18px/1.2 'Roboto Web',sans-serif">{{ m.priceFrom }}</div>
+                <div style="margin-top:14px;font:700 12px/1.35 'Roboto Web',sans-serif;color:#C14E00">{{ m.stockLine }}</div>
                 <div style="margin-top:10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
                   <sc-for list="{{ m.swatches }}" as="sw" hint-placeholder-count="3">
                     <span title="{{ sw.title }}" style="width:16px;height:16px;flex:none;border:1px solid #D0D0CB;background:{{ sw.bg }};display:block"></span>
                   </sc-for>
                 </div>
-                <div style="margin-top:8px;font:400 12px/1.4 'PT Sans',sans-serif;color:#6E6E6A">{{ m.variantLine }}</div>
+                <div style="margin-top:8px;font:400 12px/1.4 'Roboto Web',sans-serif;color:#6E6E6A">{{ m.variantLine }}</div>
               </div>
               <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
-                <button onClick="{{ m.open }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Открыть линейку</button>
-                <button onClick="{{ goDealers }}" style="border:1px solid #141414;background:#FFFFFF;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Где купить</button>
+                <button onClick="{{ m.open }}" style="border:0;background:#141414;color:#FFFFFF;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Открыть линейку</button>
+                <button onClick="{{ goDealers }}" style="border:1px solid #141414;background:#FFFFFF;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Где купить</button>
               </div>
             </div>
           </div>
@@ -412,12 +412,12 @@
       <div style="min-width:0">
         <div style="background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
           <button class="product-gallery-active" onClick="{{ p.openPhoto }}" title="Открыть фотографию крупно" style="position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:zoom-in">{{ p.activePhoto }}</button>
-          <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">←</button>
-          <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">→</button>
+          <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">←</button>
+          <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s" style-hover="background:#2D483F;border-color:#2D483F">→</button>
           <div style="position:absolute;right:18px;bottom:16px;background:rgba(20,20,20,.7);color:#FFFFFF;padding:7px 9px;font:10px/1 'PT Mono',Menlo,monospace">{{ p.photoCounter }}</div>
         </div>
         <div style="margin-top:11px;display:flex;align-items:baseline;justify-content:space-between;gap:18px">
-          <div style="font:500 12px/1.4 'PT Sans',sans-serif;color:#4A4A46">{{ p.activePhotoLabel }}</div>
+          <div style="font:500 12px/1.4 'Roboto Web',sans-serif;color:#4A4A46">{{ p.activePhotoLabel }}</div>
           <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">нажмите для увеличения</div>
         </div>
         <div style="margin-top:12px;width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
@@ -429,8 +429,8 @@
         </div>
         <div style="margin-top:16px;border-top:1px solid #141414;padding:15px 2px 0;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:start">
           <div>
-            <div style="font:600 14px/1.35 'PT Sans',sans-serif;color:#141414">{{ p.skuName }}</div>
-            <div style="margin-top:7px;font:400 12px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ p.executionSummary }}</div>
+            <div style="font:600 14px/1.35 'Roboto Web',sans-serif;color:#141414">{{ p.skuName }}</div>
+            <div style="margin-top:7px;font:400 12px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">{{ p.executionSummary }}</div>
           </div>
           <div style="text-align:right;white-space:nowrap">
             <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">КОД BIO</div>
@@ -439,14 +439,14 @@
         </div>
         <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
         <div style="margin-top:38px;border-top:1px solid #141414;padding-top:22px">
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">{{ p.storyEyebrow }}</div>
-          <h2 style="margin:13px 0 0;max-width:620px;font:700 30px/1.1 'Playfair Display',Georgia,serif">{{ p.storyTitle }}</h2>
-          <p style="margin:17px 0 0;max-width:700px;font:400 15px/1.65 'PT Sans',sans-serif;color:#3C3C3A">{{ p.storyIntro }}</p>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">{{ p.storyEyebrow }}</div>
+          <h2 style="margin:13px 0 0;max-width:620px;font:700 30px/1.1 'Oswald Web',Georgia,serif">{{ p.storyTitle }}</h2>
+          <p style="margin:17px 0 0;max-width:700px;font:400 15px/1.65 'Roboto Web',sans-serif;color:#3C3C3A">{{ p.storyIntro }}</p>
           <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #E1E4E1;border-left:1px solid #E1E4E1">
             <sc-for list="{{ p.storyFacts }}" as="f" hint-placeholder-count="4">
               <div style="padding:15px 16px;border-right:1px solid #E1E4E1;border-bottom:1px solid #E1E4E1">
-                <div style="font:700 19px/1 'Playfair Display',Georgia,serif;color:#2D483F">{{ f.value }}</div>
-                <div style="margin-top:7px;font:500 11px/1.4 'PT Sans',sans-serif;color:#5E5E5A">{{ f.label }}</div>
+                <div style="font:700 19px/1 'Oswald Web',Georgia,serif;color:#2D483F">{{ f.value }}</div>
+                <div style="margin-top:7px;font:500 11px/1.4 'Roboto Web',sans-serif;color:#5E5E5A">{{ f.label }}</div>
               </div>
             </sc-for>
           </div>
@@ -454,48 +454,48 @@
         </sc-if>
       </div>
       <div>
-        <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Линейка {{ p.family }} · {{ p.role }}</div>
-        <h1 style="margin:12px 0 0;font:700 42px/1.06 'Playfair Display',Georgia,serif">{{ p.productTitle }}</h1>
-        <p style="margin:14px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#3C3C3A">{{ p.productLead }}</p>
+        <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Линейка {{ p.family }} · {{ p.role }}</div>
+        <h1 style="margin:12px 0 0;font:700 42px/1.06 'Oswald Web',Georgia,serif">{{ p.productTitle }}</h1>
+        <p style="margin:14px 0 0;font:400 16px/1.6 'Roboto Web',sans-serif;color:#3C3C3A">{{ p.productLead }}</p>
 
         <div style="margin-top:26px;border:1px solid #E6E6E3">
           <div style="padding:20px 22px;border-bottom:1px solid #E6E6E3">
             <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap">
-              <div style="font:700 13px/1 'PT Sans',sans-serif;color:#141414">Соберите исполнение</div>
+              <div style="font:700 13px/1 'Roboto Web',sans-serif;color:#141414">Соберите исполнение</div>
               <div style="display:flex;align-items:baseline;gap:7px;color:#2D483F">
-                <span style="font:700 24px/1 'Playfair Display',Georgia,serif">{{ p.lineUnits }}</span>
-                <span style="font:600 11px/1.25 'PT Sans',sans-serif;text-transform:uppercase;letter-spacing:.06em">{{ p.lineUnitsLabel }}<br />линейки на складе в Москве</span>
+                <span style="font:700 24px/1 'Oswald Web',Georgia,serif">{{ p.lineUnits }}</span>
+                <span style="font:600 11px/1.25 'Roboto Web',sans-serif;text-transform:uppercase;letter-spacing:.06em">{{ p.lineUnitsLabel }}<br />линейки на складе в Москве</span>
               </div>
             </div>
             <sc-if value="{{ p.showModifications }}" hint-placeholder-val="{{ true }}">
               <div style="margin-top:20px">
-                <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Модификация</div>
+                <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Модификация</div>
                 <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
                   <sc-for list="{{ p.modificationOptions }}" as="c" hint-placeholder-count="5">
-                    <button onClick="{{ c.pick }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+                    <button onClick="{{ c.pick }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
                   </sc-for>
                 </div>
               </div>
             </sc-if>
             <div style="margin-top:20px">
-              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Количество групп</div>
+              <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Количество групп</div>
               <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
                 <sc-for list="{{ p.groupOptions }}" as="c" hint-placeholder-count="3">
-                  <button onClick="{{ c.pick }}" style="min-width:44px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+                  <button onClick="{{ c.pick }}" style="min-width:44px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:10px 13px;font:600 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
                 </sc-for>
               </div>
             </div>
             <div style="margin-top:20px">
-              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Цвет</div>
+              <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Цвет</div>
               <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
                 <sc-for list="{{ p.colorOptions }}" as="c" hint-placeholder-count="5">
-                  <button onClick="{{ c.pick }}" title="{{ c.label }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:8px 11px;display:flex;align-items:center;gap:8px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F"><span style="width:16px;height:16px;display:block;flex:none;border:1px solid #BFC2BE;background:{{ c.swatch }}"></span>{{ c.label }}</button>
+                  <button onClick="{{ c.pick }}" title="{{ c.label }}" style="border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};padding:8px 11px;display:flex;align-items:center;gap:8px;font:500 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F"><span style="width:16px;height:16px;display:block;flex:none;border:1px solid #BFC2BE;background:{{ c.swatch }}"></span>{{ c.label }}</button>
                 </sc-for>
               </div>
             </div>
             <div style="margin-top:18px;padding:12px 14px;background:#F4F4F2;border-left:3px solid #2D483F">
-              <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6E6E6A">Выбрано</div>
-              <div style="margin-top:7px;font:600 13px/1.4 'PT Sans',sans-serif;color:#141414">{{ p.selectedConfiguration }}</div>
+              <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#6E6E6A">Выбрано</div>
+              <div style="margin-top:7px;font:600 13px/1.4 'Roboto Web',sans-serif;color:#141414">{{ p.selectedConfiguration }}</div>
               <div style="margin-top:5px;font:400 11px/1.4 'PT Mono',Menlo,monospace;color:#8A8A85">{{ p.skuName }}</div>
             </div>
           </div>
@@ -503,24 +503,24 @@
             <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
               <div>
                 <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">Рекомендованная розничная цена</div>
-                <div style="margin-top:8px;font:700 30px/1 'PT Sans',sans-serif">{{ p.price }}</div>
+                <div style="margin-top:8px;font:700 30px/1 'Roboto Web',sans-serif">{{ p.price }}</div>
               </div>
               <div style="text-align:right">
-                <div style="font:600 13px/1 'PT Sans',sans-serif;color:#C14E00">{{ p.stockLabel }}</div>
+                <div style="font:600 13px/1 'Roboto Web',sans-serif;color:#C14E00">{{ p.stockLabel }}</div>
                 <div style="margin-top:6px;font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ p.stockDetail }}</div>
               </div>
             </div>
             <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 18px;font:600 13px/1 'PT Sans',sans-serif">Где купить</button>
-              <button onClick="{{ goChoose }}" style="border:1px solid #141414;background:#FFFFFF;padding:15px 18px;font:600 13px/1 'PT Sans',sans-serif">Получить консультацию</button>
-              <button onClick="{{ goService }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:15px 18px;font:500 13px/1 'PT Sans',sans-serif;color:#4A4A46">Запчасти модели</button>
-              <button onClick="{{ goDocs }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:15px 18px;font:500 13px/1 'PT Sans',sans-serif;color:#4A4A46">Скачать документы</button>
+              <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 18px;font:600 13px/1 'Roboto Web',sans-serif">Где купить</button>
+              <button onClick="{{ goChoose }}" style="border:1px solid #141414;background:#FFFFFF;padding:15px 18px;font:600 13px/1 'Roboto Web',sans-serif">Получить консультацию</button>
+              <button onClick="{{ goService }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:15px 18px;font:500 13px/1 'Roboto Web',sans-serif;color:#4A4A46">Запчасти модели</button>
+              <button onClick="{{ goDocs }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:15px 18px;font:500 13px/1 'Roboto Web',sans-serif;color:#4A4A46">Скачать документы</button>
             </div>
           </div>
         </div>
 
         <div style="margin-top:20px;border:1px solid #E6E6E3;padding:18px 22px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#003E51">Идентификация</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#003E51">Идентификация</div>
           <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font:400 12px/1.5 'PT Mono',Menlo,monospace;color:#4A4A46">
             <span>код BIO · {{ p.code }}</span>
             <span>артикул · {{ p.vendor }}</span>
@@ -531,11 +531,11 @@
 
     <sc-if value="{{ p.photoOpen }}" hint-placeholder-val="{{ false }}">
       <div style="position:fixed;inset:0;z-index:200;background:rgba(10,10,10,.94);display:flex;align-items:center;justify-content:center;padding:42px 76px">
-        <button onClick="{{ p.closePhoto }}" title="Закрыть" style="position:absolute;right:24px;top:22px;width:48px;height:48px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:300 28px/1 'PT Sans',sans-serif">×</button>
-        <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif">←</button>
+        <button onClick="{{ p.closePhoto }}" title="Закрыть" style="position:absolute;right:24px;top:22px;width:48px;height:48px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:300 28px/1 'Roboto Web',sans-serif">×</button>
+        <button onClick="{{ p.prevPhoto }}" title="Предыдущее фото" style="position:absolute;left:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif">←</button>
         <div class="product-gallery-active" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center">{{ p.activePhotoLarge }}</div>
-        <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif">→</button>
-        <div style="position:absolute;left:30px;bottom:24px;color:#FFFFFF;font:400 12px/1.4 'PT Sans',sans-serif">{{ p.activePhotoLabel }}</div>
+        <button onClick="{{ p.nextPhoto }}" title="Следующее фото" style="position:absolute;right:22px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif">→</button>
+        <div style="position:absolute;left:30px;bottom:24px;color:#FFFFFF;font:400 12px/1.4 'Roboto Web',sans-serif">{{ p.activePhotoLabel }}</div>
         <div style="position:absolute;right:30px;bottom:24px;color:#B8B8B3;font:400 11px/1 'PT Mono',Menlo,monospace">{{ p.photoCounter }}</div>
       </div>
     </sc-if>
@@ -543,16 +543,16 @@
     <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:.72fr 1.28fr;gap:54px">
       <div>
-        <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Ключевые технологии</div>
-        <h2 style="margin:14px 0 0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Что меняется в рабочей смене</h2>
-        <p style="margin:16px 0 0;font:400 14px/1.65 'PT Sans',sans-serif;color:#6E6E6A">Не перечень функций ради спецификации, а шесть свойств, которые влияют на скорость, повторяемость напитка и обслуживание.</p>
+        <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Ключевые технологии</div>
+        <h2 style="margin:14px 0 0;font:700 30px/1.1 'Oswald Web',Georgia,serif">Что меняется в рабочей смене</h2>
+        <p style="margin:16px 0 0;font:400 14px/1.65 'Roboto Web',sans-serif;color:#6E6E6A">Не перечень функций ради спецификации, а шесть свойств, которые влияют на скорость, повторяемость напитка и обслуживание.</p>
       </div>
       <div style="border-top:1px solid #141414">
         <sc-for list="{{ p.storyTech }}" as="t" hint-placeholder-count="6">
           <div style="display:grid;grid-template-columns:42px .72fr 1.28fr;gap:18px;padding:17px 0;border-bottom:1px solid #E6E6E3;align-items:start">
             <span style="font:400 11px/1.3 'PT Mono',Menlo,monospace;color:#7D9C91">{{ t.num }}</span>
-            <strong style="font:600 14px/1.4 'PT Sans',sans-serif">{{ t.title }}</strong>
-            <span style="font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ t.text }}</span>
+            <strong style="font:600 14px/1.4 'Roboto Web',sans-serif">{{ t.title }}</strong>
+            <span style="font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ t.text }}</span>
           </div>
         </sc-for>
       </div>
@@ -563,18 +563,18 @@
     <div style="max-width:1320px;margin:0 auto;padding:52px 40px 0">
       <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;border-bottom:1px solid #141414;padding-bottom:14px">
         <div>
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Конструкция крупным планом</div>
-          <h2 style="margin:11px 0 0;font:700 30px/1.1 'Playfair Display',Georgia,serif">{{ p.detailsTitle }}</h2>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Конструкция крупным планом</div>
+          <h2 style="margin:11px 0 0;font:700 30px/1.1 'Oswald Web',Georgia,serif">{{ p.detailsTitle }}</h2>
         </div>
-        <p style="max-width:440px;margin:0;text-align:right;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">Технические кадры показаны в собственном масштабе — без растягивания и случайной обрезки.</p>
+        <p style="max-width:440px;margin:0;text-align:right;font:400 13px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">Технические кадры показаны в собственном масштабе — без растягивания и случайной обрезки.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
         <sc-for list="{{ p.storyDetails }}" as="d" hint-placeholder-count="3">
           <div style="min-width:0">
             <div style="height:190px;background:#F1F1EF;overflow:hidden">{{ d.photo }}</div>
             <div style="padding:14px 2px 0">
-              <div style="font:600 14px/1.35 'PT Sans',sans-serif;color:#141414">{{ d.title }}</div>
-              <div style="margin-top:6px;font:400 12px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ d.text }}</div>
+              <div style="font:600 14px/1.35 'Roboto Web',sans-serif;color:#141414">{{ d.title }}</div>
+              <div style="margin-top:6px;font:400 12px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ d.text }}</div>
             </div>
           </div>
         </sc-for>
@@ -583,12 +583,12 @@
     </sc-if>
 
     <div style="max-width:1320px;margin:0 auto;padding:64px 40px 0">
-      <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'PT Sans',sans-serif">Кому подходит</div>
+      <div style="display:inline-block;background:#141414;color:#FFFFFF;padding:11px 18px;font:600 14px/1 'Roboto Web',sans-serif">Кому подходит</div>
       <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
         <sc-for list="{{ p.fit }}" as="f" hint-placeholder-count="3">
           <div style="background:#FFFFFF;padding:24px 22px">
-            <div style="font:600 14px/1.3 'PT Sans',sans-serif">{{ f.title }}</div>
-            <div style="margin-top:8px;font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ f.sub }}</div>
+            <div style="font:600 14px/1.3 'Roboto Web',sans-serif">{{ f.title }}</div>
+            <div style="margin-top:8px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ f.sub }}</div>
           </div>
         </sc-for>
       </div>
@@ -598,14 +598,14 @@
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <div style="background:#243F37;color:#FFFFFF;padding:38px 40px;display:grid;grid-template-columns:.78fr 1.22fr;gap:48px">
         <div>
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#AAC2B9">Опции платформы</div>
-          <h2 style="margin:14px 0 0;font:700 30px/1.12 'Playfair Display',Georgia,serif">{{ p.optionsTitle }}</h2>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#AAC2B9">Опции платформы</div>
+          <h2 style="margin:14px 0 0;font:700 30px/1.12 'Oswald Web',Georgia,serif">{{ p.optionsTitle }}</h2>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.2)">
           <sc-for list="{{ p.storyOptions }}" as="o" hint-placeholder-count="4">
             <div style="background:#243F37;padding:18px 20px">
-              <div style="font:600 14px/1.35 'PT Sans',sans-serif">{{ o.title }}</div>
-              <div style="margin-top:7px;font:400 12px/1.55 'PT Sans',sans-serif;color:#D7E2DE">{{ o.text }}</div>
+              <div style="font:600 14px/1.35 'Roboto Web',sans-serif">{{ o.title }}</div>
+              <div style="margin-top:7px;font:400 12px/1.55 'Roboto Web',sans-serif;color:#D7E2DE">{{ o.text }}</div>
             </div>
           </sc-for>
         </div>
@@ -614,15 +614,15 @@
     </sc-if>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
-      <h2 style="margin:0;font:700 24px/1.15 'Playfair Display',Georgia,serif">Технические характеристики выбранного исполнения</h2>
+      <h2 style="margin:0;font:700 24px/1.15 'Oswald Web',Georgia,serif">Технические характеристики выбранного исполнения</h2>
       <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:0 32px;align-items:start">
         <sc-for list="{{ p.specGroups }}" as="sg" hint-placeholder-count="4">
           <div style="border-top:1px solid #141414;padding-top:10px;margin-bottom:22px">
-            <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#141414">{{ sg.title }}</div>
+            <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#141414">{{ sg.title }}</div>
             <sc-for list="{{ sg.rows }}" as="r" hint-placeholder-count="4">
               <div style="display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid #EFEFEC">
-                <span style="font:400 13px/1.35 'PT Sans',sans-serif;color:#6E6E6A">{{ r.k }}</span>
-                <span style="font:500 13px/1.35 'PT Sans',sans-serif;color:#141414;text-align:right">{{ r.v }}</span>
+                <span style="font:400 13px/1.35 'Roboto Web',sans-serif;color:#6E6E6A">{{ r.k }}</span>
+                <span style="font:500 13px/1.35 'Roboto Web',sans-serif;color:#141414;text-align:right">{{ r.v }}</span>
               </div>
             </sc-for>
           </div>
@@ -638,27 +638,27 @@
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
       <div style="display:flex;justify-content:space-between;align-items:end;gap:28px;flex-wrap:wrap">
         <div>
-          <h2 style="margin:0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Другие исполнения {{ p.family }}</h2>
-          <div style="margin-top:9px;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ p.availabilitySummary }}</div>
+          <h2 style="margin:0;font:700 30px/1.1 'Oswald Web',Georgia,serif">Другие исполнения {{ p.family }}</h2>
+          <div style="margin-top:9px;font:400 13px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">{{ p.availabilitySummary }}</div>
         </div>
-        <button onClick="{{ p.toggleConfigs }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:12px 18px;font:600 12px/1 'PT Sans',sans-serif" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ p.configToggleLabel }}</button>
+        <button onClick="{{ p.toggleConfigs }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:12px 18px;font:600 12px/1 'Roboto Web',sans-serif" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ p.configToggleLabel }}</button>
       </div>
       <table style="margin-top:18px;width:100%;border:1px solid #E6E6E3">
         <thead>
           <tr style="background:#141414;color:#FFFFFF">
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Исполнение</th>
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Конфигурация</th>
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">РРЦ</th>
-            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'PT Sans',sans-serif">Наличие</th>
+            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'Roboto Web',sans-serif">Исполнение</th>
+            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'Roboto Web',sans-serif">Конфигурация</th>
+            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'Roboto Web',sans-serif">РРЦ</th>
+            <th style="text-align:left;padding:13px 18px;font:600 12px/1 'Roboto Web',sans-serif">Наличие</th>
           </tr>
         </thead>
         <tbody>
           <sc-for list="{{ p.configRows }}" as="row" hint-placeholder-count="3">
             <tr style="border-bottom:1px solid #EFEFEC">
-              <td style="padding:13px 18px;font:400 13px/1.4 'PT Sans',sans-serif">{{ row.name }}</td>
+              <td style="padding:13px 18px;font:400 13px/1.4 'Roboto Web',sans-serif">{{ row.name }}</td>
               <td style="padding:13px 18px;font:400 12px/1.4 'PT Mono',Menlo,monospace;color:#6E6E6A">{{ row.detail }}</td>
-              <td style="padding:13px 18px;font:500 13px/1.4 'PT Sans',sans-serif;white-space:nowrap">{{ row.price }}</td>
-              <td style="padding:13px 18px;font:600 12px/1.4 'PT Sans',sans-serif;white-space:nowrap;color:{{ row.statusColor }}">{{ row.status }}</td>
+              <td style="padding:13px 18px;font:500 13px/1.4 'Roboto Web',sans-serif;white-space:nowrap">{{ row.price }}</td>
+              <td style="padding:13px 18px;font:600 12px/1.4 'Roboto Web',sans-serif;white-space:nowrap;color:{{ row.statusColor }}">{{ row.status }}</td>
             </tr>
           </sc-for>
         </tbody>
@@ -667,13 +667,13 @@
 
     <sc-if value="{{ p.hasStory }}" hint-placeholder-val="{{ true }}">
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
-      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Перед выбором исполнения</div>
-      <h2 style="margin:12px 0 0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Вопросы о {{ p.productTitle }}</h2>
+      <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Перед выбором исполнения</div>
+      <h2 style="margin:12px 0 0;font:700 30px/1.1 'Oswald Web',Georgia,serif">Вопросы о {{ p.productTitle }}</h2>
       <div style="margin-top:22px;border-top:1px solid #141414">
         <sc-for list="{{ p.storyFaq }}" as="f" hint-placeholder-count="5">
           <div style="display:grid;grid-template-columns:.72fr 1.28fr;gap:42px;padding:18px 0;border-bottom:1px solid #E6E6E3">
-            <strong style="font:600 14px/1.45 'PT Sans',sans-serif">{{ f.q }}</strong>
-            <span style="font:400 13px/1.6 'PT Sans',sans-serif;color:#5E5E5A">{{ f.a }}</span>
+            <strong style="font:600 14px/1.45 'Roboto Web',sans-serif">{{ f.q }}</strong>
+            <span style="font:400 13px/1.6 'Roboto Web',sans-serif;color:#5E5E5A">{{ f.a }}</span>
           </div>
         </sc-for>
       </div>
@@ -682,28 +682,28 @@
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0;display:grid;grid-template-columns:1fr 1fr;gap:28px">
       <div style="background:#F1F3F1;padding:32px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Роль в линейке Sanremo</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Роль в линейке Sanremo</div>
         <div style="margin-top:16px">
           <sc-for list="{{ p.diffs }}" as="d" hint-placeholder-count="3">
             <div style="padding:12px 0;border-bottom:1px solid #DDE3DE">
-              <div style="font:600 13px/1.3 'PT Sans',sans-serif;color:#141414">{{ d.title }}</div>
-              <div style="margin-top:5px;font:400 13px/1.55 'PT Sans',sans-serif;color:#4A4A46">{{ d.sub }}</div>
+              <div style="font:600 13px/1.3 'Roboto Web',sans-serif;color:#141414">{{ d.title }}</div>
+              <div style="margin-top:5px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#4A4A46">{{ d.sub }}</div>
             </div>
           </sc-for>
         </div>
       </div>
       <div style="border:1px solid #E6E6E3;padding:32px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#003E51">Сервис, гарантия и запчасти</div>
-        <div style="margin-top:16px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A4A46">К этому исполнению в выгрузке BIO привязано {{ p.partsCount }} совместимых позиций ЗИП. Гарантийное обращение — через дилера или сервисный контур BIO.</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#003E51">Сервис, гарантия и запчасти</div>
+        <div style="margin-top:16px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#4A4A46">К этому исполнению в выгрузке BIO привязано {{ p.partsCount }} совместимых позиций ЗИП. Гарантийное обращение — через дилера или сервисный контур BIO.</div>
         <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-          <button onClick="{{ goService }}" style="border:0;background:#141414;color:#FFFFFF;padding:14px 20px;font:600 13px/1 'PT Sans',sans-serif">Запчасти для модели</button>
-          <button onClick="{{ goService }}" style="border:1px solid #141414;background:#FFFFFF;padding:14px 20px;font:600 13px/1 'PT Sans',sans-serif">Сервисное обращение</button>
+          <button onClick="{{ goService }}" style="border:0;background:#141414;color:#FFFFFF;padding:14px 20px;font:600 13px/1 'Roboto Web',sans-serif">Запчасти для модели</button>
+          <button onClick="{{ goService }}" style="border:1px solid #141414;background:#FFFFFF;padding:14px 20px;font:600 13px/1 'Roboto Web',sans-serif">Сервисное обращение</button>
         </div>
       </div>
     </div>
 
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 0">
-      <h2 style="margin:0;font:700 30px/1.1 'Playfair Display',Georgia,serif">Весь модельный ряд Sanremo</h2>
+      <h2 style="margin:0;font:700 30px/1.1 'Oswald Web',Georgia,serif">Весь модельный ряд Sanremo</h2>
       <div style="margin-top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
         <sc-for list="{{ p.related }}" as="r" hint-placeholder-count="6">
           <button onClick="{{ r.open }}" style="border:1px solid #E6E6E3;background:#FFFFFF;padding:0;text-align:left;display:block">
@@ -711,8 +711,8 @@
               {{ r.photo }}
             </div>
             <div style="padding:18px 20px">
-              <div style="font:700 20px/1.1 'Playfair Display',Georgia,serif">{{ r.name }}</div>
-              <div style="margin-top:8px;font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ r.why }}</div>
+              <div style="font:700 20px/1.1 'Oswald Web',Georgia,serif">{{ r.name }}</div>
+              <div style="margin-top:8px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ r.why }}</div>
             </div>
           </button>
         </sc-for>
@@ -724,39 +724,39 @@
   <sc-if value="{{ isChoose }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start">
-      <h1 style="margin:0;font:700 46px/1.06 'Playfair Display',Georgia,serif">Какая кофемашина нужна вашему заведению</h1>
-      <p style="margin:8px 0 0;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Шесть вопросов о формате, меню и планах вашей кофейни — чтобы сузить выбор до подходящих моделей и получить обоснованные рекомендации.</p>
+      <h1 style="margin:0;font:700 46px/1.06 'Oswald Web',Georgia,serif">Какая кофемашина нужна вашему заведению</h1>
+      <p style="margin:8px 0 0;font:400 16px/1.6 'Roboto Web',sans-serif;color:#4A4A46">Шесть вопросов о формате, меню и планах вашей кофейни — чтобы сузить выбор до подходящих моделей и получить обоснованные рекомендации.</p>
     </div>
 
     <div style="margin-top:56px;display:grid;grid-template-columns:440px 1fr;gap:64px;align-items:start">
       <div style="display:flex;flex-direction:column;gap:32px">
         <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="6">
           <div>
-            <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">{{ q.num }}. {{ q.title }}</div>
+            <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">{{ q.num }}. {{ q.title }}</div>
             <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
               <sc-for list="{{ q.options }}" as="o" hint-placeholder-count="4">
-                <button onClick="{{ o.pick }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:12px 16px;font:500 13px/1.2 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
+                <button onClick="{{ o.pick }}" style="border:1px solid #DCDCD8;background:{{ o.bg }};color:{{ o.fg }};padding:12px 16px;font:500 13px/1.2 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ o.label }}</button>
               </sc-for>
             </div>
             <sc-if value="{{ q.hasNote }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:10px;font:400 13px/1.5 'PT Sans',sans-serif;color:#8A8A85">{{ q.note }}</div>
+              <div style="margin-top:10px;font:400 13px/1.5 'Roboto Web',sans-serif;color:#8A8A85">{{ q.note }}</div>
             </sc-if>
           </div>
         </sc-for>
       </div>
 
       <div style="border-left:1px solid #E6E6E3;padding-left:56px">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">Результат подбора</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">Результат подбора</div>
 
         <sc-if value="{{ quizIncomplete }}" hint-placeholder-val="{{ true }}">
           <div style="margin-top:20px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start">
-            <h2 style="margin:0;font:700 40px/1.08 'Playfair Display',Georgia,serif">Ответьте на вопросы слева</h2>
-            <p style="margin:6px 0 0;font:400 15px/1.6 'PT Sans',sans-serif;color:#6E6E6A">Покажем основную рекомендацию, экономичную альтернативу и апгрейд — с РРЦ, наличием и объяснением, за что доплата.</p>
+            <h2 style="margin:0;font:700 40px/1.08 'Oswald Web',Georgia,serif">Ответьте на вопросы слева</h2>
+            <p style="margin:6px 0 0;font:400 15px/1.6 'Roboto Web',sans-serif;color:#6E6E6A">Покажем основную рекомендацию, экономичную альтернативу и апгрейд — с РРЦ, наличием и объяснением, за что доплата.</p>
           </div>
           <div style="margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
             <sc-for list="{{ quizSkeleton }}" as="sk" hint-placeholder-count="3">
               <div style="border:1px solid #E6E6E3;padding:22px;min-height:240px;display:flex;flex-direction:column;gap:14px">
-                <div style="align-self:flex-start;background:#F1F1EF;color:#8A8A85;padding:9px 12px;font:700 12px/1.2 'PT Sans',sans-serif">{{ sk.role }}</div>
+                <div style="align-self:flex-start;background:#F1F1EF;color:#8A8A85;padding:9px 12px;font:700 12px/1.2 'Roboto Web',sans-serif">{{ sk.role }}</div>
                 <div style="height:12px;width:60%;background:#F1F1EF"></div>
                 <div style="height:12px;width:80%;background:#F4F4F2"></div>
                 <div style="margin-top:auto;height:22px;width:50%;background:#F1F1EF"></div>
@@ -767,42 +767,42 @@
 
         <sc-if value="{{ quizDone }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:20px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start">
-            <h2 style="margin:0;font:700 40px/1.08 'Playfair Display',Georgia,serif">Две-три обоснованные конфигурации</h2>
-            <p style="margin:6px 0 0;font:400 15px/1.6 'PT Sans',sans-serif;color:#6E6E6A">Подходящих исполнений: {{ quizMatchCount }}. Ниже — основная рекомендация, доступная альтернатива и вариант с большим запасом возможностей.</p>
+            <h2 style="margin:0;font:700 40px/1.08 'Oswald Web',Georgia,serif">Две-три обоснованные конфигурации</h2>
+            <p style="margin:6px 0 0;font:400 15px/1.6 'Roboto Web',sans-serif;color:#6E6E6A">Подходящих исполнений: {{ quizMatchCount }}. Ниже — основная рекомендация, доступная альтернатива и вариант с большим запасом возможностей.</p>
           </div>
 
           <div style="margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch">
             <sc-for list="{{ quizResults }}" as="r" hint-placeholder-count="3">
               <div style="border:{{ r.border }};padding:22px;display:flex;flex-direction:column">
-                <div style="align-self:flex-start;background:{{ r.badgeBg }};color:{{ r.badgeFg }};padding:9px 12px;font:700 12px/1.2 'PT Sans',sans-serif">{{ r.role }}</div>
+                <div style="align-self:flex-start;background:{{ r.badgeBg }};color:{{ r.badgeFg }};padding:9px 12px;font:700 12px/1.2 'Roboto Web',sans-serif">{{ r.role }}</div>
                 <div style="margin-top:18px;font:400 11px/1 'PT Mono',Menlo,monospace;letter-spacing:.08em;color:#9A9A95;text-transform:uppercase">{{ r.tag }}</div>
-                <div style="margin-top:8px;font:700 22px/1.15 'PT Sans',sans-serif">{{ r.name }}</div>
-                <div style="margin-top:10px;font:400 13px/1.55 'PT Sans',sans-serif;color:#5A5A56">{{ r.why }}</div>
-                <div style="margin-top:14px;font:400 13px/1.4 'PT Sans',sans-serif;color:#6E6E6A">{{ r.configs }}</div>
+                <div style="margin-top:8px;font:700 22px/1.15 'Roboto Web',sans-serif">{{ r.name }}</div>
+                <div style="margin-top:10px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#5A5A56">{{ r.why }}</div>
+                <div style="margin-top:14px;font:400 13px/1.4 'Roboto Web',sans-serif;color:#6E6E6A">{{ r.configs }}</div>
                 <div style="margin-top:auto;padding-top:18px;border-top:1px solid #EFEFEC">
-                  <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#9A9A95">РРЦ от</div>
+                  <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#9A9A95">РРЦ от</div>
                   <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap">
-                    <span style="font:700 24px/1.1 'PT Sans',sans-serif;white-space:nowrap">{{ r.price }}</span>
-                    <span style="display:flex;align-items:center;gap:7px;font:400 12px/1 'PT Sans',sans-serif;color:#4A4A46;white-space:nowrap"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }};display:block"></span>{{ r.status }}</span>
+                    <span style="font:700 24px/1.1 'Roboto Web',sans-serif;white-space:nowrap">{{ r.price }}</span>
+                    <span style="display:flex;align-items:center;gap:7px;font:400 12px/1 'Roboto Web',sans-serif;color:#4A4A46;white-space:nowrap"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }};display:block"></span>{{ r.status }}</span>
                   </div>
-                  <button onClick="{{ r.open }}" style="margin-top:16px;width:100%;border:1px solid #141414;background:#FFFFFF;padding:12px;font:600 12px/1 'PT Sans',sans-serif" style-hover="background:#141414;color:#FFFFFF">Открыть карточку</button>
+                  <button onClick="{{ r.open }}" style="margin-top:16px;width:100%;border:1px solid #141414;background:#FFFFFF;padding:12px;font:600 12px/1 'Roboto Web',sans-serif" style-hover="background:#141414;color:#FFFFFF">Открыть карточку</button>
                 </div>
               </div>
             </sc-for>
           </div>
 
-          <div style="margin-top:24px;background:#F6EDE5;padding:20px 24px;font:400 14px/1.6 'PT Sans',sans-serif;color:#4A3B33">
+          <div style="margin-top:24px;background:#F6EDE5;padding:20px 24px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#4A3B33">
             <span style="font-weight:700">Как читать результат.</span> {{ quizLogic }} Итоговая конфигурация зависит ещё от кофемолок, подготовки воды, организации рабочего места и числа бариста в смене.
           </div>
 
           <div style="margin-top:24px;background:#141414;color:#FFFFFF;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap">
             <div style="max-width:520px">
-              <div style="font:700 24px/1.2 'Playfair Display',Georgia,serif">Отправить подбор специалисту</div>
-              <div style="margin-top:8px;font:400 14px/1.6 'PT Sans',sans-serif;color:#C8C8C4">Ответы и три конфигурации уйдут вместе с заявкой — дилер вернётся с наличием, сроками и условиями поставки.</div>
+              <div style="font:700 24px/1.2 'Oswald Web',Georgia,serif">Отправить подбор специалисту</div>
+              <div style="margin-top:8px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#C8C8C4">Ответы и три конфигурации уйдут вместе с заявкой — дилер вернётся с наличием, сроками и условиями поставки.</div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap">
-              <button onClick="{{ goDealers }}" style="border:0;background:#C14E00;color:#FFFFFF;padding:16px 24px;font:600 13px/1 'PT Sans',sans-serif">Отправить дилеру</button>
-              <button onClick="{{ goCatalog }}" style="border:1px solid #FFFFFF;background:none;color:#FFFFFF;padding:16px 24px;font:600 13px/1 'PT Sans',sans-serif">Смотреть все линейки</button>
+              <button onClick="{{ goDealers }}" style="border:0;background:#C14E00;color:#FFFFFF;padding:16px 24px;font:600 13px/1 'Roboto Web',sans-serif">Отправить дилеру</button>
+              <button onClick="{{ goCatalog }}" style="border:1px solid #FFFFFF;background:none;color:#FFFFFF;padding:16px 24px;font:600 13px/1 'Roboto Web',sans-serif">Смотреть все линейки</button>
             </div>
           </div>
         </sc-if>
@@ -814,14 +814,14 @@
   <sc-if value="{{ isSolutions }}" hint-placeholder-val="{{ false }}">
   <div>
     <div style="max-width:1320px;margin:0 auto;padding:0 40px 0">
-      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Выбор по задаче</div>
+      <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Выбор по задаче</div>
       <div style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
-        <h1 style="margin:0;font:700 52px/1.06 'Playfair Display',Georgia,serif">Решения для реальной смены</h1>
-        <p style="margin:6px 0 0;font:400 17px/1.55 'PT Sans',sans-serif;color:#4A4A46;max-width:520px">Семь сценариев, которые закрывают почти все запросы российского рынка. В каждом — основная рекомендация, экономичная альтернатива и апгрейд.</p>
+        <h1 style="margin:0;font:700 52px/1.06 'Oswald Web',Georgia,serif">Решения для реальной смены</h1>
+        <p style="margin:6px 0 0;font:400 17px/1.55 'Roboto Web',sans-serif;color:#4A4A46;max-width:520px">Семь сценариев, которые закрывают почти все запросы российского рынка. В каждом — основная рекомендация, экономичная альтернатива и апгрейд.</p>
       </div>
       <div style="margin-top:44px;padding-bottom:36px;display:flex;gap:10px;flex-wrap:wrap">
         <sc-for list="{{ scenPages }}" as="t" hint-placeholder-count="7">
-          <button onClick="{{ t.jump }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:11px 15px;font:500 12px/1 'PT Sans',sans-serif;color:#141414;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.title }}</button>
+          <button onClick="{{ t.jump }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:11px 15px;font:500 12px/1 'Roboto Web',sans-serif;color:#141414;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.title }}</button>
         </sc-for>
       </div>
     </div>
@@ -832,43 +832,43 @@
           {{ s.photo }}
         </button>
         <div style="order:{{ s.textOrder }};background:{{ s.textBg }};padding:72px 64px;display:flex;flex-direction:column;justify-content:center">
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Сценарий {{ s.num }}</div>
-          <h2 style="margin:22px 0 0;font:700 40px/1.08 'Playfair Display',Georgia,serif;max-width:520px">{{ s.title }}</h2>
-          <div style="margin-top:16px;align-self:flex-start;background:#141414;color:#FFFFFF;padding:11px 16px;font:600 14px/1.2 'PT Sans',sans-serif">{{ s.badge }}</div>
-          <p style="margin:32px 0 0;max-width:560px;font:400 17px/1.6 'PT Sans',sans-serif;color:#33332F">{{ s.body }}</p>
-          <div style="margin-top:26px;font:400 14px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ s.cupsLine }}</div>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Сценарий {{ s.num }}</div>
+          <h2 style="margin:22px 0 0;font:700 40px/1.08 'Oswald Web',Georgia,serif;max-width:520px">{{ s.title }}</h2>
+          <div style="margin-top:16px;align-self:flex-start;background:#141414;color:#FFFFFF;padding:11px 16px;font:600 14px/1.2 'Roboto Web',sans-serif">{{ s.badge }}</div>
+          <p style="margin:32px 0 0;max-width:560px;font:400 17px/1.6 'Roboto Web',sans-serif;color:#33332F">{{ s.body }}</p>
+          <div style="margin-top:26px;font:400 14px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">{{ s.cupsLine }}</div>
           <div style="margin-top:30px;display:flex;gap:36px;flex-wrap:wrap">
             <sc-for list="{{ s.picks }}" as="p" hint-placeholder-count="3">
               <button onClick="{{ p.open }}" style="border:0;border-left:2px solid #141414;background:none;padding:2px 0 2px 14px;text-align:left;display:block">
-                <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">{{ p.kind }}</div>
-                <div style="margin-top:9px;font:700 17px/1.2 'PT Sans',sans-serif;color:#141414">{{ p.name }}</div>
-                <div style="margin-top:8px;font:400 13px/1.3 'PT Sans',sans-serif;color:#6E6E6A">{{ p.price }}</div>
+                <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6E6A">{{ p.kind }}</div>
+                <div style="margin-top:9px;font:700 17px/1.2 'Roboto Web',sans-serif;color:#141414">{{ p.name }}</div>
+                <div style="margin-top:8px;font:400 13px/1.3 'Roboto Web',sans-serif;color:#6E6E6A">{{ p.price }}</div>
               </button>
             </sc-for>
           </div>
           <div style="margin-top:38px;display:flex;gap:14px;flex-wrap:wrap">
-            <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:17px 26px;font:600 14px/1 'PT Sans',sans-serif">Уточнить подбор</button>
-            <button onClick="{{ s.openCard }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:17px 26px;font:600 14px/1 'PT Sans',sans-serif">{{ s.cardLabel }}</button>
+            <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:17px 26px;font:600 14px/1 'Roboto Web',sans-serif">Уточнить подбор</button>
+            <button onClick="{{ s.openCard }}" style="border:1px solid #141414;background:#FFFFFF;color:#141414;padding:17px 26px;font:600 14px/1 'Roboto Web',sans-serif">{{ s.cardLabel }}</button>
           </div>
         </div>
       </div>
     </sc-for>
 
     <div style="border-top:1px solid #E6E6E3;max-width:1320px;margin:0 auto;padding:80px 40px 90px">
-      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Практика</div>
-      <h2 style="margin:18px 0 0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Как мы считаем нагрузку</h2>
+      <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#6E6E6A">Практика</div>
+      <h2 style="margin:18px 0 0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Как мы считаем нагрузку</h2>
       <div style="margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:38px">
         <div style="border-top:2px solid #141414;padding-top:22px">
-          <div style="font:700 19px/1.3 'PT Sans',sans-serif">Дневной объём — не главный параметр</div>
-          <p style="margin:12px 0 0;font:400 14px/1.6 'PT Sans',sans-serif;color:#5A5A56">Число групп определяет пиковый час, а не дневной итог. Двести чашек ровным потоком и двести за два утренних часа — разные машины.</p>
+          <div style="font:700 19px/1.3 'Roboto Web',sans-serif">Дневной объём — не главный параметр</div>
+          <p style="margin:12px 0 0;font:400 14px/1.6 'Roboto Web',sans-serif;color:#5A5A56">Число групп определяет пиковый час, а не дневной итог. Двести чашек ровным потоком и двести за два утренних часа — разные машины.</p>
         </div>
         <div style="border-top:2px solid #141414;padding-top:22px">
-          <div style="font:700 19px/1.3 'PT Sans',sans-serif">Молочное меню меняет требования к пару</div>
-          <p style="margin:12px 0 0;font:400 14px/1.6 'PT Sans',sans-serif;color:#5A5A56">Чем выше доля напитков с молоком, тем важнее независимость кофейной и паровой систем и мощность парового бойлера.</p>
+          <div style="font:700 19px/1.3 'Roboto Web',sans-serif">Молочное меню меняет требования к пару</div>
+          <p style="margin:12px 0 0;font:400 14px/1.6 'Roboto Web',sans-serif;color:#5A5A56">Чем выше доля напитков с молоком, тем важнее независимость кофейной и паровой систем и мощность парового бойлера.</p>
         </div>
         <div style="border-top:2px solid #141414;padding-top:22px">
-          <div style="font:700 19px/1.3 'PT Sans',sans-serif">Машина работает в связке</div>
-          <p style="margin:12px 0 0;font:400 14px/1.6 'PT Sans',sans-serif;color:#5A5A56">Кофемолки, подготовка воды, организация рабочего места и число бариста влияют на результат не меньше, чем сама кофемашина.</p>
+          <div style="font:700 19px/1.3 'Roboto Web',sans-serif">Машина работает в связке</div>
+          <p style="margin:12px 0 0;font:400 14px/1.6 'Roboto Web',sans-serif;color:#5A5A56">Кофемолки, подготовка воды, организация рабочего места и число бариста влияют на результат не меньше, чем сама кофемашина.</p>
         </div>
       </div>
     </div>
@@ -877,54 +877,54 @@
 
   <sc-if value="{{ isDealers }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
-    <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Где купить</h1>
-    <p style="margin:14px 0 0;max-width:680px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Найдите официального партнёра рядом: познакомьтесь с машиной вживую, получите консультацию по проекту, монтаж, обучение и дальнейшее обслуживание.</p>
+    <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Где купить</h1>
+    <p style="margin:14px 0 0;max-width:680px;font:400 16px/1.6 'Roboto Web',sans-serif;color:#4A4A46">Найдите официального партнёра рядом: познакомьтесь с машиной вживую, получите консультацию по проекту, монтаж, обучение и дальнейшее обслуживание.</p>
 
     <div style="margin-top:32px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start">
       <div>
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
-          <input value="{{ dealerQuery }}" onChange="{{ onDealerQuery }}" placeholder="Город, регион или адрес" aria-label="Поиск дилера по территории" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:13px 15px;font:400 14px/1 'PT Sans',sans-serif;color:#141414" />
-          <button onClick="{{ clearDealerQuery }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:13px 16px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">Все города</button>
+          <input value="{{ dealerQuery }}" onChange="{{ onDealerQuery }}" placeholder="Город, регион или адрес" aria-label="Поиск дилера по территории" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:13px 15px;font:400 14px/1 'Roboto Web',sans-serif;color:#141414" />
+          <button onClick="{{ clearDealerQuery }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:13px 16px;font:500 12px/1 'Roboto Web',sans-serif;color:#4A4A46;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">Все города</button>
         </div>
-        <div style="font:500 13px/1 'PT Sans',sans-serif;color:#6E6E6A">Найдено дилеров: {{ dealerCount }}</div>
+        <div style="font:500 13px/1 'Roboto Web',sans-serif;color:#6E6E6A">Найдено дилеров: {{ dealerCount }}</div>
         <sc-for list="{{ dealers }}" as="d" hint-placeholder-count="4">
           <div style="margin-top:16px;border:1px solid #E6E6E3;padding:22px 24px;display:grid;grid-template-columns:1fr 200px;gap:20px">
             <div>
-              <div style="font:600 17px/1.2 'PT Sans',sans-serif">{{ d.name }}</div>
-              <div style="margin-top:6px;font:400 13px/1.55 'PT Sans',sans-serif;color:#6E6E6A">{{ d.address }}</div>
+              <div style="font:600 17px/1.2 'Roboto Web',sans-serif">{{ d.name }}</div>
+              <div style="margin-top:6px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#6E6E6A">{{ d.address }}</div>
               <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap">
                 <sc-for list="{{ d.services }}" as="s" hint-placeholder-count="3">
-                  <span style="background:#F1F3F1;padding:7px 10px;font:500 11px/1 'PT Sans',sans-serif;color:#2D483F">{{ s }}</span>
+                  <span style="background:#F1F3F1;padding:7px 10px;font:500 11px/1 'Roboto Web',sans-serif;color:#2D483F">{{ s }}</span>
                 </sc-for>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <button onClick="{{ d.visit }}" style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'PT Sans',sans-serif">{{ d.siteLabel }}</button>
-              <button onClick="{{ d.route }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'PT Sans',sans-serif;color:#4A4A46">Построить маршрут</button>
+              <button onClick="{{ d.visit }}" style="border:0;background:#141414;color:#FFFFFF;padding:12px 14px;font:600 12px/1 'Roboto Web',sans-serif">{{ d.siteLabel }}</button>
+              <button onClick="{{ d.route }}" style="border:1px solid #DCDCD8;background:#FFFFFF;padding:12px 14px;font:500 12px/1 'Roboto Web',sans-serif;color:#4A4A46">Построить маршрут</button>
             </div>
           </div>
         </sc-for>
         <div style="margin-top:24px;background:#D7C4B7;padding:26px 28px">
-          <div style="font:600 16px/1.3 'PT Sans',sans-serif;color:#2A211C">В вашем регионе нет дилера?</div>
-          <div style="margin-top:8px;font:400 14px/1.6 'PT Sans',sans-serif;color:#4A3B33;max-width:520px">Отправьте регион и задачу — BIO подберёт канал поставки и сервисного партнёра. 8-495-363-3801.</div>
-          <button style="margin-top:16px;border:0;background:#141414;color:#FFFFFF;padding:14px 22px;font:600 13px/1 'PT Sans',sans-serif">Заявка в BIO</button>
+          <div style="font:600 16px/1.3 'Roboto Web',sans-serif;color:#2A211C">В вашем регионе нет дилера?</div>
+          <div style="margin-top:8px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#4A3B33;max-width:520px">Отправьте регион и задачу — BIO подберёт канал поставки и сервисного партнёра. 8-495-363-3801.</div>
+          <button style="margin-top:16px;border:0;background:#141414;color:#FFFFFF;padding:14px 22px;font:600 13px/1 'Roboto Web',sans-serif">Заявка в BIO</button>
         </div>
       </div>
       <div style="border:1px solid #E6E6E3">
         <div style="background:#2D483F;color:#FFFFFF;padding:26px 24px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8CEC6">География дилеров</div>
-          <div style="margin-top:10px;font:700 28px/1.15 'Playfair Display',Georgia,serif">16 городов · 38 компаний</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#B8CEC6">География дилеров</div>
+          <div style="margin-top:10px;font:700 28px/1.15 'Oswald Web',Georgia,serif">16 городов · 38 компаний</div>
           <div style="margin-top:22px;display:grid;gap:0">
-            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'PT Sans',sans-serif"><span>Москва</span><span>11</span></div>
-            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'PT Sans',sans-serif"><span>Санкт-Петербург</span><span>7</span></div>
-            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'PT Sans',sans-serif"><span>Махачкала · Краснодар</span><span>8</span></div>
-            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18);font:500 13px/1 'PT Sans',sans-serif"><span>Ещё 12 городов</span><span>12</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'Roboto Web',sans-serif"><span>Москва</span><span>11</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'Roboto Web',sans-serif"><span>Санкт-Петербург</span><span>7</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);font:500 13px/1 'Roboto Web',sans-serif"><span>Махачкала · Краснодар</span><span>8</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid rgba(255,255,255,.18);border-bottom:1px solid rgba(255,255,255,.18);font:500 13px/1 'Roboto Web',sans-serif"><span>Ещё 12 городов</span><span>12</span></div>
           </div>
-          <div style="margin-top:18px;font:400 13px/1.55 'PT Sans',sans-serif;color:#D6E1DD">Введите город или адрес в поиске слева. Если вашего города нет, отдел продаж BIO подберёт ближайшего партнёра.</div>
+          <div style="margin-top:18px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#D6E1DD">Введите город или адрес в поиске слева. Если вашего города нет, отдел продаж BIO подберёт ближайшего партнёра.</div>
         </div>
         <div style="padding:20px 22px;border-top:1px solid #E6E6E3">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#003E51">Отдел продаж BIO</div>
-          <div style="margin-top:12px;font:400 14px/1.7 'PT Sans',sans-serif;color:#4A4A46">117630, Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж<br />8-495-363-3801</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#003E51">Отдел продаж BIO</div>
+          <div style="margin-top:12px;font:400 14px/1.7 'Roboto Web',sans-serif;color:#4A4A46">117630, Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж<br />8-495-363-3801</div>
         </div>
       </div>
     </div>
@@ -933,60 +933,60 @@
 
   <sc-if value="{{ isService }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
-    <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Сервис и запчасти</h1>
-    <p style="margin:14px 0 0;max-width:700px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">{{ partCount }} позиций ЗИП, стёкол, плат и нагревательных элементов на складе в Москве — все показанные позиции есть в наличии. Начните с линейки или введите артикул, код либо название.</p>
+    <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Сервис и запчасти</h1>
+    <p style="margin:14px 0 0;max-width:700px;font:400 16px/1.6 'Roboto Web',sans-serif;color:#4A4A46">{{ partCount }} позиций ЗИП, стёкол, плат и нагревательных элементов на складе в Москве — все показанные позиции есть в наличии. Начните с линейки или введите артикул, код либо название.</p>
 
     <div style="margin-top:32px;display:grid;grid-template-columns:1fr 360px;gap:36px;align-items:start">
       <div>
         <div style="border:1px solid #E6E6E3;padding:24px 26px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase">Каталог запчастей</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase">Каталог запчастей</div>
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-            <input value="{{ partsQuery }}" onChange="{{ onPartsQuery }}" placeholder="Артикул, код, название или модель" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:14px 16px;font:400 14px/1 'PT Sans',sans-serif" />
+            <input value="{{ partsQuery }}" onChange="{{ onPartsQuery }}" placeholder="Артикул, код, название или модель" style="flex:1;min-width:280px;border:1px solid #DCDCD8;padding:14px 16px;font:400 14px/1 'Roboto Web',sans-serif" />
           </div>
-          <div style="margin-top:18px;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">Линейка</div>
+          <div style="margin-top:18px;font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">Линейка</div>
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <sc-for list="{{ partLines }}" as="pl" hint-placeholder-count="6">
-              <button onClick="{{ pl.pick }}" style="border:1px solid #DCDCD8;background:{{ pl.bg }};color:{{ pl.fg }};padding:11px 15px;font:700 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ pl.label }}</button>
+              <button onClick="{{ pl.pick }}" style="border:1px solid #DCDCD8;background:{{ pl.bg }};color:{{ pl.fg }};padding:11px 15px;font:700 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ pl.label }}</button>
             </sc-for>
           </div>
-          <div style="margin-top:18px;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">Узел</div>
+          <div style="margin-top:18px;font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">Узел</div>
           <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
             <sc-for list="{{ partNodes }}" as="n" hint-placeholder-count="4">
-              <button onClick="{{ n.pick }}" style="border:1px solid #DCDCD8;background:{{ n.bg }};color:{{ n.fg }};padding:9px 13px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ n.label }}</button>
+              <button onClick="{{ n.pick }}" style="border:1px solid #DCDCD8;background:{{ n.bg }};color:{{ n.fg }};padding:9px 13px;font:500 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ n.label }}</button>
             </sc-for>
           </div>
           <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
-            <span style="font:500 13px/1.4 'PT Sans',sans-serif;color:#4A4A46">{{ partsSummary }}</span>
-            <button onClick="{{ resetParts }}" style="border:0;background:none;padding:0;font:600 12px/1 'PT Sans',sans-serif;color:#C14E00">Сбросить</button>
+            <span style="font:500 13px/1.4 'Roboto Web',sans-serif;color:#4A4A46">{{ partsSummary }}</span>
+            <button onClick="{{ resetParts }}" style="border:0;background:none;padding:0;font:600 12px/1 'Roboto Web',sans-serif;color:#C14E00">Сбросить</button>
           </div>
         </div>
 
         <sc-if value="{{ partsEmpty }}" hint-placeholder-val="{{ false }}">
           <div style="margin-top:20px;background:#F1F3F1;padding:28px 30px">
-            <div style="font:700 16px/1.3 'PT Sans',sans-serif">По этому запросу на складе в Москве ничего нет</div>
-            <div style="margin-top:8px;font:400 14px/1.6 'PT Sans',sans-serif;color:#4A4A46">Снимите фильтр линейки или узла — либо отправьте артикул в сервисный запрос, проверим поставку.</div>
+            <div style="font:700 16px/1.3 'Roboto Web',sans-serif">По этому запросу на складе в Москве ничего нет</div>
+            <div style="margin-top:8px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#4A4A46">Снимите фильтр линейки или узла — либо отправьте артикул в сервисный запрос, проверим поставку.</div>
           </div>
         </sc-if>
         <table style="margin-top:20px;width:100%;border:1px solid #E6E6E3">
           <thead>
             <tr style="background:#141414;color:#FFFFFF">
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Код</th>
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Наименование</th>
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Узел</th>
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Совместимость</th>
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif">Статус</th>
-              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'PT Sans',sans-serif"></th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Код</th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Наименование</th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Узел</th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Совместимость</th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif">Статус</th>
+              <th style="text-align:left;padding:13px 16px;font:600 12px/1 'Roboto Web',sans-serif"></th>
             </tr>
           </thead>
           <tbody>
             <sc-for list="{{ parts }}" as="pt" hint-placeholder-count="6">
               <tr style="border-bottom:1px solid #EFEFEC">
                 <td style="padding:13px 16px;font:400 12px/1.4 'PT Mono',Menlo,monospace;color:#4A4A46">{{ pt.code }}</td>
-                <td style="padding:13px 16px;font:400 13px/1.4 'PT Sans',sans-serif">{{ pt.name }}</td>
-                <td style="padding:13px 16px;font:400 12px/1.4 'PT Sans',sans-serif;color:#6E6E6A">{{ pt.node }}</td>
-                <td style="padding:13px 16px;font:400 12px/1.4 'PT Sans',sans-serif;color:#6E6E6A">{{ pt.fits }}</td>
-                <td style="padding:13px 16px;font:700 12px/1.4 'PT Sans',sans-serif;color:#2D7A43;white-space:nowrap">{{ pt.status }}</td>
-                <td style="padding:13px 16px"><button style="border:1px solid #141414;background:#FFFFFF;padding:9px 13px;font:600 11px/1 'PT Sans',sans-serif">Запросить</button></td>
+                <td style="padding:13px 16px;font:400 13px/1.4 'Roboto Web',sans-serif">{{ pt.name }}</td>
+                <td style="padding:13px 16px;font:400 12px/1.4 'Roboto Web',sans-serif;color:#6E6E6A">{{ pt.node }}</td>
+                <td style="padding:13px 16px;font:400 12px/1.4 'Roboto Web',sans-serif;color:#6E6E6A">{{ pt.fits }}</td>
+                <td style="padding:13px 16px;font:700 12px/1.4 'Roboto Web',sans-serif;color:#2D7A43;white-space:nowrap">{{ pt.status }}</td>
+                <td style="padding:13px 16px"><button style="border:1px solid #141414;background:#FFFFFF;padding:9px 13px;font:600 11px/1 'Roboto Web',sans-serif">Запросить</button></td>
               </tr>
             </sc-for>
           </tbody>
@@ -995,24 +995,24 @@
 
       <div>
         <div style="border:1px solid #E6E6E3;padding:26px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#003E51">Сервисное обращение</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#003E51">Сервисное обращение</div>
           <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
-            <input placeholder="Модель" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'PT Sans',sans-serif" />
-            <input placeholder="Серийный номер" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'PT Sans',sans-serif" />
-            <input placeholder="Город" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'PT Sans',sans-serif" />
-            <textarea placeholder="Симптом" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1.5 'PT Sans',sans-serif;min-height:90px;resize:vertical"></textarea>
+            <input placeholder="Модель" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'Roboto Web',sans-serif" />
+            <input placeholder="Серийный номер" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'Roboto Web',sans-serif" />
+            <input placeholder="Город" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1 'Roboto Web',sans-serif" />
+            <textarea placeholder="Симптом" style="border:1px solid #DCDCD8;padding:13px 14px;font:400 13px/1.5 'Roboto Web',sans-serif;min-height:90px;resize:vertical"></textarea>
             <div style="border:1px dashed #DCDCD8;padding:14px;font:400 12px/1.4 'PT Mono',Menlo,monospace;color:#9A9A95">файлы · фото/видео неисправности</div>
-            <button style="border:0;background:#141414;color:#FFFFFF;padding:14px;font:600 13px/1 'PT Sans',sans-serif">Отправить обращение</button>
-            <label style="display:flex;gap:8px;align-items:flex-start;font:400 11px/1.5 'PT Sans',sans-serif;color:#8A8A85"><input type="checkbox" /> Согласие на обработку данных. Маркетинговое согласие — отдельно и необязательно.</label>
+            <button style="border:0;background:#141414;color:#FFFFFF;padding:14px;font:600 13px/1 'Roboto Web',sans-serif">Отправить обращение</button>
+            <label style="display:flex;gap:8px;align-items:flex-start;font:400 11px/1.5 'Roboto Web',sans-serif;color:#8A8A85"><input type="checkbox" /> Согласие на обработку данных. Маркетинговое согласие — отдельно и необязательно.</label>
           </div>
         </div>
         <div style="margin-top:20px;background:#F1F3F1;padding:26px">
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Зоны ответственности</div>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Зоны ответственности</div>
           <div style="margin-top:14px">
             <sc-for list="{{ serviceRoles }}" as="r" hint-placeholder-count="3">
               <div style="padding:10px 0;border-bottom:1px solid #DDE3DE">
-                <div style="font:600 13px/1.3 'PT Sans',sans-serif">{{ r.who }}</div>
-                <div style="margin-top:4px;font:400 12px/1.55 'PT Sans',sans-serif;color:#4A4A46">{{ r.what }}</div>
+                <div style="font:600 13px/1.3 'Roboto Web',sans-serif">{{ r.who }}</div>
+                <div style="margin-top:4px;font:400 12px/1.55 'Roboto Web',sans-serif;color:#4A4A46">{{ r.what }}</div>
               </div>
             </sc-for>
           </div>
@@ -1023,16 +1023,16 @@
     <div style="margin-top:64px;background:#F7F3EF;padding:52px 48px">
       <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start">
         <div>
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">До приезда инженера</div>
-          <h2 style="margin:18px 0 0;font:700 40px/1.1 'Playfair Display',Georgia,serif">Подготовка к монтажу</h2>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">До приезда инженера</div>
+          <h2 style="margin:18px 0 0;font:700 40px/1.1 'Oswald Web',Georgia,serif">Подготовка к монтажу</h2>
         </div>
-        <p style="margin:0;font:400 15px/1.7 'PT Sans',sans-serif;color:#4A4A46">Большинство ранних отказов связано не с машиной, а с площадкой. Чек-лист проходят до поставки — это дешевле, чем переделывать.</p>
+        <p style="margin:0;font:400 15px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Большинство ранних отказов связано не с машиной, а с площадкой. Чек-лист проходят до поставки — это дешевле, чем переделывать.</p>
       </div>
       <div style="margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
         <sc-for list="{{ install }}" as="i" hint-placeholder-count="4">
           <div style="border-top:2px solid #141414;padding-top:18px">
-            <div style="font:700 20px/1.2 'PT Sans',sans-serif;color:#141414">{{ i.title }}</div>
-            <div style="margin-top:12px;font:400 14px/1.65 'PT Sans',sans-serif;color:#5A5A56">{{ i.text }}</div>
+            <div style="font:700 20px/1.2 'Roboto Web',sans-serif;color:#141414">{{ i.title }}</div>
+            <div style="margin-top:12px;font:400 14px/1.65 'Roboto Web',sans-serif;color:#5A5A56">{{ i.text }}</div>
           </div>
         </sc-for>
       </div>
@@ -1041,17 +1041,17 @@
     <div style="margin-top:64px;border-top:2px solid #141414;padding-top:40px">
       <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:end">
         <div>
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">База знаний</div>
-          <h2 style="margin:18px 0 0;font:700 40px/1.1 'Playfair Display',Georgia,serif">Обслуживание по моделям</h2>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">База знаний</div>
+          <h2 style="margin:18px 0 0;font:700 40px/1.1 'Oswald Web',Georgia,serif">Обслуживание по моделям</h2>
         </div>
-        <p style="margin:0;font:400 15px/1.7 'PT Sans',sans-serif;color:#4A4A46">Инструкции, регламенты и первичная диагностика: то, что бариста и техник делают сами, и то, где нужен инженер. Поиск по названию, узлу или модели.</p>
+        <p style="margin:0;font:400 15px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Инструкции, регламенты и первичная диагностика: то, что бариста и техник делают сами, и то, где нужен инженер. Поиск по названию, узлу или модели.</p>
       </div>
       <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
-        <input value="{{ kbQuery }}" onChange="{{ onKbQuery }}" placeholder="Например: накипь, волюметрика, уплотнитель, F18" style="flex:1;min-width:300px;border:1px solid #DCDCD8;padding:14px 16px;font:400 14px/1 'PT Sans',sans-serif;color:#141414" />
+        <input value="{{ kbQuery }}" onChange="{{ onKbQuery }}" placeholder="Например: накипь, волюметрика, уплотнитель, F18" style="flex:1;min-width:300px;border:1px solid #DCDCD8;padding:14px 16px;font:400 14px/1 'Roboto Web',sans-serif;color:#141414" />
       </div>
       <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
         <sc-for list="{{ kbChips }}" as="c" hint-placeholder-count="7">
-          <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:10px 14px;font:500 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+          <button onClick="{{ c.pick }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:10px 14px;font:500 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
         </sc-for>
       </div>
       <div style="margin-top:16px;font:400 12px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ kbSummary }}</div>
@@ -1059,17 +1059,17 @@
         <sc-for list="{{ kbList }}" as="a" hint-placeholder-count="6">
           <div style="background:#FFFFFF;padding:26px 28px;display:flex;flex-direction:column;gap:10px" style-hover="background:#FAFAF9">
             <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline">
-              <span style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:{{ a.tint }}">{{ a.type }}</span>
+              <span style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:{{ a.tint }}">{{ a.type }}</span>
               <span style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ a.meta }}</span>
             </div>
-            <div style="font:700 19px/1.25 'Playfair Display',Georgia,serif">{{ a.title }}</div>
-            <div style="font:400 14px/1.6 'PT Sans',sans-serif;color:#5A5A56">{{ a.sum }}</div>
-            <div style="margin-top:auto;padding-top:8px;font:400 12px/1.5 'PT Sans',sans-serif;color:#7D9C91">{{ a.models }}</div>
+            <div style="font:700 19px/1.25 'Oswald Web',Georgia,serif">{{ a.title }}</div>
+            <div style="font:400 14px/1.6 'Roboto Web',sans-serif;color:#5A5A56">{{ a.sum }}</div>
+            <div style="margin-top:auto;padding-top:8px;font:400 12px/1.5 'Roboto Web',sans-serif;color:#7D9C91">{{ a.models }}</div>
           </div>
         </sc-for>
       </div>
       <sc-if value="{{ kbEmpty }}" hint-placeholder-val="{{ false }}">
-        <div style="margin-top:20px;border:1px solid #E6E6E3;padding:28px;font:400 14px/1.6 'PT Sans',sans-serif;color:#5A5A56">По этому запросу материалов нет. Сбросьте фильтр модели или напишите в сервис — инженер ответит и материал появится в базе.</div>
+        <div style="margin-top:20px;border:1px solid #E6E6E3;padding:28px;font:400 14px/1.6 'Roboto Web',sans-serif;color:#5A5A56">По этому запросу материалов нет. Сбросьте фильтр модели или напишите в сервис — инженер ответит и материал появится в базе.</div>
       </sc-if>
     </div>
   </div>
@@ -1079,22 +1079,22 @@
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:end">
       <div>
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A8A85">Техническая библиотека</div>
-        <h1 style="margin:14px 0 0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Документы</h1>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A8A85">Техническая библиотека</div>
+        <h1 style="margin:14px 0 0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Документы</h1>
       </div>
-      <p style="margin:0;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46;text-wrap:pretty">Брошюры, руководства, схемы подключения и сертификаты собраны по линейкам. Актуальную версию файла выдаёт BIO или дилер по названию документа и модели.</p>
+      <p style="margin:0;font:400 16px/1.6 'Roboto Web',sans-serif;color:#4A4A46;text-wrap:pretty">Брошюры, руководства, схемы подключения и сертификаты собраны по линейкам. Актуальную версию файла выдаёт BIO или дилер по названию документа и модели.</p>
     </div>
     <div style="margin-top:32px;display:flex;gap:8px;flex-wrap:wrap">
       <sc-for list="{{ docTypes }}" as="t" hint-placeholder-count="5">
-        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
+        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
       </sc-for>
       <sc-for list="{{ docLines }}" as="t" hint-placeholder-count="7">
-        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
+        <button onClick="{{ t.pick }}" style="border:1px solid #DCDCD8;background:{{ t.bg }};color:{{ t.fg }};padding:11px 16px;font:500 13px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ t.label }}</button>
       </sc-for>
     </div>
-    <div style="margin-top:14px;font:400 13px/1.5 'PT Sans',sans-serif;color:#6E6E6A">{{ docsSummary }}</div>
+    <div style="margin-top:14px;font:400 13px/1.5 'Roboto Web',sans-serif;color:#6E6E6A">{{ docsSummary }}</div>
     <div style="margin-top:20px;border:1px solid #E6E6E3">
-      <div style="display:grid;grid-template-columns:220px 1fr 220px 150px;gap:16px;padding:16px 22px;background:#F4F4F2;font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5A5A56">
+      <div style="display:grid;grid-template-columns:220px 1fr 220px 150px;gap:16px;padding:16px 22px;background:#F4F4F2;font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#5A5A56">
         <div>Модель</div>
         <div>Документ</div>
         <div>Тип</div>
@@ -1102,19 +1102,19 @@
       </div>
       <sc-for list="{{ docs }}" as="d" hint-placeholder-count="8">
         <div style="display:grid;grid-template-columns:220px 1fr 220px 150px;gap:16px;padding:18px 22px;border-top:1px solid #EDEDEA;align-items:center">
-          <div style="font:400 14px/1.4 'PT Sans',sans-serif;color:#4A4A46">{{ d.model }}</div>
-          <div style="font:600 14px/1.4 'PT Sans',sans-serif">{{ d.title }}</div>
-          <div style="font:400 13px/1.4 'PT Sans',sans-serif;color:#5A5A56">{{ d.type }}</div>
+          <div style="font:400 14px/1.4 'Roboto Web',sans-serif;color:#4A4A46">{{ d.model }}</div>
+          <div style="font:600 14px/1.4 'Roboto Web',sans-serif">{{ d.title }}</div>
+          <div style="font:400 13px/1.4 'Roboto Web',sans-serif;color:#5A5A56">{{ d.type }}</div>
           <div style="display:flex;flex-direction:column;gap:3px">
-            <button onClick="{{ goDealers }}" style="border:0;background:none;padding:0;text-align:left;font:700 13px/1.3 'PT Sans',sans-serif;color:#141414;text-decoration:underline;text-underline-offset:4px">Запросить</button>
+            <button onClick="{{ goDealers }}" style="border:0;background:none;padding:0;text-align:left;font:700 13px/1.3 'Roboto Web',sans-serif;color:#141414;text-decoration:underline;text-underline-offset:4px">Запросить</button>
             <span style="font:400 11px/1.3 'PT Mono',Menlo,monospace;color:#9A9A95">{{ d.meta }}</span>
           </div>
         </div>
       </sc-for>
     </div>
     <div style="margin-top:36px;background:#D7C4B7;padding:30px 34px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
-      <div style="max-width:640px;font:400 15px/1.6 'PT Sans',sans-serif;color:#3A2E27">Нужен комплект под конкретный проект — брошюра, схема подключения и требования к воде для выбранного исполнения? BIO собирает подборку под площадку.</div>
-      <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Запросить комплект</button>
+      <div style="max-width:640px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#3A2E27">Нужен комплект под конкретный проект — брошюра, схема подключения и требования к воде для выбранного исполнения? BIO собирает подборку под площадку.</div>
+      <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Запросить комплект</button>
     </div>
   </div>
   </sc-if>
@@ -1122,9 +1122,9 @@
   <sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <div style="max-width:900px">
-      <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">{{ newsCategory }}</div>
-      <h1 style="margin:16px 0 0;font:700 48px/1.08 'Playfair Display',Georgia,serif">{{ newsTitle }}</h1>
-      <p style="margin:20px 0 0;max-width:820px;font:400 19px/1.55 'PT Sans',sans-serif;color:#4A4A46">{{ newsLead }}</p>
+      <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;color:#7D9C91;text-transform:uppercase">{{ newsCategory }}</div>
+      <h1 style="margin:16px 0 0;font:700 48px/1.08 'Oswald Web',Georgia,serif">{{ newsTitle }}</h1>
+      <p style="margin:20px 0 0;max-width:820px;font:400 19px/1.55 'Roboto Web',sans-serif;color:#4A4A46">{{ newsLead }}</p>
     </div>
 
     <div style="margin-top:34px;height:560px;background:#F1F3F1;overflow:hidden">
@@ -1132,8 +1132,8 @@
       <sc-if value="{{ newsIsPlaceholder }}">
         <div style="height:100%;background:#2D483F;color:#FFFFFF;padding:46px;display:flex;flex-direction:column;justify-content:space-between">
           <span style="font:400 14px/1 'PT Mono',Menlo,monospace;letter-spacing:.14em">SANREMO × FIORENZATO</span>
-          <span style="font:700 110px/1 'Playfair Display',Georgia,serif">S ↔ F</span>
-          <span style="font:600 13px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase">Технический материал готовится</span>
+          <span style="font:700 110px/1 'Oswald Web',Georgia,serif">S ↔ F</span>
+          <span style="font:600 13px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase">Технический материал готовится</span>
         </div>
       </sc-if>
     </div>
@@ -1141,24 +1141,24 @@
     <div style="margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:72px;align-items:start">
       <div>
         <sc-for list="{{ newsParagraphs }}" as="p" hint-placeholder-count="3">
-          <p style="margin:0 0 20px;font:400 17px/1.75 'PT Sans',sans-serif;color:#333330">{{ p.text }}</p>
+          <p style="margin:0 0 20px;font:400 17px/1.75 'Roboto Web',sans-serif;color:#333330">{{ p.text }}</p>
         </sc-for>
       </div>
       <aside style="border-top:3px solid #2D483F;background:#F4F4F2;padding:24px 26px">
-        <div style="font:700 12px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Коротко</div>
+        <div style="font:700 12px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#2D483F">Коротко</div>
         <sc-for list="{{ newsPoints }}" as="p" hint-placeholder-count="4">
-          <div style="margin-top:16px;padding-top:16px;border-top:1px solid #DCDCD8;font:600 14px/1.5 'PT Sans',sans-serif;color:#333330">{{ p.text }}</div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid #DCDCD8;font:600 14px/1.5 'Roboto Web',sans-serif;color:#333330">{{ p.text }}</div>
         </sc-for>
       </aside>
     </div>
 
     <div style="margin-top:64px;border-top:1px solid #E6E6E3;padding-top:28px">
-      <div style="font:700 28px/1.1 'Playfair Display',Georgia,serif">Другие материалы</div>
+      <div style="font:700 28px/1.1 'Oswald Web',Georgia,serif">Другие материалы</div>
       <div style="margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
         <sc-for list="{{ newsCards }}" as="n" hint-placeholder-count="3">
           <button onClick="{{ n.open }}" style="border:1px solid #E6E6E3;background:#FFFFFF;padding:22px;text-align:left;min-height:150px;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">
-            <span style="font:600 10px/1.2 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase">{{ n.category }}</span>
-            <span style="margin-top:12px;display:block;font:700 20px/1.2 'Playfair Display',Georgia,serif">{{ n.title }}</span>
+            <span style="font:600 10px/1.2 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase">{{ n.category }}</span>
+            <span style="margin-top:12px;display:block;font:700 20px/1.2 'Oswald Web',Georgia,serif">{{ n.title }}</span>
           </button>
         </sc-for>
       </div>
@@ -1169,11 +1169,11 @@
   <sc-if value="{{ isCaseProject }}" hint-placeholder-val="{{ false }}">
   <div class="case-product-layout" style="max-width:1320px;margin:0 auto;padding:0 40px 86px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start">
     <div style="min-width:0">
-      <button onClick="{{ backToCases }}" style="border:0;background:none;padding:0;font:500 13px/1 'PT Sans',sans-serif;color:#777772">← Все кофейни</button>
+      <button onClick="{{ backToCases }}" style="border:0;background:none;padding:0;font:500 13px/1 'Roboto Web',sans-serif;color:#777772">← Все кофейни</button>
       <div class="case-product-main" style="margin-top:24px;background:#F4F4F2;height:440px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
         {{ activeCase.activePhoto }}
-        <button onClick="{{ activeCase.prevPhoto }}" aria-label="Предыдущая фотография" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">←</button>
-        <button onClick="{{ activeCase.nextPhoto }}" aria-label="Следующая фотография" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'PT Sans',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">→</button>
+        <button onClick="{{ activeCase.prevPhoto }}" aria-label="Предыдущая фотография" style="position:absolute;left:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">←</button>
+        <button onClick="{{ activeCase.nextPhoto }}" aria-label="Следующая фотография" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:1px solid rgba(255,255,255,.58);border-radius:50%;background:rgba(20,20,20,.58);color:#FFFFFF;font:400 25px/1 'Roboto Web',sans-serif;display:flex;align-items:center;justify-content:center" style-hover="background:#2D483F;border-color:#2D483F">→</button>
         <div style="position:absolute;right:18px;bottom:16px;background:rgba(20,20,20,.7);color:#FFFFFF;padding:7px 9px;font:10px/1 'PT Mono',Menlo,monospace">{{ activeCase.photoCounter }}</div>
       </div>
       <div class="case-product-thumbs" style="margin-top:12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">
@@ -1183,37 +1183,37 @@
       </div>
     </div>
     <div style="padding-top:38px">
-      <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Проект Sanremo · {{ activeCase.city }}</div>
-      <h1 style="margin:13px 0 0;font:700 42px/1.06 'Playfair Display',Georgia,serif">{{ activeCase.client }}</h1>
-      <p style="margin:18px 0 0;font:400 16px/1.65 'PT Sans',sans-serif;color:#3C3C3A">{{ activeCase.task }}</p>
+      <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#7D9C91">Проект Sanremo · {{ activeCase.city }}</div>
+      <h1 style="margin:13px 0 0;font:700 42px/1.06 'Oswald Web',Georgia,serif">{{ activeCase.client }}</h1>
+      <p style="margin:18px 0 0;font:400 16px/1.65 'Roboto Web',sans-serif;color:#3C3C3A">{{ activeCase.task }}</p>
       <div style="margin-top:28px;border:1px solid #E6E6E3">
         <div style="padding:20px 22px">
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Оборудование проекта</div>
-          <div style="margin-top:10px;font:700 20px/1.2 'Playfair Display',Georgia,serif;color:#2D483F">{{ activeCase.model }}</div>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6E6A">Оборудование проекта</div>
+          <div style="margin-top:10px;font:700 20px/1.2 'Oswald Web',Georgia,serif;color:#2D483F">{{ activeCase.model }}</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #E6E6E3">
           <div style="padding:17px 22px;border-right:1px solid #E6E6E3">
             <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">ЛОКАЦИЯ</div>
-            <div style="margin-top:8px;font:600 13px/1.45 'PT Sans',sans-serif">{{ activeCase.city }}</div>
+            <div style="margin-top:8px;font:600 13px/1.45 'Roboto Web',sans-serif">{{ activeCase.city }}</div>
           </div>
           <div style="padding:17px 22px">
             <div style="font:400 10px/1 'PT Mono',Menlo,monospace;color:#9A9A95">ФОТОГРАФИИ</div>
-            <div style="margin-top:8px;font:600 13px/1.45 'PT Sans',sans-serif">{{ activeCase.photoCount }}</div>
+            <div style="margin-top:8px;font:600 13px/1.45 'Roboto Web',sans-serif">{{ activeCase.photoCount }}</div>
           </div>
         </div>
       </div>
-      <button onClick="{{ backToCases }}" style="margin-top:24px;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Смотреть другие кейсы</button>
+      <button onClick="{{ backToCases }}" style="margin-top:24px;border:1px solid #141414;background:#FFFFFF;color:#141414;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Смотреть другие кейсы</button>
     </div>
   </div>
   </sc-if>
 
   <sc-if value="{{ isCases }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
-    <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Кофейни выбирают Sanremo</h1>
-    <p style="margin:14px 0 0;max-width:760px;font:400 16px/1.6 'PT Sans',sans-serif;color:#4A4A46">Тринадцать живых пространств — от петербургской specialty-кофейни до московской сети и кафе у моря. Здесь важна не только машина за стойкой, но и характер места, в котором она работает каждый день.</p>
+    <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Кофейни выбирают Sanremo</h1>
+    <p style="margin:14px 0 0;max-width:760px;font:400 16px/1.6 'Roboto Web',sans-serif;color:#4A4A46">Тринадцать живых пространств — от петербургской specialty-кофейни до московской сети и кафе у моря. Здесь важна не только машина за стойкой, но и характер места, в котором она работает каждый день.</p>
 
     <div style="margin-top:36px;display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-bottom:1px solid #E6E6E3;padding-bottom:12px">
-      <h2 style="margin:0;font:700 28px/1.1 'Playfair Display',Georgia,serif">Кофейни России</h2>
+      <h2 style="margin:0;font:700 28px/1.1 'Oswald Web',Georgia,serif">Кофейни России</h2>
       <span style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#8A8A85">13 установок · фотографии из проектов</span>
     </div>
     <div class="cases-ru-grid" style="margin-top:22px;display:grid;grid-template-columns:repeat(12,1fr);gap:34px 22px">
@@ -1225,11 +1225,11 @@
           </div>
           <div style="padding:17px 2px 0;display:flex;flex-direction:column;flex:1;width:100%">
             <div style="font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ c.city }}</div>
-            <div style="margin-top:9px;font:700 22px/1.15 'Playfair Display',Georgia,serif">{{ c.client }}</div>
-            <div style="margin-top:10px;font:400 13px/1.6 'PT Sans',sans-serif;color:#5A5A56">{{ c.task }}</div>
+            <div style="margin-top:9px;font:700 22px/1.15 'Oswald Web',Georgia,serif">{{ c.client }}</div>
+            <div style="margin-top:10px;font:400 13px/1.6 'Roboto Web',sans-serif;color:#5A5A56">{{ c.task }}</div>
             <div style="margin-top:auto;padding-top:18px;border-top:1px solid #EFEFEC;display:flex;justify-content:space-between;align-items:center;gap:10px">
-              <span style="font:500 12px/1 'PT Sans',sans-serif;color:#2D483F">{{ c.model }}</span>
-              <span style="font:600 10px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">{{ c.state }}</span>
+              <span style="font:500 12px/1 'Roboto Web',sans-serif;color:#2D483F">{{ c.model }}</span>
+              <span style="font:600 10px/1 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85">{{ c.state }}</span>
             </div>
           </div>
           </button>
@@ -1238,23 +1238,23 @@
     </div>
 
     <div style="margin-top:56px;display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-bottom:1px solid #E6E6E3;padding-bottom:12px">
-      <h2 style="margin:0;font:700 28px/1.1 'Playfair Display',Georgia,serif">Sanremo в мире</h2>
+      <h2 style="margin:0;font:700 28px/1.1 'Oswald Web',Georgia,serif">Sanremo в мире</h2>
     </div>
     <div style="margin-top:22px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
       <sc-for list="{{ casesWorld }}" as="w" hint-placeholder-count="4">
         <div style="background:#FFFFFF;padding:0 0 30px;display:flex;flex-direction:column;gap:12px;overflow:hidden">
           <div style="height:220px;overflow:hidden">{{ w.photo }}</div>
           <div style="padding:18px 32px 0;font:400 11px/1 'PT Mono',Menlo,monospace;color:#9A9A95">{{ w.tag }}</div>
-          <div style="padding:0 32px;font:700 26px/1.15 'Playfair Display',Georgia,serif">{{ w.title }}</div>
-          <div style="padding:0 32px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A4A46">{{ w.text }}</div>
-          <div style="padding:0 32px;margin-top:auto;font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#2D483F">{{ w.model }}</div>
+          <div style="padding:0 32px;font:700 26px/1.15 'Oswald Web',Georgia,serif">{{ w.title }}</div>
+          <div style="padding:0 32px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#4A4A46">{{ w.text }}</div>
+          <div style="padding:0 32px;margin-top:auto;font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#2D483F">{{ w.model }}</div>
         </div>
       </sc-for>
     </div>
 
     <div style="margin-top:36px;background:#F1F3F1;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap">
-      <div style="max-width:620px;font:400 15px/1.6 'PT Sans',sans-serif;color:#4A4A46">Ваша кофейня работает на Sanremo? Пришлите точку, модель и фотографии — добавим карточку в раздел после согласования.</div>
-      <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif">Предложить кейс</button>
+      <div style="max-width:620px;font:400 15px/1.6 'Roboto Web',sans-serif;color:#4A4A46">Ваша кофейня работает на Sanremo? Пришлите точку, модель и фотографии — добавим карточку в раздел после согласования.</div>
+      <button onClick="{{ goDealers }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif">Предложить кейс</button>
     </div>
   </div>
   </sc-if>
@@ -1262,11 +1262,11 @@
 
   <sc-if value="{{ isCompare }}" hint-placeholder-val="{{ false }}">
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
-    <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Сравнение линеек</h1>
-    <p style="margin:14px 0 0;max-width:720px;font:400 16px/1.7 'PT Sans',sans-serif;color:#4A4A46">Выберите две или три линейки: поток, группы, архитектура бойлеров, управление, РРЦ и наличие — в одной таблице.</p>
+    <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Сравнение линеек</h1>
+    <p style="margin:14px 0 0;max-width:720px;font:400 16px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Выберите две или три линейки: поток, группы, архитектура бойлеров, управление, РРЦ и наличие — в одной таблице.</p>
     <div style="margin-top:26px;display:flex;gap:8px;flex-wrap:wrap">
       <sc-for list="{{ cmpChips }}" as="c" hint-placeholder-count="7">
-        <button onClick="{{ c.toggle }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 16px;font:600 12px/1 'PT Sans',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
+        <button onClick="{{ c.toggle }}" style="border:1px solid #DCDCD8;background:{{ c.bg }};color:{{ c.fg }};padding:11px 16px;font:600 12px/1 'Roboto Web',sans-serif;transition:background .15s,color .15s,border-color .15s" style-hover="background:#2D483F;color:#FFFFFF;border-color:#2D483F">{{ c.label }}</button>
       </sc-for>
     </div>
     <div style="margin-top:12px;font:400 12px/1 'PT Mono',Menlo,monospace;color:#8A8A85">{{ cmpHint }}</div>
@@ -1277,11 +1277,11 @@
           <sc-for list="{{ cmpCols }}" as="c" hint-placeholder-count="3">
             <th style="border-left:1px solid #E6E6E3;border-bottom:1px solid #E6E6E3;padding:22px 24px;vertical-align:top;text-align:left">
               <div style="height:150px;background:#F4F4F2;display:flex;align-items:center;justify-content:center;padding:10px">{{ c.photo }}</div>
-              <div style="margin-top:16px;font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#7D9C91">{{ c.role }}</div>
-              <div style="margin-top:7px;font:700 25px/1.1 'Playfair Display',Georgia,serif">{{ c.name }}</div>
-              <div style="margin-top:10px;font:700 16px/1.2 'PT Sans',sans-serif">{{ c.priceFrom }}</div>
-              <div style="margin-top:5px;font:400 12px/1.45 'PT Sans',sans-serif;color:#6E6E6A">{{ c.stockLine }}</div>
-              <button onClick="{{ c.open }}" style="margin-top:16px;border:0;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 12px/1 'PT Sans',sans-serif">Открыть линейку</button>
+              <div style="margin-top:16px;font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#7D9C91">{{ c.role }}</div>
+              <div style="margin-top:7px;font:700 25px/1.1 'Oswald Web',Georgia,serif">{{ c.name }}</div>
+              <div style="margin-top:10px;font:700 16px/1.2 'Roboto Web',sans-serif">{{ c.priceFrom }}</div>
+              <div style="margin-top:5px;font:400 12px/1.45 'Roboto Web',sans-serif;color:#6E6E6A">{{ c.stockLine }}</div>
+              <button onClick="{{ c.open }}" style="margin-top:16px;border:0;background:#141414;color:#FFFFFF;padding:12px 18px;font:600 12px/1 'Roboto Web',sans-serif">Открыть линейку</button>
             </th>
           </sc-for>
         </tr>
@@ -1289,9 +1289,9 @@
       <tbody>
         <sc-for list="{{ cmpRows }}" as="r" hint-placeholder-count="11">
           <tr>
-            <td style="border-bottom:1px solid #F0F0EE;background:#FAFAF9;padding:16px 18px;font:600 11px/1.35 'PT Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85;vertical-align:top">{{ r.label }}</td>
+            <td style="border-bottom:1px solid #F0F0EE;background:#FAFAF9;padding:16px 18px;font:600 11px/1.35 'Roboto Web',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A8A85;vertical-align:top">{{ r.label }}</td>
             <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
-              <td style="border-left:1px solid #E6E6E3;border-bottom:1px solid #F0F0EE;padding:16px 20px;font:400 14px/1.55 'PT Sans',sans-serif;color:#2A2A28;vertical-align:top">{{ c.v }}</td>
+              <td style="border-left:1px solid #E6E6E3;border-bottom:1px solid #F0F0EE;padding:16px 20px;font:400 14px/1.55 'Roboto Web',sans-serif;color:#2A2A28;vertical-align:top">{{ c.v }}</td>
             </sc-for>
           </tr>
         </sc-for>
@@ -1299,12 +1299,12 @@
     </table>
     <div style="margin-top:40px;display:grid;grid-template-columns:1.2fr 1fr;gap:0;border:1px solid #E6E6E3">
       <div style="padding:32px 34px;background:#F7F3EF">
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A8A85">Как читать таблицу</div>
-        <div style="margin-top:14px;font:400 15px/1.7 'PT Sans',sans-serif;color:#3A3A36">Поток определяет группы и архитектуру бойлеров, а контроль температуры и профилирование — кофейную программу. Разница в РРЦ между соседними линейками почти всегда меньше, чем стоимость переустановки через год.</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A8A85">Как читать таблицу</div>
+        <div style="margin-top:14px;font:400 15px/1.7 'Roboto Web',sans-serif;color:#3A3A36">Поток определяет группы и архитектуру бойлеров, а контроль температуры и профилирование — кофейную программу. Разница в РРЦ между соседними линейками почти всегда меньше, чем стоимость переустановки через год.</div>
       </div>
       <div style="padding:32px 34px;display:flex;flex-direction:column;justify-content:space-between;gap:20px">
-        <div style="font:400 15px/1.7 'PT Sans',sans-serif;color:#4A4A46">Не уверены в потоке? Ответьте на шесть вопросов — подбор предложит конфигурации с РРЦ и наличием.</div>
-        <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'PT Sans',sans-serif;align-self:flex-start">Перейти к подбору</button>
+        <div style="font:400 15px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Не уверены в потоке? Ответьте на шесть вопросов — подбор предложит конфигурации с РРЦ и наличием.</div>
+        <button onClick="{{ goChoose }}" style="border:0;background:#141414;color:#FFFFFF;padding:15px 24px;font:600 13px/1 'Roboto Web',sans-serif;align-self:flex-start">Перейти к подбору</button>
       </div>
     </div>
   </div>
@@ -1314,24 +1314,24 @@
   <div style="max-width:1320px;margin:0 auto;padding:0 40px 80px">
     <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:end">
       <div>
-        <h1 style="margin:0;font:700 44px/1.08 'Playfair Display',Georgia,serif">Вопросы и ответы</h1>
-        <p style="margin:14px 0 0;font:400 16px/1.7 'PT Sans',sans-serif;color:#4A4A46">Покупка, установка, сервис, гарантия и документы — коротко и без обещаний, которые нельзя выполнить.</p>
+        <h1 style="margin:0;font:700 44px/1.08 'Oswald Web',Georgia,serif">Вопросы и ответы</h1>
+        <p style="margin:14px 0 0;font:400 16px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Покупка, установка, сервис, гарантия и документы — коротко и без обещаний, которые нельзя выполнить.</p>
       </div>
-      <div style="border-left:2px solid #141414;padding-left:24px;font:400 14px/1.7 'PT Sans',sans-serif;color:#5A5A56">Нет вашего вопроса? 8-495-363-3801 или через дилера — ответ по конкретной точке всегда точнее общего.</div>
+      <div style="border-left:2px solid #141414;padding-left:24px;font:400 14px/1.7 'Roboto Web',sans-serif;color:#5A5A56">Нет вашего вопроса? 8-495-363-3801 или через дилера — ответ по конкретной точке всегда точнее общего.</div>
     </div>
     <div style="margin-top:44px;display:flex;flex-direction:column;gap:44px">
       <sc-for list="{{ faqGroups }}" as="g" hint-placeholder-count="4">
         <div style="display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start">
-          <div style="font:700 22px/1.25 'Playfair Display',Georgia,serif;position:sticky;top:96px">{{ g.title }}</div>
+          <div style="font:700 22px/1.25 'Oswald Web',Georgia,serif;position:sticky;top:96px">{{ g.title }}</div>
           <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid #E6E6E3">
             <sc-for list="{{ g.items }}" as="i" hint-placeholder-count="4">
               <div style="border-bottom:1px solid #E6E6E3">
                 <button onClick="{{ i.toggle }}" style="width:100%;border:0;background:none;padding:20px 0;display:flex;justify-content:space-between;gap:24px;align-items:baseline;text-align:left">
-                  <span style="font:600 17px/1.4 'PT Sans',sans-serif;color:#141414">{{ i.q }}</span>
-                  <span style="font:400 20px/1 'PT Sans',sans-serif;color:#C14E00;flex:none">{{ i.sign }}</span>
+                  <span style="font:600 17px/1.4 'Roboto Web',sans-serif;color:#141414">{{ i.q }}</span>
+                  <span style="font:400 20px/1 'Roboto Web',sans-serif;color:#C14E00;flex:none">{{ i.sign }}</span>
                 </button>
                 <sc-if value="{{ i.open }}" hint-placeholder-val="{{ false }}">
-                  <div style="padding:0 60px 22px 0;font:400 15px/1.75 'PT Sans',sans-serif;color:#4A4A46;max-width:760px">{{ i.a }}</div>
+                  <div style="padding:0 60px 22px 0;font:400 15px/1.75 'Roboto Web',sans-serif;color:#4A4A46;max-width:760px">{{ i.a }}</div>
                 </sc-if>
               </div>
             </sc-for>
@@ -1347,17 +1347,17 @@
     <div style="max-width:1320px;margin:0 auto;padding:0 40px">
       <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:end">
         <div>
-          <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7D9C91">Партнёрам</div>
-          <h1 style="margin:18px 0 0;font:700 52px/1.05 'Playfair Display',Georgia,serif">Стать дилером Sanremo</h1>
-          <p style="margin:18px 0 0;font:400 17px/1.7 'PT Sans',sans-serif;color:#4A4A46;max-width:600px">BIO развивает сеть партнёров, которые продают, устанавливают и обслуживают Sanremo в своём регионе. Мы даём склад, обучение и техническую поддержку — партнёр отвечает за клиента на месте.</p>
+          <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7D9C91">Партнёрам</div>
+          <h1 style="margin:18px 0 0;font:700 52px/1.05 'Oswald Web',Georgia,serif">Стать дилером Sanremo</h1>
+          <p style="margin:18px 0 0;font:400 17px/1.7 'Roboto Web',sans-serif;color:#4A4A46;max-width:600px">BIO развивает сеть партнёров, которые продают, устанавливают и обслуживают Sanremo в своём регионе. Мы даём склад, обучение и техническую поддержку — партнёр отвечает за клиента на месте.</p>
         </div>
         <div style="border:1px solid #E6E6E3;padding:28px 30px;background:#FAFAF9">
-          <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8A85">Сеть сегодня</div>
+          <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#8A8A85">Сеть сегодня</div>
           <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px">
             <sc-for list="{{ partnerFacts }}" as="f" hint-placeholder-count="4">
               <div style="display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid #EDEDEA;padding-bottom:10px">
-                <span style="font:400 14px/1.4 'PT Sans',sans-serif;color:#5A5A56">{{ f.label }}</span>
-                <span style="font:700 14px/1.4 'PT Sans',sans-serif;color:#141414;flex:none">{{ f.value }}</span>
+                <span style="font:400 14px/1.4 'Roboto Web',sans-serif;color:#5A5A56">{{ f.label }}</span>
+                <span style="font:700 14px/1.4 'Roboto Web',sans-serif;color:#141414;flex:none">{{ f.value }}</span>
               </div>
             </sc-for>
           </div>
@@ -1367,8 +1367,8 @@
       <div style="margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E6E6E3;border:1px solid #E6E6E3">
         <sc-for list="{{ partnerWhy }}" as="w" hint-placeholder-count="4">
           <div style="background:#FFFFFF;padding:28px 26px">
-            <div style="font:700 18px/1.3 'PT Sans',sans-serif">{{ w.title }}</div>
-            <div style="margin-top:12px;font:400 14px/1.65 'PT Sans',sans-serif;color:#5A5A56">{{ w.text }}</div>
+            <div style="font:700 18px/1.3 'Roboto Web',sans-serif">{{ w.title }}</div>
+            <div style="margin-top:12px;font:400 14px/1.65 'Roboto Web',sans-serif;color:#5A5A56">{{ w.text }}</div>
           </div>
         </sc-for>
       </div>
@@ -1378,16 +1378,16 @@
       <div style="max-width:1320px;margin:0 auto;padding:52px 40px">
         <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:48px;align-items:end">
           <div>
-            <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">Условия</div>
-            <h2 style="margin:18px 0 0;font:700 40px/1.1 'Playfair Display',Georgia,serif">Кого мы ищем</h2>
+            <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">Условия</div>
+            <h2 style="margin:18px 0 0;font:700 40px/1.1 'Oswald Web',Georgia,serif">Кого мы ищем</h2>
           </div>
-          <p style="margin:0;font:400 15px/1.7 'PT Sans',sans-serif;color:#4A4A46">Формальных «входных билетов» немного, но сервис обязателен: машина без обслуживания портит и точку, и бренд.</p>
+          <p style="margin:0;font:400 15px/1.7 'Roboto Web',sans-serif;color:#4A4A46">Формальных «входных билетов» немного, но сервис обязателен: машина без обслуживания портит и точку, и бренд.</p>
         </div>
         <div style="margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
           <sc-for list="{{ partnerReq }}" as="r" hint-placeholder-count="6">
             <div style="border-top:2px solid #141414;padding-top:16px">
-              <div style="font:700 17px/1.3 'PT Sans',sans-serif">{{ r.title }}</div>
-              <div style="margin-top:10px;font:400 14px/1.65 'PT Sans',sans-serif;color:#5A5A56">{{ r.text }}</div>
+              <div style="font:700 17px/1.3 'Roboto Web',sans-serif">{{ r.title }}</div>
+              <div style="margin-top:10px;font:400 14px/1.65 'Roboto Web',sans-serif;color:#5A5A56">{{ r.text }}</div>
             </div>
           </sc-for>
         </div>
@@ -1398,9 +1398,9 @@
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #E6E6E3">
         <sc-for list="{{ partnerSteps }}" as="s" hint-placeholder-count="4">
           <div style="padding:28px 26px;border-right:1px solid #E6E6E3">
-            <div style="font:700 34px/1 'Playfair Display',Georgia,serif;color:#DCDCD8">{{ s.num }}</div>
-            <div style="margin-top:14px;font:700 17px/1.3 'PT Sans',sans-serif">{{ s.title }}</div>
-            <div style="margin-top:10px;font:400 14px/1.65 'PT Sans',sans-serif;color:#5A5A56">{{ s.text }}</div>
+            <div style="font:700 34px/1 'Oswald Web',Georgia,serif;color:#DCDCD8">{{ s.num }}</div>
+            <div style="margin-top:14px;font:700 17px/1.3 'Roboto Web',sans-serif">{{ s.title }}</div>
+            <div style="margin-top:10px;font:400 14px/1.65 'Roboto Web',sans-serif;color:#5A5A56">{{ s.text }}</div>
           </div>
         </sc-for>
       </div>
@@ -1408,24 +1408,24 @@
       <div style="margin-top:56px;display:grid;grid-template-columns:1fr 1.1fr;gap:0;border:1px solid #141414">
         <div style="background:#141414;color:#FFFFFF;padding:44px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:28px">
           <div>
-            <div style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">Заявка</div>
-            <h2 style="margin:16px 0 0;font:700 34px/1.15 'Playfair Display',Georgia,serif">Обсудить партнёрство</h2>
-            <p style="margin:16px 0 0;font:400 15px/1.7 'PT Sans',sans-serif;color:#C9C9C5">Ответ в течение двух рабочих дней: условия, прайс и ближайшее окно обучения по вашему региону.</p>
+            <div style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8A8A85">Заявка</div>
+            <h2 style="margin:16px 0 0;font:700 34px/1.15 'Oswald Web',Georgia,serif">Обсудить партнёрство</h2>
+            <p style="margin:16px 0 0;font:400 15px/1.7 'Roboto Web',sans-serif;color:#C9C9C5">Ответ в течение двух рабочих дней: условия, прайс и ближайшее окно обучения по вашему региону.</p>
           </div>
-          <div style="font:400 14px/1.8 'PT Sans',sans-serif;color:#E4E4E1">8-495-363-3801<br />Москва, ул. Обручева, 23с1, БЦ «Геолог»</div>
+          <div style="font:400 14px/1.8 'Roboto Web',sans-serif;color:#E4E4E1">8-495-363-3801<br />Москва, ул. Обручева, 23с1, БЦ «Геолог»</div>
         </div>
         <div style="padding:44px 40px;background:#FFFFFF">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
             <sc-for list="{{ partnerFields }}" as="f" hint-placeholder-count="6">
               <label style="display:flex;flex-direction:column;gap:8px">
-                <span style="font:600 11px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">{{ f.label }}</span>
-                <input placeholder="{{ f.ph }}" style="border:0;border-bottom:1px solid #DCDCD8;padding:10px 0;font:400 15px/1.3 'PT Sans',sans-serif;color:#141414;background:none" />
+                <span style="font:600 11px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">{{ f.label }}</span>
+                <input placeholder="{{ f.ph }}" style="border:0;border-bottom:1px solid #DCDCD8;padding:10px 0;font:400 15px/1.3 'Roboto Web',sans-serif;color:#141414;background:none" />
               </label>
             </sc-for>
           </div>
           <div style="margin-top:28px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
-            <button style="border:0;background:#141414;color:#FFFFFF;padding:15px 26px;font:600 13px/1 'PT Sans',sans-serif">Отправить заявку</button>
-            <span style="font:400 12px/1.5 'PT Sans',sans-serif;color:#8A8A85;max-width:280px">Отправляя заявку, вы соглашаетесь с политикой обработки данных BIO.</span>
+            <button style="border:0;background:#141414;color:#FFFFFF;padding:15px 26px;font:600 13px/1 'Roboto Web',sans-serif">Отправить заявку</button>
+            <span style="font:400 12px/1.5 'Roboto Web',sans-serif;color:#8A8A85;max-width:280px">Отправляя заявку, вы соглашаетесь с политикой обработки данных BIO.</span>
           </div>
         </div>
       </div>
@@ -1437,40 +1437,40 @@
     <div style="max-width:1320px;margin:0 auto;padding:56px 40px 40px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px">
       <div>
         <img src="./brand/sanremo-official-white-v4.svg" alt="Sanremo Coffee Machines" style="width:196px;height:auto;display:block" />
-        <div style="margin-top:18px;font:400 13px/1.7 'PT Sans',sans-serif;color:#B8B8B4;max-width:340px">Компания BIO — официальный дистрибьютор профессиональных кофемашин Sanremo в России.</div>
-        <div style="margin-top:16px;font:400 13px/1.7 'PT Sans',sans-serif;color:#E4E4E1">117630, Москва, ул. Обручева, 23с1<br />БЦ «Геолог», 4 этаж<br />8-495-363-3801</div>
+        <div style="margin-top:18px;font:400 13px/1.7 'Roboto Web',sans-serif;color:#B8B8B4;max-width:340px">Компания BIO — официальный дистрибьютор профессиональных кофемашин Sanremo в России.</div>
+        <div style="margin-top:16px;font:400 13px/1.7 'Roboto Web',sans-serif;color:#E4E4E1">117630, Москва, ул. Обручева, 23с1<br />БЦ «Геолог», 4 этаж<br />8-495-363-3801</div>
       </div>
       <div>
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Каталог</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Каталог</div>
         <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start">
           <sc-for list="{{ lines }}" as="m" hint-placeholder-count="7">
-            <button onClick="{{ m.open }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">{{ m.name }}</button>
+            <button onClick="{{ m.open }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">{{ m.name }}</button>
           </sc-for>
         </div>
       </div>
       <div>
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Разделы</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Разделы</div>
         <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start">
-          <button onClick="{{ goChoose }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Подобрать</button>
-          <button onClick="{{ goSolutions }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Решения</button>
-          <button onClick="{{ goDealers }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Где купить</button>
-          <button onClick="{{ goService }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Сервис и запчасти</button>
-          <button onClick="{{ goCases }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Кейсы</button>
-          <button onClick="{{ goDocs }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Документы</button>
-          <button onClick="{{ goCompare }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Сравнение линеек</button>
-          <button onClick="{{ goFaq }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Вопросы и ответы</button>
-          <button onClick="{{ goPartner }}" style="border:0;background:none;padding:0;font:400 13px/1 'PT Sans',sans-serif;color:#E4E4E1">Стать дилером</button>
+          <button onClick="{{ goChoose }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Подобрать</button>
+          <button onClick="{{ goSolutions }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Решения</button>
+          <button onClick="{{ goDealers }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Где купить</button>
+          <button onClick="{{ goService }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Сервис и запчасти</button>
+          <button onClick="{{ goCases }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Кейсы</button>
+          <button onClick="{{ goDocs }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Документы</button>
+          <button onClick="{{ goCompare }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Сравнение линеек</button>
+          <button onClick="{{ goFaq }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Вопросы и ответы</button>
+          <button onClick="{{ goPartner }}" style="border:0;background:none;padding:0;font:400 13px/1 'Roboto Web',sans-serif;color:#E4E4E1">Стать дилером</button>
         </div>
       </div>
       <div>
-        <div style="font:600 12px/1 'PT Sans',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Производитель</div>
-        <div style="margin-top:14px;font:600 14px/1.4 'PT Sans',sans-serif;color:#E5E5E2">Sanremo Coffee Machines S.r.l.</div>
-        <div style="margin-top:7px;font:400 13px/1.55 'PT Sans',sans-serif;color:#B8B8B4">Итальянский производитель профессиональных кофемашин.</div>
-        <div style="margin-top:10px;font:400 12px/1.55 'PT Sans',sans-serif;color:#8F8F8B">Via Bortolan, 52<br />Vascon di Carbonera (TV), Италия</div>
+        <div style="font:600 12px/1 'Roboto Web',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#8A8A85">Производитель</div>
+        <div style="margin-top:14px;font:600 14px/1.4 'Roboto Web',sans-serif;color:#E5E5E2">Sanremo Coffee Machines S.r.l.</div>
+        <div style="margin-top:7px;font:400 13px/1.55 'Roboto Web',sans-serif;color:#B8B8B4">Итальянский производитель профессиональных кофемашин.</div>
+        <div style="margin-top:10px;font:400 12px/1.55 'Roboto Web',sans-serif;color:#8F8F8B">Via Bortolan, 52<br />Vascon di Carbonera (TV), Италия</div>
       </div>
     </div>
     <div style="border-top:1px solid #2A2A28">
-      <div style="max-width:1320px;margin:0 auto;padding:18px 40px;display:flex;justify-content:space-between;gap:20px;font:400 11px/1.6 'PT Sans',sans-serif;color:#7A7A76;flex-wrap:wrap">
+      <div style="max-width:1320px;margin:0 auto;padding:18px 40px;display:flex;justify-content:space-between;gap:20px;font:400 11px/1.6 'Roboto Web',sans-serif;color:#7A7A76;flex-wrap:wrap">
         <span>© 2026 BIO · Sanremo Russia · политика данных и cookies</span>
       </div>
     </div>
@@ -1872,18 +1872,37 @@ class Component extends DCLogic {
   };
 
   go = (page) => {
-    this.scrollPageTop();
-    this.setState({ page: page });
-    this.pushUrl(page, this.state.line);
-    try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
+    this.navigateToRoute(page, this.state.line);
   };
 
   openLine = (id) => {
-    this.scrollPageTop();
-    this.setState({ page: 'product', line: id, sku: 0, showConfigs: false, galleryIndex: 0 });
-    this.pushUrl('product', id);
-    try { window.requestAnimationFrame(this.scrollPageTop); } catch (e) {}
+    this.navigateToRoute('product', id);
   };
+
+  routeFor(page, line) {
+    const routes = {
+      home: '/', catalog: '/products/', choose: '/choose/', solutions: '/solutions/',
+      dealers: '/dealers/', service: '/service/', news: '/news/', cases: '/cases/',
+      docs: '/documents/', compare: '/compare/', faq: '/contacts/', partner: '/contacts/',
+      'case-project': '/cases/'
+    };
+    if (page === 'product') {
+      const products = {
+        zoe: '/products/zoe/zoe-competition/', d8: '/products/d8/d8/',
+        f18sb: '/products/f18/f18-sb/', f18: '/products/f18/f18-mb/',
+        racer: '/products/cafe-racer/cafe-racer/', opera: '/products/opera/opera/',
+        you: '/products/you/you/'
+      };
+      return products[line || this.state.line] || '/products/';
+    }
+    return routes[page] || '/';
+  }
+
+  navigateToRoute(page, line) {
+    const target = this.routeFor(page, line);
+    try { window.top.location.href = target; }
+    catch (e) { window.location.href = target; }
+  }
 
   componentDidMount() {
     try { document.documentElement.lang = 'ru'; } catch (e) {}
@@ -1918,9 +1937,7 @@ class Component extends DCLogic {
   }
 
   pushUrl(page, line) {
-    const path = this.pathFor(page, line);
-    try { history.pushState({ page: page, line: line }, '', path); }
-    catch (e) { try { location.hash = path; } catch (e2) {} }
+    this.navigateToRoute(page, line);
   }
 
   metaTag(kind, name, val) {
