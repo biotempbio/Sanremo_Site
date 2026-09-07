@@ -4,13 +4,14 @@ import { useState } from "react";
 
 const NAV = [
   { href: "/products/", label: "Кофемашины" },
+  { href: "/compare/", label: "Сравнение" },
   { href: "/choose/", label: "Подобрать" },
   { href: "/solutions/", label: "Решения" },
-  { href: "/compare/", label: "Сравнить" },
   { href: "/dealers/", label: "Где купить" },
-  { href: "/service/", label: "Сервис и запчасти" },
+  { href: "/service/", label: "Сервис" },
   { href: "/cases/", label: "Кейсы" },
   { href: "/about/", label: "О Sanremo" },
+  { href: "/contacts/?type=dealer", label: "Стать дилером", accent: true },
 ];
 
 export function Header({ active }: { active?: string }) {
@@ -20,10 +21,9 @@ export function Header({ active }: { active?: string }) {
       <div className="topbar">
         <div className="wrap">
           <span>Официальный дистрибьютор Sanremo в России — компания BIO</span>
-          <span>
+          <span className="topbar-contact">
+            <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
             <a href="tel:+74953633801">8-495-363-3801</a>
-            {" · "}
-            <a href="/contacts/">Контакты</a>
           </span>
         </div>
       </div>
@@ -33,21 +33,17 @@ export function Header({ active }: { active?: string }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" />
           </a>
-          <span className="hdr-trust">
-            Профессиональные кофемашины
-            <br />
-            Официальная дистрибуция в РФ
-          </span>
           <button className="burger" onClick={() => setOpen(!open)} aria-expanded={open}>
             {open ? "Закрыть" : "Меню"}
           </button>
           <nav className={open ? "mainnav open" : "mainnav"}>
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} data-active={active === n.href || active === n.href.slice(0, -1)}>
+              <a className={n.accent ? "nav-accent" : undefined} key={n.href} href={n.href} data-active={active === n.href || active === n.href.slice(0, -1)}>
                 {n.label}
               </a>
             ))}
           </nav>
+          <a className="header-cta" href="/choose/">Подобрать машину</a>
         </div>
       </header>
     </>
