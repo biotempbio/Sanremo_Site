@@ -532,6 +532,13 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
   overflow: hidden;
 }
 
+/* Главная без iframe: та же сдержанная композиция, общие токены и обычная прокрутка. */
+.home-hero-native{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:stretch;padding-bottom:24px}.home-hero-copy-native{padding:clamp(42px,6vw,82px) clamp(28px,5vw,70px) clamp(42px,6vw,82px) 0;display:flex;flex-direction:column;justify-content:center}.home-hero-copy-native h1{font-size:clamp(48px,5.2vw,78px);max-width:12ch}.home-statement{align-self:flex-start;margin:26px 0 22px;background:var(--ink);color:#fff;padding:12px 18px;font-weight:700}.home-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.home-hero-image{margin:0;min-height:500px;background:var(--gray-bg);overflow:hidden}.home-hero-image img{width:100%;height:100%;object-fit:cover;display:block}.home-trust{border-block:1px solid var(--line)}.home-trust .wrap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}.home-trust .wrap>div{padding:22px 20px;border-right:1px solid var(--line)}.home-trust b,.home-trust span{display:block;font-family:var(--sans)}.home-trust b{font-size:13px}.home-trust span{margin-top:6px;font-size:12px;color:var(--muted)}.home-task{min-height:210px;border-top:3px solid var(--ink);padding:22px 0;color:var(--ink);text-decoration:none;display:flex;flex-direction:column}.home-task span{color:var(--muted);font-size:13px}.home-task h3{margin:32px 0 auto}.home-task b{font-size:13px}.home-products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.home-product-image{display:block;aspect-ratio:3/2;background:#fff;overflow:hidden}.home-product-image img{width:100%;height:100%;object-fit:contain;display:block}.home-case{border-top:1px solid var(--line-strong)}.home-case img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}.home-case>div{padding:18px 0}.home-service{color:#fff}.home-service>.wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,6vw,90px);align-items:end}.home-service .eyebrow{color:#b7c9c2}.home-service p{color:#e7ecea}
+@media(max-width:900px){.home-hero-native{grid-template-columns:1fr}.home-hero-copy-native{padding-right:0}.home-hero-image{min-height:340px}.home-trust .wrap{grid-template-columns:repeat(2,1fr)}.home-products{grid-template-columns:repeat(2,1fr)}.home-service>.wrap{grid-template-columns:1fr}.parts{grid-template-columns:minmax(0,1fr)!important;width:100%;max-width:100%;min-width:0}.parts>*{min-width:0}.filters{width:100%;max-width:100%;min-width:0}.filters .chips{display:flex;flex-wrap:wrap;max-width:100%}.filters .field,.filters input{width:100%;max-width:100%}}
+@media(max-width:560px){.home-products{grid-template-columns:1fr}.home-trust .wrap{grid-template-columns:1fr 1fr}.home-trust .wrap>div{padding:16px 10px}.home-hero-copy-native h1{font-size:44px}.home-hero-image{min-height:280px}.chip,.dealers a,.config-chip{min-height:44px;display:inline-flex;align-items:center}}
+@media(max-width:560px){.footer nav a{min-height:44px;display:flex;align-items:center}.brand{min-height:44px;display:flex;align-items:center}.crumbs a{min-height:40px;display:inline-flex;align-items:center}}
+.hp-field{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important}.lead-submit{grid-column:1/-1;justify-self:start}.form-result{border-top:3px solid var(--ink);padding:24px 0}.form-error{grid-column:1/-1;color:#8b2e18;border-left:3px solid currentColor;padding:10px 14px}.form-error button{border:0;background:none;text-decoration:underline;color:inherit;cursor:pointer}
+
 /* Редакционная бренд-страница Sanremo */
 .about-hero {
   display: grid;
@@ -636,3 +643,10 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
   .about-duet-intro { grid-column: auto; }
   .about-role + .about-role { border-left: 0; border-top: 1px solid #383632; padding: 34px 0 0; }
 }
+
+.home-hero-image picture,
+.home-product-image picture,
+.home-case picture,
+.module-photo picture,
+.about-hero-media picture,
+.sku-photo picture { display: contents; }

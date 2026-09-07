@@ -218,12 +218,6 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
               <div className="candidate-list">{selection.other.map((r) => <CandidateRow key={r.m.slug} m={r.m} />)}</div>
             </div>}
 
-            <div className="notice" style={{ marginTop: 24 }}>
-              <b>Как читать результат.</b> Это редакционная рекомендация BIO по вашим ответам, а не
-              паспортная производительность. Итоговая конфигурация зависит ещё от кофемолок,
-              подготовки воды, организации рабочего места и числа бариста в смене.
-            </div>
-
             <div className="chooser-cta">
               <div>
                 <h3>Отправить подбор специалисту</h3>
@@ -233,8 +227,8 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
                 </p>
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-amber" href="/contacts">Запросить предложение</a>
-                <a className="btn" href="/dealers">Найти дилера</a>
+                <a className="btn btn-amber" href="/contacts/">Запросить предложение</a>
+                <a className="btn" href="/dealers/">Найти дилера</a>
               </div>
             </div>
           </>
@@ -290,7 +284,7 @@ function ResultCard({
           {title}
         </span>
         <p className="eyebrow" style={{ margin: "4px 0 0" }}>{m.familyName}</p>
-        <h3><a href={`/products/${m.family}/${m.slug}`}>{m.name}</a></h3>
+        <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
         <p className="small" style={{ margin: 0 }}>{m.tagline}</p>
         <ul className="small" style={{ margin: "4px 0 0", paddingLeft: 18 }}>
           {why.slice(0, 4).map((w) => <li key={w}>{w}</li>)}
@@ -317,7 +311,7 @@ function CandidateRow({ m }: { m: ChooserModel }) {
     <article className="candidate-row">
       <div>
         <p className="eyebrow" style={{ margin: 0 }}>{m.familyName}</p>
-        <h3><a href={`/products/${m.family}/${m.slug}`}>{m.name}</a></h3>
+        <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
       </div>
       <span className="price num">{m.priceFrom ? `от ${m.priceFrom.toLocaleString("ru-RU")} ₽` : "Цена по запросу"}</span>
       <span className="stock-label"><i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />{m.inStockCount ? "На складе в Москве" : "Под заказ"}</span>

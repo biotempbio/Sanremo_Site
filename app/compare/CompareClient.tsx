@@ -53,7 +53,7 @@ export default function CompareClient() {
     </table></div>
     <div className="grid g2" style={{ marginTop: 40 }}>
       <div className="card"><div className="card-body"><p className="eyebrow">Как читать таблицу</p><p className="small" style={{ margin: 0 }}>Поток определяет группы и архитектуру бойлеров, а контроль температуры и профилирование — возможности кофейной программы.</p></div></div>
-      <div className="card"><div className="card-body"><h3>Подбор под ваш формат</h3><p className="small">Ответьте на шесть вопросов — подбор предложит подходящие конфигурации с РРЦ и наличием.</p><a className="btn btn-solid" href="/choose">Перейти к подбору</a></div></div>
+      <div className="card"><div className="card-body"><h3>Подбор под ваш формат</h3><p className="small">Ответьте на шесть вопросов — подбор предложит подходящие конфигурации с РРЦ и наличием.</p><a className="btn btn-solid" href="/choose/">Перейти к подбору</a></div></div>
     </div>
   </>;
 }

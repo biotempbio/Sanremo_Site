@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs, Stock } from "../../components/Bits";
 import SkuImage from "../../components/SkuImage";
+import { ResponsiveImage } from "../../components/ResponsiveImage";
 import {
   families,
   familyBySlug,
   modelsOfFamily,
   skusOfModel,
-  analogsFor,
   money,
   officialImageForFamily,
   officialImageForModel,
@@ -38,7 +38,6 @@ export default async function FamilyPage({ params }: Props) {
   const fmodels = modelsOfFamily(family);
   const allSkus = fmodels.flatMap((m) => skusOfModel(m.slug));
   const colors = [...new Map(allSkus.filter((s) => s.color).map((s) => [s.color!, s.colorHex!])).entries()];
-  const rivals = [...new Set(fmodels.flatMap((m) => analogsFor(m.name).map((a) => `${a.brand} ${a.model}`)))];
 
   return (
     <>
@@ -55,8 +54,7 @@ export default async function FamilyPage({ params }: Props) {
         <section>
           <div className="module a">
             <div className="module-photo" style={{ minHeight: 420 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={officialImageForFamily(f.slug) ?? ""} alt={`Sanremo ${f.name}`} />
+              <ResponsiveImage src={officialImageForFamily(f.slug) ?? ""} alt={`Sanremo ${f.name}`} width={1536} height={864} priority sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
             <div className="module-copy">
               <p className="eyebrow">Семейство · {f.architecture}</p>
@@ -72,8 +70,8 @@ export default async function FamilyPage({ params }: Props) {
                 <Fact k="РРЦ от" v={money(Math.min(...fmodels.map((m) => m.priceFrom ?? Infinity)))} />
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-solid" href="/choose">Подобрать конфигурацию</a>
-                <a className="btn" href="/dealers">Где купить</a>
+                <a className="btn btn-solid" href="/choose/">Подобрать конфигурацию</a>
+                <a className="btn" href="/dealers/">Где купить</a>
               </div>
             </div>
           </div>
@@ -101,7 +99,7 @@ export default async function FamilyPage({ params }: Props) {
                     <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} label={m.name} />
                   </div>
                   <div className="card-body">
-                    <h3><a href={`/products/${family}/${m.slug}`}>{m.name}</a></h3>
+                    <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>
                     {m.version ? <p className="small" style={{ margin: 0 }}>Версия: {m.version}</p> : null}
                     <div className="chips">
                       <span className="tag">{m.groupsAvailable.join("/")} гр.</span>
@@ -152,7 +150,7 @@ export default async function FamilyPage({ params }: Props) {
                     .map((s) => (
                       <tr key={s.code}>
                         <td>
-                          <a className="link-arrow" href={`/products/${family}/${s.model}`} style={{ border: 0 }}>
+                          <a className="link-arrow" href={`/products/${family}/${s.model}/`} style={{ border: 0 }}>
                             {s.modelName}
                           </a>
                           <div className="tiny sku">{s.vendorCode ?? s.code}</div>
@@ -191,27 +189,6 @@ export default async function FamilyPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Конкурентное окружение */}
-        {rivals.length > 0 && (
-          <section className="section wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow">Прямое окружение</p>
-                <h2>С чем сравнивают {f.name}</h2>
-              </div>
-              <p className="small" style={{ maxWidth: "56ch" }}>
-                Сопоставляем архитектуру, функции, комплектность и цену сопоставимых исполнений —
-                без утверждений об абсолютном превосходстве.
-              </p>
-            </div>
-            <div className="chips">
-              {rivals.slice(0, 14).map((r) => <span className="tag" key={r}>{r}</span>)}
-            </div>
-            <p style={{ marginTop: 20 }}>
-              <a className="btn" href={`/compare#${family}`}>Детальное сравнение</a>
-            </p>
-          </section>
-        )}
       </main>
       <Footer />
     </>

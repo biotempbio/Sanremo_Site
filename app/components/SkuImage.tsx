@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { MachineVisual } from "./Bits";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 /**
  * Фотография конкретной конфигурации из медиабиблиотеки BIO.
@@ -32,7 +33,7 @@ export default function SkuImage({
   return (
     <figure className="sku-photo" style={{ margin: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} style={{ objectFit: fit }} />
+      {src.startsWith("/") ? <ResponsiveImage src={src} alt={alt} width={1536} height={864} style={{ objectFit: fit }} /> : <img src={src} alt={alt} width="1536" height="864" loading="lazy" decoding="async" onError={() => setFailed(true)} style={{ objectFit: fit }} />}
       {label ? <figcaption>{label}</figcaption> : null}
       <style>{`
         .sku-photo { position: relative; width: 100%; height: 100%; background: #fff; }

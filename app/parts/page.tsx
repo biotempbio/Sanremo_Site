@@ -85,7 +85,7 @@ export default function PartsPage() {
                   Пришлите модель, серийный номер, город и фото узла — специалист подберёт артикул
                   или актуальную замену.
                 </p>
-                <a className="btn btn-sm" href="/service" style={{ marginTop: 8 }}>Сервисное обращение</a>
+                <a className="btn btn-sm" href="/service/" style={{ marginTop: 8 }}>Сервисное обращение</a>
               </div>
             </div>
           </div>

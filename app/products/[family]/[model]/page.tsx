@@ -3,17 +3,18 @@ import { notFound } from "next/navigation";
 import { Header, Footer } from "../../../components/Chrome";
 import { Crumbs, Stock } from "../../../components/Bits";
 import ConfigPicker, { PickerSku } from "./ConfigPicker";
+import { ResponsiveImage } from "../../../components/ResponsiveImage";
 import {
   models,
   modelBySlug,
   modelsOfFamily,
   familyBySlug,
   skusOfModel,
-  analogsFor,
   partsForSku,
   dealerCities,
   VOLUME_BANDS,
   PRICE_DATE,
+  PRICE_VALID_UNTIL,
   money,
   moneyPrecise,
   kw,
@@ -56,7 +57,6 @@ export default async function ModelPage({ params }: Props) {
   const sk = skusOfModel(m.slug);
   const hero = sk.find((s) => s.code === m.heroSku) ?? sk[0];
   const siblings = modelsOfFamily(family).filter((x) => x.slug !== m.slug);
-  const rivals = analogsFor(m.name);
   const bands = VOLUME_BANDS.filter((b) => b.models.includes(m.slug));
   const partCodes = [...new Set(sk.flatMap((s) => s.spareParts))];
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
@@ -84,6 +84,7 @@ export default async function ModelPage({ params }: Props) {
       name: s.title,
       price: s.rrp,
       priceCurrency: "RUB",
+      priceValidUntil: PRICE_VALID_UNTIL,
       availability:
         s.availability === "in_stock" || s.availability === "limited"
           ? "https://schema.org/InStock"
@@ -311,52 +312,6 @@ export default async function ModelPage({ params }: Props) {
           </section>
         )}
 
-        {/* 7.2.7 — прямые аналоги */}
-        {rivals.length > 0 && (
-          <section className="section wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow">Прямые аналоги рынка</p>
-                <h2>С чем реально сравнивают {m.name}</h2>
-              </div>
-            </div>
-            <div className="table-scroll">
-              <table className="data">
-                <thead>
-                  <tr>
-                    <th>Бренд</th>
-                    <th>Модель</th>
-                    <th>Сегмент</th>
-                    <th>Бойлерная система</th>
-                    <th className="num">РРЦ конкурента</th>
-                    <th className="num">Разница к Sanremo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rivals.slice(0, 12).map((a, i) => {
-                    const d = a.priceRival && a.priceSanremo ? a.priceRival - a.priceSanremo : null;
-                    return (
-                      <tr key={i}>
-                        <td><b style={{ fontFamily: "var(--sans)" }}>{a.brand}</b></td>
-                        <td>{a.model}{a.note ? <div className="tiny">{a.note}</div> : null}</td>
-                        <td className="tiny">{a.segment}</td>
-                        <td className="tiny">{a.boiler}</td>
-                        <td className="num">{a.priceRival ? `${a.priceRival.toLocaleString("ru-RU")} ₽` : "—"}</td>
-                        <td className="num" style={{ color: d === null ? undefined : d > 0 ? "var(--ok)" : "var(--amber)" }}>
-                          {d === null ? "—" : `${d > 0 ? "+" : "−"}${Math.abs(d).toLocaleString("ru-RU")} ₽`}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            <p style={{ marginTop: 18 }}>
-              <a className="btn" href="/compare">Детальное сравнение</a>
-            </p>
-          </section>
-        )}
-
         {/* 7.2.8 — сервис и запчасти */}
         <section className="section bg-gray">
           <div className="wrap">
@@ -401,8 +356,8 @@ export default async function ModelPage({ params }: Props) {
               </div>
             )}
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 20 }}>
-              <a className="btn" href={`/parts?model=${m.slug}`}>Все запчасти модели</a>
-              <a className="btn" href="/service">Сервисное обращение</a>
+              <a className="btn" href={`/parts/?model=${m.slug}`}>Все запчасти модели</a>
+              <a className="btn" href="/service/">Сервисное обращение</a>
             </div>
           </div>
         </section>
@@ -416,19 +371,7 @@ export default async function ModelPage({ params }: Props) {
                 <h2>Инструкции, схемы и спецификации</h2>
               </div>
             </div>
-            <div className="grid g3">
-              {m.docs.map((d) => (
-                <div className="card" key={d.ref}>
-                  <div className="card-body">
-                    <span className="tag" style={{ alignSelf: "flex-start" }}>{d.type}</span>
-                    <h3 style={{ fontSize: 15, lineHeight: 1.35 }}>{d.name}</h3>
-                    <a className="link-arrow" style={{ marginTop: "auto" }} href={`/documents/${d.ref}`}>
-                      Скачать PDF →
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <div className="card"><div className="card-body"><span className="tag" style={{ alignSelf: "flex-start" }}>{m.docs.length} документов</span><h3 style={{ fontSize: 17 }}>Документация для {m.name}</h3><p className="small">Инструкции и схемы предоставляются по запросу, пока медиабиблиотека проходит проверку ссылок.</p><a className="link-arrow" href={`/contacts/?model=${encodeURIComponent(m.name)}`}>Запросить документ →</a></div></div>
           </section>
         )}
 
@@ -459,12 +402,12 @@ export default async function ModelPage({ params }: Props) {
               <h3 style={{ marginBottom: 16 }}>Дилеры и сервис в вашем регионе</h3>
               <div className="chips">
                 {cities.map((c) => (
-                  <a className="tag" key={c.city} href={`/dealers?city=${encodeURIComponent(c.city)}`} style={{ textDecoration: "none" }}>
+                  <a className="tag" key={c.city} href={`/dealers/?city=${encodeURIComponent(c.city)}`} style={{ textDecoration: "none" }}>
                     {c.city} · {c.count}
                   </a>
                 ))}
               </div>
-              <a className="btn btn-block btn-solid" style={{ marginTop: 20 }} href="/dealers">Все дилеры</a>
+              <a className="btn btn-block btn-solid" style={{ marginTop: 20 }} href="/dealers/">Все дилеры</a>
             </div>
           </div>
         </section>
@@ -487,12 +430,11 @@ export default async function ModelPage({ params }: Props) {
               .map((x) => (
                 <article className="card" key={x.slug}>
                   <div className="card-media">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={officialImageForModel(x.slug)} alt={`Sanremo ${x.name}`} />
+                    <ResponsiveImage src={officialImageForModel(x.slug)!} alt={`Sanremo ${x.name}`} width={1536} height={864} sizes="(max-width: 620px) 100vw, 33vw" />
                   </div>
                   <div className="card-body">
                     <p className="eyebrow" style={{ margin: 0 }}>{familyBySlug(x.family)!.name}</p>
-                    <h3><a href={`/products/${x.family}/${x.slug}`}>{x.name}</a></h3>
+                    <h3><a href={`/products/${x.family}/${x.slug}/`}>{x.name}</a></h3>
                     <p className="small" style={{ margin: 0 }}>{familyBySlug(x.family)!.tagline}</p>
                     <div className="card-foot">
                       <div>
@@ -542,7 +484,7 @@ function CmpRow({
       <td><b>{a}</b></td>
       {rest.map((r, i) =>
         linkFamily ? (
-          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}`}>Открыть →</a></td>
+          <td key={i}><a className="link-arrow" href={`/products/${linkFamily}/${r}/`}>Открыть →</a></td>
         ) : (
           <td key={i}>{r}</td>
         )

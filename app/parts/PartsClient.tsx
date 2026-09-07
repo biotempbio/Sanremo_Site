@@ -107,7 +107,7 @@ export default function PartsClient({
               Попробуйте часть артикула или название узла. Если детали нет в каталоге — пришлите
               модель, серийный номер и фото узла, специалист подберёт замену.
             </p>
-            <a className="btn btn-solid" href="/service">Запросить деталь</a>
+            <a className="btn btn-solid" href="/service/">Запросить деталь</a>
           </div>
         ) : (
           <>
@@ -145,7 +145,7 @@ export default function PartsClient({
                           {LABEL[p.availability]}
                         </span>
                       </td>
-                      <td><a className="link-arrow" href="/service">Запросить →</a></td>
+                      <td><a className="link-arrow" href="/service/">Запросить →</a></td>
                     </tr>
                   ))}
                 </tbody>

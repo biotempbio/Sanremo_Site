@@ -1,0 +1,15 @@
+[Unit]
+Description=Sanremo website lead receiver
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/sanremo
+EnvironmentFile=/etc/sanremo-leads.env
+ExecStart=/usr/bin/node /srv/sanremo/server/lead-server.mjs
+Restart=always
+User=sanremo
+Group=sanremo
+
+[Install]
+WantedBy=multi-user.target

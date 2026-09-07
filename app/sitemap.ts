@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { models } from "@/lib/catalog";
+import { families, models } from "@/lib/catalog";
 
 export const dynamic = "force-static";
 
@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = ["", "/about", "/bio", "/cases", "/choose", "/compare", "/contacts", "/dealers", "/documents", "/news", "/parts", "/prices", "/products", "/service", "/solutions"];
   return [
     ...routes.map((route) => ({ url: `${siteUrl}${route}/`, lastModified: new Date() })),
+    ...families.map((family) => ({ url: `${siteUrl}/products/${family.slug}/`, lastModified: new Date() })),
     ...models.map((model) => ({ url: `${siteUrl}/products/${model.family}/${model.slug}/`, lastModified: new Date() })),
   ];
 }

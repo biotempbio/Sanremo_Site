@@ -21,15 +21,17 @@ export function Price({ value, from, note = true }: { value: number | null; from
 }
 
 export function Crumbs({ items }: { items: { href?: string; label: string }[] }) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://staging.sanremomachines.ru";
+  const schema = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: items.map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.label, ...(item.href ? { item: new URL(item.href, siteUrl).toString() } : {}) })) };
   return (
-    <nav className="crumbs wrap" aria-label="Хлебные крошки">
+    <><nav className="crumbs wrap" aria-label="Хлебные крошки">
       {items.map((i, n) => (
         <span key={n}>
           {n > 0 ? <span style={{ margin: "0 8px", opacity: 0.5 }}>/</span> : null}
           {i.href ? <a href={i.href}>{i.label}</a> : <span>{i.label}</span>}
         </span>
       ))}
-    </nav>
+    </nav><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /></>
   );
 }
 

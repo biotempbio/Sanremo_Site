@@ -82,7 +82,7 @@ export default function DealersClient({
               Оставьте заявку с указанием региона и задачи — её примет отдел продаж BIO и предложит
               ближайший вариант поставки, монтажа и обслуживания.
             </p>
-            <a className="btn btn-solid" href="/contacts">Оставить заявку в BIO</a>
+            <a className="btn btn-solid" href="/contacts/">Оставить заявку в BIO</a>
           </div>
         ) : (
           <div className="grid g3">
@@ -108,11 +108,11 @@ export default function DealersClient({
                       {d.verified ? "Адрес и сайт подтверждены" : "На проверке"}
                     </span>
                     {d.site ? (
-                      <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer">
+                      <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer" data-dealer-link>
                         Сайт дилера →
                       </a>
                     ) : (
-                      <a className="link-arrow" href="/contacts">Запросить контакт →</a>
+                      <a className="link-arrow" href="/contacts/">Запросить контакт →</a>
                     )}
                   </div>
                 </div>

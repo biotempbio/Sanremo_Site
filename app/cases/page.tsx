@@ -54,7 +54,7 @@ export default function CasesPage() {
               ))}
             </div>
             <p style={{ marginTop: 26 }}>
-              <a className="btn" href="/contacts">Рассказать о своём проекте</a>
+              <a className="btn" href="/contacts/">Рассказать о своём проекте</a>
             </p>
           </div>
         </section>

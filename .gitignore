@@ -17,6 +17,12 @@
 /.next/
 /.vinext/
 /out/
+public/**/*-w480.webp
+public/**/*-w480.jpg
+public/**/*-w960.webp
+public/**/*-w960.jpg
+public/**/*-w1440.webp
+public/**/*-w1440.jpg
 
 # misc
 .DS_Store

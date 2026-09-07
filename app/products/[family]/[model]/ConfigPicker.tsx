@@ -152,9 +152,9 @@ export default function ConfigPicker({
         </dl>
 
         <div className="picker-actions">
-          <a className="btn btn-amber" href="/dealers">Где купить</a>
-          <a className="btn btn-solid" href="/choose">Получить консультацию</a>
-          <a className="btn" href="/compare">Сравнить</a>
+          <a className="btn btn-amber" href="/dealers/">Где купить</a>
+          <a className="btn btn-solid" href="/choose/">Получить консультацию</a>
+          <a className="btn" href="/compare/">Сравнить</a>
         </div>
 
       </div>

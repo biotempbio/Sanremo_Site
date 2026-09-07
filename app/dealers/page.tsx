@@ -80,7 +80,7 @@ export default function DealersPage() {
                   Расскажите о регионе, опыте и сервисных возможностях компании. Команда BIO
                   познакомит с условиями партнёрства, обучением и поддержкой проектов.
                 </p>
-                <a className="btn btn-sm" href="/contacts" style={{ marginTop: 8 }}>Стать дилером</a>
+                <a className="btn btn-sm" href="/contacts/" style={{ marginTop: 8 }}>Стать дилером</a>
               </div>
             </div>
           </div>

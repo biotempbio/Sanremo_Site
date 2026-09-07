@@ -3,14 +3,14 @@
 import { useState } from "react";
 
 const NAV = [
-  { href: "/products", label: "Кофемашины" },
-  { href: "/choose", label: "Подобрать" },
-  { href: "/solutions", label: "Решения" },
-  { href: "/compare", label: "Сравнить" },
-  { href: "/dealers", label: "Где купить" },
-  { href: "/service", label: "Сервис и запчасти" },
-  { href: "/cases", label: "Кейсы" },
-  { href: "/about", label: "О Sanremo" },
+  { href: "/products/", label: "Кофемашины" },
+  { href: "/choose/", label: "Подобрать" },
+  { href: "/solutions/", label: "Решения" },
+  { href: "/compare/", label: "Сравнить" },
+  { href: "/dealers/", label: "Где купить" },
+  { href: "/service/", label: "Сервис и запчасти" },
+  { href: "/cases/", label: "Кейсы" },
+  { href: "/about/", label: "О Sanremo" },
 ];
 
 export function Header({ active }: { active?: string }) {
@@ -23,7 +23,7 @@ export function Header({ active }: { active?: string }) {
           <span>
             <a href="tel:+74953633801">8-495-363-3801</a>
             {" · "}
-            <a href="/contacts">Контакты</a>
+            <a href="/contacts/">Контакты</a>
           </span>
         </div>
       </div>
@@ -43,7 +43,7 @@ export function Header({ active }: { active?: string }) {
           </button>
           <nav className={open ? "mainnav open" : "mainnav"}>
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} data-active={active === n.href}>
+              <a key={n.href} href={n.href} data-active={active === n.href || active === n.href.slice(0, -1)}>
                 {n.label}
               </a>
             ))}
@@ -70,30 +70,19 @@ export function Footer() {
           <div>
             <h4>Каталог</h4>
             <nav>
-              <a href="/products">Все кофемашины</a>
-              <a href="/choose">Подобрать по задаче</a>
-              <a href="/solutions">Решения по формату</a>
-              <a href="/compare">Сравнения</a>
-              <a href="/prices">РРЦ и наличие</a>
+              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/solutions/">Решения по формату</a><a href="/compare/">Сравнения</a><a href="/prices/">РРЦ и наличие</a>
             </nav>
           </div>
           <div>
             <h4>Владение</h4>
             <nav>
-              <a href="/dealers">Где купить</a>
-              <a href="/service">Сервис</a>
-              <a href="/parts">Запчасти</a>
-              <a href="/documents">Документы</a>
+              <a href="/dealers/">Где купить</a><a href="/service/">Сервис</a><a href="/parts/">Запчасти</a><a href="/documents/">Документы</a>
             </nav>
           </div>
           <div>
             <h4>Компания</h4>
             <nav>
-              <a href="/about">О Sanremo</a>
-              <a href="/bio">BIO в России</a>
-              <a href="/cases">Кейсы</a>
-              <a href="/news">Новости</a>
-              <a href="/contacts">Контакты</a>
+              <a href="/about/">О Sanremo</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a>
             </nav>
           </div>
           <div>

@@ -124,6 +124,10 @@ const catalog = raw as unknown as Catalog;
 /* ── Актуальность коммерческих данных ─────────────────────────────────────
    Дата берётся из выгрузки BIO. В продакшене её проставляет импорт (ТЗ §18). */
 export const PRICE_DATE = "25 августа 2026";
+export const PRICE_DATE_ISO = "2026-08-25";
+const priceValidUntil = new Date(`${PRICE_DATE_ISO}T00:00:00Z`);
+priceValidUntil.setUTCDate(priceValidUntil.getUTCDate() + 30);
+export const PRICE_VALID_UNTIL = priceValidUntil.toISOString().slice(0, 10);
 /** Медиабиблиотека BIO: в выгрузке лежат относительные пути вида /api/img/{uuid}.jpg. */
 export const IMG_BASE =
   process.env.NEXT_PUBLIC_SANREMO_IMG_BASE ?? "https://portal.holdingbio.ru";
@@ -280,7 +284,7 @@ export const SCENARIOS: Scenario[] = [
     photo: "/photo/official/opera.jpg" },
 ];
 
-export const modelPath = (m: Pick<Model, "slug" | "family">) => `/products/${m.family}/${m.slug}`;
+export const modelPath = (m: Pick<Model, "slug" | "family">) => `/products/${m.family}/${m.slug}/`;
 
 /** Города дилерской сети с числом партнёров. */
 export function dealerCities(): { city: string; count: number }[] {

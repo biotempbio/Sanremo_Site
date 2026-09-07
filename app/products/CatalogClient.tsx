@@ -197,7 +197,7 @@ export default function CatalogClient({
                 </div>
                 <div className="card-body">
                   <p className="eyebrow" style={{ margin: 0 }}>{r.familyName}</p>
-                  <h3><a href={`/products/${r.family}/${r.slug}`}>{r.name}</a></h3>
+                  <h3><a href={`/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>
                   <p className="small" style={{ margin: 0 }}>{r.familyTagline}</p>
                   <div className="chips">
                     <span className="tag">{r.groups.join("/")} гр.</span>

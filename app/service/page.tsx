@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { parts, dealerCities, models } from "@/lib/catalog";
+import { LeadForm } from "../components/LeadForm";
 
 export const metadata: Metadata = {
   title: "Сервис Sanremo в России — монтаж, обслуживание, гарантия",
@@ -34,7 +35,7 @@ export default function ServicePage() {
                 сети и понятный порядок обращения.
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-amber" href="/parts">Найти запчасть</a>
+                <a className="btn btn-amber" href="/parts/">Найти запчасть</a>
                 <a className="btn" href="#request">Сервисное обращение</a>
               </div>
             </div>
@@ -126,7 +127,7 @@ export default function ServicePage() {
                       {[...new Set(m.docs.map((d) => d.type))].join(", ") || "загружается"}
                     </td>
                     <td className="num">{m.docs.length ? m.docs.length : "—"}</td>
-                    <td><a className="link-arrow" href={`/parts?model=${m.slug}`}>Запчасти модели →</a></td>
+                    <td><a className="link-arrow" href={`/parts/?model=${m.slug}`}>Запчасти модели →</a></td>
                   </tr>
                 ))}
               </tbody>
@@ -149,28 +150,27 @@ export default function ServicePage() {
                 <li>Гарантийные обращения принимаются через дилера, продавшего оборудование.</li>
               </ul>
             </div>
-            <form className="grid g2" style={{ alignItems: "start" }}>
+            <LeadForm form="service" className="grid g2" style={{ alignItems: "start" }}>
               <label className="field"><span>Модель</span>
-                <select defaultValue="">
+                <select name="model" defaultValue="" required>
                   <option value="" disabled>Выберите модель</option>
                   {models.map((m) => <option key={m.slug}>{m.name}</option>)}
                 </select>
               </label>
-              <label className="field"><span>Серийный номер</span><input placeholder="например 24-08-13-N34C" /></label>
-              <label className="field"><span>Город</span><input placeholder="Москва" /></label>
-              <label className="field"><span>Контакт</span><input placeholder="телефон или e-mail" /></label>
+              <label className="field"><span>Серийный номер</span><input name="serial" placeholder="например 24-08-13-N34C" /></label>
+              <label className="field"><span>Город</span><input name="city" placeholder="Москва" /></label>
+              <label className="field"><span>Контакт</span><input name="contact" placeholder="телефон или e-mail" required /></label>
               <label className="field" style={{ gridColumn: "1 / -1" }}>
                 <span>Симптом</span>
-                <textarea placeholder="Что происходит, когда началось, что уже проверяли" />
+                <textarea name="symptom" placeholder="Что происходит, когда началось, что уже проверяли" />
               </label>
               <div style={{ gridColumn: "1 / -1" }}>
                 <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                  <input type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
+                  <input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
                   <span>Согласен на обработку персональных данных для рассмотрения обращения</span>
                 </label>
-                <button className="btn btn-solid" type="button" style={{ marginTop: 14 }}>Отправить обращение</button>
               </div>
-            </form>
+            </LeadForm>
           </div>
         </section>
       </main>

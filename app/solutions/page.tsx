@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { SCENARIOS, VOLUME_BANDS, modelBySlug, familyBySlug, money, modelPath } from "@/lib/catalog";
+import { ResponsiveImage } from "../components/ResponsiveImage";
 
 export const metadata: Metadata = {
   title: "Решения по формату бизнеса — какая Sanremo нужна вашей точке",
@@ -46,8 +47,7 @@ export default function SolutionsPage() {
               <div className={`module ${flip ? "b" : "a"}`}>
                 {flip ? null : (
                   <div className="module-photo">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={s.photo} alt="" />
+                    <ResponsiveImage src={s.photo} alt={`Кофемашина Sanremo для сценария «${s.title}»`} width={1536} height={864} sizes="(max-width: 900px) 100vw, 50vw" />
                   </div>
                 )}
                 <div className="module-copy">
@@ -66,14 +66,13 @@ export default function SolutionsPage() {
                     <Pick label="Больше возможностей" m={up} />
                   </div>
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    <a className="btn btn-solid" href="/choose">Уточнить подбор</a>
+                    <a className="btn btn-solid" href="/choose/">Уточнить подбор</a>
                     {main && <a className="btn" href={modelPath(main)}>Карточка {main.name}</a>}
                   </div>
                 </div>
                 {flip ? (
                   <div className="module-photo flip">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={s.photo} alt="" />
+                    <ResponsiveImage src={s.photo} alt={`Кофемашина Sanremo для сценария «${s.title}»`} width={1536} height={864} sizes="(max-width: 900px) 100vw, 50vw" />
                   </div>
                 ) : null}
               </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
+import { ResponsiveImage } from "../components/ResponsiveImage";
 import { Crumbs } from "../components/Bits";
 import { models, liveSkus, parts, families } from "@/lib/catalog";
 
@@ -32,8 +33,7 @@ export default function AboutPage() {
             </div>
           </div>
           <figure className="about-hero-visual">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/photo/sanremo-house-3.webp" alt="Пространство Sanremo с профессиональными кофемашинами" />
+            <ResponsiveImage src="/photo/sanremo-house-3.webp" alt="Пространство Sanremo с профессиональными кофемашинами" width={1029} height={1646} priority sizes="(max-width: 900px) 100vw, 52vw" />
             <figcaption>Sanremo Coffee Machines · Италия</figcaption>
           </figure>
         </section>
@@ -128,8 +128,8 @@ export default function AboutPage() {
                 <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-solid" href="/choose">Подобрать машину</a>
-                <a className="btn" href="/dealers">Найти дилера</a>
+                <a className="btn btn-solid" href="/choose/">Подобрать машину</a>
+                <a className="btn" href="/dealers/">Найти дилера</a>
               </div>
             </div>
           </div>

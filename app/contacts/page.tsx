@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { models, dealerCities } from "@/lib/catalog";
+import { LeadForm } from "../components/LeadForm";
 
 export const metadata: Metadata = {
   title: "Контакты BIO — официального дистрибьютора Sanremo в России",
@@ -49,45 +50,44 @@ export default function ContactsPage() {
           <div className="grid g2" style={{ alignItems: "start" }}>
             <div>
               <h2 style={{ marginBottom: 20 }}>Запрос конфигурации</h2>
-              <form className="grid g2" style={{ alignItems: "start" }}>
-                <label className="field"><span>Имя</span><input placeholder="Как к вам обращаться" /></label>
-                <label className="field"><span>Телефон или e-mail</span><input placeholder="для ответа" /></label>
-                <label className="field"><span>Город или регион</span><input placeholder="Москва" /></label>
+              <LeadForm form="contacts" className="grid g2" style={{ alignItems: "start" }}>
+                <label className="field"><span>Имя</span><input name="name" placeholder="Как к вам обращаться" required /></label>
+                <label className="field"><span>Телефон или e-mail</span><input name="contact" placeholder="для ответа" required /></label>
+                <label className="field"><span>Город или регион</span><input name="city" placeholder="Москва" /></label>
                 <label className="field"><span>Формат</span>
-                  <select defaultValue="">
+                  <select name="format" defaultValue="">
                     <option value="" disabled>Выберите формат</option>
                     <option>Кофейня</option><option>Сеть</option><option>Ресторан / пекарня</option>
                     <option>Отель / фуд-корнер</option><option>Specialty</option><option>Обжарщик / лаборатория</option>
                   </select>
                 </label>
                 <label className="field"><span>Интересующая модель</span>
-                  <select defaultValue="">
+                  <select name="model" defaultValue="">
                     <option value="">Ещё выбираю</option>
                     {models.map((m) => <option key={m.slug}>{m.name}</option>)}
                   </select>
                 </label>
                 <label className="field"><span>Срок запуска</span>
-                  <select defaultValue="">
+                  <select name="timeline" defaultValue="">
                     <option value="" disabled>Выберите срок</option>
                     <option>В течение месяца</option><option>1–3 месяца</option><option>Более 3 месяцев</option>
                   </select>
                 </label>
                 <label className="field" style={{ gridColumn: "1 / -1" }}>
                   <span>Задача</span>
-                  <textarea placeholder="Поток, меню, число бариста, ограничения площадки" />
+                  <textarea name="task" placeholder="Поток, меню, число бариста, ограничения площадки" />
                 </label>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                    <input type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
+                    <input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
                     <span>Согласен на обработку персональных данных</span>
                   </label>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start", marginTop: 8 }}>
-                    <input type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} />
+                    <input name="newsletter" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} />
                     <span>Хочу получать новости о продуктах и обучении (необязательно)</span>
                   </label>
-                  <button className="btn btn-solid" type="button" style={{ marginTop: 14 }}>Отправить запрос</button>
                 </div>
-              </form>
+              </LeadForm>
             </div>
 
             <div>
@@ -113,7 +113,7 @@ export default function ContactsPage() {
                   </p>
                   <div className="chips">
                     {dealerCities().slice(0, 5).map((c) => (
-                      <a className="tag" key={c.city} href={`/dealers?city=${encodeURIComponent(c.city)}`} style={{ textDecoration: "none" }}>
+                      <a className="tag" key={c.city} href={`/dealers/?city=${encodeURIComponent(c.city)}`} style={{ textDecoration: "none" }}>
                         {c.city}
                       </a>
                     ))}
