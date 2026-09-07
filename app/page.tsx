@@ -1,20 +1,11 @@
-import type { Metadata } from "next";
-import { Header, Footer } from "./components/Chrome";
-import { ResponsiveImage } from "./components/ResponsiveImage";
-import { CATALOG_LINEUP, PRICE_DATE, catalogModels, familyStockCount, families, money, parts } from "@/lib/catalog";
-
-export const metadata: Metadata = { title: "Sanremo — профессиональные кофемашины в России", description: "Шесть профессиональных линеек Sanremo, официальные поставки, РРЦ, наличие, сервис и дилерская сеть по всей России.", alternates: { canonical: "/" } };
-const cases = [["Baggins Coffee","Кофейная сеть и устойчивый темп ежедневной работы","/photo/cases-ru/baggins.jpg"],["Кофефест","Sanremo в центре профессионального кофейного сообщества","/photo/cases-ru/cofefest.webp"],["Правда Кофе","Оборудование для масштабируемой городской сети","/photo/cases-ru/pravda-coffee.jpg"]];
-
 export default function Page() {
-  const lines = CATALOG_LINEUP.map((line) => ({ ...line, model: catalogModels.find((m) => m.slug === line.slug) })).filter((line) => line.model);
-  const stock = families.reduce((sum, family) => sum + familyStockCount(family.slug), 0);
-  return <><Header /><main>
-    <section className="home-hero-native wrap"><div className="home-hero-copy-native"><p className="eyebrow">Профессиональные кофемашины из Италии</p><h1>Sanremo. Центр вашего кофейного проекта</h1><p className="home-statement">Вкус, ритм работы и впечатление гостя</p><p className="lead">Шесть профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. Официальные поставки и дилерская сеть по всей России. Сравните модели или воспользуйтесь подборщиком Sanremo — он предложит варианты под формат, поток и меню.</p><div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать машину</a><a className="btn" href="/products/">Смотреть каталог</a></div></div><figure className="home-hero-image"><ResponsiveImage src="/photo/home-hero-cafe-racer-v2.jpg" alt="Кофемашина Sanremo Café Racer в светлом интерьере кофейни" width={1920} height={1080} priority sizes="(max-width: 900px) 100vw, 50vw" /></figure></section>
-    <section className="home-trust" aria-label="Преимущества официальной дистрибуции"><div className="wrap">{[["Официальная дистрибуция","Sanremo в России"],["РРЦ",`обновлено ${PRICE_DATE}`],["Склад в Москве",`${stock} машин`],["Запчасти",`${parts.length} артикулов ЗИП`],["Дилерская сеть","по всей России"]].map(([a,b])=><div key={a}><b>{a}</b><span>{b}</span></div>)}</div></section>
-    <section className="section wrap"><div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Машина под формат и рабочий ритм</h2></div><div><p className="lead">Подборщик сопоставит поток, меню, рабочее место и уровень контроля — и покажет подходящие линейки без звонка менеджеру.</p><a className="link-arrow" href="/choose/">Ответить на шесть вопросов →</a></div></div><div className="grid g3">{[["Первая кофейня","Предсказуемый старт и разумный бюджет","/solutions/#first-cafe"],["Высокий поток","Стабильность в пиковые часы","/solutions/#flow"],["Specialty и лаборатория","Контроль рецепта и работа с разными сортами","/solutions/#specialty"]].map(([a,b,c])=><a className="home-task" href={c} key={a}><span>{b}</span><h3>{a}</h3><b>Смотреть решение →</b></a>)}</div></section>
-    <section className="section bg-cream"><div className="wrap"><div className="sec-head"><div><p className="eyebrow">Линейка 2026</p><h2>Профессиональные кофемашины Sanremo</h2></div><p className="small">РРЦ и остатки берутся из единого каталога BIO. Данные обновлены {PRICE_DATE}.</p></div><div className="home-products">{lines.map(({model,image,label})=>model&&<article className="card" key={model.slug}><a className="home-product-image" href={`/products/${model.family}/${model.slug}/`}><ResponsiveImage src={image} alt={`Кофемашина Sanremo ${label}`} width={1536} height={864} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" /></a><div className="card-body"><p className="eyebrow">{model.groupsAvailable.join("–")} группы</p><h3>{label}</h3><p className="small">РРЦ от {money(model.priceFrom)} · {model.inStockCount ? `${model.inStockCount} шт. на складе` : "под заказ"}</p><a className="link-arrow" href={`/products/${model.family}/${model.slug}/`}>Открыть линейку →</a></div></article>)}</div></div></section>
-    <section className="section wrap"><div className="sec-head"><div><p className="eyebrow">Sanremo в работе</p><h2>Проекты в России</h2></div><a className="link-arrow" href="/cases/">Смотреть все кейсы →</a></div><div className="grid g3">{cases.map(([a,b,c])=><article className="home-case" key={a}><ResponsiveImage src={c} alt={`${a}: кофейный проект с оборудованием Sanremo`} width={1200} height={800} sizes="(max-width: 620px) 100vw, 33vw" /><div><h3>{a}</h3><p className="small">{b}</p></div></article>)}</div></section>
-    <section className="section bg-petrol home-service"><div className="wrap"><div><p className="eyebrow">Владение без неопределённости</p><h2>Сервис, запчасти и дилеры</h2></div><div><p>Официальная инфраструктура Sanremo в России: подбор запчастей по совместимости, сервисная поддержка и дилерская сеть по всей стране.</p><div className="home-actions"><a className="btn btn-amber" href="/parts/">Найти запчасть</a><a className="btn btn-light" href="/dealers/">Выбрать регион</a></div></div></div></section>
-  </main><Footer /></>;
+  return (
+    <main className="site-shell">
+      <iframe
+        className="site-frame"
+        src="/sanremo-russia.html"
+        title="Sanremo Russia — профессиональные кофемашины"
+      />
+    </main>
+  );
 }
