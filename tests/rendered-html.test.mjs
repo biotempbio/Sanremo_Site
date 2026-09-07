@@ -4,13 +4,13 @@ import test from "node:test";
 
 const read = (path) => readFile(new URL(`../out/${path}`, import.meta.url), "utf8");
 
-test("home is native, semantic and uses responsive images", async () => {
-  const html = await read("index.html");
-  assert.match(html, /<h1>Sanremo\. Центр вашего кофейного проекта<\/h1>/);
-  assert.match(html, /<h2>Профессиональные кофемашины Sanremo<\/h2>/);
-  assert.match(html, /<picture>/);
-  assert.match(html, /-w480\.webp 480w/);
-  assert.doesNotMatch(html, /<iframe|sanremo-russia\.html/);
+test("home preserves the approved branded presentation", async () => {
+  const [shell, home] = await Promise.all([read("index.html"), read("sanremo-russia.html")]);
+  assert.match(shell, /<iframe[^>]+src="\/sanremo-russia\.html"/);
+  assert.match(home, /Sanremo\. Центр вашего кофейного проекта/);
+  assert.match(home, /home-hero-cafe-racer-v2\.jpg/);
+  assert.match(home, /sanremo-official-black-v4\.svg/);
+  assert.match(home, /font-family:\s*'Oswald Web'/);
 });
 
 test("SEO output includes canonical, organization, breadcrumbs and families", async () => {
