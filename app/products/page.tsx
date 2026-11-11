@@ -95,7 +95,7 @@ export default function ProductsPage() {
         <section className="wrap section-tight" aria-labelledby="discontinued-models">
           <div className="callout">
             <h2 id="discontinued-models" style={{ fontSize: "clamp(24px,2.4vw,34px)", marginBottom: 12 }}>Модели, снятые с поставки</h2>
-            <p style={{ margin: 0 }}>Napoli, Cube, Verona, Verona RS, Torino. По вопросам обслуживания и совместимых комплектующих обратитесь в <a href="/service/">сервис</a> или <a href="/parts/">раздел запчастей</a>.</p>
+            <p style={{ margin: 0 }}><a href="/products/napoli/">Napoli</a>, <a href="/products/cube/">Cube</a>, <a href="/products/verona/">Verona</a>, <a href="/products/verona-rs/">Verona RS</a>, <a href="/products/torino/">Torino</a>. На архивных страницах — сервис, поиск запчастей и подбор актуальной замены.</p>
           </div>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
