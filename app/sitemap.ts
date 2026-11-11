@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://staging.sanremomachines.ru";
-  const routes = ["", "/about", "/bio", "/cases", "/choose", "/compare", "/contacts", "/dealers", "/documents", "/news", "/parts", "/prices", "/privacy", "/products", "/products/grinders", "/service", "/solutions"];
+  const routes = ["", "/about", "/bio", "/cases", "/choose", "/compare", "/contacts", "/dealers", "/documents", "/news", "/parts", "/prices", "/privacy", "/products", "/products/grinders", "/products/x-one", "/service", "/solutions"];
   return [
     ...routes.map((route) => ({ url: `${siteUrl}${route}/`, lastModified: new Date() })),
     ...families.map((family) => ({ url: `${siteUrl}/products/${family.slug}/`, lastModified: new Date() })),

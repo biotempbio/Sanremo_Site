@@ -37,7 +37,7 @@
 | `/products/zoe/` | `/products/zoe/` | Семейство Zoe |
 | `/products/zoe-new/` | `/products/zoe/` | Актуальное семейство Zoe |
 | `/products/grinders/` | `/products/grinders/` | Новый раздел кофемолок; X-One публикуется с характеристиками, РРЦ и статусом из BIO |
-| `/products/x-one/` | `/products/grinders/` | X-One — действующая карточка внутри раздела кофемолок |
+| `/products/x-one/` | `/products/x-one/` | Сохранённый URL действующей карточки X-One; редирект не нужен |
 | `/products/napoli/` | `/products/` | Линейка снята с поставки; сервис и ЗИП доступны через каталог |
 | `/products/cube/` | `/products/` | Линейка снята с поставки; сервис и ЗИП доступны через каталог |
 | `/products/verona/` | `/products/` | Линейка снята с поставки; сервис и ЗИП доступны через каталог |

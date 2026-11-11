@@ -58,6 +58,7 @@ export default function GrindersPage() {
                   <a className="btn btn-solid" href="/contacts/?type=model" style={{ marginTop: 18 }}>Запросить поставку</a>
                 </div>
               </div>
+              <a className="link-arrow" href="/products/x-one/" style={{ display: "inline-block", marginTop: 22 }}>Открыть карточку X-One</a>
             </div>
           </div>
         </div>
