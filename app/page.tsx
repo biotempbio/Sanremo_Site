@@ -17,16 +17,25 @@ const tasks = [
 /** Краткие описания линеек для главной. Длинные тексты выгрузки BIO не выводим. */
 const lineupDescriptions: Record<string, string> = {
   "zoe-competition": "Двухгруппная машина для ежедневной работы кофейни. В каталоге — доступные исполнения, цены и наличие.",
-  d8: "Платформа с одной, двумя или тремя группами. D8 PRO добавляет расширенное управление приготовлением; объём бойлера зависит от конфигурации.",
-  "f18-sb": "Двухгруппная машина с одним бойлером. В карточке — параметры, исполнения и доступность F18 Single Boiler.",
-  "f18-mb": "F18 MB с двумя или тремя группами. Сравните конфигурации по мощности, объёму бойлеров и оснащению.",
-  "cafe-racer": "Две или три группы, несколько вариантов оформления. Для каждой конфигурации указаны характеристики и цены.",
-  opera: "Двухгруппная модель для работы с рецептом. Исполнения и технические параметры собраны в карточке.",
-  you: "Компактная одногруппная машина. В карточке — варианты оформления, технические данные и наличие.",
+  d8: "D8 выпускается с одной, двумя или тремя группами и PID-контролем. В D8 PRO температуру групп можно настраивать раздельно.",
+  "f18-sb": "Две группы и один бойлер объёмом 12 л. Для кофейни с постоянным потоком эспрессо и молочных напитков.",
+  "f18-mb": "Две или три группы, мультибойлерная система и отдельная настройка температуры для работы с разными рецептами.",
+  "cafe-racer": "Две или три группы, бойлеры объёмом 10 или 13 л и несколько вариантов оформления рабочей станции.",
+  opera: "Две группы, бойлер объёмом 11,8 л и управление приготовлением для работы с рецептами.",
+  you: "Одна группа и компактный корпус. YOU позволяет сохранять профили экстракции и управлять ими во время приготовления.",
 };
 
+function TrustIcon({ kind }: { kind: "warranty" | "warehouse" | "leasing" | "service" }) {
+  const paths = {
+    warranty: <><path d="M12 2.5 20 6v6c0 5-3.2 8-8 9.5C7.2 20 4 17 4 12V6z" /><path d="m8.5 12 2.4 2.4 4.8-4.8" /></>,
+    warehouse: <><path d="M3 9 12 4l9 5v11H3z" /><path d="M8 20v-7h8v7M3 9h18" /></>,
+    leasing: <><path d="M4 7h14a3 3 0 0 1 3 3v9H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2z" /><path d="M4 7V5a2 2 0 0 1 2-2h12M17 14h2" /></>,
+    service: <><circle cx="7" cy="7" r="2" /><circle cx="17" cy="7" r="2" /><path d="M3 19v-3a4 4 0 0 1 8 0v3M13 19v-3a4 4 0 0 1 8 0v3" /></>,
+  };
+  return <svg className="home-trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[kind]}</svg>;
+}
+
 export default function HomePage() {
-  const firstPrice = Math.min(...catalogModels.map((model) => model.priceFrom).filter((price): price is number => price !== null));
   const lineup = CATALOG_LINEUP.map((line) => {
     const model = catalogModels.find((item) => item.slug === line.slug);
     return model ? { ...line, model, family: familyBySlug(model.family) } : null;
@@ -48,14 +57,12 @@ export default function HomePage() {
         </figure>
       </section>
 
-      <section className="home-trust" aria-label="Sanremo в России"><div className="wrap">
-        <div><b>{lineup.length} линеек Sanremo</b><span>в актуальном российском каталоге</span></div>
-        <div><b>от {money(firstPrice)}</b><span>начальная цена линейки</span></div>
-        <div><b>Точные характеристики</b><span>в карточке каждой версии</span></div>
-        <div><b>Сервис и запчасти</b><span>для поддержки оборудования</span></div>
-        <div><b>Дилерская сеть</b><span>по всей России</span></div>
+      <section className="home-trust" aria-label="Покупка и поддержка Sanremo"><div className="wrap">
+        <div><TrustIcon kind="warranty" /><b>Гарантия 12 месяцев</b></div>
+        <div><TrustIcon kind="warehouse" /><b>Склад в Москве<br />6–8 недель под заказ</b></div>
+        <div><TrustIcon kind="leasing" /><b>Лизинг</b></div>
+        <div><TrustIcon kind="service" /><b>Сервис и дилеры<br />по всей России</b></div>
       </div></section>
-      <div className="wrap home-trust-details" aria-label="Поставка и поддержка"><span>Гарантия 12 месяцев с даты продажи</span><span>Под заказ — 6–8 недель из Италии</span><span>Лизинг через лизинговые компании</span><span>Дилеры и сервис по всей России</span></div>
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>

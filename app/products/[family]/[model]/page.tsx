@@ -20,6 +20,7 @@ import {
   money,
   moneyPrecise,
   kw,
+  imgUrl,
   officialImageForModel,
   catalogModels,
   stockUnitsOfModel,
@@ -70,7 +71,9 @@ export default async function ModelPage({ params }: Props) {
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
     groupHeight: s.groupHeight, color: s.color, colorHex: s.colorHex, edition: s.edition,
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
-    power: s.power, voltage: s.voltage, image: officialImageForModel(m.slug),
+    // Изображения F18 SB из выгрузки показывают три группы при двух в данных.
+    // До получения точных фото используем схему выбранной версии.
+    power: s.power, voltage: s.voltage, image: m.slug === "f18-sb" ? null : imgUrl(s.image),
   }));
 
   const productSchema = {

@@ -25,8 +25,8 @@ export function Crumbs({ items }: { items: { href?: string; label: string }[] })
   return (
     <><nav className="crumbs wrap" aria-label="Хлебные крошки">
       {items.map((i, n) => (
-        <span key={n}>
-          {n > 0 ? <span style={{ margin: "0 8px", opacity: 0.5 }}>/</span> : null}
+        <span className="crumb-item" key={n}>
+          {n > 0 ? <span className="crumb-separator" aria-hidden="true">/</span> : null}
           {i.href ? <a href={i.href}>{i.label}</a> : <span>{i.label}</span>}
         </span>
       ))}

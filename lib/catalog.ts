@@ -151,9 +151,9 @@ export const CATALOG_LINEUP = [
   { slug: "d8", label: "D8 / D8 PRO", image: "/photo/official/d8-pro.jpg" },
   { slug: "f18-sb", label: "F18 Single Boiler", image: "/photo/official/f18-single-boiler.jpg" },
   { slug: "f18-mb", label: "F18", image: "/photo/official/f18.jpg" },
-  { slug: "cafe-racer", label: "Cafe Racer", image: "/photo/official/cafe-racer.jpg" },
+  { slug: "cafe-racer", label: "Café Racer", image: "/photo/official/cafe-racer.jpg" },
   { slug: "opera", label: "Opera", image: "/photo/official/opera.jpg" },
-  { slug: "you", label: "You", image: "/photo/official/you.png" },
+  { slug: "you", label: "YOU", image: "/photo/official/you.png" },
 ] as const;
 export const catalogModels = CATALOG_LINEUP
   .map((line) => models.find((model) => model.slug === line.slug))

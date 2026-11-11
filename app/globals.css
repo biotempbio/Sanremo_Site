@@ -317,6 +317,8 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 
 /* хлебные крошки */
 .crumbs { font-family: var(--sans); font-size: 12px; color: var(--muted); padding-block: 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+.crumb-item { display: inline-flex; align-items: baseline; white-space: nowrap; line-height: 1.4; }
+.crumb-separator { opacity: .5; margin-right: 8px; }
 .crumbs a { text-decoration: none; }
 .crumbs a:hover { text-decoration: underline; }
 
@@ -607,6 +609,8 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .faq-page .faq-jump a:first-child{padding-left:0}.faq-page .faq-jump a:last-child{border-right:0}
 .faq-page .faq-jump span{font-family:var(--mono);font-size:10px;color:var(--muted)}
 .faq-page .faq-groups{max-width:900px;margin:0 auto}
+.faq-page .guide-intro{max-width:900px}
+.faq-page .guide-intro .lead{margin-left:0;margin-right:0}
 .faq-page .guide-faq{max-width:none;margin-top:64px}
 .faq-page .guide-faq h2{margin-bottom:16px}
 .faq-page .guide-faq details{padding:0;border-top:1px solid var(--line)}
@@ -668,7 +672,7 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 @media(max-width:900px){.home-hero-native{grid-template-columns:minmax(0,1fr)}.home-hero-native>*{min-width:0}}
 @media(max-width:380px){.home-hero-copy-native h1{font-size:40px}}
 @media(max-width:560px){.chip,.dealers a,.config-chip{min-height:44px;display:inline-flex;align-items:center}}
-@media(max-width:560px){.footer nav a{min-height:44px;display:flex;align-items:center}.brand{min-height:44px;display:flex;align-items:center}.crumbs a{min-height:40px;display:inline-flex;align-items:center}}
+@media(max-width:560px){.footer nav a{min-height:44px;display:flex;align-items:center}.brand{min-height:44px;display:flex;align-items:center}.crumbs a{min-height:40px;display:inline-flex;align-items:center}.crumbs .crumb-item{align-items:center}}
 @media(max-width:620px){
   .g2,.g3,.g4{grid-template-columns:minmax(0,1fr)}
   .lead-submit{width:100%}
@@ -808,3 +812,12 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .family-trust-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;margin:18px 0 0;padding:15px 0 0;border-top:1px solid var(--line);list-style:none;font-family:var(--sans);font-size:12px;line-height:1.5;color:var(--ink-2)}
 .family-trust-details li::before{content:"•";margin-right:8px;color:var(--petrol)}
 @media(max-width:620px){.family-trust-details{grid-template-columns:1fr}.home-trust-details{gap:8px 14px}}
+
+/* Приёмка: один ясный ритм шапки, крошек и блока поддержки. */
+.home-trust .wrap{grid-template-columns:repeat(4,minmax(0,1fr))}
+.home-trust .wrap>div{display:flex;align-items:center;gap:16px;min-height:92px;padding:18px 22px}
+.home-trust b{font-size:14px;line-height:1.35;font-weight:600}
+.home-trust-icon{width:30px;height:30px;flex:none;color:var(--forest)}
+@media(max-width:900px){.home-trust .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.home-trust .wrap>div:nth-child(2){border-right:0}}
+@media(max-width:620px){.home-trust .wrap{grid-template-columns:1fr 1fr}.home-trust .wrap>div{min-height:96px;gap:10px;padding:14px 10px;align-items:flex-start;flex-direction:column;border-bottom:1px solid var(--line)}.home-trust .wrap>div:nth-child(odd){border-right:1px solid var(--line)}.home-trust .wrap>div:nth-last-child(-n+2){border-bottom:0}.home-trust b{font-size:12px}.home-trust-icon{width:23px;height:23px}.home-task{min-height:0}.home-task b{margin-top:0;padding-top:18px}}
+@media(max-width:390px){.topbar .wrap{justify-content:center;min-height:36px;gap:0;padding-inline:12px}.topbar-message{display:none}.topbar-contact{white-space:nowrap}.topbar-contact a{white-space:nowrap}}

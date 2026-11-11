@@ -21,7 +21,7 @@ export function Header({ active }: { active?: string }) {
     <>
       <div className="topbar">
         <div className="wrap">
-          <span>Официальный дистрибьютор Sanremo в России — компания BIO</span>
+          <span className="topbar-message">Официальный дистрибьютор Sanremo в России — компания BIO</span>
           <span className="topbar-contact">
             <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
             <a href="tel:+74953633801">8 (495) 363-38-01</a>
