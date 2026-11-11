@@ -147,7 +147,7 @@ export const analogs = catalog.analogs;
 
 /** Согласованная последовательность продуктовых линеек в российском каталоге. */
 export const CATALOG_LINEUP = [
-  { slug: "zoe-competition", label: "ZOE Competition", image: "/photo/official/zoe-competition.jpg" },
+  { slug: "zoe-competition", label: "Zoe Competition", image: "/photo/official/zoe-competition.jpg" },
   { slug: "d8", label: "D8 / D8 PRO", image: "/photo/official/d8-pro.jpg" },
   { slug: "f18-sb", label: "F18 Single Boiler", image: "/photo/official/f18-single-boiler.jpg" },
   { slug: "f18-mb", label: "F18", image: "/photo/official/f18.jpg" },
@@ -256,7 +256,7 @@ export interface Scenario {
 export const SCENARIOS: Scenario[] = [
   { id: "first-cafe", title: "Первая кофейня", question: "Ограниченный CAPEX, нужен предсказуемый старт",
     main: "zoe-competition", alt: null, upgrade: "f18-sb",
-    logic: "ZOE Competition — рациональная база для старта. F18 Single Boiler даёт запас на рост потока.",
+    logic: "Zoe Competition — рациональная база для старта. F18 Single Boiler даёт запас на рост потока.",
     photo: "/photo/official/zoe-competition.jpg" },
   { id: "bakery", title: "Пекарня и ресторан", question: "Меню без сложного обучения персонала",
     main: "zoe-competition", alt: null, upgrade: "f18-sb",

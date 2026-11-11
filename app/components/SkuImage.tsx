@@ -35,13 +35,6 @@ export default function SkuImage({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {src.startsWith("/") ? <ResponsiveImage src={src} alt={alt} width={1536} height={864} style={{ objectFit: fit }} /> : <img src={src} alt={alt} width="1536" height="864" loading="lazy" decoding="async" onError={() => setFailed(true)} style={{ objectFit: fit }} />}
       {label ? <figcaption>{label}</figcaption> : null}
-      <style>{`
-        .sku-photo { position: relative; width: 100%; height: 100%; background: #fff; }
-        .sku-photo img { width: 100%; height: 100%; }
-        .sku-photo figcaption { position: absolute; left: 12px; bottom: 10px;
-          font-family: var(--sans); font-size: 10px; letter-spacing: .1em;
-          text-transform: uppercase; color: var(--muted); }
-      `}</style>
     </figure>
   );
 }

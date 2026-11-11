@@ -650,3 +650,6 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .module-photo picture,
 .about-hero-media picture,
 .sku-photo picture { display: contents; }
+.sku-photo { position: relative; width: 100%; height: 100%; background: #fff; }
+.sku-photo img { width: 100%; height: 100%; }
+.sku-photo figcaption { position: absolute; left: 12px; bottom: 10px; font-family: var(--sans); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

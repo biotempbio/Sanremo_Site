@@ -221,8 +221,8 @@ export default function CatalogClient({
                       <i className={`dot ${r.stockUnits ? "st-in_stock" : "st-reserved"}`} style={{ marginTop: 6 }} />
                       {r.stockUnits ? (
                         <span>
-                          <b>На складе в Москве {r.stockUnits} {machineWord(r.stockUnits)}</b>
-                          <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small>
+                          <b>{r.stockUnits >= 3 ? `На складе в Москве ${r.stockUnits} ${machineWord(r.stockUnits)}` : "На складе в Москве"}</b>
+                          {r.stockUnits >= 3 ? <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small> : null}
                         </span>
                       ) : "Сейчас нет на складе в Москве"}
                     </span>

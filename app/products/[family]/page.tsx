@@ -112,7 +112,7 @@ export default async function FamilyPage({ params }: Props) {
                       </div>
                       <span className="stock-label">
                         <i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-                        {m.inStockCount ? `${m.inStockCount} на складе в Москве` : "Под заказ"}
+                        {m.inStockCount ? "На складе в Москве" : "Под заказ"}
                       </span>
                     </div>
                   </div>

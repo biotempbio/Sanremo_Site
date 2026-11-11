@@ -83,7 +83,7 @@ export default function ProductsPage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                Шесть основных линеек. Для каждой конфигурации —
+                {CATALOG_LINEUP.length} основных линеек. Для каждой конфигурации —
                 рекомендованная розничная цена, доступные исполнения и складской статус.
               </p>
             </div>
@@ -91,6 +91,12 @@ export default function ProductsPage() {
         </section>
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
+        </section>
+        <section className="wrap section-tight" aria-labelledby="discontinued-models">
+          <div className="callout">
+            <h2 id="discontinued-models" style={{ fontSize: "clamp(24px,2.4vw,34px)", marginBottom: 12 }}>Модели, снятые с поставки</h2>
+            <p style={{ margin: 0 }}>Napoli, Cube, Verona, Verona RS, Torino. По вопросам обслуживания и совместимых комплектующих обратитесь в <a href="/service/">сервис</a> или <a href="/parts/">раздел запчастей</a>.</p>
+          </div>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
       </main>

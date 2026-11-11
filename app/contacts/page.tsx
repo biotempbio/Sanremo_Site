@@ -80,7 +80,7 @@ export default function ContactsPage() {
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                     <input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
-                    <span>Согласен на обработку персональных данных</span>
+                    <span>Согласен на <a href="/privacy/">обработку персональных данных</a></span>
                   </label>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start", marginTop: 8 }}>
                     <input name="newsletter" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} />
@@ -97,7 +97,7 @@ export default function ContactsPage() {
                   <h3>Официальный дистрибьютор Sanremo в России</h3>
                   <p style={{ margin: 0 }}>
                     <b style={{ fontFamily: "var(--sans)", fontSize: 21 }}>
-                      <a href="tel:+74953633801" style={{ textDecoration: "none" }}>8-495-363-3801</a>
+                      <a href="tel:+74953633801" style={{ textDecoration: "none" }}>8 (495) 363-38-01</a>
                     </b>
                   </p>
                   <p className="small" style={{ margin: 0 }}>

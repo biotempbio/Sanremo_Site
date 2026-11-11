@@ -23,7 +23,7 @@ export function Header({ active }: { active?: string }) {
           <span>Официальный дистрибьютор Sanremo в России — компания BIO</span>
           <span className="topbar-contact">
             <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
-            <a href="tel:+74953633801">8-495-363-3801</a>
+            <a href="tel:+74953633801">8 (495) 363-38-01</a>
           </span>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function Footer() {
           <div>
             <h4>Компания</h4>
             <nav>
-              <a href="/about/">О Sanremo</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a>
+              <a href="/about/">О Sanremo</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a><a href="/privacy/">Политика обработки данных</a>
             </nav>
           </div>
           <div>
@@ -93,7 +93,7 @@ export function Footer() {
               <br />
               БЦ «Геолог», 4 этаж
               <br />
-              <a href="tel:+74953633801">8-495-363-3801</a>
+              <a href="tel:+74953633801">8 (495) 363-38-01</a>
               <br />
               Москва
               <br />

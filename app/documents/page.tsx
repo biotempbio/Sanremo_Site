@@ -4,7 +4,7 @@ import { Crumbs } from "../components/Bits";
 import { models } from "@/lib/catalog";
 
 const BROCHURES = [
-  { model: "ZOE Competition", name: "Брошюра ZOE 2026", href: "/documents/brochures/zoe-2026-ru.pdf" },
+  { model: "Zoe Competition", name: "Брошюра Zoe 2026", href: "/documents/brochures/zoe-2026-ru.pdf" },
   { model: "F18 Single Boiler", name: "Брошюра F18 Single Boiler", href: "/documents/brochures/f18-single-boiler.pdf" },
   { model: "F18", name: "Брошюра F18", href: "/documents/brochures/f18.pdf" },
   { model: "Cafe Racer", name: "Брошюра Cafe Racer", href: "/documents/brochures/cafe-racer.pdf" },
