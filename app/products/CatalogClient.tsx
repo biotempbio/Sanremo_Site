@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import SkuImage from "../components/SkuImage";
+import { formatPrice } from "@/lib/format";
 
 export interface CatalogRow {
   slug: string;
@@ -214,7 +215,7 @@ export default function CatalogClient({
                   <div className="card-foot">
                     <div>
                       <span className="price-from">РРЦ от</span>
-                      <span className="price num">{r.priceFrom?.toLocaleString("ru-RU")} ₽</span>
+                      <span className="price num">{formatPrice(r.priceFrom)}</span>
                     </div>
                     <span className="stock-label" style={{ alignItems: "flex-start" }}>
                       <i className={`dot ${r.stockUnits ? "st-in_stock" : "st-reserved"}`} style={{ marginTop: 6 }} />

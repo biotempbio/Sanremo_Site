@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { formatPrice } from "@/lib/format";
 
 export interface PartRow {
   code: string;
@@ -137,7 +138,7 @@ export default function PartsClient({
                         {p.models.length > 4 ? ` +${p.models.length - 4}` : ""}
                       </td>
                       <td className="num">
-                        {p.rrp ? `${p.rrp.toLocaleString("ru-RU", { maximumFractionDigits: 2 })} ₽` : "по запросу"}
+                        {p.rrp ? formatPrice(p.rrp) : "по запросу"}
                       </td>
                       <td>
                         <span className="stock-label">

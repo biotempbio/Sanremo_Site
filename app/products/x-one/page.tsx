@@ -11,14 +11,14 @@ export const metadata: Metadata = {
 };
 
 const features = [
-  ["Жернова", "плоские вертикальные, 98 мм, со специальным покрытием"],
-  ["Бункеры для зерна", "2 × 1 200 г"],
-  ["Весовой бункер", "250 г"],
+  ["Жернова", "плоские вертикальные, 98\u00a0мм, со специальным покрытием"],
+  ["Бункеры для зерна", "2 × 1\u00a0000\u00a0г"],
+  ["Весовой бункер", "250\u00a0г"],
   ["Дозирование", "запатентованная система взвешивания зерна перед помолом"],
   ["Управление", "сенсорный дисплей, до 12 рецептов помола"],
   ["Скорости", "1 000 / 1 200 / 1 400 об/мин и настраиваемая 800–1 400 об/мин"],
   ["Стабильность работы", "система охлаждения и инверторный мотор"],
-  ["Подключение", "220 В, 1,65 кВт"],
+  ["Подключение", "220\u00a0В, 1,65\u00a0кВт"],
 ];
 
 export default function XOnePage() {
@@ -51,6 +51,14 @@ export default function XOnePage() {
       <section className="wrap section-tight"><div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>РРЦ и статус поставки</h2></div></div><div className="table-scroll"><table className="data"><thead><tr><th>Артикул BIO</th><th>Исполнение</th><th className="num">РРЦ</th><th>Статус</th></tr></thead><tbody>{entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{money(item.rrp)}</td><td><Stock status={item.availability} /></td></tr>)}</tbody></table></div></section>
 
       <section className="bg-gray"><div className="wrap section"><div className="sec-head"><div><p className="eyebrow">Запрос поставки</p><h2>Уточнить наличие X-One</h2></div><p className="lead">Оставьте контакты — BIO передаст запрос официальному дилеру, который подтвердит исполнение и условия поставки.</p></div><LeadForm form="contacts" className="grid g2" style={{ maxWidth: 820 }}><label className="field"><span>Имя</span><input name="name" placeholder="Как к вам обращаться" required /></label><label className="field"><span>Телефон или e-mail</span><input name="contact" placeholder="для ответа" required /></label><label className="field" style={{ gridColumn: "1 / -1" }}><span>Задача</span><textarea name="task" defaultValue="Интересует кофемолка Sanremo X-One" /></label><label className="small" style={{ gridColumn: "1 / -1", display: "flex", gap: 10, alignItems: "flex-start" }}><input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required /><span>Согласен на <a href="/privacy/">обработку персональных данных</a></span></label></LeadForm></div></section>
+
+      <section className="wrap section-tight" aria-label="Разделы Sanremo">
+        <div className="grid g3">
+          <a className="link-arrow" href="/products/grinders/">Все кофемолки Sanremo</a>
+          <a className="link-arrow" href="/dealers/">Найти дилера</a>
+          <a className="link-arrow" href="/service/">Сервис Sanremo</a>
+        </div>
+      </section>
     </main>
     <Footer />
   </>;

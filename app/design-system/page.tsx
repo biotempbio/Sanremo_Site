@@ -389,7 +389,7 @@ export default function DesignSystemPage() {
               </div>
               <details className="accordion" open>
                 <summary>Что входит в поставку</summary>
-                <div className="accordion-body">Кофемашина, два холдера, темпер, комплект подключения, гарантийный талон.</div>
+                <div className="accordion-body">Кофемашина, два рожка, темпер, комплект подключения, гарантийный талон.</div>
               </details>
               <details className="accordion">
                 <summary>Условия гарантии</summary>

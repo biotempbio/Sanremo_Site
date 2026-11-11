@@ -167,7 +167,7 @@ export default async function FamilyPage({ params }: Props) {
                           {s.edition && s.edition !== "Base" ? <div className="tiny">{s.edition}</div> : null}
                         </td>
                         <td className="tiny">{s.options.length ? s.options.join(", ") : "—"}</td>
-                        <td className="num">{s.rrp.toLocaleString("ru-RU")} ₽</td>
+                        <td className="num">{money(s.rrp)}</td>
                         <td><Stock status={s.availability} free={s.free} /></td>
                       </tr>
                     ))}

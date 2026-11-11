@@ -12,7 +12,14 @@ export const metadata: Metadata = {
   title: "Sanremo Russia — профессиональные кофемашины",
   description:
     "Официальный каталог профессиональных кофемашин Sanremo в России.",
-  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }, { url: "/icon.png", type: "image/png" }], apple: "/apple-icon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-120.png", type: "image/png", sizes: "120x120" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   manifest: "/manifest.webmanifest",
   openGraph: {
     title: "Sanremo Russia — профессиональные кофемашины",

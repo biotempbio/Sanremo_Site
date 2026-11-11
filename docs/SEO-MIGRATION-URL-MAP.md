@@ -28,11 +28,11 @@
 | `/contacts` | `/contacts/` | Контакты |
 | `/buy` | `/dealers/` | Где купить / дилерская сеть |
 | `/parts/` | `/parts/` | Запчасти; страница есть в меню старого сайта, хотя отсутствует в его sitemap |
-| `/products/d8/` | `/products/d8/d8/` | Модель D8 |
-| `/products/you/` | `/products/you/you/` | Модель YOU |
-| `/products/cafe-racer/` | `/products/cafe-racer/cafe-racer/` | Модель Café Racer |
-| `/products/opera/` | `/products/opera/opera/` | Модель Opera |
-| `/products/f18/` | `/products/f18/f18-mb/` | F18 без SB публикуется как F18 MB |
+| `/products/d8/` | `/products/d8/` | Страница семейства D8 со всеми конфигурациями |
+| `/products/you/` | `/products/you/` | Страница семейства YOU со всеми конфигурациями |
+| `/products/cafe-racer/` | `/products/cafe-racer/` | Страница семейства Café Racer со всеми конфигурациями |
+| `/products/opera/` | `/products/opera/` | Страница семейства Opera со всеми конфигурациями |
+| `/products/f18/` | `/products/f18/` | Страница семейства F18; F18 без SB в карточках называется F18 MB |
 | `/products/f18sb/` | `/products/f18/f18-sb/` | Модель F18 SB |
 | `/products/zoe/` | `/products/zoe/` | Семейство Zoe |
 | `/products/zoe-new/` | `/products/zoe/` | Актуальное семейство Zoe |

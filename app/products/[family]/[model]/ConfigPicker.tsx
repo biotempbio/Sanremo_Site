@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import SkuImage from "../../../components/SkuImage";
+import { formatPrice } from "@/lib/format";
 
 export interface PickerSku {
   code: string;
@@ -126,7 +127,7 @@ export default function ConfigPicker({
           <div>
             <span className="price-from">Рекомендованная розничная цена</span>
             <span className="price num" style={{ fontSize: 32 }}>
-              {current.rrp.toLocaleString("ru-RU")} ₽
+              {formatPrice(current.rrp)}
             </span>
             <p className="tiny" style={{ margin: "6px 0 0" }}>
               обновлено {priceDate}
@@ -146,8 +147,8 @@ export default function ConfigPicker({
 
         <dl className="picker-specs">
           <Row k="Высота групп" v={current.groupHeight} />
-          <Row k="Мощность" v={current.power ? `${String(current.power).replace(".", ",")} кВт` : null} />
-          <Row k="Напряжение" v={current.voltage ? `${current.voltage} В` : null} />
+          <Row k="Мощность" v={current.power ? `${String(current.power).replace(".", ",")}\u00a0кВт` : null} />
+          <Row k="Напряжение" v={current.voltage ? `${current.voltage}\u00a0В` : null} />
           <Row k="Опции" v={current.options.length ? current.options.join(", ") : null} />
         </dl>
 

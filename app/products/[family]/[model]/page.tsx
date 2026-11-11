@@ -122,7 +122,7 @@ export default async function ModelPage({ params }: Props) {
             <div className="sec-head">
               <div>
                 <p className="eyebrow">Кому подходит</p>
-                <h2>Сценарии, в которых {m.name} — рациональный выбор</h2>
+              <h2>Где {m.name} подходит по формату и нагрузке</h2>
               </div>
             </div>
             <div className="grid g3">
@@ -131,7 +131,7 @@ export default async function ModelPage({ params }: Props) {
                   <div className="card-body">
                     <h3>{s}</h3>
                     <p className="small" style={{ margin: 0 }}>
-                      {m.groupsAvailable.join("/")} группы · {f.architecture}.
+                      Доступные группы: {m.groupsAvailable.join(" / ")} · {f.architecture}.
                       {m.optionsAvailable.length ? ` Опции: ${m.optionsAvailable.join(", ")}.` : " Базовая комплектация."}
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export default async function ModelPage({ params }: Props) {
                   <Spec k="Семейство" v={f.name} />
                   <Spec k="Версия" v={m.version} />
                   <Spec k="Архитектура бойлеров" v={f.architecture} />
-                  <Spec k="Общий объём бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal} л` : null} />
+                  <Spec k="Общий объем бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal}\u00a0л` : null} />
                   <Spec k="Количество групп" v={m.groupsAvailable.join(" / ")} />
                   <Spec k="Посадка (высота) группы" v={hero?.seat} />
                 </SpecGroup>
@@ -205,15 +205,14 @@ export default async function ModelPage({ params }: Props) {
               </div>
               <div>
                 <SpecGroup title="Подключение">
-                  <Spec k="Мощность" v={hero?.power ? `${kw(hero.power)} кВт` : null} />
-                  <Spec k="Напряжение" v={hero?.voltage ? `${hero.voltage} В` : null} />
-                  <Spec k="Подключение к воде" v="Требуется, с подготовкой и фильтрацией" />
+                  <Spec k="Мощность" v={hero?.power ? `${kw(hero.power)}\u00a0кВт` : null} />
+                  <Spec k="Напряжение" v={hero?.voltage ? `${hero.voltage}\u00a0В` : null} />
                 </SpecGroup>
                 <SpecGroup title="Габариты и масса">
-                  <Spec k="Ширина" v={hero?.sizeNet ? `${hero.sizeNet.w} мм` : null} />
-                  <Spec k="Высота" v={hero?.sizeNet ? `${hero.sizeNet.h} мм` : null} />
-                  <Spec k="Глубина" v={hero?.sizeNet ? `${hero.sizeNet.d} мм` : null} />
-                  <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet} кг` : null} />
+                  <Spec k="Ширина" v={hero?.sizeNet ? `${hero.sizeNet.w}\u00a0мм` : null} />
+                  <Spec k="Высота" v={hero?.sizeNet ? `${hero.sizeNet.h}\u00a0мм` : null} />
+                  <Spec k="Глубина" v={hero?.sizeNet ? `${hero.sizeNet.d}\u00a0мм` : null} />
+                  <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet}\u00a0кг` : null} />
                 </SpecGroup>
                 <SpecGroup title="Коммерческие данные">
                   <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
@@ -261,7 +260,7 @@ export default async function ModelPage({ params }: Props) {
                       </span>
                     </td>
                     <td className="tiny">{s.options.join(", ") || "—"}</td>
-                    <td className="num">{s.rrp.toLocaleString("ru-RU")} ₽</td>
+                    <td className="num">{money(s.rrp)}</td>
                     <td><Stock status={s.availability} free={s.free} /></td>
                   </tr>
                 ))}

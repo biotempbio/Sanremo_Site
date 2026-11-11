@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { formatPrice } from "@/lib/format";
 
 export interface ChooserModel {
   slug: string;
@@ -293,7 +294,7 @@ function ResultCard({
           <div>
             <span className="price-from">РРЦ от</span>
             <span className="price num" style={{ fontSize: 21 }}>
-              {m.priceFrom?.toLocaleString("ru-RU")} ₽
+              {formatPrice(m.priceFrom)}
             </span>
           </div>
           <span className="stock-label">
@@ -313,7 +314,7 @@ function CandidateRow({ m }: { m: ChooserModel }) {
         <p className="eyebrow" style={{ margin: 0 }}>{m.familyName}</p>
         <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
       </div>
-      <span className="price num">{m.priceFrom ? `от ${m.priceFrom.toLocaleString("ru-RU")} ₽` : "Цена по запросу"}</span>
+      <span className="price num">{m.priceFrom ? `от ${formatPrice(m.priceFrom)}` : "Цена по запросу"}</span>
       <span className="stock-label"><i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />{m.stockUnits ? "На складе в Москве" : "Под заказ"}</span>
     </article>
   );
