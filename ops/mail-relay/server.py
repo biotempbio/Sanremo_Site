@@ -26,6 +26,24 @@ MAX_BODY = 12_000
 LOCK = threading.Lock()
 
 
+class TLSHTTPServer(ThreadingHTTPServer):
+    """Perform TLS handshakes in worker threads so slow clients cannot block accept()."""
+
+    def __init__(self, address, handler, context: ssl.SSLContext):
+        self.tls_context = context
+        super().__init__(address, handler)
+
+    def process_request_thread(self, request, client_address):
+        request.settimeout(4)
+        try:
+            secure_request = self.tls_context.wrap_socket(request, server_side=True)
+        except (OSError, ssl.SSLError):
+            request.close()
+            return
+        secure_request.settimeout(10)
+        super().process_request_thread(secure_request, client_address)
+
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -213,11 +231,10 @@ def main() -> None:
             time.sleep(60)
 
     threading.Thread(target=retry, daemon=True).start()
-    server = ThreadingHTTPServer(("0.0.0.0", int(os.environ.get("RELAY_PORT", "443"))), handler_factory(db_path, secret, smtp))
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
     context.load_cert_chain(os.environ["RELAY_CERT_PATH"], os.environ["RELAY_KEY_PATH"])
-    server.socket = context.wrap_socket(server.socket, server_side=True)
+    server = TLSHTTPServer(("0.0.0.0", int(os.environ.get("RELAY_PORT", "443"))), handler_factory(db_path, secret, smtp), context)
     server.serve_forever()
 
 

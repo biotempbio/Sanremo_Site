@@ -1,6 +1,9 @@
 import hashlib
 import hmac
 import json
+import socket
+import ssl
+import subprocess
 import tempfile
 import threading
 import unittest
@@ -10,7 +13,7 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 
-from server import connect_db, handler_factory, send_pending, store, valid_payload, verify_signature
+from server import TLSHTTPServer, connect_db, handler_factory, send_pending, store, valid_payload, verify_signature
 
 
 SAMPLE = {
@@ -103,6 +106,33 @@ class RelayTests(unittest.TestCase):
                 self.assertEqual(result["delivery"], "sent")
                 self.assertEqual(len(FakeSMTP.messages), 1)
             finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=2)
+
+    def test_stalled_tls_handshake_does_not_block_next_client(self):
+        with tempfile.TemporaryDirectory() as directory:
+            cert, key = Path(directory) / "cert.pem", Path(directory) / "key.pem"
+            subprocess.run(
+                ["openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes", "-days", "1",
+                 "-keyout", str(key), "-out", str(cert), "-subj", "/CN=localhost"],
+                check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            context.load_cert_chain(str(cert), str(key))
+            smtp = {"host": "smtp.example.ru", "port": 465, "user": "sender@example.ru", "password": "secret", "recipient": "info@sanremomachines.ru"}
+            server = TLSHTTPServer(("127.0.0.1", 0), handler_factory(str(Path(directory) / "leads.db"), "test-secret", smtp), context)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            stalled = socket.create_connection(("127.0.0.1", server.server_port))
+            try:
+                with urllib.request.urlopen(
+                    f"https://localhost:{server.server_port}/health",
+                    context=ssl._create_unverified_context(), timeout=2,
+                ) as response:
+                    self.assertEqual(response.status, 200)
+            finally:
+                stalled.close()
                 server.shutdown()
                 server.server_close()
                 thread.join(timeout=2)
