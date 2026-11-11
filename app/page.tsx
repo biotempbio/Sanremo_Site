@@ -1,11 +1,70 @@
-export default function Page() {
-  return (
-    <main className="site-shell">
-      <iframe
-        className="site-frame"
-        src="/sanremo-russia.html"
-        title="Sanremo Russia — профессиональные кофемашины"
-      />
+import type { Metadata } from "next";
+import { Header, Footer } from "./components/Chrome";
+import { ResponsiveImage } from "./components/ResponsiveImage";
+import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, VOLUME_BANDS } from "@/lib/catalog";
+
+export const metadata: Metadata = {
+  title: "Профессиональные кофемашины Sanremo в России",
+  description: "Официальный сайт дистрибьютора Sanremo в России: профессиональные кофемашины, подробные характеристики, РРЦ, наличие, сервис, запчасти и дилерская сеть.",
+};
+
+const tasks = [
+  { href: "/choose/", title: "Подобрать по задаче", text: "Формат, поток, меню и рабочая зона" },
+  { href: "/products/", title: "Сравнить линейки", text: "Архитектура, группы, управление и РРЦ" },
+  { href: "/dealers/", title: "Найти дилера", text: "Поставка и запуск в вашем регионе" },
+];
+
+export default function HomePage() {
+  const firstPrice = Math.min(...catalogModels.map((model) => model.priceFrom).filter((price): price is number => price !== null));
+  const lineup = CATALOG_LINEUP.map((line) => {
+    const model = catalogModels.find((item) => item.slug === line.slug);
+    return model ? { ...line, model, family: familyBySlug(model.family) } : null;
+  }).filter((line): line is NonNullable<typeof line> => Boolean(line));
+
+  return <>
+    <Header />
+    <main>
+      <section className="wrap home-hero-native">
+        <div className="home-hero-copy-native">
+          <p className="eyebrow">Sanremo Coffee Machines · Россия</p>
+          <h1>Кофемашина для вашего проекта</h1>
+          <p className="home-statement">Профессиональная техника Sanremo — от первой кофейни до сети.</p>
+          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — конфигурации, характеристики, РРЦ и складской статус; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
+          <div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать модель</a><a className="btn" href="/products/">Открыть каталог</a></div>
+        </div>
+        <figure className="home-hero-image">
+          <ResponsiveImage src="/photo/home-hero-cafe-racer-v2.jpg" alt="Кофемашина Sanremo в кофейном пространстве" width={1600} height={1067} priority sizes="(max-width: 900px) 100vw, 50vw" />
+        </figure>
+      </section>
+
+      <section className="home-trust" aria-label="Sanremo в России"><div className="wrap">
+        <div><b>{lineup.length} линеек Sanremo</b><span>в актуальном российском каталоге</span></div>
+        <div><b>от {money(firstPrice)}</b><span>рекомендованная розничная цена</span></div>
+        <div><b>Точные характеристики</b><span>в карточке каждой конфигурации</span></div>
+        <div><b>Сервис и запчасти</b><span>для поддержки оборудования</span></div>
+        <div><b>Дилерская сеть</b><span>по всей России</span></div>
+      </div></section>
+
+      <section className="wrap section">
+        <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>
+        <div className="home-tasks">{tasks.map((task, index) => <a className="home-task" href={task.href} key={task.href}><span>0{index + 1}</span><h3>{task.title}</h3><p>{task.text}</p><b>Перейти →</b></a>)}</div>
+      </section>
+
+      <section className="bg-gray"><div className="wrap section">
+        <div className="sec-head"><div><p className="eyebrow">Линейки Sanremo</p><h2>Машины под разные сценарии работы</h2></div><p className="lead">Каждая карточка ведёт к точным характеристикам, исполнениям и актуальным данным по модели.</p></div>
+        <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card" key={model.slug}>
+          <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" /></a>
+          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{model.description}</p><div className="card-foot"><span className="price">от {money(model.priceFrom)}</span><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
+        </article>)}</div>
+      </div></section>
+
+      <section className="wrap section">
+        <div className="sec-head"><div><p className="eyebrow">Ориентир по нагрузке</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>
+        <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?volume=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
+      </section>
+
+      <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти — в одном контуре</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>
     </main>
-  );
+    <Footer />
+  </>;
 }

@@ -31,7 +31,7 @@ export default function PartsPage() {
   return (
     <>
       <Header active="/service" />
-      <Crumbs items={[{ href: "/", label: "Главная" }, { href: "/service", label: "Сервис" }, { label: "Запчасти" }]} />
+      <Crumbs items={[{ href: "/", label: "Главная" }, { href: "/service/", label: "Сервис" }, { label: "Запчасти" }]} />
       <main>
         <section className="wrap" style={{ paddingBottom: 26 }}>
           <div className="sec-head">

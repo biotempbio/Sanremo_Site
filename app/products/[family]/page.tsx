@@ -45,7 +45,7 @@ export default async function FamilyPage({ params }: Props) {
       <Crumbs
         items={[
           { href: "/", label: "Главная" },
-          { href: "/products", label: "Кофемашины" },
+          { href: "/products/", label: "Кофемашины" },
           { label: f.name },
         ]}
       />

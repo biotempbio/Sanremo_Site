@@ -99,8 +99,8 @@ export default async function ModelPage({ params }: Props) {
       <Crumbs
         items={[
           { href: "/", label: "Главная" },
-          { href: "/products", label: "Кофемашины" },
-          ...(f.name !== m.name ? [{ href: `/products/${family}`, label: f.name }] : []),
+          { href: "/products/", label: "Кофемашины" },
+          ...(f.name !== m.name ? [{ href: `/products/${family}/`, label: f.name }] : []),
           { label: m.name },
         ]}
       />
