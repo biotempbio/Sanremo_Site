@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import test from "node:test";
 
 const read = (path) => readFile(new URL(`../out/${path}`, import.meta.url), "utf8");
@@ -72,4 +72,21 @@ test("guide, FAQ and product pages expose linked HTML and valid structured data"
   assert.ok(objects(model).some((entry) => entry["@type"] === "FAQPage"));
   for (const route of ["/faq/", "/guide/", "/guide/kofemashina-dlya-kofejni/", "/guide/kofemashina-dlya-restorana/", "/guide/linejki-sanremo/"]) assert.match(sitemap, new RegExp(`${route}</loc>`));
   assert.match(llms, /\/guide\//);
+});
+
+test("document library serves every unique PDF and links model files directly", async () => {
+  const manifest = JSON.parse(await readFile(new URL("../data/documents.json", import.meta.url), "utf8"));
+  const [library, model] = await Promise.all([read("documents/index.html"), read("products/d8/d8/index.html")]);
+  assert.equal(manifest.length, 43);
+  assert.equal(new Set(manifest.map((entry) => entry.href)).size, manifest.length);
+  assert.match(library, /Все модели/);
+  assert.match(library, /Все типы/);
+  assert.match(library, /Декларация о соответствии — действует до 23\.01\.2029/);
+  assert.match(model, /Скачать PDF/);
+  for (const entry of manifest) {
+    const path = new URL(`../out${entry.href}`, import.meta.url);
+    assert.equal((await stat(path)).size, entry.bytes, entry.href);
+    assert.equal((await readFile(path)).subarray(0, 5).toString(), "%PDF-", entry.href);
+    assert.ok(library.includes(`href="${entry.href}"`), entry.href);
+  }
 });

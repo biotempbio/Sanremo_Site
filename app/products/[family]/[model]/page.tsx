@@ -5,6 +5,7 @@ import { Crumbs, Stock } from "../../../components/Bits";
 import ConfigPicker, { PickerSku } from "./ConfigPicker";
 import { ResponsiveImage } from "../../../components/ResponsiveImage";
 import { modelQuestions } from "@/lib/model-faq";
+import { documentsForModel, fileSizeMb } from "@/lib/documents";
 import { absoluteUrl, faqSchema, jsonLd } from "@/lib/seo";
 import {
   models,
@@ -63,6 +64,7 @@ export default async function ModelPage({ params }: Props) {
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
   const questions = modelQuestions(m, f, sk);
+  const modelDocuments = documentsForModel(m.slug);
   const unavailableGroups = [1, 2, 3].filter((group) => !m.groupsAvailable.includes(group));
 
   const pickerSkus: PickerSku[] = sk.map((s) => ({
@@ -370,15 +372,20 @@ export default async function ModelPage({ params }: Props) {
         </section>
 
         {/* 7.2.10 — документы */}
-        {m.docs.length > 0 && (
+        {modelDocuments.length > 0 && (
           <section className="section wrap">
             <div className="sec-head">
               <div>
                 <p className="eyebrow">Документы</p>
-                <h2>Инструкции, схемы и спецификации</h2>
+                <h2>Инструкции, схемы и декларации</h2>
               </div>
+              <p className="lead">Файлы для {m.name} можно скачать без запроса и регистрации.</p>
             </div>
-            <div className="card"><div className="card-body"><span className="tag" style={{ alignSelf: "flex-start" }}>{m.docs.length} документов</span><h3 style={{ fontSize: 17 }}>Документация для {m.name}</h3><p className="small">Инструкции и схемы предоставляются по запросу, пока медиабиблиотека проходит проверку ссылок.</p><a className="link-arrow" href={`/contacts/?model=${encodeURIComponent(m.name)}`}>Запросить документ →</a></div></div>
+            <ul className="model-documents">{modelDocuments.map((document) => <li key={document.id}>
+              <span><b>{document.name}</b><small>{document.type}</small></span>
+              <a className="link-arrow" href={document.href} download>Скачать PDF · {fileSizeMb(document.bytes)}</a>
+            </li>)}</ul>
+            <p style={{ marginTop: 20 }}><a href={`/documents/?model=${m.slug}`}>Все документы для {m.name} →</a></p>
           </section>
         )}
 

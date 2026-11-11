@@ -537,6 +537,18 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .guide-decision h2 { font-size: clamp(24px,2.4vw,34px); margin-bottom: 14px; }
 .guide-decision p { max-width: 55ch; }
 @media(max-width:760px){.guide-decision{grid-template-columns:minmax(0,1fr)}}
+.document-filters{display:flex;align-items:end;gap:14px;flex-wrap:wrap;margin:0 0 18px}
+.document-filters label{display:grid;gap:8px;min-width:min(100%,230px);font-family:var(--sans);font-size:13px;font-weight:700}
+.document-filters select{width:100%;min-height:44px;padding:10px 12px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);font:inherit;font-weight:400}
+.document-filters select:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.model-documents{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+.model-documents li{display:flex;justify-content:space-between;align-items:center;gap:16px;min-width:0;padding:17px 0;border-top:1px solid var(--line-strong);font-family:var(--sans)}
+.model-documents li span{min-width:0}
+.model-documents li b{display:block;overflow-wrap:anywhere;font-size:14px}
+.model-documents li small{display:block;color:var(--muted);margin-top:4px}
+.model-documents li a{flex:none;font-size:13px}
+@media(max-width:900px){.model-documents{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.document-filters label{width:100%}.model-documents li{align-items:flex-start;flex-direction:column;gap:8px}}
 
 /* ── 3.15 Утилиты ритма ────────────────────────────────────────────────────── */
 .stack > * + * { margin-top: var(--s-4); }
