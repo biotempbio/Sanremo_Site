@@ -515,6 +515,26 @@ table.data.compare th[scope="row"] {
 }
 table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage); }
 
+.compare-mobile { display: none; }
+.compare-desktop thead h2 { text-transform: none; }
+.model-family-name { font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--muted); }
+@media (max-width: 768px) {
+  .compare-desktop { display: none; }
+  .compare-mobile { display: grid; gap: 20px; margin-top: 28px; }
+  .compare-mobile-card { min-width: 0; padding: 20px; border: 1px solid var(--line); background: #fff; }
+  .compare-mobile-head { display: grid; grid-template-columns: minmax(0,130px) minmax(0,1fr); gap: 16px; align-items: center; }
+  .compare-mobile-head img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: contain; background: var(--gray-bg); }
+  .compare-mobile-head .eyebrow { margin: 0 0 6px; }
+  .compare-mobile-head h2 { font-size: clamp(23px,5vw,30px); line-height: 1.1; margin: 0; }
+  .compare-mobile-price { font-weight: 700; margin: 10px 0 2px; }
+  .compare-mobile-head .small { margin: 0; }
+  .compare-mobile-card dl { margin: 20px 0; border-top: 1px solid var(--line); }
+  .compare-mobile-card dl>div { display: grid; grid-template-columns: minmax(0,105px) minmax(0,1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .compare-mobile-card dt { font-family: var(--sans); font-size: 11px; font-weight: 700; color: var(--muted); }
+  .compare-mobile-card dd { margin: 0; font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+}
+@media (max-width: 420px) { .compare-mobile-head { grid-template-columns: minmax(0,100px) minmax(0,1fr); } }
+
 /* ── 3.14 Текстовая полоса статьи ──────────────────────────────────────────── */
 .prose { max-width: 72ch; }
 .prose h2 { margin-top: var(--s-14); margin-bottom: var(--s-4); }
@@ -689,6 +709,15 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
   .spec-table tr:last-child{border-bottom:0}
   .spec-table th,.spec-table td{padding:2px 0;border:0;overflow-wrap:anywhere}
   .spec-table th{color:var(--muted);font-weight:500}
+}
+@media (min-width: 621px) and (max-width: 1279px) {
+  .contacts-layout { grid-template-columns: minmax(0,1fr); }
+  .contacts-layout>.contacts-main,.contacts-layout>.contacts-info { min-width: 0; }
+}
+@media (min-width: 1280px) and (max-width: 1399px) {
+  .table-scroll table.data.contact-routes { min-width: 0; table-layout: fixed; }
+  .contact-routes th:first-child { width: 60%; }
+  .contact-routes td,.contact-routes th { overflow-wrap: anywhere; }
 }
 .hp-field{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important}.lead-submit{grid-column:1/-1;justify-self:start}.form-result{border-top:3px solid var(--ink);padding:24px 0}.form-error{grid-column:1/-1;color:#8b2e18;border-left:3px solid currentColor;padding:10px 14px}.form-error button{border:0;background:none;text-decoration:underline;color:inherit;cursor:pointer}
 

@@ -21,7 +21,7 @@ export interface ChooserModel {
 }
 
 const FORMATS = [
-  { id: "cafe", label: "Кофейня", scen: ["Первая кофейня", "Растущая кофейня"] },
+  { id: "cafe", label: "Кофейня", scen: ["Первая кофейня", "Растущая кофейня", "Высокий поток", "Молочное меню", "Specialty с потоком", "Флагманская дизайн-кофейня", "Флагманская точка"] },
   { id: "chain", label: "Сеть", scen: ["Сеть"] },
   { id: "resto", label: "Ресторан / пекарня", scen: ["Пекарня и ресторан", "Пекарня", "Столовая и фуд-корнер"] },
   { id: "hotel", label: "Отель / фуд-корнер", scen: ["Столовая и фуд-корнер", "Фуд-корнер"] },
@@ -284,7 +284,7 @@ function ResultCard({
         <span className={tone === "main" ? "plaque" : "plaque plaque-gray"} style={{ alignSelf: "flex-start" }}>
           {title}
         </span>
-        <p className="eyebrow" style={{ margin: "4px 0 0" }}>{m.familyName}</p>
+        <p className="model-family-name" style={{ margin: "4px 0 0" }}>{m.familyName}</p>
         <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
         <p className="small" style={{ margin: 0 }}>{m.tagline}</p>
         <ul className="small" style={{ margin: "4px 0 0", paddingLeft: 18 }}>
@@ -311,7 +311,7 @@ function CandidateRow({ m }: { m: ChooserModel }) {
   return (
     <article className="candidate-row">
       <div>
-        <p className="eyebrow" style={{ margin: 0 }}>{m.familyName}</p>
+        <p className="model-family-name" style={{ margin: 0 }}>{m.familyName}</p>
         <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
       </div>
       <span className="price num">{m.priceFrom ? `от ${formatPrice(m.priceFrom)}` : "Цена по запросу"}</span>

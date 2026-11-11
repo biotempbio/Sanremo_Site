@@ -246,7 +246,7 @@ export const VOLUME_BANDS: VolumeBand[] = [
   { id: "100-200", label: "100–200 чашек в день", models: ["zoe-sed", "zoe-competition", "zoe-compact", "d8", "you"] },
   { id: "200-300", label: "200–300 чашек в день", models: ["zoe-competition", "d8", "d8-pro", "f18-sb"] },
   { id: "300-500", label: "300–500 чашек в день", models: ["d8-pro", "f18-sb", "f18-mb", "cafe-racer"] },
-  { id: "500+", label: "500+ чашек в день", models: ["f18-mb", "cafe-racer", "opera", "d8-pro"] },
+  { id: "500+", label: "500+ чашек в день", models: ["f18-sb", "f18-mb", "cafe-racer", "opera", "d8-pro"] },
 ];
 
 export interface Scenario {
