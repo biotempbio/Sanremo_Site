@@ -18,7 +18,7 @@ test("mobile contact and grinder layouts have no fixed outer width", async () =>
   assert.match(contacts, /class="data contact-routes"/);
   assert.doesNotMatch(contacts, /min-width:460px/);
   for (const html of [grinders, xOne]) assert.match(html, /class="data spec-table"/);
-  const cssDir = new URL("../out/_next/static/chunks/", import.meta.url);
+  const cssDir = new URL("../out/_next/static/css/", import.meta.url);
   const cssNames = (await readdir(cssDir)).filter((name) => name.endsWith(".css"));
   const css = (await Promise.all(cssNames.map((name) => readFile(new URL(name, cssDir), "utf8")))).join("\n");
   assert.match(css, /\.contacts-layout/);
@@ -46,5 +46,30 @@ test("product pages contain only Sanremo lineup comparisons", async () => {
   const html = await read("products/d8/d8/index.html");
   assert.doesNotMatch(html, /Прямые аналоги рынка|РРЦ конкурента|С чем реально сравнивают/);
   assert.match(html, /Sanremo D8/);
-  assert.match(html, /priceValidUntil/);
+  assert.doesNotMatch(html, /priceValidUntil/);
+});
+
+test("guide, FAQ and product pages expose linked HTML and valid structured data", async () => {
+  const [home, cafe, restaurant, lineups, faq, catalog, family, model, sitemap, llms] = await Promise.all([
+    read("index.html"), read("guide/kofemashina-dlya-kofejni/index.html"),
+    read("guide/kofemashina-dlya-restorana/index.html"), read("guide/linejki-sanremo/index.html"),
+    read("faq/index.html"), read("products/index.html"), read("products/d8/index.html"),
+    read("products/d8/d8/index.html"), read("sitemap.xml"), read("llms.txt"),
+  ]);
+  const objects = (html) => [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
+  assert.match(home, /href="\/guide\/"/);
+  for (const html of [cafe, restaurant, lineups, faq, catalog, family, model]) {
+    assert.match(html, /"@type":"BreadcrumbList"/);
+    assert.ok(objects(html).length > 0);
+  }
+  assert.ok(objects(cafe).some((entry) => entry["@type"] === "Article"));
+  assert.ok(objects(restaurant).some((entry) => entry["@type"] === "Article"));
+  assert.ok(objects(faq).some((entry) => entry["@type"] === "FAQPage" && entry.mainEntity.length >= 12));
+  assert.ok(objects(catalog).some((entry) => entry["@type"] === "ItemList"));
+  assert.ok(objects(family).some((entry) => entry["@type"] === "ItemList"));
+  const group = objects(model).find((entry) => entry["@type"] === "ProductGroup");
+  assert.ok(group?.hasVariant?.every((variant) => variant["@type"] === "Product" && variant.sku && variant.offers?.priceCurrency === "RUB" && variant.offers?.seller?.name === "BIO"));
+  assert.ok(objects(model).some((entry) => entry["@type"] === "FAQPage"));
+  for (const route of ["/faq/", "/guide/", "/guide/kofemashina-dlya-kofejni/", "/guide/kofemashina-dlya-restorana/", "/guide/linejki-sanremo/"]) assert.match(sitemap, new RegExp(`${route}</loc>`));
+  assert.match(llms, /\/guide\//);
 });

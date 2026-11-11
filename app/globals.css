@@ -281,10 +281,10 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .topbar a { color: inherit; text-decoration: none; }
 .topbar-contact { display: flex; align-items: center; gap: 22px; }
 .header { background: #fff; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 40; }
-.header .wrap { max-width: 1320px; padding-inline: 40px; display: flex; align-items: center; gap: 28px; min-height: 76px; }
+.header .wrap { max-width: 1320px; padding-inline: 40px; display: flex; align-items: center; gap: 20px; min-height: 76px; }
 .brand { display: block; flex: none; }
 .brand img { width: 176px; height: auto; }
-.mainnav { display: flex; align-items: center; gap: 18px; flex: 1; min-width: 0; }
+.mainnav { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
 .mainnav a { font: 600 12px/1 var(--text); letter-spacing: .01em; text-decoration: none; padding: 7px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
 .mainnav a:hover, .mainnav a[data-active="true"] { border-color: var(--ink); }
 .mainnav .nav-accent { color: var(--amber); }
@@ -521,6 +521,22 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .prose ul, .prose ol { margin: 0 0 1em; padding-left: 1.15em; }
 .prose li { margin-bottom: .45em; }
 .prose a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.guide-article article > p:not(.eyebrow), .guide-article article > h1, .guide-article article > h2, .guide-article article > h3 { max-width: 72ch; }
+.guide-article .table-scroll { max-width: 100%; margin: 28px 0; }
+.guide-article .table-scroll table { min-width: 680px; }
+.guide-related { margin-top: 56px; padding: 28px 0; border-top: 2px solid var(--ink); }
+.guide-related h2 { margin-bottom: 22px; }
+.guide-related a { display: block; padding: 22px; border: 1px solid var(--line); text-decoration: none; font-family: var(--sans); font-weight: 600; }
+.guide-related a:hover { border-color: var(--ink); }
+.guide-faq { margin-top: 44px; max-width: 900px; }
+.guide-faq h2 { margin-bottom: 24px; }
+.guide-faq details { border-top: 1px solid var(--line-strong); padding: 16px 0; }
+.guide-faq summary { cursor: pointer; font-family: var(--sans); font-weight: 600; }
+.guide-faq details p { max-width: 72ch; margin: 12px 0 0; }
+.guide-decision { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: clamp(24px,4vw,64px); }
+.guide-decision h2 { font-size: clamp(24px,2.4vw,34px); margin-bottom: 14px; }
+.guide-decision p { max-width: 55ch; }
+@media(max-width:760px){.guide-decision{grid-template-columns:minmax(0,1fr)}}
 
 /* ── 3.15 Утилиты ритма ────────────────────────────────────────────────────── */
 .stack > * + * { margin-top: var(--s-4); }

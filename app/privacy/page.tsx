@@ -4,7 +4,7 @@ import { Crumbs } from "../components/Bits";
 
 export const metadata: Metadata = {
   title: "Политика обработки персональных данных",
-  description: "Политика обработки персональных данных посетителей сайта Sanremo в России.",
+  description: "Политика обработки персональных данных на сайте Sanremo: какие сведения получает BIO через формы и аналитику, для каких целей и как связаться с компанией.",
 };
 
 export default function PrivacyPage() {

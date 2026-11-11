@@ -6,7 +6,7 @@ import { models, liveSkus, parts, families } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "О бренде Sanremo Coffee Machines",
-  description: "Sanremo Coffee Machines — итальянский бренд профессиональных кофемашин, в котором инженерная точность соединяется с выразительным дизайном.",
+  description: "О бренде Sanremo Coffee Machines: профессиональные кофемашины из Италии, инженерные решения и дизайн. В России модели, сервис и дилеров представляет BIO.",
 };
 
 export default function AboutPage() {

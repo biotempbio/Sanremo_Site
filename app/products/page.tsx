@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
+import { itemList, jsonLd } from "@/lib/seo";
 import {
   catalogModels,
   CATALOG_LINEUP,
@@ -12,9 +13,9 @@ import {
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог профессиональных кофемашин Sanremo — РРЦ и наличие в России",
+  title: "Каталог кофемашин Sanremo — РРЦ и наличие в России",
   description:
-    "Все модели Sanremo, доступные в России: количество групп, архитектура бойлеров, исполнения и цвета, рекомендованные розничные цены и складской статус. Фильтры по формату бизнеса и потоку.",
+    "Каталог кофемашин Sanremo в России: группы, архитектура бойлеров, исполнения, РРЦ и наличие. Фильтры по потоку и задачам кофейни, карточки моделей BIO.",
 };
 
 export default function ProductsPage() {
@@ -55,18 +56,7 @@ export default function ProductsPage() {
     };
   });
 
-  const itemList = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Профессиональные кофемашины Sanremo в России",
-    numberOfItems: rows.length,
-    itemListElement: rows.map((r, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: `Sanremo ${r.name}`,
-      url: `https://sanremomachines.ru/products/${r.family}/${r.slug}`,
-    })),
-  };
+  const listSchema = itemList("Профессиональные кофемашины Sanremo в России", rows.map((r) => ({ name: `Sanremo ${r.name}`, path: `/products/${r.family}/${r.slug}/` })));
 
   return (
     <>
@@ -92,13 +82,14 @@ export default function ProductsPage() {
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
         </section>
+        <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>С чего начать выбор?</h2><p>Сравните рабочий поток, группы, бойлеры и условия подключения. В гиде BIO эти вопросы разобраны на примере актуальных линеек Sanremo.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/kofemashina-dlya-restorana/">Гид для ресторана →</a> · <a href="/guide/linejki-sanremo/">Сравнение линеек →</a></div></section>
         <section className="wrap section-tight" aria-labelledby="discontinued-models">
           <div className="callout">
             <h2 id="discontinued-models" style={{ fontSize: "clamp(24px,2.4vw,34px)", marginBottom: 12 }}>Модели, снятые с поставки</h2>
             <p style={{ margin: 0 }}><a href="/products/napoli/">Napoli</a>, <a href="/products/cube/">Cube</a>, <a href="/products/verona/">Verona</a>, <a href="/products/verona-rs/">Verona RS</a>, <a href="/products/torino/">Torino</a>. На архивных страницах — сервис, поиск запчастей и подбор актуальной замены.</p>
           </div>
         </section>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(listSchema) }} />
       </main>
       <Footer />
     </>

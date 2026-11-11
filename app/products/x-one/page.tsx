@@ -7,7 +7,7 @@ import { grinders, imgUrl, money, PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Кофемолка Sanremo X-One — характеристики, РРЦ и наличие",
-  description: "Профессиональная кофемолка Sanremo X-One: характеристики, исполнения, РРЦ и статус поставки от официального дистрибьютора BIO.",
+  description: "Кофемолка Sanremo X-One в России: жернова, бункеры, скорости помола и электропитание. Сравните исполнения, РРЦ и наличие по артикулам каталога BIO.",
 };
 
 const features = [

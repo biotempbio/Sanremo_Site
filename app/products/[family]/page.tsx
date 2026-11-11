@@ -4,6 +4,9 @@ import { Header, Footer } from "../../components/Chrome";
 import { Crumbs, Stock } from "../../components/Bits";
 import SkuImage from "../../components/SkuImage";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
+import { FaqBlock } from "../../components/GuideBlocks";
+import { familyQuestions } from "@/lib/model-faq";
+import { itemList, jsonLd } from "@/lib/seo";
 import {
   families,
   familyBySlug,
@@ -27,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!f) return {};
   return {
     title: `Sanremo ${f.name} — конфигурации, цвета, РРЦ и наличие`,
-    description: `${f.name}: ${f.tagline}. Доступные в России модели, группы, исполнения и цвета, рекомендованные розничные цены и складской статус. Данные дистрибьютора BIO.`,
+    description: `Sanremo ${f.name}: модели и конфигурации российского каталога BIO. Сравните группы, исполнения, РРЦ и наличие, затем найдите дилера и сервис в регионе.`,
   };
 }
 
@@ -76,6 +79,13 @@ export default async function FamilyPage({ params }: Props) {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="wrap section-tight guide-decision">
+          <div><p className="eyebrow">Сценарии BIO</p><h2>Кому подходит {f.name}</h2>
+            <p>{f.scenarios.join("; ")}. Проверьте число групп, архитектуру и условия вашей площадки по выбранной версии.</p></div>
+          <div><p className="eyebrow">Граница выбора</p><h2>Когда смотреть другую линейку</h2>
+            <p>Если нужного числа групп нет среди конфигураций {f.name} или мощность, напряжение и габариты доступного артикула не подходят площадке, сравните другие семейства Sanremo.</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
         </section>
 
         {/* Модели внутри семейства */}
@@ -191,6 +201,10 @@ export default async function FamilyPage({ params }: Props) {
           </div>
         </section>
 
+        <section className="wrap section-tight"><FaqBlock questions={familyQuestions(f, fmodels, allSkus)} title={`Частые вопросы о ${f.name}`} />
+          <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
+        </section>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
       </main>
       <Footer />
     </>

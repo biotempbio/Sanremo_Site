@@ -7,7 +7,7 @@ import { models, familyBySlug, skusOfModel, stockUnitsOfModel, VOLUME_BANDS } fr
 export const metadata: Metadata = {
   title: "Подбор кофемашины по формату бизнеса и потоку",
   description:
-    "Подберите профессиональную кофемашину Sanremo: формат заведения, чашек в день, доля молочных напитков, число групп, бюджет и ограничения площадки. Результат — 2–3 конфигурации с РРЦ и наличием.",
+    "Подберите кофемашину Sanremo по формату заведения, потоку, меню, группам и бюджету. Сравните подходящие конфигурации, их РРЦ и наличие по данным BIO.",
 };
 
 export default function ChoosePage() {
@@ -58,6 +58,7 @@ export default function ChoosePage() {
         <section className="wrap section-tight">
           <ChooserClient models={rows} />
         </section>
+        <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>Разобраться перед подбором</h2><p>Что меняют группы, архитектура бойлеров и электропитание? Ответы собраны в гиде BIO.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div></section>
       </main>
       <Footer />
     </>

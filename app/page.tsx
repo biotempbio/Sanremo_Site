@@ -71,7 +71,8 @@ export default function HomePage() {
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Ориентир по нагрузке</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>
-        <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?volume=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
+        <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?flow=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
+        <p style={{ marginTop: 20 }}><a href="/guide/">Как выбрать профессиональную кофемашину →</a></p>
       </section>
 
       <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти у официального дистрибьютора</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>

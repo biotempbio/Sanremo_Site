@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 
-export const metadata: Metadata = { title: "Новости Sanremo в России", description: "Продуктовые обновления, обучение и события Sanremo в России." };
+export const metadata: Metadata = { title: "Новости Sanremo в России", description: "Новости Sanremo в России: обновления продуктовой линейки, материалы для бариста, события и информация дилерской сети официального дистрибьютора BIO." };
 
 const ITEMS=[
   ["Продукты","D8 и D8 PRO в российской продуктовой матрице","Конфигурации, РРЦ и наличие опубликованы в каталоге и доступны для сравнения."],

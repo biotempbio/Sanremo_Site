@@ -5,7 +5,7 @@ import { models, modelPath, skusOfModel, PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "РРЦ и наличие кофемашин Sanremo",
-  description: "Актуальные рекомендованные розничные цены и складской статус кофемашин Sanremo в России.",
+  description: "Рекомендованные розничные цены на кофемашины Sanremo в России: сравните конфигурации, проверьте наличие по артикулу и откройте карточку модели BIO.",
 };
 
 export default function PricesPage() {

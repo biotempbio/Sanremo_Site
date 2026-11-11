@@ -12,7 +12,7 @@ const BROCHURES = [
   { model: "You", name: "Брошюра You", href: "/documents/brochures/you.pdf" },
 ];
 
-export const metadata: Metadata = { title: "Документы Sanremo", description: "Инструкции, электрические схемы, взрыв-схемы и сертификаты для кофемашин Sanremo." };
+export const metadata: Metadata = { title: "Документы Sanremo", description: "Документация по кофемашинам Sanremo в России: инструкции, схемы и материалы по моделям. Найдите нужную версию и запросите документ у компании BIO." };
 
 export default function DocumentsPage() {
   const rows = Array.from(

@@ -5,7 +5,7 @@ import CompareClient from "./CompareClient";
 
 export const metadata: Metadata = {
   title: "Сравнение линеек кофемашин Sanremo",
-  description: "Сравните линейки Sanremo по потоку, группам, бойлерной архитектуре, управлению, РРЦ и наличию.",
+  description: "Сравните линейки Sanremo между собой: рабочий поток, число групп, архитектура бойлеров, управление, РРЦ и наличие. Откройте карточки моделей BIO.",
 };
 
 export default function ComparePage() {

@@ -6,6 +6,7 @@ const NAV = [
   { href: "/products/", label: "Кофемашины" },
   { href: "/compare/", label: "Сравнение" },
   { href: "/choose/", label: "Подобрать" },
+  { href: "/guide/", label: "Как выбрать" },
   { href: "/solutions/", label: "Решения" },
   { href: "/dealers/", label: "Где купить" },
   { href: "/service/", label: "Сервис" },
@@ -66,7 +67,7 @@ export function Footer() {
           <div>
             <h4>Каталог</h4>
             <nav>
-              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/solutions/">Решения по формату</a><a href="/compare/">Сравнения</a><a href="/prices/">РРЦ и наличие</a>
+              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/guide/">Как выбрать</a><a href="/faq/">Частые вопросы</a><a href="/solutions/">Решения по формату</a><a href="/compare/">Сравнения</a><a href="/prices/">РРЦ и наличие</a>
             </nav>
           </div>
           <div>

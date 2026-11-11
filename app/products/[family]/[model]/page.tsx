@@ -4,6 +4,8 @@ import { Header, Footer } from "../../../components/Chrome";
 import { Crumbs, Stock } from "../../../components/Bits";
 import ConfigPicker, { PickerSku } from "./ConfigPicker";
 import { ResponsiveImage } from "../../../components/ResponsiveImage";
+import { modelQuestions } from "@/lib/model-faq";
+import { absoluteUrl, faqSchema, jsonLd } from "@/lib/seo";
 import {
   models,
   modelBySlug,
@@ -14,7 +16,6 @@ import {
   dealerCities,
   VOLUME_BANDS,
   PRICE_DATE,
-  PRICE_VALID_UNTIL,
   money,
   moneyPrecise,
   kw,
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!m) return {};
   const f = familyBySlug(m.family)!;
   return {
-    title: `Sanremo ${m.name} — характеристики, РРЦ ${money(m.priceFrom)}, наличие`,
-    description: `Sanremo ${m.name}: ${f.tagline}. Полная спецификация, доступные в России исполнения и цвета, рекомендованная розничная цена, наличие, документы, запчасти и дилеры.`,
+    title: `Sanremo ${m.name} — характеристики, РРЦ, наличие | BIO`,
+    description: `Sanremo ${m.name}: характеристики и конфигурации в России. Группы, цвет, РРЦ и наличие по артикулу из каталога BIO; контакты дилеров, сервис и запчасти.`,
   };
 }
 
@@ -61,6 +62,8 @@ export default async function ModelPage({ params }: Props) {
   ].filter((item): item is string => Boolean(item));
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
+  const questions = modelQuestions(m, f, sk);
+  const unavailableGroups = [1, 2, 3].filter((group) => !m.groupsAvailable.includes(group));
 
   const pickerSkus: PickerSku[] = sk.map((s) => ({
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
@@ -71,23 +74,26 @@ export default async function ModelPage({ params }: Props) {
 
   const productSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "ProductGroup",
     name: `Sanremo ${m.name}`,
     brand: { "@type": "Brand", name: "Sanremo" },
     category: "Профессиональные рожковые кофемашины",
     description: `Sanremo ${m.name}: ${f.architecture}. Доступные конфигурации, характеристики и РРЦ в России.`,
-    offers: sk.map((s) => ({
-      "@type": "Offer",
+    image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
+    url: absoluteUrl(`/products/${family}/${m.slug}/`),
+    productGroupID: m.slug,
+    variesBy: ["https://schema.org/color", "https://schema.org/size"],
+    hasVariant: sk.map((s) => ({
+      "@type": "Product", name: `Sanremo ${m.name} — ${s.title}`,
       sku: s.vendorCode ?? s.code,
-      name: s.title,
-      price: s.rrp,
-      priceCurrency: "RUB",
-      priceValidUntil: PRICE_VALID_UNTIL,
-      availability:
-        s.availability === "in_stock" || s.availability === "limited"
-          ? "https://schema.org/InStock"
-          : "https://schema.org/PreOrder",
-      seller: { "@type": "Organization", name: "BIO — официальный дистрибьютор Sanremo в России" },
+      brand: { "@type": "Brand", name: "Sanremo" },
+      image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
+      color: s.color ?? undefined,
+      url: absoluteUrl(`/products/${family}/${m.slug}/#sku-${encodeURIComponent(s.code)}`),
+      offers: { "@type": "Offer", price: s.rrp, priceCurrency: "RUB",
+        availability: s.availability === "in_stock" || s.availability === "limited" ? "https://schema.org/InStock" : s.availability === "reserved" ? "https://schema.org/OutOfStock" : "https://schema.org/PreOrder",
+        seller: { "@type": "Organization", name: "BIO", url: absoluteUrl("/") },
+      },
     })),
   };
 
@@ -148,6 +154,10 @@ export default async function ModelPage({ params }: Props) {
                   </div>
                 </div>
               )}
+            </div>
+            <div className="callout" style={{ marginTop: 26 }}><h3>Когда {m.name} не подходит</h3>
+              <p>{unavailableGroups.length ? `В каталоге BIO нет исполнения с ${unavailableGroups.join(" / ")} группами. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
+              <a href="/guide/linejki-sanremo/">Сравнить линейки Sanremo →</a>
             </div>
           </div>
         </section>
@@ -245,8 +255,8 @@ export default async function ModelPage({ params }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {sk.sort((a, b) => a.rrp - b.rrp).map((s) => (
-                  <tr key={s.code}>
+                  {sk.sort((a, b) => a.rrp - b.rrp).map((s) => (
+                  <tr key={s.code} id={`sku-${s.code}`}>
                     <td className="tiny sku">{s.vendorCode ?? s.code}</td>
                     <td className="num">{s.groups ?? "—"}</td>
                     <td>{s.groupHeight ?? "—"}</td>
@@ -378,21 +388,13 @@ export default async function ModelPage({ params }: Props) {
             <div>
               <p className="eyebrow">Частые вопросы</p>
               <h2 style={{ marginBottom: 24 }}>О покупке и эксплуатации {m.name}</h2>
-              {[
-                ["Можно ли купить машину на сайте?",
-                 "Нет. Сайт публикует рекомендованную розничную цену и наличие, а продажу, монтаж и обслуживание выполняет авторизованный дилер или отдел продаж BIO."],
-                ["Что означает статус наличия?",
-                 "«На складе в Москве» — позиция доступна к отгрузке, «Ограниченное количество» — остаток меньше трёх единиц, «Под заказ» — поставка формируется партией."],
-                ["Отличается ли комплектация от европейской?",
-                 "Публикуются только конфигурации, поддерживаемые российским дистрибьютором: сочетание групп, высоты, опций и цвета из матрицы BIO."],
-                ["Как обстоит дело с запчастями?",
-                 `Каталог ЗИП открыт без авторизации: артикул, узел, совместимость и складской статус. Для ${m.name} в базе связано ${Math.max(modelParts.length, partCodes.length)} артикулов.`],
-              ].map(([q, a]) => (
-                <details key={q} style={{ borderTop: "1px solid var(--line-strong)", padding: "14px 0" }}>
-                  <summary style={{ cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 15.5 }}>{q}</summary>
-                  <p className="small" style={{ margin: "10px 0 0" }}>{a}</p>
+              {questions.map(({ question, answer }) => (
+                <details key={question} style={{ borderTop: "1px solid var(--line-strong)", padding: "14px 0" }}>
+                  <summary style={{ cursor: "pointer", fontFamily: "var(--sans)", fontWeight: 600, fontSize: 15.5 }}>{question}</summary>
+                  <p className="small" style={{ margin: "10px 0 0" }}>{answer}</p>
                 </details>
               ))}
+              <p style={{ marginTop: 20 }}><a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
             </div>
             <div>
               <p className="eyebrow">Где купить</p>
@@ -446,7 +448,8 @@ export default async function ModelPage({ params }: Props) {
           </div>
         </section>
 
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(productSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(questions)) }} />
       </main>
       <Footer />
     </>
