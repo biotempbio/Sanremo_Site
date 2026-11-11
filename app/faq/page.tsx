@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { FaqBlock } from "../components/GuideBlocks";
-import { Question } from "@/lib/seo";
+import { Question, faqSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Вопросы о кофемашинах Sanremo в России | BIO",
@@ -27,10 +27,18 @@ const questions: Question[] = [
 ];
 
 export default function FaqPage() {
+  const groups = [
+    { title: "Покупка", items: [0, 1, 2, 3, 4, 5, 12] },
+    { title: "Сервис", items: [6, 7] },
+    { title: "Монтаж и обучение", items: [8, 9, 10, 11] },
+    { title: "Дилерам", items: [13] },
+  ];
   return <><Header /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Частые вопросы" }]} />
-    <main className="wrap section guide-article"><p className="eyebrow">Покупка и владение</p><h1>Частые вопросы о Sanremo</h1>
-      <p className="lead" style={{ marginTop: 20 }}>Ответы относятся к опубликованному российскому каталогу BIO. Условия конкретной поставки подтверждает продавец по выбранному артикулу.</p>
-      <FaqBlock questions={questions} title="Выбор, поставка и обслуживание" />
-      <p style={{ marginTop: 32 }}><a className="btn btn-solid" href="/contacts/">Задать вопрос BIO</a> <a className="btn" href="/guide/">Читать гид по выбору</a></p>
+    <main className="wrap section guide-page faq-page"><header className="guide-intro"><p className="eyebrow">Покупка и владение</p><h1>Частые вопросы о Sanremo</h1>
+      <p className="lead">Здесь собраны ответы о выборе кофемашины, покупке через дилера, запуске и обслуживании в России.</p></header>
+      <nav className="faq-jump" aria-label="Темы вопросов">{groups.map((group) => <a key={group.title} href={"#faq-" + group.title.toLowerCase().replaceAll(" ", "-")}>{group.title}<span>{group.items.length}</span></a>)}</nav>
+      <div className="faq-groups">{groups.map((group) => <div id={"faq-" + group.title.toLowerCase().replaceAll(" ", "-")} key={group.title}><FaqBlock questions={group.items.map((index) => questions[index])} title={group.title} schema={false} /></div>)}</div>
+      <div className="faq-next"><p>Не нашли ответ по своей модели?</p><a className="btn btn-solid" href="/contacts/">Задать вопрос BIO</a><a className="btn" href="/guide/">Читать гид по выбору</a></div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(questions)) }} />
     </main><Footer /></>;
 }
