@@ -14,6 +14,17 @@ const tasks = [
   { href: "/dealers/", title: "Найти дилера", text: "Поставка и запуск в вашем регионе" },
 ];
 
+/** Краткие описания линеек для главной. Длинные тексты выгрузки BIO не выводим. */
+const lineupDescriptions: Record<string, string> = {
+  "zoe-competition": "Двухгруппная машина для ежедневной работы кофейни. В каталоге — доступные исполнения, РРЦ и наличие.",
+  d8: "Платформа с одной, двумя или тремя группами. D8 PRO добавляет расширенное управление приготовлением; объём бойлера зависит от конфигурации.",
+  "f18-sb": "Двухгруппная машина с одним бойлером. В карточке — параметры, исполнения и доступность F18 Single Boiler.",
+  "f18-mb": "F18 MB с двумя или тремя группами. Сравните конфигурации по мощности, объёму бойлеров и оснащению.",
+  "cafe-racer": "Две или три группы, несколько вариантов оформления. Для каждой конфигурации указаны характеристики и РРЦ.",
+  opera: "Двухгруппная модель для работы с рецептом. Исполнения и технические параметры собраны в карточке.",
+  you: "Компактная одногруппная машина. В карточке — варианты оформления, технические данные и наличие.",
+};
+
 export default function HomePage() {
   const firstPrice = Math.min(...catalogModels.map((model) => model.priceFrom).filter((price): price is number => price !== null));
   const lineup = CATALOG_LINEUP.map((line) => {
@@ -54,7 +65,7 @@ export default function HomePage() {
         <div className="sec-head"><div><p className="eyebrow">Линейки Sanremo</p><h2>Машины под разные сценарии работы</h2></div><p className="lead">Каждая карточка ведёт к точным характеристикам, исполнениям и актуальным данным по модели.</p></div>
         <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card" key={model.slug}>
           <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" /></a>
-          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{model.description}</p><div className="card-foot"><span className="price">от {money(model.priceFrom)}</span><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
+          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><span className="price">от {money(model.priceFrom)}</span><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
         </article>)}</div>
       </div></section>
 
