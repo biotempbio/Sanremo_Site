@@ -90,3 +90,33 @@ test("document library serves every unique PDF and links model files directly", 
     assert.ok(library.includes(`href="${entry.href}"`), entry.href);
   }
 });
+
+test("case archive has traceable facts, local photos and only substantive detail pages", async () => {
+  const entries = JSON.parse(await readFile(new URL("../data/cases.json", import.meta.url), "utf8"));
+  const [listing, detail, home, d8, sitemap] = await Promise.all([
+    read("cases/index.html"), read("cases/coffee-combo/index.html"), read("index.html"),
+    read("products/d8/index.html"), read("sitemap.xml"),
+  ]);
+  assert.equal(entries.length, 20);
+  assert.match(listing, /Где варят на Sanremo/);
+  assert.match(detail, /Coffee Combo — Москва/);
+  assert.match(detail, /"@type":"Article"/);
+  assert.match(home, /href="\/cases\/"/);
+  assert.match(d8, /Где работает/);
+  assert.match(d8, /Coffee Combo/);
+  const detailed = entries.filter((entry) => entry.page);
+  assert.deepEqual(detailed.map((entry) => entry.slug), ["coffee-combo"]);
+  for (const entry of entries) {
+    for (const [field, value] of Object.entries(entry)) {
+      if (["slug", "page"].includes(field)) continue;
+      for (const fact of Array.isArray(value) ? value : [value]) {
+        assert.match(fact.source, /^(old-site|telegram-\d+)$/, `${entry.slug}.${field}`);
+        if (field === "photos") await stat(new URL(`../out${fact.value}`, import.meta.url));
+      }
+    }
+    if (entry.page) {
+      assert.ok(entry.story.map((paragraph) => paragraph.value).join(" ").split(/\s+/).length >= 120, entry.slug);
+      assert.match(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
+    } else assert.doesNotMatch(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
+  }
+});

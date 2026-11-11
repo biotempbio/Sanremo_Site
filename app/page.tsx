@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Header, Footer } from "./components/Chrome";
 import { ResponsiveImage } from "./components/ResponsiveImage";
 import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, VOLUME_BANDS } from "@/lib/catalog";
+import { sanremoCases } from "@/lib/cases";
+import { CaseCard } from "./cases/CaseCard";
 
 export const metadata: Metadata = {
   title: "Кофемашины Sanremo — официальный дистрибьютор в России",
@@ -36,6 +38,8 @@ function TrustIcon({ kind }: { kind: "warranty" | "warehouse" | "leasing" | "ser
 }
 
 export default function HomePage() {
+  const showcase = ["coffee-combo", "on-sight-outdoor", "utk-xsai", "litsey", "bistro-9-18", "zatsepi-krasnodar-1"]
+    .map((slug) => sanremoCases.find((entry) => entry.slug === slug)).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
   const lineup = CATALOG_LINEUP.map((line) => {
     const model = catalogModels.find((item) => item.slug === line.slug);
     return model ? { ...line, model, family: familyBySlug(model.family) } : null;
@@ -81,6 +85,12 @@ export default function HomePage() {
         <div className="sec-head"><div><p className="eyebrow">По числу чашек</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>
         <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?flow=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
         <p style={{ marginTop: 20 }}><a href="/guide/">Как выбрать профессиональную кофемашину →</a></p>
+      </section>
+
+      <section className="wrap section home-cases">
+        <div className="sec-head"><div><p className="eyebrow">Кофейные пространства России</p><h2>Где варят на Sanremo</h2></div><p className="lead">Машины Sanremo на действующих стойках: от городской кофейни до сетевой точки.</p></div>
+        <div className="home-cases-grid">{showcase.map((entry) => <CaseCard key={entry.slug} entry={entry} compact />)}</div>
+        <p className="home-cases-more"><a className="btn" href="/cases/">Все проекты</a></p>
       </section>
 
       <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти у официального дистрибьютора</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>

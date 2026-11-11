@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { execFileSync } from "node:child_process";
 import { families, models } from "@/lib/catalog";
 import { CONTENT_DATE, SITE_URL } from "@/lib/seo";
+import { detailedCases } from "@/lib/cases";
 
 export const dynamic = "force-static";
 
@@ -27,5 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...routes.map((route) => ({ url: `${SITE_URL}${route}/`, lastModified: lastModified([`app${route || ""}/page.tsx`]) })),
     ...families.map((family) => ({ url: `${SITE_URL}/products/${family.slug}/`, lastModified: lastModified(["app/products/[family]/page.tsx", "data/catalog.json"]) })),
     ...models.map((model) => ({ url: `${SITE_URL}/products/${model.family}/${model.slug}/`, lastModified: lastModified(["app/products/[family]/[model]/page.tsx", "data/catalog.json"]) })),
+    ...detailedCases.map((entry) => ({ url: `${SITE_URL}/cases/${entry.slug}/`, lastModified: lastModified(["app/cases/[slug]/page.tsx", "data/cases.json"]) })),
   ];
 }

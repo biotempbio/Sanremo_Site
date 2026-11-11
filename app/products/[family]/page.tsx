@@ -7,6 +7,8 @@ import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { FaqBlock } from "../../components/GuideBlocks";
 import { familyQuestions } from "@/lib/model-faq";
 import { itemList, jsonLd } from "@/lib/seo";
+import { casesForFamily } from "@/lib/cases";
+import { CaseCard } from "../../cases/CaseCard";
 import {
   families,
   familyBySlug,
@@ -42,6 +44,7 @@ export default async function FamilyPage({ params }: Props) {
   const fmodels = modelsOfFamily(family);
   const allSkus = fmodels.flatMap((m) => skusOfModel(m.slug));
   const colors = [...new Map(allSkus.filter((s) => s.color).map((s) => [s.color!, s.colorHex!])).entries()];
+  const familyCases = casesForFamily(family);
 
   return (
     <>
@@ -201,6 +204,12 @@ export default async function FamilyPage({ params }: Props) {
             )}
           </div>
         </section>
+
+        {familyCases.length > 0 && <section className="wrap section family-cases">
+          <div className="sec-head"><div><p className="eyebrow">Реальные проекты</p><h2>Где работает {f.name}</h2></div><p className="small">Фотографии кофеен, где модель указана в опубликованном проекте.</p></div>
+          <div className="home-cases-grid">{familyCases.slice(0, 3).map((entry) => <CaseCard key={entry.slug} entry={entry} compact />)}</div>
+          <p className="home-cases-more"><a href={`/cases/?model=${family}`}>Все проекты с {f.name} →</a></p>
+        </section>}
 
         <section className="wrap section-tight"><FaqBlock questions={familyQuestions(f, fmodels, allSkus)} title={`Частые вопросы о ${f.name}`} />
           <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>

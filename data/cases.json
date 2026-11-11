@@ -1,0 +1,878 @@
+[
+  {
+    "slug": "bistro-9-18",
+    "name": {
+      "value": "Бистро 9/18",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Бистро",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Нижний Новгород",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Городское бистро рядом с Нижегородским кремлём. Открытая стойка с Café Racer видна из светлого зала.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/bistro/photo-0.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/bistro/photo-1.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/bistro/photo-2.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/bistro/photo-6.webp",
+        "source": "old-site"
+      }
+    ],
+    "address": {
+      "value": "Ивановский съезд, 9/18",
+      "source": "old-site"
+    },
+    "model": {
+      "value": "Café Racer",
+      "source": "old-site",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "st-riders",
+    "name": {
+      "value": "St.Riders Coffee",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Кофейня у Марксистской в стиле скейт-парка: в зале стоит мотоцикл Ducati, а на кофейной стойке работает Sanremo F18.",
+      "source": "telegram-48"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/st-riders/photo_1_2026-08-26_10-06-03.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/st-riders/photo_2_2026-08-26_10-06-04.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/st-riders/photo_3_2026-08-26_10-06-04.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/st-riders/photo_4_2026-08-26_10-06-04.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/st-riders/photo_5_2026-08-26_10-06-04.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/st-riders/telegram-48-02.webp",
+        "source": "telegram-48"
+      }
+    ],
+    "address": {
+      "value": "Таганская улица, 1/2с2",
+      "source": "telegram-48"
+    },
+    "model": {
+      "value": "F18",
+      "source": "telegram-48",
+      "family": "f18"
+    }
+  },
+  {
+    "slug": "cofefest",
+    "name": {
+      "value": "CofeFest",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Сеть кофеен",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Московская сеть с точками в деловых и медицинских центрах и городскими кафе.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/cofefest/photo-0.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/cofefest/photo-1.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/cofefest/photo-2.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/cofefest/photo-3.webp",
+        "source": "old-site"
+      }
+    ]
+  },
+  {
+    "slug": "speshl",
+    "name": {
+      "value": "Спэшл",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Санкт-Петербург",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Specialty-кофейня с европейской кухней на Большой Конюшенной улице.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/speshl/photo-0.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/speshl/photo-1.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/speshl/photo-2.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/speshl/photo-3.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/speshl/photo-4.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/speshl/photo-5.webp",
+        "source": "old-site"
+      }
+    ],
+    "address": {
+      "value": "Большая Конюшенная улица",
+      "source": "old-site"
+    }
+  },
+  {
+    "slug": "sedelice",
+    "name": {
+      "value": "French Bakery SeDelice",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня-пекарня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Кофейня-пекарня с собственной выпечкой и Café Racer за стойкой.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/sedelice/0fa857df39bc5426b9dc92d693867ce0_w1200_h630.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/sedelice/photo_2026-08-26_11-02-21.jpg",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "Café Racer",
+      "source": "old-site",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "pravda-coffee",
+    "name": {
+      "value": "Правда Кофе",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Сеть кофеен",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "В точке «Правда Кофе» в БЦ «Геолог» бариста Вера работает на Sanremo D8.",
+      "source": "telegram-334"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/pravda/photo_2026-08-26_10-54-36.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/pravda/photo_2026-08-26_10-54-49.jpg",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "D8",
+      "source": "old-site",
+      "family": "d8"
+    },
+    "address": {
+      "value": "БЦ «Геолог»",
+      "source": "telegram-334"
+    },
+    "quote": {
+      "value": "Раньше я уговаривала технику. Теперь она со мной на одной волне",
+      "source": "telegram-334"
+    }
+  },
+  {
+    "slug": "vkusvill",
+    "name": {
+      "value": "Кафе ВкусВилл",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кафе в ритейле",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Кофейный формат внутри магазинов и отдельные городские кафе.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/vkusvill/photo_2026-08-26_11-15-33.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/vkusvill/photo_2026-08-26_11-15-50.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-00.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-05.jpg",
+        "source": "old-site"
+      }
+    ]
+  },
+  {
+    "slug": "vanlav",
+    "name": {
+      "value": "Ванлав",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кондитерская",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Санкт-Петербург",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Кондитерская на Невском проспекте с десертами и кофе.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/vanlav/photo-0.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/vanlav/photo-1.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/vanlav/photo-3.webp",
+        "source": "old-site"
+      }
+    ],
+    "address": {
+      "value": "Невский проспект",
+      "source": "old-site"
+    }
+  },
+  {
+    "slug": "baggins",
+    "name": {
+      "value": "Baggins Coffee",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Сеть кофеен",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Санкт-Петербург",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Петербургская сеть кофеен с собственной визуальной историей.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/baggins/photo_2_2026-08-26_10-24-10.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/baggins/photo_3_2026-08-26_10-24-10.jpg",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "D8",
+      "source": "old-site",
+      "family": "d8"
+    }
+  },
+  {
+    "slug": "notik",
+    "name": {
+      "value": "Нотик Кофе",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Гастрокофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Санкт-Петербург",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Гастрокофейня на Литейном, 31, со светлым залом, открытой стойкой и Café Racer.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/notik/photo-0.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/notik/photo-1.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/notik/photo-2.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/notik/photo-3.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/notik/photo-4.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/notik/photo-5.webp",
+        "source": "old-site"
+      }
+    ],
+    "address": {
+      "value": "Литейный проспект, 31",
+      "source": "old-site"
+    },
+    "model": {
+      "value": "Café Racer",
+      "source": "old-site",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "coffee-combo",
+    "name": {
+      "value": "Coffee Combo",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Экспресс-кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "В точке Coffee Combo в ТЦ «Косино Парк» установлена трёхгруппная D8. В публикации Sanremo Family названы три бариста за стойкой и 45 точек в сети.",
+      "source": "telegram-299"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/combo/photo_2026-08-26_10-12-59.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/combo/photo_2026-08-26_10-13-21.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/combo/photo_2026-08-19_09-00-34.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/combo/telegram-299-01.webp",
+        "source": "telegram-299"
+      },
+      {
+        "value": "/photo/case-projects/combo/telegram-299-02.webp",
+        "source": "telegram-299"
+      }
+    ],
+    "address": {
+      "value": "ТЦ «Косино Парк», Святоозёрская улица, 1А",
+      "source": "telegram-299"
+    },
+    "model": {
+      "value": "D8",
+      "source": "telegram-299",
+      "family": "d8"
+    },
+    "groups": {
+      "value": 3,
+      "source": "telegram-299"
+    },
+    "baristas": {
+      "value": 3,
+      "source": "telegram-299"
+    },
+    "networkSize": {
+      "value": "45 точек, из них 7 собственных",
+      "source": "telegram-299"
+    },
+    "story": [
+      {
+        "value": "Coffee Combo — сеть экспресс-кофеен в Москве. Один из её проектов находится в торговом центре «Косино Парк» на Святоозёрской улице, 1А. Публикация Sanremo Family называет 45 точек сети, включая семь собственных заведений; сеть также работает по франчайзинговой модели. В сети общими остаются стандарты приготовления, зерно и обучение команды.",
+        "source": "telegram-299"
+      },
+      {
+        "value": "На фотографиях этой точки видна открытая стойка торгового центра: с одной стороны витрина с десертами, с другой — зона приготовления напитков. На стойке установлена трёхгруппная Sanremo D8. В публикации указано, что здесь работают три бариста. Модель и число групп относятся именно к этой кофейне, а не ко всем точкам сети.",
+        "source": "telegram-299"
+      },
+      {
+        "value": "Фотографии показывают машину в ежедневном пространстве Coffee Combo, рядом с кофемолкой и расходными материалами. Можно рассмотреть, сколько места занимает трёхгруппная версия на открытой стойке, и сопоставить её размеры и подключение с собственным проектом. Характеристики доступных исполнений D8 собраны в каталоге Sanremo.",
+        "source": "old-site"
+      }
+    ],
+    "page": true
+  },
+  {
+    "slug": "coffee-4-human",
+    "name": {
+      "value": "Coffee 4 Human",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Тахтамукай",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Локальная кофейня в Адыгее с собственной вывеской и кофейной стойкой.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-22.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-28.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-37.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-39.jpg",
+        "source": "old-site"
+      }
+    ]
+  },
+  {
+    "slug": "chaika-krichala",
+    "name": {
+      "value": "Чайка кричала",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кафе-пекарня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Геленджик",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Кафе-пекарня в Геленджике: выпечка, кофейная станция Sanremo и интерьер у моря.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/chaika/photo_7_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/chaika/photo_6_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/chaika/photo_8_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/chaika/photo_5_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/chaika/photo_4_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/chaika/photo_2_2026-08-26_10-17-02.jpg",
+        "source": "old-site"
+      }
+    ]
+  },
+  {
+    "slug": "zatsepi-krasnodar-1",
+    "name": {
+      "value": "Зацепи Кофе — Краснодар, точка 1",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Краснодар",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Светлая кофейня в жилом квартале Краснодара. На стойке — Café Racer Renegade в отделке под состаренную медь.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/zatsepi-1/01.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-1/02.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-1/03.webp",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "Café Racer Renegade",
+      "source": "old-site",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "zatsepi-krasnodar-2",
+    "name": {
+      "value": "Зацепи Кофе — Краснодар, точка 2",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Краснодар",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Камерное пространство в терракотовых тонах. Café Racer с прозрачными боковыми панелями стоит в открытой кофейной зоне.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/zatsepi-2/01.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-2/02.webp",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "Café Racer",
+      "source": "old-site",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "zatsepi-krasnodar-3",
+    "name": {
+      "value": "Зацепи Кофе — Краснодар, точка 3",
+      "source": "old-site"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "old-site"
+    },
+    "city": {
+      "value": "Краснодар",
+      "source": "old-site"
+    },
+    "summary": {
+      "value": "Просторный зал с открытым фасадом, скульптурным светом и Sanremo F18 на стойке.",
+      "source": "old-site"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/zatsepi-3/03.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-3/04.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-3/02.webp",
+        "source": "old-site"
+      },
+      {
+        "value": "/photo/case-projects/zatsepi-3/01.webp",
+        "source": "old-site"
+      }
+    ],
+    "model": {
+      "value": "F18",
+      "source": "old-site",
+      "family": "f18"
+    }
+  },
+  {
+    "slug": "on-sight-outdoor",
+    "name": {
+      "value": "On Sight Outdoor",
+      "source": "telegram-79"
+    },
+    "format": {
+      "value": "Кафе",
+      "source": "telegram-79"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-79"
+    },
+    "address": {
+      "value": "Покровка, 20/1с1",
+      "source": "telegram-79"
+    },
+    "summary": {
+      "value": "Кафе на Покровке с туристическими деталями интерьера, походными стульями и зоной для скалолазания. На стойке — Sanremo; модель в публикации не названа.",
+      "source": "telegram-79"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/on-sight-outdoor/01.webp",
+        "source": "telegram-79"
+      },
+      {
+        "value": "/photo/case-projects/on-sight-outdoor/02.webp",
+        "source": "telegram-79"
+      },
+      {
+        "value": "/photo/case-projects/on-sight-outdoor/03.webp",
+        "source": "telegram-79"
+      },
+      {
+        "value": "/photo/case-projects/on-sight-outdoor/04.webp",
+        "source": "telegram-79"
+      }
+    ]
+  },
+  {
+    "slug": "utk-xsai",
+    "name": {
+      "value": "UTK / гараж XSAI",
+      "source": "telegram-146"
+    },
+    "format": {
+      "value": "Кофейня и пространство бренда одежды",
+      "source": "telegram-146"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-146"
+    },
+    "address": {
+      "value": "Крымский Вал, 10А",
+      "source": "telegram-146"
+    },
+    "summary": {
+      "value": "Кофейная точка в гараже бренда одежды XSAI у парка «Музеон». Здесь готовят эспрессо на Sanremo Zoe, предлагают фильтр и авторские холодные напитки.",
+      "source": "telegram-146"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/utk-xsai/01.webp",
+        "source": "telegram-146"
+      },
+      {
+        "value": "/photo/case-projects/utk-xsai/02.webp",
+        "source": "telegram-146"
+      },
+      {
+        "value": "/photo/case-projects/utk-xsai/03.webp",
+        "source": "telegram-146"
+      },
+      {
+        "value": "/photo/case-projects/utk-xsai/04.webp",
+        "source": "telegram-146"
+      }
+    ],
+    "model": {
+      "value": "Zoe",
+      "source": "telegram-146",
+      "family": "zoe"
+    }
+  },
+  {
+    "slug": "rustaveli-14",
+    "name": {
+      "value": "Кофейня в ЖК «Руставели 14»",
+      "source": "telegram-164"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "telegram-164"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-164"
+    },
+    "address": {
+      "value": "улица Добролюбова, 8к2",
+      "source": "telegram-164"
+    },
+    "summary": {
+      "value": "Кофейня в жилом комплексе «Руставели 14»: Sanremo Café Racer, выпечка, десерты и светлый зал с детским уголком.",
+      "source": "telegram-164"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/rustaveli-14/01.webp",
+        "source": "telegram-164"
+      },
+      {
+        "value": "/photo/case-projects/rustaveli-14/02.webp",
+        "source": "telegram-164"
+      },
+      {
+        "value": "/photo/case-projects/rustaveli-14/03.webp",
+        "source": "telegram-164"
+      },
+      {
+        "value": "/photo/case-projects/rustaveli-14/04.webp",
+        "source": "telegram-164"
+      }
+    ],
+    "model": {
+      "value": "Café Racer",
+      "source": "telegram-164",
+      "family": "cafe-racer"
+    }
+  },
+  {
+    "slug": "litsey",
+    "name": {
+      "value": "Лицей",
+      "source": "telegram-367"
+    },
+    "format": {
+      "value": "Кафе",
+      "source": "telegram-367"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-367"
+    },
+    "address": {
+      "value": "Ленинградское шоссе, 16А, стр. 1",
+      "source": "telegram-367"
+    },
+    "summary": {
+      "value": "Третье кафе «Лицей» в Москве. На стойке работает Café Racer; в меню — выпечка собственного производства, завтраки в течение дня и горячие блюда.",
+      "source": "telegram-367"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/litsey/01.webp",
+        "source": "telegram-367"
+      },
+      {
+        "value": "/photo/case-projects/litsey/02.webp",
+        "source": "telegram-367"
+      },
+      {
+        "value": "/photo/case-projects/litsey/03.webp",
+        "source": "telegram-367"
+      },
+      {
+        "value": "/photo/case-projects/litsey/04.webp",
+        "source": "telegram-367"
+      }
+    ],
+    "model": {
+      "value": "Café Racer",
+      "source": "telegram-367",
+      "family": "cafe-racer"
+    }
+  }
+]
