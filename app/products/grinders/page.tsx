@@ -5,7 +5,7 @@ import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { grinders, imgUrl, money, PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Кофемолка Sanremo X-One — характеристики, РРЦ и наличие",
+  title: "Кофемолки Sanremo — X-One: характеристики, РРЦ и наличие",
   description: "Профессиональная кофемолка Sanremo X-One: характеристики, исполнения, рекомендованные розничные цены и статус поставки от официального дистрибьютора BIO.",
 };
 
@@ -32,8 +32,8 @@ export default function GrindersPage() {
       <section className="wrap" style={{ paddingBottom: 34 }}>
         <div className="sec-head">
           <div>
-            <p className="eyebrow">Профессиональная кофемолка Sanremo</p>
-            <h1 style={{ fontSize: "clamp(38px,4.6vw,68px)" }}>X-One</h1>
+            <p className="eyebrow">Профессиональное оборудование Sanremo</p>
+            <h1 style={{ fontSize: "clamp(38px,4.6vw,68px)" }}>Кофемолки Sanremo</h1>
           </div>
           <p className="lead">Высокопроизводительная кофемолка с контролем веса зерна перед помолом, двумя бункерами и настройкой рецептов для стабильной работы барной станции.</p>
         </div>
@@ -47,7 +47,7 @@ export default function GrindersPage() {
             </div>
             <div>
               <p className="eyebrow">X-One · данные BIO</p>
-              <h2>Точный помол для профессиональной рабочей зоны</h2>
+              <h2>X-One: точный помол для профессиональной рабочей зоны</h2>
               <p className="lead">X-One хранит рецепты, поддерживает несколько скоростей помола и помогает бариста работать с разными сортами зерна без лишних переключений.</p>
               <div className="card" style={{ marginTop: 26 }}>
                 <div className="card-body">

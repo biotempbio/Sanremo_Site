@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import ChooserClient, { ChooserModel } from "./ChooserClient";
-import { models, familyBySlug, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { models, familyBySlug, skusOfModel, stockUnitsOfModel, VOLUME_BANDS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Подбор кофемашины по формату бизнеса и потоку",
@@ -26,7 +26,7 @@ export default function ChoosePage() {
       scenarios: f.scenarios,
       groups: m.groupsAvailable,
       priceFrom: m.priceFrom,
-      inStockCount: m.inStockCount,
+      stockUnits: stockUnitsOfModel(m.slug),
       options: m.optionsAvailable,
       volumeBands: VOLUME_BANDS.filter((b) => b.models.includes(m.slug)).map((b) => b.id),
       minWidth: widths.length ? Math.min(...widths) : null,

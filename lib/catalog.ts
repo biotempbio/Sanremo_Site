@@ -188,6 +188,9 @@ export const familyBySlug = (slug: string) => families.find((f) => f.slug === sl
 export const modelBySlug = (slug: string) => models.find((m) => m.slug === slug);
 export const modelsOfFamily = (slug: string) => models.filter((m) => m.family === slug);
 export const skusOfModel = (slug: string) => liveSkus.filter((s) => s.model === slug);
+/** Физические свободные единицы — единственный источник числа наличия в витрине. */
+export const stockUnitsOfModel = (slug: string) =>
+  skusOfModel(slug).reduce((total, sku) => total + Math.max(0, sku.free), 0);
 export const skuByCode = (code: string) => skus.find((s) => s.code === code);
 export const partsForSku = (code: string) => parts.filter((p) => p.fits.includes(code));
 /** Названия в мастер-каталоге рынка отличаются от карточек BIO — сопоставляем явно. */
@@ -217,7 +220,7 @@ export function familyPriceFrom(slug: string): number | null {
 }
 
 export function familyStockCount(slug: string): number {
-  return modelsOfFamily(slug).reduce((a, m) => a + m.inStockCount, 0);
+  return modelsOfFamily(slug).reduce((total, model) => total + stockUnitsOfModel(model.slug), 0);
 }
 
 /* ── Форматирование ───────────────────────────────────────────────────────── */

@@ -20,6 +20,7 @@ import {
   kw,
   officialImageForModel,
   catalogModels,
+  stockUnitsOfModel,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
@@ -298,7 +299,7 @@ export default async function ModelPage({ params }: Props) {
                     <CmpRow label="Конфигураций в РФ" a={String(m.skuCount)} rest={siblings.map((s) => String(s.skuCount))} />
                     <CmpRow label="Опции" a={m.optionsAvailable.join(", ") || "—"} rest={siblings.map((s) => s.optionsAvailable.join(", ") || "—")} />
                     <CmpRow label="РРЦ от" a={money(m.priceFrom)} rest={siblings.map((s) => money(s.priceFrom))} />
-                    <CmpRow label="На складе в Москве" a={String(m.inStockCount)} rest={siblings.map((s) => String(s.inStockCount))} />
+                    <CmpRow label="На складе в Москве" a={String(stockUnitsOfModel(m.slug))} rest={siblings.map((s) => String(stockUnitsOfModel(s.slug)))} />
                     <CmpRow
                       label="Карточка"
                       a="—"

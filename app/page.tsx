@@ -4,8 +4,8 @@ import { ResponsiveImage } from "./components/ResponsiveImage";
 import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, VOLUME_BANDS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Профессиональные кофемашины Sanremo в России",
-  description: "Официальный сайт дистрибьютора Sanremo в России: профессиональные кофемашины, подробные характеристики, РРЦ, наличие, сервис, запчасти и дилерская сеть.",
+  title: "Кофемашины Sanremo — официальный дистрибьютор в России | BIO",
+  description: "Официальный дистрибьютор Sanremo в России: профессиональные кофемашины, РРЦ, наличие, точные характеристики, сервис и запчасти, дилерская сеть.",
 };
 
 const tasks = [
@@ -27,8 +27,8 @@ export default function HomePage() {
       <section className="wrap home-hero-native">
         <div className="home-hero-copy-native">
           <p className="eyebrow">Sanremo Coffee Machines · Россия</p>
-          <h1>Кофемашина для вашего проекта</h1>
-          <p className="home-statement">Профессиональная техника Sanremo — от первой кофейни до сети.</p>
+          <h1>Профессиональные кофемашины Sanremo в России</h1>
+          <p className="home-subtitle">Кофемашина для вашего проекта</p>
           <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — конфигурации, характеристики, РРЦ и складской статус; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
           <div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать модель</a><a className="btn" href="/products/">Открыть каталог</a></div>
         </div>
@@ -63,7 +63,7 @@ export default function HomePage() {
         <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?volume=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
       </section>
 
-      <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти — в одном контуре</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>
+      <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти у официального дистрибьютора</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>
     </main>
     <Footer />
   </>;

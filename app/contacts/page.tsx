@@ -47,10 +47,10 @@ export default function ContactsPage() {
         </section>
 
         <section className="wrap section-tight">
-          <div className="grid g2" style={{ alignItems: "start" }}>
+          <div className="grid g2 contacts-layout" style={{ alignItems: "start" }}>
             <div>
               <h2 style={{ marginBottom: 20 }}>Запрос конфигурации</h2>
-              <LeadForm form="contacts" className="grid g2" style={{ alignItems: "start" }}>
+              <LeadForm form="contacts" className="grid g2 contacts-form" style={{ alignItems: "start" }}>
                 <label className="field"><span>Имя</span><input name="name" placeholder="Как к вам обращаться" required /></label>
                 <label className="field"><span>Телефон или e-mail</span><input name="contact" placeholder="для ответа" required /></label>
                 <label className="field"><span>Город или регион</span><input name="city" placeholder="Москва" /></label>

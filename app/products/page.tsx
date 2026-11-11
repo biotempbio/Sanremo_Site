@@ -6,6 +6,7 @@ import {
   catalogModels,
   CATALOG_LINEUP,
   skusOfModel,
+  stockUnitsOfModel,
   familyBySlug,
   VOLUME_BANDS,
 } from "@/lib/catalog";
@@ -21,7 +22,7 @@ export default function ProductsPage() {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
     const stocked = sk.filter((s) => s.free > 0);
-    const stockUnits = stocked.reduce((sum, s) => sum + s.free, 0);
+    const stockUnits = stockUnitsOfModel(m.slug);
     const stockExecutions = new Set(
       stocked.map((s) => [s.groups, s.color ?? "", s.edition ?? ""].join("|"))
     ).size;
@@ -45,7 +46,6 @@ export default function ProductsPage() {
       colors: stockColors,
       priceFrom: m.priceFrom,
       priceTo: m.priceTo,
-      inStockCount: m.inStockCount,
       stockUnits,
       stockExecutions,
       skuCount: m.skuCount,

@@ -18,7 +18,6 @@ export interface CatalogRow {
   colors: { name: string; hex: string }[];
   priceFrom: number | null;
   priceTo: number | null;
-  inStockCount: number;
   stockUnits: number;
   stockExecutions: number;
   skuCount: number;

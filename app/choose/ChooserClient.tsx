@@ -12,7 +12,7 @@ export interface ChooserModel {
   scenarios: string[];
   groups: number[];
   priceFrom: number | null;
-  inStockCount: number;
+  stockUnits: number;
   options: string[];
   volumeBands: string[];
   minWidth: number | null;
@@ -96,7 +96,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
         if (milk === "high" && m.options.includes("AutoSteam")) { score += 1; why.push("AutoSteam"); }
         if (groups && m.groups.includes(Number(groups))) { score += 2; why.push(`есть исполнение на ${groups} группы`); }
         if (profiling && /мультибойлер|Multiboiler|профилирован/i.test(m.architecture)) { score += 3; why.push("контроль температуры и профилирование"); }
-        if (m.inStockCount > 0) { score += 1; why.push(`${m.inStockCount} конфигураций на складе в Москве`); }
+        if (m.stockUnits > 0) { score += 1; why.push(m.stockUnits >= 3 ? `${m.stockUnits} шт. на складе в Москве` : "на складе в Москве"); }
         return { m, score, why };
       })
       .sort((a, b) => b.score - a.score || (a.m.priceFrom ?? 0) - (b.m.priceFrom ?? 0));
@@ -297,8 +297,8 @@ function ResultCard({
             </span>
           </div>
           <span className="stock-label">
-            <i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-            {m.inStockCount ? "На складе в Москве" : "Под заказ"}
+            <i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />
+            {m.stockUnits ? "На складе в Москве" : "Под заказ"}
           </span>
         </div>
       </div>
@@ -314,7 +314,7 @@ function CandidateRow({ m }: { m: ChooserModel }) {
         <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
       </div>
       <span className="price num">{m.priceFrom ? `от ${m.priceFrom.toLocaleString("ru-RU")} ₽` : "Цена по запросу"}</span>
-      <span className="stock-label"><i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />{m.inStockCount ? "На складе в Москве" : "Под заказ"}</span>
+      <span className="stock-label"><i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />{m.stockUnits ? "На складе в Москве" : "Под заказ"}</span>
     </article>
   );
 }

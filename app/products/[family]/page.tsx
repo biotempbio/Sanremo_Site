@@ -9,6 +9,7 @@ import {
   familyBySlug,
   modelsOfFamily,
   skusOfModel,
+  stockUnitsOfModel,
   money,
   officialImageForFamily,
   officialImageForModel,
@@ -92,6 +93,7 @@ export default async function FamilyPage({ params }: Props) {
           <div className="grid g3">
             {fmodels.map((m) => {
               const sk = skusOfModel(m.slug);
+              const stockUnits = stockUnitsOfModel(m.slug);
               const hero = sk.find((s) => s.availability === "in_stock") ?? sk[0];
               return (
                 <article className="card" key={m.slug}>
@@ -111,8 +113,8 @@ export default async function FamilyPage({ params }: Props) {
                         <span className="price num">{money(m.priceFrom)}</span>
                       </div>
                       <span className="stock-label">
-                        <i className={`dot ${m.inStockCount ? "st-in_stock" : "st-on_order"}`} />
-                        {m.inStockCount ? "На складе в Москве" : "Под заказ"}
+                        <i className={`dot ${stockUnits ? "st-in_stock" : "st-on_order"}`} />
+                        {stockUnits ? `На складе в Москве${stockUnits >= 3 ? ` · ${stockUnits} шт.` : ""}` : "Под заказ"}
                       </span>
                     </div>
                   </div>

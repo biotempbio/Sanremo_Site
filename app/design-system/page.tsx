@@ -357,7 +357,7 @@ export default function DesignSystemPage() {
             <div className="spec-group">
               <h4>Гидравлика</h4>
               <dl style={{ margin: 0 }}>
-                <div className="spec-row"><dt>Тип бойлера</dt><dd>Мультибойлер, независимые контуры</dd></div>
+                <div className="spec-row"><dt>Тип бойлера</dt><dd>Мультибойлер, независимые бойлеры</dd></div>
                 <div className="spec-row"><dt>Объём парового бойлера</dt><dd className="num">7 л</dd></div>
                 <div className="spec-row"><dt>Стабильность температуры</dt><dd>± 0,3 °C</dd></div>
               </dl>
