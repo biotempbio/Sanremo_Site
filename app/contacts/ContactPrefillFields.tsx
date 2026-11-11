@@ -25,7 +25,7 @@ export function ContactTaskField() {
   const [task, setTask] = useState("");
   useEffect(() => {
     const sku = new URLSearchParams(window.location.search).get("sku");
-    if (sku) setTask(`Интересует конфигурация, артикул ${sku}.`);
+    if (sku) setTask(`Интересует версия, артикул ${sku}.`);
   }, []);
   return <label className="field" style={{ gridColumn: "1 / -1" }}>
     <span>Задача</span>

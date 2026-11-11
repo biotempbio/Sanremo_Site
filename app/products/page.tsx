@@ -73,7 +73,7 @@ export default function ProductsPage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                {CATALOG_LINEUP.length} основных линеек. Для каждой конфигурации —
+                {CATALOG_LINEUP.length} основных линеек. Для каждой версии —
                 цена, доступные исполнения и наличие.
               </p>
             </div>

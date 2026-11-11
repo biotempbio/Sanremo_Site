@@ -61,7 +61,7 @@ export default async function FamilyPage({ params }: Props) {
               <ResponsiveImage src={officialImageForFamily(f.slug) ?? ""} alt={`Sanremo ${f.name}`} width={1536} height={864} priority sizes="(max-width: 900px) 100vw, 50vw" />
             </div>
             <div className="module-copy">
-              <p className="eyebrow">Семейство · {f.architecture}</p>
+              <p className="eyebrow">Линейка · {f.architecture}</p>
               <h1>{f.name}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
               <p className="lead">{f.territory}</p>
@@ -70,13 +70,14 @@ export default async function FamilyPage({ params }: Props) {
               </div>
               <div className="grid g3" style={{ gap: 14, marginBottom: 24 }}>
                 <Fact k="Моделей" v={String(fmodels.length)} />
-                <Fact k="Конфигураций" v={String(allSkus.length)} />
+                <Fact k="Исполнений" v={String(allSkus.length)} />
                 <Fact k="Цена от" v={money(Math.min(...fmodels.map((m) => m.priceFrom ?? Infinity)))} />
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-solid" href="/choose/">Подобрать конфигурацию</a>
+                <a className="btn btn-solid" href="/choose/">Подобрать версию</a>
                 <a className="btn" href="/dealers/">Где купить</a>
               </div>
+              <ul className="family-trust-details"><li>Гарантия 12 месяцев с даты продажи</li><li>Со склада в Москве или под заказ из Италии за 6–8 недель</li><li>Покупка в лизинг</li><li>Дилеры и сервис по всей России</li></ul>
             </div>
           </div>
         </section>
@@ -85,7 +86,7 @@ export default async function FamilyPage({ params }: Props) {
           <div><p className="eyebrow">Для каких задач</p><h2>Кому подходит {f.name}</h2>
             <p>{f.scenarios.join(", ")}. Проверьте число групп, архитектуру и условия вашей площадки по выбранной версии.</p></div>
           <div><p className="eyebrow">Граница выбора</p><h2>Когда смотреть другую линейку</h2>
-            <p>Если нужного числа групп нет среди конфигураций {f.name} или мощность, напряжение и габариты доступного артикула не подходят площадке, сравните другие семейства Sanremo.</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
+            <p>Если нужного числа групп нет среди версий {f.name} или мощность, напряжение и габариты исполнения не подходят площадке, сравните другие линейки Sanremo.</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
         </section>
 
         {/* Модели внутри семейства */}
@@ -97,7 +98,7 @@ export default async function FamilyPage({ params }: Props) {
             </div>
             <p className="small" style={{ maxWidth: "56ch" }}>
               Показаны модели и исполнения, доступные для заказа в России.
-              Актуальное наличие и сроки поставки указаны в карточках конфигураций.
+              Актуальное наличие и сроки поставки указаны в карточках версий.
             </p>
           </div>
           <div className="grid g3">

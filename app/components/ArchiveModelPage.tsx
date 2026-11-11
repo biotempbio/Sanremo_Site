@@ -25,7 +25,7 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
         </div>
         <div className="prose" style={{ marginTop: 30 }}>
           <p>Sanremo {model.name} — профессиональная рожковая кофемашина. Новые поставки этой модели в Россию не ведутся.</p>
-          <p>Для точного подбора обслуживания и совместимых комплектующих укажите серийный номер и конфигурацию машины.</p>
+          <p>Для точного подбора обслуживания и совместимых комплектующих укажите серийный номер и исполнение машины.</p>
         </div>
       </section>
 
@@ -35,7 +35,7 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
         <div><p className="eyebrow">Покупка и поддержка</p><h2 style={{ fontSize: "clamp(23px,2.3vw,32px)" }}>Официальные дилеры</h2><p className="small">Найдите партнёра в вашем регионе для консультации и дальнейшего обслуживания.</p><a className="link-arrow" href="/dealers/">Найти дилера</a></div>
       </div></div></section>
 
-      <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Актуальная замена</p><h2>Подберём модель под ваш проект</h2></div><p className="lead">Текущая линейка Sanremo отличается по формату, потоку и требованиям к рабочей зоне. Подборщик покажет актуальные варианты без предположений о конфигурации старой машины.</p></div><a className="btn btn-solid" href="/choose/">Подобрать актуальную модель</a></section>
+      <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Актуальная замена</p><h2>Подберём модель под ваш проект</h2></div><p className="lead">Подберём замену из текущих линеек Sanremo по вашему потоку и меню.</p></div><a className="btn btn-solid" href="/choose/">Подобрать актуальную модель</a></section>
     </main>
     <Footer />
   </>;

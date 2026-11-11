@@ -200,7 +200,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
             <div className="sec-head" style={{ marginBottom: 22 }}>
               <div>
                 <p className="eyebrow">Результат подбора</p>
-                <h2>Две-три обоснованные конфигурации</h2>
+                <h2>Две-три подходящие версии</h2>
               </div>
               <p className="small" style={{ maxWidth: "50ch" }}>
                 Подходящих моделей: {selection.ranked.length}. Ниже — основная рекомендация,

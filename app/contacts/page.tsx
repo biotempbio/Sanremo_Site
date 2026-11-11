@@ -15,7 +15,7 @@ const FORMS = [
   { id: "quote", title: "Подбор и коммерческое предложение", who: "Отдел продаж BIO или дилер региона",
     fields: "результат подбора, модели, регион, формат, объём, срок запуска, контакты" },
   { id: "model", title: "Консультация по модели", who: "Продажи BIO или дилер",
-    fields: "SKU и конфигурация, страница, регион, вопрос, контакты" },
+    fields: "модель и версия, страница, регион, вопрос, контакты" },
   { id: "service", title: "Сервисное обращение", who: "Сервисная очередь",
     fields: "модель, серийный номер, город, симптом, фото или видео, дилер" },
   { id: "part", title: "Запрос запчасти", who: "Отдел запчастей BIO или дилер",
@@ -41,7 +41,7 @@ export default function ContactsPage() {
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
                 Расскажите о формате, меню и планируемой нагрузке. Команда BIO поможет выбрать
-                конфигурацию, проверить наличие и связаться с подходящим дилером.
+                версию, проверить наличие и связаться с подходящим дилером.
               </p>
             </div>
           </div>
@@ -50,7 +50,7 @@ export default function ContactsPage() {
         <section className="wrap section-tight">
           <div className="grid g2 contacts-layout" style={{ alignItems: "start" }}>
             <div className="contacts-main">
-              <h2 style={{ marginBottom: 20 }}>Запрос конфигурации</h2>
+              <h2 style={{ marginBottom: 20 }}>Запрос версии</h2>
               <LeadForm form="contacts" className="grid g2 contacts-form" style={{ alignItems: "start" }}>
                 <label className="field"><span>Имя</span><input name="name" placeholder="Как к вам обращаться" required /></label>
                 <label className="field"><span>Телефон или e-mail</span><input name="contact" placeholder="для ответа" required /></label>

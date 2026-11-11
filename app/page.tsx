@@ -40,7 +40,7 @@ export default function HomePage() {
           <p className="eyebrow">Sanremo Coffee Machines · Россия</p>
           <h1>Профессиональные кофемашины Sanremo в России</h1>
           <p className="home-subtitle">Кофемашина для вашего проекта</p>
-          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — конфигурации, характеристики, цены и наличие; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
+          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — исполнения, характеристики, цены и наличие; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
           <div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать модель</a><a className="btn" href="/products/">Открыть каталог</a></div>
         </div>
         <figure className="home-hero-image">
@@ -51,10 +51,11 @@ export default function HomePage() {
       <section className="home-trust" aria-label="Sanremo в России"><div className="wrap">
         <div><b>{lineup.length} линеек Sanremo</b><span>в актуальном российском каталоге</span></div>
         <div><b>от {money(firstPrice)}</b><span>начальная цена линейки</span></div>
-        <div><b>Точные характеристики</b><span>в карточке каждой конфигурации</span></div>
+        <div><b>Точные характеристики</b><span>в карточке каждой версии</span></div>
         <div><b>Сервис и запчасти</b><span>для поддержки оборудования</span></div>
         <div><b>Дилерская сеть</b><span>по всей России</span></div>
       </div></section>
+      <div className="wrap home-trust-details" aria-label="Поставка и поддержка"><span>Гарантия 12 месяцев с даты продажи</span><span>Под заказ — 6–8 недель из Италии</span><span>Лизинг через лизинговые компании</span><span>Дилеры и сервис по всей России</span></div>
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>
