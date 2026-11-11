@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default function DocumentsPage() {
-  const options = models.map((model) => ({ slug: model.slug, name: model.name }));
+  const options = models.map((model) => ({ slug: model.slug, name: model.name, family: model.family }));
   return <><Header /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Документы" }]} /><main>
-    <section className="section wrap"><div className="sec-head"><div><p className="eyebrow">Техническая библиотека</p><h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Документы Sanremo</h1></div><p className="lead">{documents.length} PDF по моделям: инструкции, схемы, каталоги запчастей, брошюры и декларации. Выберите модель и тип файла, чтобы сразу скачать нужный документ.</p></div>
+    <section className="section wrap"><div className="sec-head"><div><p className="eyebrow">Техническая библиотека</p><h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Документы Sanremo</h1></div><p className="lead">Брошюры, инструкции, схемы и сертификаты собраны по моделям. Файлы открываются сразу в PDF. Если нужного документа нет — напишите, пришлём.</p></div>
       <DocumentLibrary models={options} />
     </section>
   </main><Footer /></>;

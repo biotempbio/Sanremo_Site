@@ -56,7 +56,7 @@ export default async function ModelPage({ params }: Props) {
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
   const feats = [
     m.groupsAvailable.length ? `Исполнения с ${m.groupsAvailable.join(" / ")} группами — выбирайте число рабочих мест под пиковую нагрузку.` : null,
-    hero?.boilerTotal ? `Общий объем бойлеров — ${hero.boilerTotal}\u00a0л для выбранной конфигурации.` : null,
+    hero?.boilerTotal ? `Общий объём бойлеров — ${hero.boilerTotal}\u00a0л для выбранной конфигурации.` : null,
     hero?.control ? `Управление: ${hero.control}.` : null,
     m.optionsAvailable.length ? `Доступные опции: ${m.optionsAvailable.join(", ")}.` : null,
     m.family === "d8" && m.slug === "d8-pro" ? "Версия PRO позволяет отдельно настраивать температуру групп." : null,
@@ -203,7 +203,7 @@ export default async function ModelPage({ params }: Props) {
                   <Spec k="Семейство" v={f.name} />
                   <Spec k="Версия" v={m.version} />
                   <Spec k="Архитектура бойлеров" v={f.architecture} />
-                  <Spec k="Общий объем бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal}\u00a0л` : null} />
+                  <Spec k="Общий объём бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal}\u00a0л` : null} />
                   <Spec k="Количество групп" v={m.groupsAvailable.join(" / ")} />
                   <Spec k="Посадка (высота) группы" v={hero?.seat} />
                 </SpecGroup>

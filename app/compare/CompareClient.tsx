@@ -26,7 +26,8 @@ function line(slug: string) {
   const stock = skus.reduce((sum, sku) => sum + sku.free, 0);
   const first = skus.find((sku) => sku.free > 0) ?? skus[0];
   const flow = flowRange(slug);
-  const controls = [...new Set(skus.map((sku) => sku.control).filter(Boolean))].join("; ");
+  const controls = [...new Set(skus.map((sku) => sku.control).filter((value): value is string => !!value))]
+    .map((value) => value.charAt(0).toLocaleUpperCase("ru-RU") + value.slice(1)).join("; ");
   return { entry, model, family, stock, first, flow, controls };
 }
 

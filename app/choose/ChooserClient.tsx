@@ -95,7 +95,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
         if (volume && m.volumeBands.includes(volume)) { score += 4; why.push(`подходит для диапазона ${VOLUMES.find((v) => v.id === volume)?.label} чашек в день`); }
         if (milk === "high" && /мультибойлер|Multiboiler/i.test(m.architecture)) { score += 3; why.push("независимая паровая часть при молочном меню"); }
         if (milk === "high" && m.options.includes("AutoSteam")) { score += 1; why.push("AutoSteam"); }
-        if (groups && m.groups.includes(Number(groups))) { score += 2; why.push(`есть исполнение на ${groups} группы`); }
+        if (groups && m.groups.includes(Number(groups))) { score += 2; why.push(groups === "1" ? "есть одногруппная версия" : `есть версия на ${groups} группы`); }
         if (profiling && /мультибойлер|Multiboiler|профилирован/i.test(m.architecture)) { score += 3; why.push("контроль температуры и профилирование"); }
         if (m.stockUnits > 0) { score += 1; why.push(m.stockUnits >= 3 ? `${m.stockUnits} шт. на складе в Москве` : "на складе в Москве"); }
         return { m, score, why };
@@ -152,7 +152,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
           <div className="chips">
             {[1, 2, 3].map((g) => (
               <button type="button" key={g} className="chip" aria-pressed={groups === String(g)}
-                      onClick={() => setGroups(groups === String(g) ? "" : String(g))}>{g} группы</button>
+                      onClick={() => setGroups(groups === String(g) ? "" : String(g))}>{g} {g === 1 ? "группа" : "группы"}</button>
             ))}
             <button type="button" className="chip" aria-pressed={profiling} onClick={() => setProfiling(!profiling)}>
               Нужен независимый контроль / профилирование

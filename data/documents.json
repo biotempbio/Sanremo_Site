@@ -73,7 +73,7 @@
   },
   {
     "id": "zoe-82006001-zoe-compact-impaginato-322dd2",
-    "name": "82006001 Zoe COMPACT impaginato",
+    "name": "82006001 Zoe Compact impaginato",
     "type": "Взрыв-схема",
     "models": [
       "zoe-compact"
@@ -85,7 +85,7 @@
   },
   {
     "id": "zoe-83003000a-zoe-competition-ricambi-12-2021-ca24b6",
-    "name": "83003000A Zoe COMPETITION ricambi 12-2021",
+    "name": "83003000A Zoe Competition ricambi 12-2021",
     "type": "Взрыв-схема",
     "models": [
       "zoe-competition"
@@ -304,7 +304,7 @@
   },
   {
     "id": "zoe-81003003-libr-utente-zoe-competition-tall-russo-13af88",
-    "name": "81003003 LIBR.UTENTE Zoe COMPETITION+TALL RUSSO",
+    "name": "81003003 LIBR.UTENTE Zoe Competition+TALL RUSSO",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -424,7 +424,7 @@
   },
   {
     "id": "zoe-zoe-compact-cfb7d2",
-    "name": "Zoe compact",
+    "name": "Zoe Compact",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-compact"

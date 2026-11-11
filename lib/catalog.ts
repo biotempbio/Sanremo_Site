@@ -140,7 +140,8 @@ export const models = catalog.models;
 export const skus = catalog.skus;
 export const grinders = catalog.grinders;
 /** Публичный каталог ЗИП показывает только физически доступные позиции. */
-export const parts = catalog.parts.filter((p) => p.stock > 0 && p.availability !== "on_order");
+export const parts = catalog.parts.filter((p) => p.stock > 0 && p.availability !== "on_order")
+  .map((p) => ({ ...p, node: p.node === "Стекла и стеклопакеты" ? "Стёкла и стеклопакеты" : p.node }));
 export const dealers = catalog.dealers;
 export const chains = catalog.chains;
 export const analogs = catalog.analogs;
