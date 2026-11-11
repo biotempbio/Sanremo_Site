@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { RelatedReading } from "../../components/GuideBlocks";
-import { families, familyPriceFrom, modelsOfFamily, money, VOLUME_BANDS } from "@/lib/catalog";
+import { families, familyPriceFrom, modelsOfFamily, money, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export default function LinejkiPage() {
   const rows = families.map((family) => ({
     family,
     bands: VOLUME_BANDS.filter((band) => band.models.some((slug) => slug === family.slug || slug.startsWith(`${family.slug}-`))),
+    controls: [...new Set(modelsOfFamily(family.slug).flatMap((model) => skusOfModel(model.slug).map((sku) => sku.control).filter((control): control is string => Boolean(control))))],
   }));
   const path = "/guide/linejki-sanremo/";
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: "Линейки Sanremo" }]} />
@@ -23,11 +24,11 @@ export default function LinejkiPage() {
       <h2>Сначала определите задачу</h2>
       <p>Количество групп задаёт число рабочих мест, но само по себе не гарантирует нужный темп в пиковую смену. Важны рецепты, доля молочных напитков, организация бара и подготовка персонала. Архитектура бойлеров определяет, насколько отдельно бариста может управлять температурой приготовления и паром.</p>
       <div className="table-scroll" role="region" aria-label="Сравнение линеек Sanremo" tabIndex={0}>
-        <table className="data" style={{ minWidth: 780 }}><thead><tr><th>Линейка</th><th>Группы</th><th>Архитектура</th><th>Ориентир потока BIO</th><th>РРЦ от</th><th>Кому подходит</th></tr></thead>
-          <tbody>{rows.map(({ family, bands }) => <tr key={family.slug}>
+        <table className="data" style={{ minWidth: 920 }}><thead><tr><th>Линейка</th><th>Группы</th><th>Архитектура</th><th>Управление</th><th>Ориентир потока BIO</th><th>РРЦ от</th><th>Кому подходит</th></tr></thead>
+          <tbody>{rows.map(({ family, bands, controls }) => <tr key={family.slug}>
             <td><a href={`/products/${family.slug}/`}>Sanremo {family.name}</a></td>
             <td>{[...new Set(modelsOfFamily(family.slug).flatMap((model) => model.groupsAvailable))].sort().join(" / ")}</td>
-            <td>{family.architecture}</td><td>{bands.map((b) => b.label).join("; ") || "Смотрите конфигурации"}</td>
+            <td>{family.architecture}</td><td>{controls.join(" / ") || "Смотрите карточки"}</td><td>{bands.map((b) => b.label).join("; ") || "Смотрите конфигурации"}</td>
             <td>{money(familyPriceFrom(family.slug))}</td><td>{family.scenarios.slice(0, 2).join("; ")}</td>
           </tr>)}</tbody></table>
       </div>
