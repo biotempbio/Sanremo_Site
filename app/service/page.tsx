@@ -166,7 +166,7 @@ export default function ServicePage() {
               <div style={{ gridColumn: "1 / -1" }}>
                 <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                   <input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
-                  <span>Согласен на обработку персональных данных для рассмотрения обращения</span>
+                  <span>Согласен на <a href="/privacy/">обработку персональных данных</a> для рассмотрения обращения</span>
                 </label>
               </div>
             </LeadForm>
