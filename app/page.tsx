@@ -4,23 +4,23 @@ import { ResponsiveImage } from "./components/ResponsiveImage";
 import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, VOLUME_BANDS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Кофемашины Sanremo — официальный дистрибьютор в России | BIO",
-  description: "Официальный дистрибьютор Sanremo в России: профессиональные кофемашины, РРЦ, наличие, точные характеристики, сервис и запчасти, дилерская сеть.",
+  title: "Кофемашины Sanremo — официальный дистрибьютор в России",
+  description: "Официальный дистрибьютор Sanremo в России: профессиональные кофемашины, цены, наличие, точные характеристики, сервис и запчасти, дилерская сеть.",
 };
 
 const tasks = [
   { href: "/choose/", title: "Подобрать по задаче", text: "Формат, поток, меню и рабочая зона" },
-  { href: "/products/", title: "Сравнить линейки", text: "Архитектура, группы, управление и РРЦ" },
+  { href: "/products/", title: "Сравнить линейки", text: "Архитектура, группы, управление и цены" },
   { href: "/dealers/", title: "Найти дилера", text: "Поставка и запуск в вашем регионе" },
 ];
 
 /** Краткие описания линеек для главной. Длинные тексты выгрузки BIO не выводим. */
 const lineupDescriptions: Record<string, string> = {
-  "zoe-competition": "Двухгруппная машина для ежедневной работы кофейни. В каталоге — доступные исполнения, РРЦ и наличие.",
+  "zoe-competition": "Двухгруппная машина для ежедневной работы кофейни. В каталоге — доступные исполнения, цены и наличие.",
   d8: "Платформа с одной, двумя или тремя группами. D8 PRO добавляет расширенное управление приготовлением; объём бойлера зависит от конфигурации.",
   "f18-sb": "Двухгруппная машина с одним бойлером. В карточке — параметры, исполнения и доступность F18 Single Boiler.",
   "f18-mb": "F18 MB с двумя или тремя группами. Сравните конфигурации по мощности, объёму бойлеров и оснащению.",
-  "cafe-racer": "Две или три группы, несколько вариантов оформления. Для каждой конфигурации указаны характеристики и РРЦ.",
+  "cafe-racer": "Две или три группы, несколько вариантов оформления. Для каждой конфигурации указаны характеристики и цены.",
   opera: "Двухгруппная модель для работы с рецептом. Исполнения и технические параметры собраны в карточке.",
   you: "Компактная одногруппная машина. В карточке — варианты оформления, технические данные и наличие.",
 };
@@ -40,7 +40,7 @@ export default function HomePage() {
           <p className="eyebrow">Sanremo Coffee Machines · Россия</p>
           <h1>Профессиональные кофемашины Sanremo в России</h1>
           <p className="home-subtitle">Кофемашина для вашего проекта</p>
-          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — конфигурации, характеристики, РРЦ и складской статус; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
+          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — конфигурации, характеристики, цены и наличие; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
           <div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать модель</a><a className="btn" href="/products/">Открыть каталог</a></div>
         </div>
         <figure className="home-hero-image">
@@ -50,7 +50,7 @@ export default function HomePage() {
 
       <section className="home-trust" aria-label="Sanremo в России"><div className="wrap">
         <div><b>{lineup.length} линеек Sanremo</b><span>в актуальном российском каталоге</span></div>
-        <div><b>от {money(firstPrice)}</b><span>рекомендованная розничная цена</span></div>
+        <div><b>от {money(firstPrice)}</b><span>начальная цена линейки</span></div>
         <div><b>Точные характеристики</b><span>в карточке каждой конфигурации</span></div>
         <div><b>Сервис и запчасти</b><span>для поддержки оборудования</span></div>
         <div><b>Дилерская сеть</b><span>по всей России</span></div>
@@ -70,7 +70,7 @@ export default function HomePage() {
       </div></section>
 
       <section className="wrap section">
-        <div className="sec-head"><div><p className="eyebrow">Ориентир по нагрузке</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>
+        <div className="sec-head"><div><p className="eyebrow">По числу чашек</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>
         <div className="home-volume" aria-label="Диапазоны нагрузки">{VOLUME_BANDS.map((band, index) => <a href={`/products/?flow=${band.id}`} key={band.id}><span>0{index + 1}</span><b>{band.label}</b></a>)}</div>
         <p style={{ marginTop: 20 }}><a href="/guide/">Как выбрать профессиональную кофемашину →</a></p>
       </section>

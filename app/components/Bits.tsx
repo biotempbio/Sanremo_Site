@@ -13,9 +13,8 @@ export function Stock({ status, free }: { status: Availability; free?: number })
 export function Price({ value, from, note = true }: { value: number | null; from?: boolean; note?: boolean }) {
   return (
     <div>
-      {from ? <span className="price-from">РРЦ от</span> : <span className="price-from">РРЦ</span>}
-      <span className="price num">{money(value)}</span>
-      {note ? <span className="tiny" style={{ display: "block", marginTop: 4 }}>обновлено {PRICE_DATE}</span> : null}
+      <span className="price num">{from ? "от " : "Цена: "}{money(value)}</span>
+      {note ? <span className="tiny" style={{ display: "block", marginTop: 4 }}>Цены и наличие на {PRICE_DATE}</span> : null}
     </div>
   );
 }

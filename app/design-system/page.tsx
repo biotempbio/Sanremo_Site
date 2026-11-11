@@ -46,7 +46,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
       }}
     >
       <div className="tiny" style={{ paddingTop: 4 }}>{label}</div>
-      <div>{children}</div>
+      <div style={{ minWidth: 0 }}>{children}</div>
     </div>
   );
 }
@@ -78,7 +78,7 @@ export default function DesignSystemPage() {
       <a className="skip-link" href="#main">К содержанию</a>
 
       <header className="header">
-        <div className="wrap">
+        <div className="wrap" style={{ flexWrap: "wrap" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="brand" src="/brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" style={{ width: 176 }} />
           <span className="plaque" style={{ marginLeft: 18 }}>Дизайн-система</span>
@@ -88,7 +88,7 @@ export default function DesignSystemPage() {
         </div>
       </header>
 
-      <main id="main">
+      <main id="main" style={{ overflowX: "clip" }}>
         <section className="section bg-gray">
           <div className="wrap">
             <p className="eyebrow">Sanremo Россия · BIO</p>
@@ -136,7 +136,7 @@ export default function DesignSystemPage() {
           <Row label="Тинты · §4.2">
             <div className="stack">
               {TINTS.map((c) => (
-                <div key={c} style={{ display: "grid", gridTemplateColumns: "90px repeat(5, 1fr)", alignItems: "center", gap: 0 }}>
+                <div key={c} style={{ display: "grid", gridTemplateColumns: "90px repeat(5, minmax(0, 1fr))", alignItems: "center", gap: 0 }}>
                   <div className="tiny" style={{ textTransform: "uppercase", letterSpacing: ".1em" }}>{c}</div>
                   {["", "-80", "-60", "-40", "-20"].map((t) => (
                     <div key={t} style={{ background: `var(--${c}${t})`, height: 46, display: "grid", placeItems: "center" }}>
@@ -245,7 +245,7 @@ export default function DesignSystemPage() {
           <Row label="Плашка · §16.1">
             <div className="cluster">
               <span className="plaque">Официальный дистрибьютор</span>
-              <span className="plaque plaque-gray">РРЦ 2026</span>
+              <span className="plaque plaque-gray">Цены 2026</span>
               <span className="plaque plaque-lg">Game changer</span>
             </div>
             <p className="source-note" style={{ marginTop: 12 }}>
@@ -342,7 +342,7 @@ export default function DesignSystemPage() {
                     <span className="stock-label"><i className={`dot st-${m.st}`} />{m.label}</span>
                     <div className="card-foot">
                       <div>
-                        <span className="price-from">РРЦ от</span>
+                        <span className="price-from">Цена от</span>
                         <span className="price num">{m.price} ₽</span>
                       </div>
                       <a className="btn btn-sm" href="#b04">Подробно</a>
@@ -373,7 +373,7 @@ export default function DesignSystemPage() {
                 <tbody>
                   <tr><th scope="row">Группы</th><td>2</td><td>2</td><td className="num">—</td></tr>
                   <tr><th scope="row">Мощность</th><td className="num">4 200 Вт</td><td className="num">3 800 Вт</td><td className="num">+400</td></tr>
-                  <tr><th scope="row">РРЦ</th><td className="num">1 249 000 ₽</td><td className="num">986 000 ₽</td><td className="num">+263 000</td></tr>
+                  <tr><th scope="row">Цена</th><td className="num">1 249 000 ₽</td><td className="num">986 000 ₽</td><td className="num">+263 000</td></tr>
                 </tbody>
               </table>
             </div>
@@ -421,8 +421,8 @@ export default function DesignSystemPage() {
 
           <Row label="Сообщения">
             <div className="stack">
-              <div className="notice"><b>Цены — рекомендованные.</b> Итоговая стоимость зависит от комплектации и условий поставки.</div>
-              <div className="notice ok"><b>Есть на складе.</b> Отгрузка со склада в Москве в течение 2 рабочих дней.</div>
+              <div className="notice"><b>Цены и наличие на 25.08.2026.</b> Выберите конфигурацию для просмотра цены.</div>
+              <div className="notice ok"><b>Есть на складе.</b> Уточните исполнение в карточке модели.</div>
               <div className="notice calm">Позиция снята с производства, подберём аналог из текущей линейки.</div>
               <div className="notice err"><b>Не удалось отправить форму.</b> Проверьте телефон и попробуйте ещё раз.</div>
             </div>

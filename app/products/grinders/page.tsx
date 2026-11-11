@@ -5,8 +5,8 @@ import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { grinders, imgUrl, money, PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Кофемолки Sanremo — X-One: характеристики, РРЦ и наличие",
-  description: "Профессиональная кофемолка Sanremo X-One: характеристики, исполнения, рекомендованные розничные цены и статус поставки от официального дистрибьютора BIO.",
+  title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
+  description: "Профессиональная кофемолка Sanremo X-One: характеристики, исполнения, цены и наличие по артикулам.",
 };
 
 const features = [
@@ -46,15 +46,15 @@ export default function GrindersPage() {
               {primary?.image ? <ResponsiveImage src={imgUrl(primary.image) ?? ""} alt="Кофемолка Sanremo X-One" width={900} height={900} sizes="(max-width: 900px) 100vw, 50vw" style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "contain" }} /> : null}
             </div>
             <div>
-              <p className="eyebrow">X-One · данные BIO</p>
+              <p className="eyebrow">Кофемолка Sanremo X-One</p>
               <h2>X-One: точный помол для профессиональной рабочей зоны</h2>
               <p className="lead">X-One хранит рецепты, поддерживает несколько скоростей помола и помогает бариста работать с разными сортами зерна без лишних переключений.</p>
               <div className="card" style={{ marginTop: 26 }}>
                 <div className="card-body">
-                  <span className="price-from">РРЦ от</span>
+                  <span className="price-from">от</span>
                   <span className="price num">{money(priceFrom)}</span>
                   {primary ? <div style={{ marginTop: 12 }}><Stock status={primary.availability} /></div> : <div style={{ marginTop: 12 }}><Stock status="on_order" /></div>}
-                  <p className="tiny" style={{ margin: "12px 0 0" }}>Коммерческие данные BIO: {PRICE_DATE}.</p>
+                  <p className="tiny" style={{ margin: "12px 0 0" }}>Цены и наличие на {PRICE_DATE}.</p>
                   <a className="btn btn-solid" href="/contacts/?type=model" style={{ marginTop: 18 }}>Запросить поставку</a>
                 </div>
               </div>
@@ -67,14 +67,14 @@ export default function GrindersPage() {
       <section className="wrap section">
         <div className="sec-head">
           <div><p className="eyebrow">Характеристики</p><h2>Всё необходимое — на странице</h2></div>
-          <p className="lead">Параметры собраны из актуальной товарной выгрузки BIO — без необходимости скачивать PDF.</p>
+          <p className="lead">Характеристики и доступные исполнения X-One — прямо на странице.</p>
         </div>
         <div className="table-scroll"><table className="data spec-table"><tbody>{features.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div>
       </section>
 
       <section className="wrap section-tight">
-        <div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>РРЦ и статус поставки</h2></div></div>
-        <div className="table-scroll"><table className="data"><thead><tr><th>Артикул BIO</th><th>Исполнение</th><th className="num">РРЦ</th><th>Статус</th></tr></thead><tbody>
+        <div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>Цены и наличие</h2></div></div>
+        <div className="table-scroll"><table className="data"><thead><tr><th>Артикул</th><th>Исполнение</th><th className="num">Цена</th><th>Статус</th></tr></thead><tbody>
           {entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{money(item.rrp)}</td><td><Stock status={item.availability} /></td></tr>)}
         </tbody></table></div>
       </section>

@@ -7,7 +7,7 @@ import { ResponsiveImage } from "../components/ResponsiveImage";
 export const metadata: Metadata = {
   title: "Решения по формату бизнеса — какая Sanremo нужна вашей точке",
   description:
-    "Подбор кофемашины Sanremo по задаче: кофейня, ресторан, пекарня, сеть или лаборатория. Сравните подходящие модели, РРЦ, характеристики и наличие BIO.",
+    "Подбор кофемашины Sanremo по задаче: кофейня, ресторан, пекарня, сеть или лаборатория. Сравните подходящие модели, цены, характеристики и наличие.",
 };
 
 export default function SolutionsPage() {

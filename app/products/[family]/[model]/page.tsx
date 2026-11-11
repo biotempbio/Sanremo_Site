@@ -35,10 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { model } = await params;
   const m = modelBySlug(model);
   if (!m) return {};
-  const f = familyBySlug(m.family)!;
   return {
-    title: `Sanremo ${m.name} — характеристики, РРЦ, наличие | BIO`,
-    description: `Sanremo ${m.name}: характеристики и конфигурации в России. Группы, цвет, РРЦ и наличие по артикулу из каталога BIO; контакты дилеров, сервис и запчасти.`,
+    title: `Sanremo ${m.name} — характеристики, цена и наличие`,
+    description: `Sanremo ${m.name}: характеристики и конфигурации в России. Группы, цвет, цена и наличие по артикулу; контакты дилеров, сервис и запчасти.`,
   };
 }
 
@@ -63,7 +62,7 @@ export default async function ModelPage({ params }: Props) {
   ].filter((item): item is string => Boolean(item));
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
-  const questions = modelQuestions(m, f, sk);
+  const questions = modelQuestions(m, f);
   const modelDocuments = documentsForModel(m.slug);
   const unavailableGroups = [1, 2, 3].filter((group) => !m.groupsAvailable.includes(group));
 
@@ -80,7 +79,7 @@ export default async function ModelPage({ params }: Props) {
     name: `Sanremo ${m.name}`,
     brand: { "@type": "Brand", name: "Sanremo" },
     category: "Профессиональные рожковые кофемашины",
-    description: `Sanremo ${m.name}: ${f.architecture}. Доступные конфигурации, характеристики и РРЦ в России.`,
+    description: `Sanremo ${m.name}: ${f.architecture}. Доступные конфигурации, характеристики и цены в России.`,
     image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
     url: absoluteUrl(`/products/${family}/${m.slug}/`),
     productGroupID: m.slug,
@@ -158,7 +157,7 @@ export default async function ModelPage({ params }: Props) {
               )}
             </div>
             <div className="callout" style={{ marginTop: 26 }}><h3>Когда {m.name} не подходит</h3>
-              <p>{unavailableGroups.length ? `В каталоге BIO нет исполнения с ${unavailableGroups.join(" / ")} группами. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
+              <p>{unavailableGroups.length ? `Нет исполнения с ${unavailableGroups.join(" / ")} группами. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
               <a href="/guide/linejki-sanremo/">Сравнить линейки Sanremo →</a>
             </div>
           </div>
@@ -223,11 +222,10 @@ export default async function ModelPage({ params }: Props) {
                   <Spec k="Глубина" v={hero?.sizeNet ? `${hero.sizeNet.d}\u00a0мм` : null} />
                   <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet}\u00a0кг` : null} />
                 </SpecGroup>
-                <SpecGroup title="Коммерческие данные">
+                <SpecGroup title="Цены и наличие">
                   <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
-                  <Spec k="РРЦ" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />
-                  <Spec k="Дата актуальности РРЦ" v={PRICE_DATE} />
-                  <Spec k="Владелец данных" v="Компания BIO" />
+                  <Spec k="Цена" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />
+                  <Spec k="Цены и наличие на" v={PRICE_DATE} />
                 </SpecGroup>
               </div>
             </div>
@@ -239,9 +237,9 @@ export default async function ModelPage({ params }: Props) {
           <div className="sec-head">
             <div>
               <p className="eyebrow">Российские конфигурации</p>
-              <h2>SKU, исполнение, РРЦ и наличие</h2>
+              <h2>Исполнение, цена и наличие</h2>
             </div>
-            <p className="small" style={{ maxWidth: "54ch" }}>Доступные исполнения, рекомендованные цены и складской статус.</p>
+            <p className="small" style={{ maxWidth: "54ch" }}>Доступные исполнения, цены и наличие.</p>
           </div>
           <div className="table-scroll">
             <table className="data">
@@ -252,7 +250,7 @@ export default async function ModelPage({ params }: Props) {
                   <th>Высота</th>
                   <th>Исполнение / цвет</th>
                   <th>Опции</th>
-                  <th className="num">РРЦ</th>
+                  <th className="num">Цена</th>
                   <th>Наличие</th>
                 </tr>
               </thead>
@@ -306,7 +304,7 @@ export default async function ModelPage({ params }: Props) {
                     <CmpRow label="Групп" a={m.groupsAvailable.join(" / ")} rest={siblings.map((s) => s.groupsAvailable.join(" / "))} />
                     <CmpRow label="Конфигураций в РФ" a={String(m.skuCount)} rest={siblings.map((s) => String(s.skuCount))} />
                     <CmpRow label="Опции" a={m.optionsAvailable.join(", ") || "—"} rest={siblings.map((s) => s.optionsAvailable.join(", ") || "—")} />
-                    <CmpRow label="РРЦ от" a={money(m.priceFrom)} rest={siblings.map((s) => money(s.priceFrom))} />
+                    <CmpRow label="Цена от" a={money(m.priceFrom)} rest={siblings.map((s) => money(s.priceFrom))} />
                     <CmpRow label="На складе в Москве" a={String(stockUnitsOfModel(m.slug))} rest={siblings.map((s) => String(stockUnitsOfModel(s.slug)))} />
                     <CmpRow
                       label="Карточка"
@@ -339,7 +337,7 @@ export default async function ModelPage({ params }: Props) {
                       <th>Артикул</th>
                       <th>Наименование</th>
                       <th>Узел</th>
-                      <th className="num">РРЦ</th>
+                      <th className="num">Цена</th>
                       <th>Статус</th>
                     </tr>
                   </thead>
@@ -444,7 +442,7 @@ export default async function ModelPage({ params }: Props) {
                     <p className="small" style={{ margin: 0 }}>{familyBySlug(x.family)!.tagline}</p>
                     <div className="card-foot">
                       <div>
-                        <span className="price-from">РРЦ от</span>
+                        <span className="price-from">Цена от</span>
                         <span className="price num" style={{ fontSize: 19 }}>{money(x.priceFrom)}</span>
                       </div>
                       <span className="link-arrow">Открыть →</span>

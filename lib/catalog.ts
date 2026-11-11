@@ -123,7 +123,7 @@ const catalog = raw as unknown as Catalog;
 
 /* ── Актуальность коммерческих данных ─────────────────────────────────────
    Дата берётся из выгрузки BIO. В продакшене её проставляет импорт (ТЗ §18). */
-export const PRICE_DATE = "25 августа 2026";
+export const PRICE_DATE = "25.08.2026";
 export const PRICE_DATE_ISO = "2026-08-25";
 const priceValidUntil = new Date(`${PRICE_DATE_ISO}T00:00:00Z`);
 priceValidUntil.setUTCDate(priceValidUntil.getUTCDate() + 30);
@@ -242,11 +242,11 @@ export const AVAILABILITY_LABEL: Record<Availability, string> = {
 export interface VolumeBand { id: string; label: string; models: string[] }
 
 export const VOLUME_BANDS: VolumeBand[] = [
-  { id: "u100", label: "до 100 чашек/день", models: ["zoe-sap", "zoe-sed", "zoe-compact", "you"] },
-  { id: "100-200", label: "100–200 чашек/день", models: ["zoe-sed", "zoe-competition", "zoe-compact", "d8", "you"] },
-  { id: "200-300", label: "200–300 чашек/день", models: ["zoe-competition", "d8", "d8-pro", "f18-sb"] },
-  { id: "300-500", label: "300–500 чашек/день", models: ["d8-pro", "f18-sb", "f18-mb", "cafe-racer"] },
-  { id: "500+", label: "500+ чашек/день", models: ["f18-mb", "cafe-racer", "opera", "d8-pro"] },
+  { id: "u100", label: "до 100 чашек в день", models: ["zoe-sap", "zoe-sed", "zoe-compact", "you"] },
+  { id: "100-200", label: "100–200 чашек в день", models: ["zoe-sed", "zoe-competition", "zoe-compact", "d8", "you"] },
+  { id: "200-300", label: "200–300 чашек в день", models: ["zoe-competition", "d8", "d8-pro", "f18-sb"] },
+  { id: "300-500", label: "300–500 чашек в день", models: ["d8-pro", "f18-sb", "f18-mb", "cafe-racer"] },
+  { id: "500+", label: "500+ чашек в день", models: ["f18-mb", "cafe-racer", "opera", "d8-pro"] },
 ];
 
 export interface Scenario {

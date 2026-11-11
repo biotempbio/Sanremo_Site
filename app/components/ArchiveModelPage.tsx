@@ -6,8 +6,8 @@ import { ARCHIVE_MODELS, type ArchiveModelSlug } from "@/lib/archive-models";
 export function archiveMetadata(slug: ArchiveModelSlug): Metadata {
   const { name } = ARCHIVE_MODELS[slug];
   return {
-    title: `Sanremo ${name} — архив: сервис и запчасти | BIO`,
-    description: `Sanremo ${name} снята с поставки в Россию. Для владельцев: сервис BIO, поиск совместимых запчастей по модели и помощь в выборе актуальной машины Sanremo.`,
+    title: `Sanremo ${name} — архив: сервис и запчасти`,
+    description: `Sanremo ${name} снята с поставки в Россию. Для владельцев: сервис в России, поиск совместимых запчастей по модели и помощь в выборе актуальной машины Sanremo.`,
   };
 }
 

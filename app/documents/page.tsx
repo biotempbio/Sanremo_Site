@@ -6,8 +6,8 @@ import { documents } from "@/lib/documents";
 import { models } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Документы Sanremo — инструкции, схемы и декларации | BIO",
-  description: "Документы Sanremo в России: инструкции, схемы, каталоги запчастей и декларации по моделям. Выберите модель и тип документа, скачайте PDF прямо с сайта BIO.",
+  title: "Документы Sanremo — инструкции, схемы и декларации",
+  description: "Документы Sanremo в России: инструкции, схемы, каталоги запчастей и декларации по моделям. Выберите модель и тип документа, скачайте PDF прямо с сайта.",
 };
 
 export default function DocumentsPage() {

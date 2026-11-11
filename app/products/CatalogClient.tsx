@@ -174,7 +174,7 @@ export default function CatalogClient({
           ))}
         </Group>
 
-        <Group title="Диапазон РРЦ">
+        <Group title="Диапазон цен">
           {PRICE_BANDS.map((b) => (
             <Chip key={b.id} on={price.includes(b.id)} onClick={() => setPrice(toggle(price, b.id))}>{b.label}</Chip>
           ))}
@@ -194,9 +194,9 @@ export default function CatalogClient({
           <label className="field" style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ margin: 0 }}>Сортировка</span>
             <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ minWidth: 210, minHeight: 42 }}>
-              <option value="price-asc">РРЦ: по возрастанию</option>
+              <option value="price-asc">Цена: по возрастанию</option>
               <option value="lineup">Порядок линейки</option>
-              <option value="price-desc">РРЦ: по убыванию</option>
+              <option value="price-desc">Цена: по убыванию</option>
               <option value="stock">Сначала склад в Москве</option>
               <option value="name">По названию</option>
             </select>
@@ -207,7 +207,7 @@ export default function CatalogClient({
           <div className="empty">
             <h3>Под эти условия подходящих моделей не найдено</h3>
             <p className="small" style={{ maxWidth: "48ch", margin: "10px auto 18px" }}>
-              Снимите часть фильтров или опишите задачу — специалист BIO подберёт конфигурацию.
+              Снимите часть фильтров или измените параметры в подборщике.
             </p>
             <button className="btn" onClick={reset}>Сбросить фильтры</button>
           </div>
@@ -237,7 +237,7 @@ export default function CatalogClient({
                   )}
                   <div className="card-foot">
                     <div>
-                      <span className="price-from">РРЦ от</span>
+                      <span className="price-from">от</span>
                       <span className="price num">{formatPrice(r.priceFrom)}</span>
                     </div>
                     <span className="stock-label" style={{ alignItems: "flex-start" }}>

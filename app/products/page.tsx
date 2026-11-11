@@ -13,9 +13,9 @@ import {
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог кофемашин Sanremo — РРЦ и наличие в России",
+  title: "Каталог кофемашин Sanremo — цены и наличие в России",
   description:
-    "Каталог кофемашин Sanremo в России: группы, архитектура бойлеров, исполнения, РРЦ и наличие. Фильтры по потоку и задачам кофейни, карточки моделей BIO.",
+    "Каталог кофемашин Sanremo в России: группы, архитектура бойлеров, исполнения, цены и наличие. Фильтры по потоку и задачам кофейни, карточки моделей Sanremo.",
 };
 
 export default function ProductsPage() {
@@ -74,7 +74,7 @@ export default function ProductsPage() {
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
                 {CATALOG_LINEUP.length} основных линеек. Для каждой конфигурации —
-                рекомендованная розничная цена, доступные исполнения и складской статус.
+                цена, доступные исполнения и наличие.
               </p>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function ProductsPage() {
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
         </section>
-        <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>С чего начать выбор?</h2><p>Сравните рабочий поток, группы, бойлеры и условия подключения. В гиде BIO эти вопросы разобраны на примере актуальных линеек Sanremo.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/kofemashina-dlya-restorana/">Гид для ресторана →</a> · <a href="/guide/linejki-sanremo/">Сравнение линеек →</a></div></section>
+        <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>С чего начать выбор?</h2><p>Сравните рабочий поток, группы, бойлеры и условия подключения. В гиде эти вопросы разобраны на примере актуальных линеек Sanremo.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/kofemashina-dlya-restorana/">Гид для ресторана →</a> · <a href="/guide/linejki-sanremo/">Сравнение линеек →</a></div></section>
         <section className="wrap section-tight" aria-labelledby="discontinued-models">
           <div className="callout">
             <h2 id="discontinued-models" style={{ fontSize: "clamp(24px,2.4vw,34px)", marginBottom: 12 }}>Модели, снятые с поставки</h2>

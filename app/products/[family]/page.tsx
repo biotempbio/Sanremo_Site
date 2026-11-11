@@ -29,8 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const f = familyBySlug(family);
   if (!f) return {};
   return {
-    title: `Sanremo ${f.name} — конфигурации, цвета, РРЦ и наличие`,
-    description: `Sanremo ${f.name}: модели и конфигурации российского каталога BIO. Сравните группы, исполнения, РРЦ и наличие, затем найдите дилера и сервис в регионе.`,
+    title: `Sanremo ${f.name} — конфигурации, цвета, цены и наличие`,
+    description: `Sanremo ${f.name}: модели и конфигурации каталога Sanremo. Сравните группы, исполнения, цены и наличие, затем найдите дилера и сервис в регионе.`,
   };
 }
 
@@ -71,7 +71,7 @@ export default async function FamilyPage({ params }: Props) {
               <div className="grid g3" style={{ gap: 14, marginBottom: 24 }}>
                 <Fact k="Моделей" v={String(fmodels.length)} />
                 <Fact k="Конфигураций" v={String(allSkus.length)} />
-                <Fact k="РРЦ от" v={money(Math.min(...fmodels.map((m) => m.priceFrom ?? Infinity)))} />
+                <Fact k="Цена от" v={money(Math.min(...fmodels.map((m) => m.priceFrom ?? Infinity)))} />
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <a className="btn btn-solid" href="/choose/">Подобрать конфигурацию</a>
@@ -82,8 +82,8 @@ export default async function FamilyPage({ params }: Props) {
         </section>
 
         <section className="wrap section-tight guide-decision">
-          <div><p className="eyebrow">Сценарии BIO</p><h2>Кому подходит {f.name}</h2>
-            <p>{f.scenarios.join("; ")}. Проверьте число групп, архитектуру и условия вашей площадки по выбранной версии.</p></div>
+          <div><p className="eyebrow">Для каких задач</p><h2>Кому подходит {f.name}</h2>
+            <p>{f.scenarios.join(", ")}. Проверьте число групп, архитектуру и условия вашей площадки по выбранной версии.</p></div>
           <div><p className="eyebrow">Граница выбора</p><h2>Когда смотреть другую линейку</h2>
             <p>Если нужного числа групп нет среди конфигураций {f.name} или мощность, напряжение и габариты доступного артикула не подходят площадке, сравните другие семейства Sanremo.</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
         </section>
@@ -96,7 +96,7 @@ export default async function FamilyPage({ params }: Props) {
               <h2>Модели и версии</h2>
             </div>
             <p className="small" style={{ maxWidth: "56ch" }}>
-              Показаны модели и исполнения, доступные для заказа через официальную сеть BIO.
+              Показаны модели и исполнения, доступные для заказа в России.
               Актуальное наличие и сроки поставки указаны в карточках конфигураций.
             </p>
           </div>
@@ -119,7 +119,7 @@ export default async function FamilyPage({ params }: Props) {
                     </div>
                     <div className="card-foot">
                       <div>
-                        <span className="price-from">РРЦ от</span>
+                        <span className="price-from">Цена от</span>
                         <span className="price num">{money(m.priceFrom)}</span>
                       </div>
                       <span className="stock-label">
@@ -140,7 +140,7 @@ export default async function FamilyPage({ params }: Props) {
             <div className="sec-head">
               <div>
                 <p className="eyebrow">Матрица</p>
-                <h2>Модель × группы × исполнение × РРЦ</h2>
+                <h2>Модель × группы × исполнение × цена</h2>
               </div>
             </div>
             <div className="table-scroll">
@@ -152,7 +152,7 @@ export default async function FamilyPage({ params }: Props) {
                     <th>Высота групп</th>
                     <th>Исполнение / цвет</th>
                     <th>Опции</th>
-                    <th className="num">РРЦ</th>
+                    <th className="num">Цена</th>
                     <th>Наличие</th>
                   </tr>
                 </thead>

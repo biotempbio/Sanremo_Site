@@ -95,7 +95,7 @@ export default function DealersClient({
                     <p className="small" style={{ margin: 0 }}>{d.address}</p>
                   ) : (
                     <p className="tiny" style={{ margin: 0 }}>
-                      Адрес и контакты подставляются из справочника дилеров BIO.
+                      Адрес и контакты опубликованы в карточке дилера.
                     </p>
                   )}
                   {d.note ? <p className="tiny" style={{ margin: 0 }}>{d.note}</p> : null}

@@ -125,12 +125,12 @@ export default function ConfigPicker({
 
         <div className="picker-commerce">
           <div>
-            <span className="price-from">Рекомендованная розничная цена</span>
+            <span className="price-from">Цена</span>
             <span className="price num" style={{ fontSize: 32 }}>
               {formatPrice(current.rrp)}
             </span>
             <p className="tiny" style={{ margin: "6px 0 0" }}>
-              обновлено {priceDate}
+              Цены и наличие на {priceDate}
             </p>
           </div>
           <div>

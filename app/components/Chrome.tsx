@@ -67,7 +67,7 @@ export function Footer() {
           <div>
             <h4>Каталог</h4>
             <nav>
-              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/guide/">Как выбрать</a><a href="/faq/">Частые вопросы</a><a href="/solutions/">Решения по формату</a><a href="/compare/">Сравнения</a><a href="/prices/">РРЦ и наличие</a>
+              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/guide/">Как выбрать</a><a href="/faq/">Частые вопросы</a><a href="/solutions/">Решения по формату</a><a href="/compare/">Сравнения</a><a href="/prices/">Цены и наличие</a>
             </nav>
           </div>
           <div>

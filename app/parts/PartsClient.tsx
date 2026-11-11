@@ -120,7 +120,7 @@ export default function PartsClient({
                     <th>Наименование</th>
                     <th>Узел</th>
                     <th>Совместимость</th>
-                    <th className="num">РРЦ</th>
+                    <th className="num">Цена</th>
                     <th>Статус</th>
                     <th />
                   </tr>

@@ -92,7 +92,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
         let score = 0;
         const why: string[] = [];
         if (fmt && m.scenarios.some((s) => fmt.scen.includes(s))) { score += 4; why.push(`подходит формату «${fmt.label}»`); }
-        if (volume && m.volumeBands.includes(volume)) { score += 4; why.push(`рассчитана на ${VOLUMES.find((v) => v.id === volume)?.label} чашек/день`); }
+        if (volume && m.volumeBands.includes(volume)) { score += 4; why.push(`подходит для диапазона ${VOLUMES.find((v) => v.id === volume)?.label} чашек в день`); }
         if (milk === "high" && /мультибойлер|Multiboiler/i.test(m.architecture)) { score += 3; why.push("независимая паровая часть при молочном меню"); }
         if (milk === "high" && m.options.includes("AutoSteam")) { score += 1; why.push("AutoSteam"); }
         if (groups && m.groups.includes(Number(groups))) { score += 2; why.push(`есть исполнение на ${groups} группы`); }
@@ -162,7 +162,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
 
         <fieldset className="chooser-two">
           <label className="field">
-            <span>5. Бюджет (РРЦ)</span>
+            <span>5. Бюджет</span>
             <select value={budget} onChange={(e) => setBudget(e.target.value)}>
               <option value="" disabled>Выберите бюджет</option>
               {BUDGETS.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}
@@ -223,7 +223,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
               <div>
                 <h3>Отправить подбор специалисту</h3>
                 <p className="small" style={{ margin: "8px 0 0" }}>
-                  Запрос уйдёт с уже выбранными параметрами и моделями. Маршрутизация — в BIO или
+                  Запрос уйдёт с уже выбранными параметрами и моделями. Запрос получит дилер или
                   дилеру вашего региона.
                 </p>
               </div>
@@ -292,7 +292,7 @@ function ResultCard({
         </ul>
         <div className="card-foot">
           <div>
-            <span className="price-from">РРЦ от</span>
+            <span className="price-from">от</span>
             <span className="price num" style={{ fontSize: 21 }}>
               {formatPrice(m.priceFrom)}
             </span>

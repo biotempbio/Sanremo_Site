@@ -7,7 +7,7 @@ import { parts, partNodes, catalogModels, CATALOG_LINEUP, skuByCode } from "@/li
 export const metadata: Metadata = {
   title: "Запчасти Sanremo — каталог ЗИП с совместимостью и наличием",
   description:
-    "Запчасти Sanremo в России: поиск по артикулу, названию и модели, данные о совместимости, рекомендованной цене и наличии. Запрос нужной детали через BIO.",
+    "Запчасти Sanremo в России: поиск по артикулу, названию и модели, совместимость, цена и наличие. Запрос нужной детали через BIO.",
 };
 
 export default function PartsPage() {
