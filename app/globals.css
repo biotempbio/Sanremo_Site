@@ -197,6 +197,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 900px) { .module, .module.a, .module.b { grid-template-columns: 1fr; } .module-photo { min-height: 260px; } .flip { order: -1; } }
 
 .grid { display: grid; gap: clamp(14px, 1.4vw, 22px); }
+.grid > * { min-width: 0; }
 .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -326,10 +327,10 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
 .chip:hover { border-color: var(--ink); }
 
-.field { display: block; }
+.field { display: block; min-width: 0; }
 .field > span { display: block; font-family: var(--sans); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .field input, .field select, .field textarea {
-  width: 100%; min-height: 48px; padding: 10px 13px; border: 1px solid var(--line-strong);
+  width: 100%; max-width: 100%; min-height: 48px; padding: 10px 13px; border: 1px solid var(--line-strong);
   background: #fff; font-family: var(--text); font-size: 15px; color: var(--ink);
 }
 .field textarea { min-height: 110px; resize: vertical; }
@@ -531,6 +532,11 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 @media(max-width:620px){.home-tasks,.home-products,.home-volume{grid-template-columns:1fr}.home-trust .wrap{grid-template-columns:1fr}.home-trust .wrap>div{padding:16px 0;border-right:0;border-bottom:1px solid var(--line)}.home-trust .wrap>div:last-child{border-bottom:0}.home-hero-copy-native h1{font-size:44px}.home-hero-image{min-height:280px}}
 @media(max-width:560px){.chip,.dealers a,.config-chip{min-height:44px;display:inline-flex;align-items:center}}
 @media(max-width:560px){.footer nav a{min-height:44px;display:flex;align-items:center}.brand{min-height:44px;display:flex;align-items:center}.crumbs a{min-height:40px;display:inline-flex;align-items:center}}
+@media(max-width:620px){
+  .lead-submit{width:100%}
+  .table-scroll{max-width:100%}
+  .table-scroll table.data{min-width:460px}
+}
 .hp-field{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important}.lead-submit{grid-column:1/-1;justify-self:start}.form-result{border-top:3px solid var(--ink);padding:24px 0}.form-error{grid-column:1/-1;color:#8b2e18;border-left:3px solid currentColor;padding:10px 14px}.form-error button{border:0;background:none;text-decoration:underline;color:inherit;cursor:pointer}
 
 /* Редакционная бренд-страница Sanremo */
