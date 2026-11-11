@@ -24,7 +24,7 @@ export default function CompareClient() {
   function toggle(slug: string) {
     setSelected((current) => {
       if (current.includes(slug)) return current.length > 2 ? current.filter((item) => item !== slug) : current;
-      return current.length === 3 ? [...current.slice(1), slug] : [...current, slug];
+      return current.length === 3 ? current : [...current, slug];
     });
   }
   const rows = [
@@ -39,7 +39,7 @@ export default function CompareClient() {
 
   return <>
     <div className="chips" style={{ marginTop: 28 }}>
-      {CATALOG_LINEUP.map((item) => <button key={item.slug} type="button" className={selected.includes(item.slug) ? "btn btn-solid" : "btn"} onClick={() => toggle(item.slug)}>{item.label}</button>)}
+      {CATALOG_LINEUP.map((item) => <button key={item.slug} type="button" aria-pressed={selected.includes(item.slug)} aria-disabled={selected.length === 3 && !selected.includes(item.slug)} className={selected.includes(item.slug) ? "btn btn-solid" : "btn"} onClick={() => toggle(item.slug)}>{item.label}</button>)}
     </div>
     <p className="tiny" style={{ marginTop: 12 }}>{selected.length === 3 ? "Выбрано три линейки — снимите одну, чтобы добавить другую" : "Можно добавить ещё одну линейку"}</p>
     <div className="table-scroll" style={{ marginTop: 30 }}><table className="data" style={{ minWidth: 860 }}>

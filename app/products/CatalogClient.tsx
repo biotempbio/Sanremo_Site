@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SkuImage from "../components/SkuImage";
 import { formatPrice } from "@/lib/format";
 
@@ -54,6 +54,29 @@ export default function CatalogClient({
   const [price, setPrice] = useState<string[]>([]);
   const [stockOnly, setStockOnly] = useState(false);
   const [sort, setSort] = useState("lineup");
+  const [urlReady, setUrlReady] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const read = (key: string) => params.getAll(key).flatMap((value) => value.split(",")).filter(Boolean);
+    setFamilies(read("family")); setGroups(read("groups")); setArch(read("architecture"));
+    setScen(read("scenario")); setOpts(read("option")); setVol(read("flow"));
+    setPrice(read("price")); setStockOnly(params.get("stock") === "1");
+    const requestedSort = params.get("sort") || "lineup";
+    setSort(["lineup", "price-asc", "price-desc", "stock", "name"].includes(requestedSort) ? requestedSort : "lineup");
+    setUrlReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!urlReady) return;
+    const params = new URLSearchParams();
+    const write = (key: string, values: string[]) => values.forEach((value) => params.append(key, value));
+    write("family", families); write("groups", groups); write("architecture", arch);
+    write("scenario", scen); write("option", opts); write("flow", vol); write("price", price);
+    if (stockOnly) params.set("stock", "1");
+    if (sort !== "lineup") params.set("sort", sort);
+    window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`);
+  }, [urlReady, families, groups, arch, scen, opts, vol, price, stockOnly, sort]);
 
   const allFamilies = useMemo(
     () => [...new Map(rows.map((r) => [r.family, r.familyName])).entries()],

@@ -22,5 +22,12 @@ export function LeadForm({ form, children, className, style }: { form: "contacts
     } catch { setState("error"); }
   }
   if (state === "sent") return <div className="form-result" role="status"><p className="eyebrow">Обращение № {ticket}</p><h3>Заявка отправлена</h3><p>Ответим в рабочее время. Если вопрос срочный, позвоните: <a href="tel:+74953633801">8 (495) 363-38-01</a>.</p></div>;
-  return <form className={className} style={style} onSubmit={submit}>{children}<input className="hp-field" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />{state === "error" ? <div className="form-error" role="alert">Не удалось отправить заявку. Позвоните по номеру <a href="tel:+74953633801">8 (495) 363-38-01</a> или напишите на <a href="mailto:info@sanremachines.ru">info@sanremachines.ru</a>. <button type="button" onClick={() => setState("idle")}>Попробовать ещё раз</button></div> : null}<button className="btn btn-solid lead-submit" type="submit" disabled={state === "sending"}>{state === "sending" ? "Отправляем…" : form === "service" ? "Отправить обращение" : "Отправить запрос"}</button></form>;
+  return <form className={className} style={style} onSubmit={submit}
+    onInvalid={(event) => {
+      const field = event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+      if (field.validity.valueMissing) field.setCustomValidity(field.type === "checkbox" ? "Подтвердите согласие на обработку персональных данных." : `Заполните поле «${field.closest("label")?.querySelector("span")?.textContent || field.name}».`);
+    }}
+    onInput={(event) => (event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).setCustomValidity("")}
+    onChange={(event) => (event.target as unknown as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).setCustomValidity("")}
+  >{children}<input className="hp-field" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />{state === "error" ? <div className="form-error" role="alert">Не удалось отправить заявку. Позвоните по номеру <a href="tel:+74953633801">8 (495) 363-38-01</a> или напишите на <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>. <button type="button" onClick={() => setState("idle")}>Попробовать ещё раз</button></div> : null}<button className="btn btn-solid lead-submit" type="submit" disabled={state === "sending"}>{state === "sending" ? "Отправляем…" : form === "service" ? "Отправить обращение" : "Отправить запрос"}</button></form>;
 }

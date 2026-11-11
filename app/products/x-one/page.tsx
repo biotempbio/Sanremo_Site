@@ -46,7 +46,7 @@ export default function XOnePage() {
         </div>
       </div></div></section>
 
-      <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Характеристики</p><h2>Всё необходимое — на странице</h2></div><p className="lead">Параметры собраны из актуальной товарной выгрузки BIO — без необходимости скачивать PDF.</p></div><div className="table-scroll"><table className="data"><tbody>{features.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div></section>
+      <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Характеристики</p><h2>Всё необходимое — на странице</h2></div><p className="lead">Параметры собраны из актуальной товарной выгрузки BIO — без необходимости скачивать PDF.</p></div><div className="table-scroll"><table className="data spec-table"><tbody>{features.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div></section>
 
       <section className="wrap section-tight"><div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>РРЦ и статус поставки</h2></div></div><div className="table-scroll"><table className="data"><thead><tr><th>Артикул BIO</th><th>Исполнение</th><th className="num">РРЦ</th><th>Статус</th></tr></thead><tbody>{entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{money(item.rrp)}</td><td><Stock status={item.availability} /></td></tr>)}</tbody></table></div></section>
 

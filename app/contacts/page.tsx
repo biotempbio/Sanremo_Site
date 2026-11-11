@@ -3,6 +3,7 @@ import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { models, dealerCities } from "@/lib/catalog";
 import { LeadForm } from "../components/LeadForm";
+import ContactPrefillFields, { ContactTaskField } from "./ContactPrefillFields";
 
 export const metadata: Metadata = {
   title: "Контакты BIO — официального дистрибьютора Sanremo в России",
@@ -48,7 +49,7 @@ export default function ContactsPage() {
 
         <section className="wrap section-tight">
           <div className="grid g2 contacts-layout" style={{ alignItems: "start" }}>
-            <div>
+            <div className="contacts-main">
               <h2 style={{ marginBottom: 20 }}>Запрос конфигурации</h2>
               <LeadForm form="contacts" className="grid g2 contacts-form" style={{ alignItems: "start" }}>
                 <label className="field"><span>Имя</span><input name="name" placeholder="Как к вам обращаться" required /></label>
@@ -61,22 +62,14 @@ export default function ContactsPage() {
                     <option>Отель / фуд-корнер</option><option>Specialty</option><option>Обжарщик / лаборатория</option>
                   </select>
                 </label>
-                <label className="field"><span>Интересующая модель</span>
-                  <select name="model" defaultValue="">
-                    <option value="">Ещё выбираю</option>
-                    {models.map((m) => <option key={m.slug}>{m.name}</option>)}
-                  </select>
-                </label>
+                <ContactPrefillFields models={models.map((m) => ({ name: m.name }))} />
                 <label className="field"><span>Срок запуска</span>
                   <select name="timeline" defaultValue="">
                     <option value="" disabled>Выберите срок</option>
                     <option>В течение месяца</option><option>1–3 месяца</option><option>Более 3 месяцев</option>
                   </select>
                 </label>
-                <label className="field" style={{ gridColumn: "1 / -1" }}>
-                  <span>Задача</span>
-                  <textarea name="task" placeholder="Поток, меню, число бариста, ограничения площадки" />
-                </label>
+                <ContactTaskField />
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="small" style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                     <input name="consent" value="yes" type="checkbox" style={{ width: 18, minHeight: 18, marginTop: 3 }} required />
@@ -90,7 +83,7 @@ export default function ContactsPage() {
               </LeadForm>
             </div>
 
-            <div>
+            <div className="contacts-info">
               <div className="card" style={{ marginBottom: 20 }}>
                 <div className="card-body">
                   <span className="plaque" style={{ alignSelf: "flex-start" }}>Компания BIO</span>
@@ -123,7 +116,7 @@ export default function ContactsPage() {
 
               <h3 style={{ marginBottom: 14 }}>Куда идут заявки</h3>
               <div className="table-scroll">
-                <table className="data" style={{ minWidth: 460 }}>
+                <table className="data contact-routes">
                   <thead>
                     <tr><th>Форма</th><th>Маршрут</th></tr>
                   </thead>

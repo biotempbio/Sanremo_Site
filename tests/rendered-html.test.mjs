@@ -1,16 +1,29 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 const read = (path) => readFile(new URL(`../out/${path}`, import.meta.url), "utf8");
 
 test("home preserves the approved branded presentation", async () => {
-  const [shell, home] = await Promise.all([read("index.html"), read("sanremo-russia.html")]);
-  assert.match(shell, /<iframe[^>]+src="\/sanremo-russia\.html"/);
-  assert.match(home, /Sanremo\. Центр вашего кофейного проекта/);
-  assert.match(home, /home-hero-cafe-racer-v2\.jpg/);
-  assert.match(home, /sanremo-official-black-v4\.svg/);
-  assert.match(home, /font-family:\s*'Oswald Web'/);
+  const home = await read("index.html");
+  assert.doesNotMatch(home, /<iframe/);
+  assert.match(home, /Профессиональные кофемашины Sanremo в России/);
+  assert.match(home, /href="\/products\/"/);
+});
+
+test("mobile contact and grinder layouts have no fixed outer width", async () => {
+  const [contacts, grinders, xOne] = await Promise.all([
+    read("contacts/index.html"), read("products/grinders/index.html"), read("products/x-one/index.html"),
+  ]);
+  assert.match(contacts, /class="data contact-routes"/);
+  assert.doesNotMatch(contacts, /min-width:460px/);
+  for (const html of [grinders, xOne]) assert.match(html, /class="data spec-table"/);
+  const cssDir = new URL("../out/_next/static/chunks/", import.meta.url);
+  const cssNames = (await readdir(cssDir)).filter((name) => name.endsWith(".css"));
+  const css = (await Promise.all(cssNames.map((name) => readFile(new URL(name, cssDir), "utf8")))).join("\n");
+  assert.match(css, /\.contacts-layout/);
+  assert.match(css, /\.spec-table/);
+  assert.match(css, /grid-template-columns:minmax\(0,1fr\)/);
 });
 
 test("SEO output includes canonical, organization, breadcrumbs and families", async () => {
