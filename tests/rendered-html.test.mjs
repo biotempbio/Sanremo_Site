@@ -82,6 +82,11 @@ test("document library serves every unique PDF and links model files directly", 
   assert.match(library, /Все модели/);
   assert.match(library, /Все типы/);
   assert.match(library, /Декларация о соответствии — действует до 23\.01\.2029/);
+  assert.match(library, /Взрыв-схема и каталог запчастей Zoe Compact/);
+  assert.match(library, /предыдущая ревизия/);
+  assert.match(library, /Исходный файл: <!-- -->83011300 ESPLOSI D8\.pdf/);
+  assert.match(library, /Запросить документ/);
+  assert.match(library, /по запросу/);
   assert.match(model, /Скачать PDF/);
   for (const entry of manifest) {
     const path = new URL(`../out${entry.href}`, import.meta.url);

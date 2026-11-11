@@ -73,7 +73,7 @@
   },
   {
     "id": "zoe-82006001-zoe-compact-impaginato-322dd2",
-    "name": "82006001 Zoe Compact impaginato",
+    "name": "Взрыв-схема и каталог запчастей Zoe Compact",
     "type": "Взрыв-схема",
     "models": [
       "zoe-compact"
@@ -81,11 +81,13 @@
     "href": "/documents/zoe-compact/82006001-zoe-compact-impaginato.pdf",
     "bytes": 6675548,
     "pages": 76,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "82006001 Zoe Compact impaginato.pdf",
+    "article": "82006001"
   },
   {
     "id": "zoe-83003000a-zoe-competition-ricambi-12-2021-ca24b6",
-    "name": "83003000A Zoe Competition ricambi 12-2021",
+    "name": "Взрыв-схема и каталог запчастей Zoe Competition (2021)",
     "type": "Взрыв-схема",
     "models": [
       "zoe-competition"
@@ -93,11 +95,13 @@
     "href": "/documents/zoe-competition/83003000a-zoe-competition-ricambi-12-2021.pdf",
     "bytes": 3081131,
     "pages": 38,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "83003000A Zoe Competition ricambi 12-2021.pdf",
+    "article": "83003000A"
   },
   {
     "id": "opera-83010001b-libretto-ricambi-opera-12-21-6bfd13",
-    "name": "83010001B LIBRETTO RICAMBI OPERA 12.21",
+    "name": "Взрыв-схема и каталог запчастей Opera (2021)",
     "type": "Взрыв-схема",
     "models": [
       "opera"
@@ -105,11 +109,13 @@
     "href": "/documents/opera/83010001b-libretto-ricambi-opera-12-21.pdf",
     "bytes": 5251533,
     "pages": 48,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "83010001B LIBRETTO RICAMBI OPERA 12.21.pdf",
+    "article": "83010001B"
   },
   {
     "id": "d8-83011300-esplosi-d8-988913",
-    "name": "83011300 ESPLOSI D8",
+    "name": "Взрыв-схема и каталог запчастей D8",
     "type": "Взрыв-схема",
     "models": [
       "d8",
@@ -118,11 +124,13 @@
     "href": "/documents/d8/83011300-esplosi-d8.pdf",
     "bytes": 7031982,
     "pages": 36,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "83011300 ESPLOSI D8.pdf",
+    "article": "83011300"
   },
   {
     "id": "cafe-racer-83012001c-libretto-ricambi-cafe-racer-12-2021-ebf0d7",
-    "name": "83012001C LIBRETTO RICAMBI Café Racer 12.2021",
+    "name": "Взрыв-схема и каталог запчастей Café Racer (2021)",
     "type": "Взрыв-схема",
     "models": [
       "cafe-racer"
@@ -130,11 +138,13 @@
     "href": "/documents/cafe-racer/83012001c-libretto-ricambi-cafe-racer-12-2021.pdf",
     "bytes": 14322196,
     "pages": 59,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "83012001C LIBRETTO RICAMBI Café Racer 12.2021.pdf",
+    "article": "83012001C"
   },
   {
     "id": "zoe-libretto-ricambi-zoe-83002001-old-21b0db",
-    "name": "LIBRETTO RICAMBI Zoe 83002001 OLD",
+    "name": "Взрыв-схема и каталог запчастей Zoe (предыдущая ревизия)",
     "type": "Взрыв-схема",
     "models": [
       "zoe-sap",
@@ -143,11 +153,13 @@
     "href": "/documents/zoe/libretto-ricambi-zoe-83002001-old.pdf",
     "bytes": 6082471,
     "pages": 30,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "LIBRETTO RICAMBI Zoe 83002001 OLD.pdf",
+    "article": "83002001"
   },
   {
     "id": "zoe-sanremo-zoe-306bdb",
-    "name": "SANREMO Zoe",
+    "name": "Взрыв-схема Zoe Competition",
     "type": "Взрыв-схема",
     "models": [
       "zoe-competition"
@@ -155,11 +167,12 @@
     "href": "/documents/zoe-competition/sanremo-zoe.pdf",
     "bytes": 7044704,
     "pages": 40,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "SANREMO Zoe.pdf"
   },
   {
     "id": "you-you-59a000",
-    "name": "YOU",
+    "name": "Взрыв-схема YOU",
     "type": "Взрыв-схема",
     "models": [
       "you"
@@ -167,7 +180,8 @@
     "href": "/documents/you/you.pdf",
     "bytes": 2334517,
     "pages": 34,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "YOU.pdf"
   },
   {
     "id": "f18-vzryv-shema-f18-mb-0751e8",
@@ -207,7 +221,7 @@
   },
   {
     "id": "cafe-racer-shema-cr-2025-af2db3",
-    "name": "Схема CR 2025",
+    "name": "Взрыв-схема Café Racer (2025)",
     "type": "Взрыв-схема",
     "models": [
       "cafe-racer"
@@ -215,11 +229,12 @@
     "href": "/documents/cafe-racer/shema-cr-2025.pdf",
     "bytes": 8755156,
     "pages": 41,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Схема CR 2025.pdf"
   },
   {
     "id": "d8-shema-d8-d8-pro-2025-6bc8da",
-    "name": "Схема D8 D8 PRO 2025",
+    "name": "Взрыв-схема D8 и D8 PRO (2025)",
     "type": "Взрыв-схема",
     "models": [
       "d8-pro"
@@ -227,11 +242,12 @@
     "href": "/documents/d8-pro/shema-d8-d8-pro-2025.pdf",
     "bytes": 10233205,
     "pages": 33,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Схема D8 D8 PRO 2025.pdf"
   },
   {
     "id": "zoe-shema-zoe-compet-komp-2025-2be94d",
-    "name": "Схема Zoe COMPET KOMP 2025",
+    "name": "Взрыв-схема Zoe Competition (2025)",
     "type": "Взрыв-схема",
     "models": [
       "zoe-competition",
@@ -240,7 +256,8 @@
     "href": "/documents/zoe/shema-zoe-compet-komp-2025.pdf",
     "bytes": 6058850,
     "pages": 53,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Схема Zoe COMPET KOMP 2025.pdf"
   },
   {
     "id": "cafe-racer-arhivnaya-deklaratsiya-o-sootvetstvii-deistvovala-do-03-06-2026-d502c3",
@@ -291,7 +308,7 @@
   },
   {
     "id": "zoe-81002005-utente-zoe-tall-russo-en-fcac50",
-    "name": "81002005 UTENTE Zoe+TALL RUSSO EN",
+    "name": "Инструкция по эксплуатации Zoe (RU, EN)",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-sap",
@@ -300,11 +317,13 @@
     "href": "/documents/zoe/81002005-utente-zoe-tall-russo-en.pdf",
     "bytes": 1559372,
     "pages": 28,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "81002005 UTENTE Zoe+TALL RUSSO EN.pdf",
+    "article": "81002005"
   },
   {
     "id": "zoe-81003003-libr-utente-zoe-competition-tall-russo-13af88",
-    "name": "81003003 LIBR.UTENTE Zoe Competition+TALL RUSSO",
+    "name": "Инструкция по эксплуатации Zoe Competition (RU)",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -312,11 +331,13 @@
     "href": "/documents/zoe-competition/81003003-libr-utente-zoe-competition-tall-russo.pdf",
     "bytes": 814185,
     "pages": 20,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "81003003 LIBR.UTENTE Zoe Competition+TALL RUSSO.pdf",
+    "article": "81003003"
   },
   {
     "id": "zoe-81003016-zoe-ru-132289",
-    "name": "81003016 Zoe RU",
+    "name": "Инструкция по эксплуатации Zoe Competition (RU)",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -324,11 +345,13 @@
     "href": "/documents/zoe-competition/81003016-zoe-ru.pdf",
     "bytes": 2202806,
     "pages": 48,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "81003016 Zoe RU.pdf",
+    "article": "81003016"
   },
   {
     "id": "f18-81014003a-libro-utente-f18-rus-9afa8c",
-    "name": "81014003A LIBRO UTENTE F18 RUS",
+    "name": "Инструкция по эксплуатации F18 MB (RU)",
     "type": "Эксплуатационная документация",
     "models": [
       "f18-mb"
@@ -336,11 +359,13 @@
     "href": "/documents/f18-mb/81014003a-libro-utente-f18-rus.pdf",
     "bytes": 5223048,
     "pages": 68,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "81014003A LIBRO UTENTE F18 RUS.pdf",
+    "article": "81014003A"
   },
   {
     "id": "d8-81017010-en-ru-r0-030d7f",
-    "name": "81017010 EN RU R0",
+    "name": "Инструкция по эксплуатации D8 (RU, EN)",
     "type": "Эксплуатационная документация",
     "models": [
       "d8"
@@ -348,7 +373,9 @@
     "href": "/documents/d8/81017010-en-ru-r0.pdf",
     "bytes": 14009257,
     "pages": 120,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "81017010 EN RU R0.pdf",
+    "article": "81017010"
   },
   {
     "id": "cafe-racer-cafe-racer-dlya-tehnicheskih-spetsialistov-564fdc",
@@ -364,7 +391,7 @@
   },
   {
     "id": "d8-d8-pro-manual-eng-ru-b3fe8f",
-    "name": "D8 PRO manual (eng, ru)",
+    "name": "Инструкция по эксплуатации D8 PRO (RU, EN)",
     "type": "Эксплуатационная документация",
     "models": [
       "d8-pro"
@@ -372,11 +399,12 @@
     "href": "/documents/d8-pro/d8-pro-manual-eng-ru.pdf",
     "bytes": 18208239,
     "pages": 140,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "D8 PRO manual (eng, ru).pdf"
   },
   {
     "id": "f18-f18sb-elettronica-ru-12-2021-446999",
-    "name": "F18SB ELETTRONICA RU 12-2021",
+    "name": "Электрическая схема F18 SB (2021)",
     "type": "Эксплуатационная документация",
     "models": [
       "f18-sb"
@@ -384,11 +412,12 @@
     "href": "/documents/f18-sb/f18sb-elettronica-ru-12-2021.pdf",
     "bytes": 3292037,
     "pages": 24,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "F18SB ELETTRONICA RU 12-2021.pdf"
   },
   {
     "id": "opera-opera-0c4554",
-    "name": "Opera",
+    "name": "Инструкция по эксплуатации Opera",
     "type": "Эксплуатационная документация",
     "models": [
       "opera"
@@ -396,11 +425,12 @@
     "href": "/documents/opera/opera.pdf",
     "bytes": 40631217,
     "pages": 124,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Opera.pdf"
   },
   {
     "id": "you-you-eng-a56912",
-    "name": "YOU ENG",
+    "name": "Инструкция по эксплуатации YOU (EN)",
     "type": "Эксплуатационная документация",
     "models": [
       "you"
@@ -408,11 +438,12 @@
     "href": "/documents/you/you-eng.pdf",
     "bytes": 18733784,
     "pages": 227,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "YOU ENG.pdf"
   },
   {
     "id": "zoe-zoe-5-51891f",
-    "name": "Zoe 5",
+    "name": "Инструкция по эксплуатации Zoe Competition",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -420,11 +451,12 @@
     "href": "/documents/zoe-competition/zoe-5.pdf",
     "bytes": 5036856,
     "pages": 10,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Zoe 5.pdf"
   },
   {
     "id": "zoe-zoe-compact-cfb7d2",
-    "name": "Zoe Compact",
+    "name": "Инструкция по эксплуатации Zoe Compact",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-compact"
@@ -432,7 +464,8 @@
     "href": "/documents/zoe-compact/zoe-compact.pdf",
     "bytes": 1663140,
     "pages": 40,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Zoe Compact.pdf"
   },
   {
     "id": "cafe-racer-instruktsiya-cafe-racer-4baad4",
@@ -460,7 +493,7 @@
   },
   {
     "id": "cafe-racer-cafe-racer-elektroshema-c476fa",
-    "name": "Café Racer-Электросхема",
+    "name": "Электрическая схема Café Racer",
     "type": "Электросхема",
     "models": [
       "cafe-racer"
@@ -468,11 +501,12 @@
     "href": "/documents/cafe-racer/cafe-racer-elektroshema.pdf",
     "bytes": 235387,
     "pages": 1,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "Café Racer-Электросхема.pdf"
   },
   {
     "id": "d8-d8-i-d8-pro-elektroshema-017961",
-    "name": "D8 и D8 PRO электросхема",
+    "name": "Электрическая схема D8 и D8 PRO",
     "type": "Электросхема",
     "models": [
       "d8",
@@ -481,11 +515,12 @@
     "href": "/documents/d8/d8-i-d8-pro-elektroshema.pdf",
     "bytes": 539338,
     "pages": 1,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "D8 и D8 PRO электросхема.pdf"
   },
   {
     "id": "f18-f18-elektroshema-d99670",
-    "name": "F18 - электросхема",
+    "name": "Электрическая схема F18 MB",
     "type": "Электросхема",
     "models": [
       "f18-mb"
@@ -493,11 +528,12 @@
     "href": "/documents/f18-mb/f18-elektroshema.pdf",
     "bytes": 335383,
     "pages": 1,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "F18 - электросхема.pdf"
   },
   {
     "id": "f18-f18sb-elektroshema-a129c7",
-    "name": "F18SB электросхема",
+    "name": "Электрическая схема F18 SB",
     "type": "Электросхема",
     "models": [
       "f18-sb"
@@ -505,7 +541,8 @@
     "href": "/documents/f18-sb/f18sb-elektroshema.pdf",
     "bytes": 1328136,
     "pages": 3,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "F18SB электросхема.pdf"
   },
   {
     "id": "opera-opera-vzryv-shema-9ecf02",
@@ -521,7 +558,7 @@
   },
   {
     "id": "you-schema-elettrico-you-26-07-2022-62fcf2",
-    "name": "SCHEMA ELETTRICO YOU 26 07 2022",
+    "name": "Электрическая схема YOU (2022)",
     "type": "Электросхема",
     "models": [
       "you"
@@ -529,6 +566,7 @@
     "href": "/documents/you/schema-elettrico-you-26-07-2022.pdf",
     "bytes": 299617,
     "pages": 2,
-    "source": "Выгрузка BIO / портал BIO"
+    "source": "Выгрузка BIO / портал BIO",
+    "originalName": "SCHEMA ELETTRICO YOU 26 07 2022.pdf"
   }
 ]

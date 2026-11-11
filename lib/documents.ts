@@ -9,6 +9,8 @@ export type DocumentEntry = {
   bytes: number;
   pages: number | null;
   source: string;
+  originalName?: string;
+  article?: string;
 };
 
 export const documents = rawDocuments as DocumentEntry[];

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { documents, fileSizeMb, type DocumentEntry } from "@/lib/documents";
 import { ARCHIVE_MODELS } from "@/lib/archive-models";
+import { LeadForm } from "@/app/components/LeadForm";
 
 type ModelOption = { slug: string; name: string; family: string };
 type Group = { id: string; title: string; intro: string };
@@ -61,7 +62,7 @@ export function DocumentLibrary({ models }: { models: ModelOption[] }) {
   return <>
     <nav className="document-jump" aria-label="Линейки документов">
       {visibleGroups.map((group) => <a key={group.id} href={`#docs-${group.id}`} onClick={() => setExpanded((current) => current.includes(group.id) ? current : [...current, group.id])}>
-        {group.title}<span>{group.files.length}</span>
+        {group.title}<span>{group.files.length || "по запросу"}</span>
       </a>)}
     </nav>
     <div className="document-filters" role="group" aria-label="Фильтры документов">
@@ -84,26 +85,31 @@ export function DocumentLibrary({ models }: { models: ModelOption[] }) {
       {visibleGroups.map((group) => <section className="document-group" id={`docs-${group.id}`} key={group.id} data-open={expanded.includes(group.id)}>
         <div className="document-group-head">
           <div><p className="eyebrow">Библиотека Sanremo</p><h2>{group.title}</h2><p className="small">{group.intro}</p></div>
-          <div className="document-group-side"><span>{group.files.length} PDF</span><button type="button" aria-expanded={expanded.includes(group.id)} aria-controls={`docs-body-${group.id}`} onClick={() => toggleGroup(group.id)}>{expanded.includes(group.id) ? "Свернуть" : "Показать"}</button></div>
+          <div className="document-group-side"><span>{group.files.length ? `${group.files.length} PDF` : "По запросу"}</span><button type="button" aria-expanded={expanded.includes(group.id)} aria-controls={`docs-body-${group.id}`} onClick={() => toggleGroup(group.id)}>{expanded.includes(group.id) ? "Свернуть" : "Показать"}</button></div>
         </div>
         <div className="document-group-body" id={`docs-body-${group.id}`}>
           {group.files.length ? <>
             <div className="table-scroll document-desktop"><table className="data"><thead><tr><th>Модель</th><th>Документ</th><th>Тип</th><th>Файл</th></tr></thead><tbody>
               {group.files.map((document) => <tr id={document.id} key={document.id}>
-                <td>{document.models.map(nameOf).join(", ")}</td><td><b>{document.name}</b></td><td>{document.type}</td>
+                <td>{document.models.map(nameOf).join(", ")}</td><td><b>{document.name}</b>{document.originalName && <small className="document-origin">{document.article && <>Артикул {document.article} · </>}Исходный файл: {document.originalName}</small>}</td><td>{document.type}</td>
                 <td><a className="link-arrow" href={document.href} target="_blank" rel="noopener noreferrer">Открыть PDF · {fileSizeMb(document.bytes)}</a></td>
               </tr>)}
             </tbody></table></div>
             <div className="document-mobile">
               {group.files.map((document) => <article className="document-card" key={document.id}>
-                <p className="eyebrow">{document.type}</p><h3>{document.name}</h3><p className="small">{document.models.map(nameOf).join(", ")}</p>
+                <p className="eyebrow">{document.type}</p><h3>{document.name}</h3>{document.originalName && <small className="document-origin">{document.article && <>Артикул {document.article} · </>}Исходный файл: {document.originalName}</small>}<p className="small">{document.models.map(nameOf).join(", ")}</p>
                 <a className="btn btn-solid" href={document.href} target="_blank" rel="noopener noreferrer">Открыть PDF · {fileSizeMb(document.bytes)}</a>
               </article>)}
             </div>
-          </> : <div className="document-no-files"><p>Файлы пока не загружены. Напишите нам название документа и модель — поможем найти нужную версию.</p>
+          </> : <div className="document-no-files"><p>Нужен документ для {group.title === "Архивные модели" ? "архивной модели" : group.title}? Укажите название или тип документа и оставьте контакт для ответа.</p>
             {group.id === "archive" && <p className="document-archive-links">{Object.entries(ARCHIVE_MODELS).map(([slug, entry]) => <a key={slug} href={`/products/${slug}/`}>{entry.name}</a>)}</p>}
             {group.id === "x-one" && <p><a href="/products/x-one/">Кофемолка X-One →</a></p>}
-            <a className="btn" href="/contacts/">Написать запрос</a></div>}
+            <LeadForm form="contacts" className="document-request-form" submitLabel="Запросить документ">
+              <label className="field"><span>Имя</span><input name="name" autoComplete="name" required /></label>
+              <label className="field"><span>Телефон или e-mail</span><input name="contact" autoComplete="email" required /></label>
+              <label className="field document-request-task"><span>Какой документ нужен</span><textarea name="task" defaultValue={`Нужен документ для ${group.title === "Архивные модели" ? "архивной модели Sanremo: " : `Sanremo ${group.title}: `}`} required /></label>
+              <label className="document-request-consent"><input name="consent" value="yes" type="checkbox" required /><span>Согласен на <a href="/privacy/">обработку персональных данных</a></span></label>
+            </LeadForm></div>}
         </div>
       </section>)}
     </div> : <div className="empty"><p>Документов с такими параметрами нет.</p><button className="btn" type="button" onClick={() => select("", "")}>Показать все документы</button></div>}
