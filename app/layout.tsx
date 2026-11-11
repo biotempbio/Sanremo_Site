@@ -9,6 +9,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://staging.sanremomach
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  verification: { yandex: "114d33d3fd4da962" },
   title: "Sanremo Russia — профессиональные кофемашины",
   description:
     "Официальный каталог профессиональных кофемашин Sanremo в России.",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const metrikaId = process.env.NEXT_PUBLIC_METRIKA_ID;
+  const metrikaId = siteUrl === "https://sanremomachines.ru" ? process.env.NEXT_PUBLIC_METRIKA_ID : undefined;
   const organization = { "@context": "https://schema.org", "@type": "Organization", name: "BIO", description: "Официальный дистрибьютор Sanremo в России", url: siteUrl, logo: new URL("/brand/sanremo-official-black-v4.svg", siteUrl).toString(), telephone: "+7 495 363-38-01", email: "info@sanremomachines.ru", address: { "@type": "PostalAddress", postalCode: "117630", addressLocality: "Москва", streetAddress: "ул. Обручева, 23с1, БЦ «Геолог», 4 этаж", addressCountry: "RU" }, sameAs: ["https://sanremomachines.ru/"] };
   return (
     <html lang="ru">

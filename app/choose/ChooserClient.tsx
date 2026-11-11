@@ -46,10 +46,10 @@ const MILK = [
 
 const BUDGETS = [
   { id: "any", label: "Не ограничен", max: Infinity },
-  { id: "b1", label: "до 450 000 ₽", max: 450_000 },
-  { id: "b2", label: "до 700 000 ₽", max: 700_000 },
-  { id: "b3", label: "до 1 000 000 ₽", max: 1_000_000 },
-  { id: "b4", label: "до 1 500 000 ₽", max: 1_500_000 },
+  { id: "b1", label: `до ${formatPrice(450_000)}`, max: 450_000 },
+  { id: "b2", label: `до ${formatPrice(700_000)}`, max: 700_000 },
+  { id: "b3", label: `до ${formatPrice(1_000_000)}`, max: 1_000_000 },
+  { id: "b4", label: `до ${formatPrice(1_500_000)}`, max: 1_500_000 },
 ];
 
 export default function ChooserClient({ models }: { models: ChooserModel[] }) {

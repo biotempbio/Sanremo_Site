@@ -28,10 +28,10 @@ export interface CatalogRow {
 }
 
 const PRICE_BANDS = [
-  { id: "p1", label: "до 450 000 ₽", min: 0, max: 450_000 },
-  { id: "p2", label: "450 000 – 700 000 ₽", min: 450_000, max: 700_000 },
-  { id: "p3", label: "700 000 – 1 000 000 ₽", min: 700_000, max: 1_000_000 },
-  { id: "p4", label: "от 1 000 000 ₽", min: 1_000_000, max: Infinity },
+  { id: "p1", label: `до ${formatPrice(450_000)}`, min: 0, max: 450_000 },
+  { id: "p2", label: `${formatPrice(450_000)} — ${formatPrice(700_000)}`, min: 450_000, max: 700_000 },
+  { id: "p3", label: `${formatPrice(700_000)} — ${formatPrice(1_000_000)}`, min: 700_000, max: 1_000_000 },
+  { id: "p4", label: `от ${formatPrice(1_000_000)}`, min: 1_000_000, max: Infinity },
 ];
 
 function toggle(list: string[], v: string) {

@@ -226,10 +226,10 @@ export function familyStockCount(slug: string): number {
 /* ── Форматирование ───────────────────────────────────────────────────────── */
 const nf = new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 });
 export const money = (v: number | null | undefined) =>
-  v === null || v === undefined ? "—" : `${nf.format(Math.round(v))}\u00a0₽`;
+  v === null || v === undefined ? "—" : `${nf.format(Math.round(v)).replace(/[\u00a0\u202f ]/g, "\u202f")}\u00a0₽`;
 export const kw = (v: number) => String(v).replace(".", ",");
 export const moneyPrecise = (v: number) =>
-  `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(v)}\u00a0₽`;
+  `${new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 2 }).format(v).replace(/[\u00a0\u202f ]/g, "\u202f")}\u00a0₽`;
 
 export const AVAILABILITY_LABEL: Record<Availability, string> = {
   in_stock: "На складе в Москве",

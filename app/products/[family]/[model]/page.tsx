@@ -40,15 +40,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-/** Ключевые пункты из описания производителя. */
-function bullets(text: string): string[] {
-  return text
-    .split(/\n|(?=•)/)
-    .map((l) => l.replace(/^[\s•\-–—\t]+/, "").trim())
-    .filter((l) => l.length > 24 && l.length < 240)
-    .slice(0, 8);
-}
-
 export default async function ModelPage({ params }: Props) {
   const { family, model } = await params;
   const m = modelBySlug(model);
@@ -61,7 +52,13 @@ export default async function ModelPage({ params }: Props) {
   const bands = VOLUME_BANDS.filter((b) => b.models.includes(m.slug));
   const partCodes = [...new Set(sk.flatMap((s) => s.spareParts))];
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
-  const feats = bullets(m.description);
+  const feats = [
+    m.groupsAvailable.length ? `Исполнения с ${m.groupsAvailable.join(" / ")} группами — выбирайте число рабочих мест под пиковую нагрузку.` : null,
+    hero?.boilerTotal ? `Общий объем бойлеров — ${hero.boilerTotal}\u00a0л для выбранной конфигурации.` : null,
+    hero?.control ? `Управление: ${hero.control}.` : null,
+    m.optionsAvailable.length ? `Доступные опции: ${m.optionsAvailable.join(", ")}.` : null,
+    m.family === "d8" && m.slug === "d8-pro" ? "Версия PRO позволяет отдельно настраивать температуру групп." : null,
+  ].filter((item): item is string => Boolean(item));
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
 
@@ -78,7 +75,7 @@ export default async function ModelPage({ params }: Props) {
     name: `Sanremo ${m.name}`,
     brand: { "@type": "Brand", name: "Sanremo" },
     category: "Профессиональные рожковые кофемашины",
-    description: m.description.slice(0, 400),
+    description: `Sanremo ${m.name}: ${f.architecture}. Доступные конфигурации, характеристики и РРЦ в России.`,
     offers: sk.map((s) => ({
       "@type": "Offer",
       sku: s.vendorCode ?? s.code,
