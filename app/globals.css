@@ -939,11 +939,12 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .case-card-gallery-link:hover{text-decoration:underline}
 .case-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}
 .case-lightbox:not([open]){display:none}
-.case-lightbox::backdrop{background:rgba(250,249,246,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.case-lightbox-panel{position:relative;display:grid;grid-template-rows:auto auto auto;gap:14px;width:min(1180px,calc(100vw - 88px));max-height:calc(100dvh - 48px);padding:18px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid #e9e6e0;animation:case-gallery-enter .2s ease-out both}
+.case-lightbox::backdrop{background:transparent}
+.case-lightbox-backdrop{position:fixed;inset:0;z-index:0;background:rgba(250,249,246,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.case-lightbox-panel{position:relative;z-index:1;display:grid;grid-template-rows:auto auto auto;gap:14px;width:min(1100px,80vw);max-height:86dvh;padding:18px;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid #e9e6e0;animation:case-gallery-enter .2s ease-out both}
 @keyframes case-gallery-enter{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 .case-lightbox-stage{position:relative;display:flex;justify-content:center;align-items:center;min-width:0;min-height:0;overflow:hidden;background:#f3f1ed;touch-action:none}
-.case-lightbox-image{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 210px);object-fit:contain;user-select:none}
+.case-lightbox-image{display:block;width:auto;height:auto;max-width:100%;max-height:calc(86dvh - 180px);object-fit:contain;user-select:none}
 .case-lightbox-close,.case-lightbox-side,.case-lightbox-actions button{display:grid;place-items:center;width:46px;height:46px;border:1px solid #d8d7d2;border-radius:50%;background:rgba(255,255,255,.96);color:var(--ink);font:25px var(--sans);cursor:pointer}
 .case-lightbox-close{position:absolute;top:29px;right:29px;z-index:3;font-size:30px;line-height:1}
 .case-lightbox-side{position:absolute;top:50%;z-index:2;transform:translateY(-50%);box-shadow:0 4px 20px rgba(0,0,0,.08)}

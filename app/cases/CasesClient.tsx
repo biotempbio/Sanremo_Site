@@ -76,7 +76,8 @@ export function CasesClient() {
     <p className="small case-count" role="status">Проектов: {shown.length}</p>
     {shown.length ? <div className="cases-grid">{shown.map((entry) => <CaseCard key={entry.slug} entry={entry} onOpenGallery={openGallery} />)}</div>
       : <div className="empty"><p>По этим условиям проектов пока нет.</p><button className="btn" onClick={() => update("", "")}>Показать все проекты</button></div>}
-    {selectedCase && <dialog ref={dialogRef} className="case-lightbox" aria-label={`Фотографии ${selectedCase.name.value}`} onCancel={() => setGallery(null)} onMouseDown={(event) => { if (event.target === event.currentTarget) setGallery(null); }}>
+    {selectedCase && <dialog ref={dialogRef} className="case-lightbox" aria-label={`Фотографии ${selectedCase.name.value}`} onCancel={() => setGallery(null)}>
+      <div className="case-lightbox-backdrop" aria-hidden="true" onClick={() => setGallery(null)} style={{ backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)" }} />
       <div className="case-lightbox-panel">
         <button className="case-lightbox-close" type="button" onClick={() => setGallery(null)} aria-label="Закрыть галерею">×</button>
         <div className="case-lightbox-stage" onTouchStart={(event) => { const point = event.touches[0]; touchStart.current = point ? { x: point.clientX, y: point.clientY } : null; }} onTouchEnd={(event) => endSwipe(event.changedTouches[0]?.clientX ?? 0, event.changedTouches[0]?.clientY ?? 0)}>
