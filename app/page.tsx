@@ -38,8 +38,7 @@ function TrustIcon({ kind }: { kind: "warranty" | "warehouse" | "leasing" | "ser
 }
 
 export default function HomePage() {
-  const showcase = ["coffee-combo", "on-sight-outdoor", "utk-xsai", "litsey", "bistro-9-18", "zatsepi-krasnodar-1"]
-    .map((slug) => sanremoCases.find((entry) => entry.slug === slug)).filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+  const showcase = sanremoCases.slice(0, 6);
   const lineup = CATALOG_LINEUP.map((line) => {
     const model = catalogModels.find((item) => item.slug === line.slug);
     return model ? { ...line, model, family: familyBySlug(model.family) } : null;

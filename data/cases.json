@@ -43,7 +43,9 @@
       "value": "Café Racer",
       "source": "old-site",
       "family": "cafe-racer"
-    }
+    },
+    "order": 3,
+    "cover": "/photo/case-projects/bistro/photo-6.webp"
   },
   {
     "slug": "st-riders",
@@ -97,7 +99,9 @@
       "value": "F18",
       "source": "telegram-48",
       "family": "f18"
-    }
+    },
+    "order": 10,
+    "cover": "/photo/case-projects/st-riders/photo_4_2026-08-26_10-06-04.jpg"
   },
   {
     "slug": "cofefest",
@@ -134,7 +138,9 @@
         "value": "/photo/case-projects/cofefest/photo-3.webp",
         "source": "old-site"
       }
-    ]
+    ],
+    "order": 16,
+    "cover": "/photo/case-projects/cofefest/photo-2.webp"
   },
   {
     "slug": "speshl",
@@ -183,7 +189,9 @@
     "address": {
       "value": "Большая Конюшенная улица",
       "source": "old-site"
-    }
+    },
+    "order": 4,
+    "cover": "/photo/case-projects/speshl/photo-5.webp"
   },
   {
     "slug": "sedelice",
@@ -217,7 +225,9 @@
       "value": "Café Racer",
       "source": "old-site",
       "family": "cafe-racer"
-    }
+    },
+    "order": 1,
+    "cover": "/photo/case-projects/sedelice/0fa857df39bc5426b9dc92d693867ce0_w1200_h630.webp"
   },
   {
     "slug": "pravda-coffee",
@@ -259,7 +269,9 @@
     "quote": {
       "value": "Раньше я уговаривала технику. Теперь она со мной на одной волне",
       "source": "telegram-334"
-    }
+    },
+    "order": 17,
+    "cover": "/photo/case-projects/pravda/photo_2026-08-26_10-54-36.jpg"
   },
   {
     "slug": "vkusvill",
@@ -296,7 +308,9 @@
         "value": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-05.jpg",
         "source": "old-site"
       }
-    ]
+    ],
+    "order": 15,
+    "cover": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-00.jpg"
   },
   {
     "slug": "vanlav",
@@ -333,7 +347,9 @@
     "address": {
       "value": "Невский проспект",
       "source": "old-site"
-    }
+    },
+    "order": 19,
+    "cover": "/photo/case-projects/vanlav/photo-1.webp"
   },
   {
     "slug": "baggins",
@@ -367,7 +383,9 @@
       "value": "D8",
       "source": "old-site",
       "family": "d8"
-    }
+    },
+    "order": 14,
+    "cover": "/photo/case-projects/baggins/photo_3_2026-08-26_10-24-10.jpg"
   },
   {
     "slug": "notik",
@@ -421,7 +439,9 @@
       "value": "Café Racer",
       "source": "old-site",
       "family": "cafe-racer"
-    }
+    },
+    "order": 2,
+    "cover": "/photo/case-projects/notik/photo-3.webp"
   },
   {
     "slug": "coffee-combo",
@@ -498,7 +518,9 @@
         "source": "old-site"
       }
     ],
-    "page": true
+    "page": true,
+    "order": 20,
+    "cover": "/photo/case-projects/combo/photo_2026-08-19_09-00-34.jpg"
   },
   {
     "slug": "coffee-4-human",
@@ -535,7 +557,9 @@
         "value": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-39.jpg",
         "source": "old-site"
       }
-    ]
+    ],
+    "order": 18,
+    "cover": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-22.jpg"
   },
   {
     "slug": "chaika-krichala",
@@ -580,7 +604,9 @@
         "value": "/photo/case-projects/chaika/photo_2_2026-08-26_10-17-02.jpg",
         "source": "old-site"
       }
-    ]
+    ],
+    "order": 9,
+    "cover": "/photo/case-projects/chaika/photo_7_2026-08-26_10-17-02.jpg"
   },
   {
     "slug": "zatsepi-krasnodar-1",
@@ -618,7 +644,9 @@
       "value": "Café Racer Renegade",
       "source": "old-site",
       "family": "cafe-racer"
-    }
+    },
+    "order": 8,
+    "cover": "/photo/case-projects/zatsepi-1/01.webp"
   },
   {
     "slug": "zatsepi-krasnodar-2",
@@ -652,7 +680,9 @@
       "value": "Café Racer",
       "source": "old-site",
       "family": "cafe-racer"
-    }
+    },
+    "order": 13,
+    "cover": "/photo/case-projects/zatsepi-2/01.webp"
   },
   {
     "slug": "zatsepi-krasnodar-3",
@@ -694,7 +724,9 @@
       "value": "F18",
       "source": "old-site",
       "family": "f18"
-    }
+    },
+    "order": 5,
+    "cover": "/photo/case-projects/zatsepi-3/03.webp"
   },
   {
     "slug": "on-sight-outdoor",
@@ -735,7 +767,9 @@
         "value": "/photo/case-projects/on-sight-outdoor/04.webp",
         "source": "telegram-79"
       }
-    ]
+    ],
+    "order": 11,
+    "cover": "/photo/case-projects/on-sight-outdoor/04.webp"
   },
   {
     "slug": "utk-xsai",
@@ -781,7 +815,9 @@
       "value": "Zoe",
       "source": "telegram-146",
       "family": "zoe"
-    }
+    },
+    "order": 12,
+    "cover": "/photo/case-projects/utk-xsai/01.webp"
   },
   {
     "slug": "rustaveli-14",
@@ -827,7 +863,9 @@
       "value": "Café Racer",
       "source": "telegram-164",
       "family": "cafe-racer"
-    }
+    },
+    "order": 7,
+    "cover": "/photo/case-projects/rustaveli-14/01.webp"
   },
   {
     "slug": "litsey",
@@ -873,6 +911,8 @@
       "value": "Café Racer",
       "source": "telegram-367",
       "family": "cafe-racer"
-    }
+    },
+    "order": 6,
+    "cover": "/photo/case-projects/litsey/01.webp"
   }
 ]

@@ -128,15 +128,19 @@ test("case archive has traceable facts, local photos and only substantive detail
   assert.deepEqual(detailed.map((entry) => entry.slug), ["coffee-combo"]);
   for (const entry of entries) {
     for (const [field, value] of Object.entries(entry)) {
-      if (["slug", "page"].includes(field)) continue;
+      if (["slug", "page", "order", "cover"].includes(field)) continue;
       for (const fact of Array.isArray(value) ? value : [value]) {
         assert.match(fact.source, /^(old-site|telegram-\d+)$/, `${entry.slug}.${field}`);
         if (field === "photos") await stat(new URL(`../out${fact.value}`, import.meta.url));
       }
     }
+    assert.ok(Number.isInteger(entry.order) && entry.order >= 1 && entry.order <= 20, entry.slug);
+    assert.ok(entry.photos.some((photo) => photo.value === entry.cover), entry.slug);
+    await stat(new URL(`../out${entry.cover}`, import.meta.url));
     if (entry.page) {
       assert.ok(entry.story.map((paragraph) => paragraph.value).join(" ").split(/\s+/).length >= 120, entry.slug);
       assert.match(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
     } else assert.doesNotMatch(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
   }
+  assert.deepEqual(entries.map((entry) => entry.order).sort((a, b) => a - b), Array.from({ length: 20 }, (_, index) => index + 1));
 });
