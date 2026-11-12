@@ -174,6 +174,7 @@ def send_copies(db_path: str, smtp: dict, limit: int = 20) -> int:
                 refused = mail.send_message(message)
                 if refused:
                     raise smtplib.SMTPRecipientsRefused(refused)
+            print("SMTP_ACCEPTED 250 technical-copy", request_id, recipient, flush=True)
             with LOCK, connect_db(db_path) as db:
                 db.execute(
                     "UPDATE lead_copies SET status='sent', sent_at=?, attempts=attempts+1, last_error=NULL "
