@@ -42,8 +42,16 @@ test("mobile contact and grinder layouts have no fixed outer width", async () =>
 });
 
 test("SEO output includes canonical, organization, breadcrumbs and families", async () => {
-  const [contacts, sitemap] = await Promise.all([read("contacts/index.html"), read("sitemap.xml")]);
-  assert.match(contacts, /rel="canonical" href="https:\/\/staging\.sanremomachines\.ru\/contacts\/"/);
+  const [contacts, sitemap, robots, home] = await Promise.all([read("contacts/index.html"), read("sitemap.xml"), read("robots.txt"), read("index.html")]);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://staging.sanremomachines.ru";
+  const production = siteUrl === "https://sanremomachines.ru" && process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
+  assert.ok(contacts.includes(`rel="canonical" href="${siteUrl}/contacts/"`));
+  assert.ok(sitemap.includes(`<loc>${siteUrl}/`));
+  assert.ok(robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`));
+  assert.match(robots, production ? /Allow: \// : /Disallow: \//);
+  assert.equal(home.includes("mc.yandex.ru/metrika/tag.js"), production && Boolean(process.env.NEXT_PUBLIC_METRIKA_ID));
+  assert.match(home, /location\.hostname!=='sanremomachines\.ru'/);
+  if (production) assert.match(home, /location\.hostname===&#x27;sanremomachines\.ru&#x27;|location\.hostname==='sanremomachines\.ru'/);
   assert.match(contacts, /"@type":"Organization"/);
   assert.match(contacts, /"@type":"BreadcrumbList"/);
   for (const family of ["zoe", "d8", "f18"]) assert.match(sitemap, new RegExp(`/products/${family}/</loc>`));

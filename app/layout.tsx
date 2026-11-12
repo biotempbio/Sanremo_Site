@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element -- noscript analytics pixel */
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
@@ -42,7 +41,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const organization = { "@context": "https://schema.org", "@type": "Organization", name: "BIO", description: "Официальный дистрибьютор Sanremo в России", url: siteUrl, telephone: "+7 495 363-38-01", email: SITE_EMAIL, contactPoint: { "@type": "ContactPoint", contactType: "Отдел продаж", telephone: "+7 495 363-38-01", email: SITE_EMAIL, availableLanguage: "ru", areaServed: "RU" }, areaServed: { "@type": "Country", name: "Россия", identifier: "RU" }, address: { "@type": "PostalAddress", postalCode: "117630", addressLocality: "Москва", streetAddress: "ул. Обручева, 23с1, БЦ «Геолог», 4 этаж", addressCountry: "RU" }, sameAs: ["https://sanremomachines.ru/"] };
   return (
     <html lang="ru">
-      <body><Canonical siteUrl={siteUrl} /><AnalyticsEvents />{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />{metrikaId ? <><Script id="yandex-metrika" strategy="afterInteractive">{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(${JSON.stringify(metrikaId)},'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,trackHash:true});`}</Script><noscript><div><img src={`https://mc.yandex.ru/watch/${metrikaId}`} style={{ position: "absolute", left: -9999 }} alt="" /></div></noscript></> : null}</body>
+      <head><script dangerouslySetInnerHTML={{ __html: "if(location.hostname!=='sanremomachines.ru'){var m=document.createElement('meta');m.name='robots';m.content='noindex,nofollow';document.head.appendChild(m)}" }} /></head>
+      <body><Canonical siteUrl={siteUrl} /><AnalyticsEvents />{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />{metrikaId ? <Script id="yandex-metrika" strategy="afterInteractive">{`if(window.location.hostname==='sanremomachines.ru'){(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(${JSON.stringify(metrikaId)},'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true,trackHash:true});}`}</Script> : null}</body>
     </html>
   );
 }
