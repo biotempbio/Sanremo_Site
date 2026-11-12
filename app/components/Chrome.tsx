@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 const NAV = [
   { href: "/products/", label: "Кофемашины" },
@@ -98,7 +99,7 @@ export function Footer() {
               <br />
               Москва
               <br />
-              <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
+              <a href={SITE_MAILTO}>{SITE_EMAIL}</a>
             </p>
           </div>
         </div>

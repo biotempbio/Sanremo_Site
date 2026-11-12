@@ -4,6 +4,7 @@ import { Crumbs } from "../components/Bits";
 import { models, dealerCities } from "@/lib/catalog";
 import { LeadForm } from "../components/LeadForm";
 import ContactPrefillFields, { ContactTaskField } from "./ContactPrefillFields";
+import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 export const metadata: Metadata = {
   title: "Контакты BIO — официального дистрибьютора Sanremo в России",
@@ -94,7 +95,7 @@ export default function ContactsPage() {
                     </b>
                   </p>
                   <p className="small" style={{ margin: 0 }}>
-                    <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
+                    <a href={SITE_MAILTO}>{SITE_EMAIL}</a>
                   </p>
                   <p className="small" style={{ margin: 0 }}>
                     117630, Москва,<br />

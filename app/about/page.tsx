@@ -3,6 +3,7 @@ import { Header, Footer } from "../components/Chrome";
 import { ResponsiveImage } from "../components/ResponsiveImage";
 import { Crumbs } from "../components/Bits";
 import { models, liveSkus, parts, families } from "@/lib/catalog";
+import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 export const metadata: Metadata = {
   title: "О бренде Sanremo Coffee Machines",
@@ -125,7 +126,7 @@ export default function AboutPage() {
                 </b>
               </p>
               <p className="small" style={{ margin: "6px 0 18px" }}>
-                <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>
+                <a href={SITE_MAILTO}>{SITE_EMAIL}</a>
               </p>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <a className="btn btn-solid" href="/choose/">Подобрать машину</a>

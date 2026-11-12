@@ -1,6 +1,7 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
+import { SITE_EMAIL } from "@/lib/site-contact";
 
 export default function MailtoForm({ subject, children, className, style }: { subject: string; children: ReactNode; className?: string; style?: React.CSSProperties }) {
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -10,7 +11,7 @@ export default function MailtoForm({ subject, children, className, style }: { su
       .filter(([, value]) => typeof value === "string" && value.trim())
       .map(([key, value]) => `${key}: ${value}`)
       .join("\n");
-    window.location.href = `mailto:info@sanremomachines.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
   return <form className={className} style={style} onSubmit={submit}>{children}</form>;
 }

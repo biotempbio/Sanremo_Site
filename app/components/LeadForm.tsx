@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, ReactNode, useState } from "react";
+import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 declare global { interface Window { ym?: (...args: unknown[]) => void } }
 
@@ -30,5 +31,5 @@ export function LeadForm({ form, children, className, style, submitLabel }: { fo
     }}
     onInput={(event) => (event.target as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).setCustomValidity("")}
     onChange={(event) => (event.target as unknown as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).setCustomValidity("")}
-  >{children}<input className="hp-field" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />{state === "error" ? <div className="form-error" role="alert">Не удалось отправить заявку. Позвоните по номеру <a href="tel:+74953633801">8 (495) 363-38-01</a> или напишите на <a href="mailto:info@sanremomachines.ru">info@sanremomachines.ru</a>. <button type="button" onClick={() => setState("idle")}>Попробовать ещё раз</button></div> : null}<button className="btn btn-solid lead-submit" type="submit" disabled={state === "sending"}>{state === "sending" ? "Отправляем…" : submitLabel ?? (form === "service" ? "Отправить обращение" : "Отправить запрос")}</button></form>;
+  >{children}<input className="hp-field" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />{state === "error" ? <div className="form-error" role="alert">Не удалось отправить заявку. Позвоните по номеру <a href="tel:+74953633801">8 (495) 363-38-01</a> или напишите на <a href={SITE_MAILTO}>{SITE_EMAIL}</a>. <button type="button" onClick={() => setState("idle")}>Попробовать ещё раз</button></div> : null}<button className="btn btn-solid lead-submit" type="submit" disabled={state === "sending"}>{state === "sending" ? "Отправляем…" : submitLabel ?? (form === "service" ? "Отправить обращение" : "Отправить запрос")}</button></form>;
 }
