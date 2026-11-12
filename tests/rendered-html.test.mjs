@@ -11,6 +11,21 @@ test("home preserves the approved branded presentation", async () => {
   assert.match(home, /href="\/products\/"/);
 });
 
+test("favicon links use versioned, self-contained Sanremo assets", async () => {
+  const home = await read("index.html");
+  const svg = await read("favicon.svg");
+  assert.match(home, /href="\/favicon\.ico\?v=3"/);
+  assert.match(home, /href="\/favicon-120\.png\?v=3"/);
+  assert.match(home, /href="\/apple-touch-icon\.png\?v=3"/);
+  assert.doesNotMatch(home, /rel="icon"[^>]+favicon\.svg/);
+  assert.doesNotMatch(home, /href="\/icon\.png"/);
+  assert.match(svg, /href="data:image\/png;base64,/);
+  assert.doesNotMatch(svg, /href="\/(?!\/)/);
+  for (const asset of ["favicon.ico", "favicon-120.png", "apple-touch-icon.png", "icon.png"]) {
+    assert.ok((await stat(new URL(`../out/${asset}`, import.meta.url))).size > 0, asset);
+  }
+});
+
 test("mobile contact and grinder layouts have no fixed outer width", async () => {
   const [contacts, grinders, xOne] = await Promise.all([
     read("contacts/index.html"), read("products/grinders/index.html"), read("products/x-one/index.html"),

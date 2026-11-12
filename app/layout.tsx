@@ -15,11 +15,10 @@ export const metadata: Metadata = {
     "Официальный каталог профессиональных кофемашин Sanremo в России.",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-120.png", type: "image/png", sizes: "120x120" },
+      { url: "/favicon.ico?v=3", sizes: "any" },
+      { url: "/favicon-120.png?v=3", type: "image/png", sizes: "120x120" },
     ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
