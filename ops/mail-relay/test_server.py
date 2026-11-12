@@ -13,7 +13,7 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 
-from server import TLSHTTPServer, connect_db, handler_factory, send_pending, store, valid_payload, verify_signature
+from server import TLSHTTPServer, connect_db, handler_factory, send_copies, send_pending, store, valid_payload, verify_signature
 
 
 SAMPLE = {
@@ -82,6 +82,36 @@ class RelayTests(unittest.TestCase):
             with connect_db(db_path) as db:
                 row = db.execute("SELECT status, attempts, last_error FROM leads").fetchone()
                 self.assertEqual(row, ("pending", 1, "TimeoutError"))
+
+    def test_technical_copies_are_independent_and_idempotent(self):
+        FakeSMTP.messages.clear()
+        recipients = ("pokidov.sa@holdingbio.ru", "info@holdingbio.ru")
+        smtp = {"host": "smtp.example.ru", "port": 465, "user": "sender@example.ru", "password": "secret"}
+        with tempfile.TemporaryDirectory() as directory:
+            db_path = str(Path(directory) / "leads.db")
+            store(db_path, SAMPLE, recipients)
+            store(db_path, SAMPLE, recipients)
+            with connect_db(db_path) as db:
+                self.assertEqual(db.execute("SELECT COUNT(*) FROM lead_copies").fetchone()[0], 2)
+                self.assertEqual(db.execute("SELECT status FROM leads").fetchone()[0], "pending")
+            with patch("server.smtplib.SMTP_SSL", FakeSMTP):
+                self.assertEqual(send_copies(db_path, smtp), 2)
+                self.assertEqual(send_copies(db_path, smtp), 0)
+            self.assertEqual({message["To"] for message in FakeSMTP.messages}, set(recipients))
+            self.assertTrue(all(message["From"] == "sender@example.ru" for message in FakeSMTP.messages))
+            self.assertTrue(all(message["Reply-To"] == "test@example.invalid" for message in FakeSMTP.messages))
+            self.assertTrue(all(message["Subject"].startswith("[sales@sanremomachines.ru]") for message in FakeSMTP.messages))
+
+    def test_failed_copy_does_not_requeue_primary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            db_path = str(Path(directory) / "leads.db")
+            store(db_path, SAMPLE, ("pokidov.sa@holdingbio.ru",))
+            smtp = {"host": "smtp.example.ru", "port": 465, "user": "sender@example.ru", "password": "secret"}
+            with patch("server.smtplib.SMTP_SSL", side_effect=TimeoutError("mail unavailable")):
+                self.assertEqual(send_copies(db_path, smtp), 0)
+            with connect_db(db_path) as db:
+                self.assertEqual(db.execute("SELECT status FROM leads").fetchone()[0], "pending")
+                self.assertEqual(db.execute("SELECT status, attempts FROM lead_copies").fetchone(), ("pending", 1))
 
     def test_post_rejects_unsigned_and_accepts_signed(self):
         FakeSMTP.messages.clear()

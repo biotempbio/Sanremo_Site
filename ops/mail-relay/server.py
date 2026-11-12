@@ -18,6 +18,7 @@ import time
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from email.message import EmailMessage
+from email.utils import parseaddr
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -60,6 +61,13 @@ def connect_db(path: str):
             "attempts INTEGER NOT NULL DEFAULT 0, next_attempt_at TEXT NOT NULL, "
             "sent_at TEXT, last_error TEXT)"
         )
+        db.execute(
+            "CREATE TABLE IF NOT EXISTS lead_copies ("
+            "request_id TEXT NOT NULL, recipient TEXT NOT NULL, "
+            "status TEXT NOT NULL DEFAULT 'pending', attempts INTEGER NOT NULL DEFAULT 0, "
+            "next_attempt_at TEXT NOT NULL, sent_at TEXT, last_error TEXT, "
+            "PRIMARY KEY (request_id, recipient))"
+        )
         db.commit()
         yield db
         db.commit()
@@ -95,12 +103,17 @@ def verify_signature(body: bytes, given: str, secret: str) -> bool:
     return hmac.compare_digest(expected, given)
 
 
-def store(db_path: str, data: dict) -> str:
+def store(db_path: str, data: dict, copy_recipients: tuple[str, ...] = ()) -> str:
     with LOCK, connect_db(db_path) as db:
         db.execute(
             "INSERT OR IGNORE INTO leads(request_id, received_at, payload, next_attempt_at) VALUES (?, ?, ?, ?)",
             (data["requestId"], utc_now(), json.dumps(data, ensure_ascii=False), utc_now()),
         )
+        for recipient in copy_recipients:
+            db.execute(
+                "INSERT OR IGNORE INTO lead_copies(request_id, recipient, next_attempt_at) VALUES (?, ?, ?)",
+                (data["requestId"], recipient, utc_now()),
+            )
         status = db.execute("SELECT status FROM leads WHERE request_id=?", (data["requestId"],)).fetchone()[0]
     return status
 
@@ -124,6 +137,57 @@ def make_message(data: dict, sender: str, recipient: str) -> EmailMessage:
     lines.extend(f"{name}: {value}" for name, value in fields.items() if value)
     message.set_content("\n".join(lines))
     return message
+
+
+def make_copy_message(data: dict, sender: str, recipient: str) -> EmailMessage:
+    message = make_message(data, sender, recipient)
+    message.replace_header("Subject", f"[sales@sanremomachines.ru] заявка {data['requestId']}")
+    contact = str(data.get("fields", {}).get("contact", "")).strip()
+    email = parseaddr(contact)[1]
+    message["Reply-To"] = email if email and "@" in email else "sales@sanremomachines.ru"
+    return message
+
+
+def send_copies(db_path: str, smtp: dict, limit: int = 20) -> int:
+    """Retry technical-sender copies independently of delivery to sales@."""
+    with LOCK, connect_db(db_path) as db:
+        rows = db.execute(
+            "SELECT c.request_id, c.recipient, l.payload, c.attempts FROM lead_copies c "
+            "JOIN leads l ON l.request_id=c.request_id "
+            "WHERE c.status IN ('pending', 'sending') AND c.next_attempt_at<=? "
+            "ORDER BY l.received_at LIMIT ?", (utc_now(), limit)
+        ).fetchall()
+    sent = 0
+    for request_id, recipient, raw, attempts in rows:
+        with LOCK, connect_db(db_path) as db:
+            claimed = db.execute(
+                "UPDATE lead_copies SET status='sending', next_attempt_at=? "
+                "WHERE request_id=? AND recipient=? AND status IN ('pending', 'sending') AND next_attempt_at<=?",
+                ((datetime.now(timezone.utc) + timedelta(seconds=90)).isoformat(), request_id, recipient, utc_now()),
+            ).rowcount
+        if not claimed:
+            continue
+        try:
+            message = make_copy_message(json.loads(raw), smtp["user"], recipient)
+            with smtplib.SMTP_SSL(smtp["host"], smtp["port"], timeout=12) as mail:
+                mail.login(smtp["user"], smtp["password"])
+                refused = mail.send_message(message)
+                if refused:
+                    raise smtplib.SMTPRecipientsRefused(refused)
+            with LOCK, connect_db(db_path) as db:
+                db.execute(
+                    "UPDATE lead_copies SET status='sent', sent_at=?, attempts=attempts+1, last_error=NULL "
+                    "WHERE request_id=? AND recipient=?", (utc_now(), request_id, recipient)
+                )
+            sent += 1
+        except Exception as exc:
+            with LOCK, connect_db(db_path) as db:
+                db.execute(
+                    "UPDATE lead_copies SET status='pending', attempts=attempts+1, next_attempt_at=?, last_error=? "
+                    "WHERE request_id=? AND recipient=?",
+                    ((datetime.now(timezone.utc) + timedelta(seconds=min(3600, 60 * 2 ** min(attempts, 6)))).isoformat(), type(exc).__name__, request_id, recipient),
+                )
+    return sent
 
 
 def send_pending(db_path: str, smtp: dict, limit: int = 20) -> int:
@@ -164,7 +228,7 @@ def send_pending(db_path: str, smtp: dict, limit: int = 20) -> int:
     return sent
 
 
-def handler_factory(db_path: str, secret: str, smtp: dict):
+def handler_factory(db_path: str, secret: str, smtp: dict, copy_smtp: dict | None = None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, fmt: str, *args: object) -> None:
             # Never log request paths or PII.
@@ -203,9 +267,11 @@ def handler_factory(db_path: str, secret: str, smtp: dict):
                 return self.reply(400, {"ok": False})
             if not valid_payload(data):
                 return self.reply(400, {"ok": False})
-            status = store(db_path, data)
+            status = store(db_path, data, tuple(copy_smtp["recipients"]) if copy_smtp else ())
             if status != "sent":
                 send_pending(db_path, smtp, limit=1)
+            if copy_smtp:
+                send_copies(db_path, copy_smtp, limit=2)
             with LOCK, connect_db(db_path) as db:
                 status = db.execute("SELECT status FROM leads WHERE request_id=?", (data["requestId"],)).fetchone()[0]
             self.reply(200, {"ok": True, "requestId": data["requestId"], "delivery": status})
@@ -224,17 +290,28 @@ def main() -> None:
         "password": os.environ["SMTP_PASSWORD"],
         "recipient": os.environ["LEAD_RECIPIENT"],
     }
+    copy_smtp = None
+    if os.environ.get("COPY_SMTP_USER"):
+        copy_smtp = {
+            "host": os.environ["COPY_SMTP_HOST"],
+            "port": int(os.environ.get("COPY_SMTP_PORT", "465")),
+            "user": os.environ["COPY_SMTP_USER"],
+            "password": os.environ["COPY_SMTP_PASSWORD"],
+            "recipients": tuple(r.strip() for r in os.environ["COPY_RECIPIENTS"].split(",") if r.strip()),
+        }
 
     def retry() -> None:
         while True:
             send_pending(db_path, smtp)
+            if copy_smtp:
+                send_copies(db_path, copy_smtp)
             time.sleep(60)
 
     threading.Thread(target=retry, daemon=True).start()
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
     context.load_cert_chain(os.environ["RELAY_CERT_PATH"], os.environ["RELAY_KEY_PATH"])
-    server = TLSHTTPServer(("0.0.0.0", int(os.environ.get("RELAY_PORT", "443"))), handler_factory(db_path, secret, smtp), context)
+    server = TLSHTTPServer(("0.0.0.0", int(os.environ.get("RELAY_PORT", "443"))), handler_factory(db_path, secret, smtp, copy_smtp), context)
     server.serve_forever()
 
 
