@@ -107,7 +107,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     const stock = positive(first(raw, ['inStock', 'Остаток']));
     const weight = amount(first(raw, ['weightNett', 'weightNet', 'weight', 'Вес']));
     const warranty = clean(first(raw, ['warranty', 'Гарантия']));
-    if (warranty && !/(?:12\s*мес|1\s*год|один\s*год)/i.test(warranty)) {
+    if (kind !== 'part' && warranty && !/(?:12\s*мес|1\s*год|один\s*год)/i.test(warranty)) {
       warnings.add(`Гарантия требует сверки: ${code} (${warranty.slice(0, 80)})`);
     }
     const product = {

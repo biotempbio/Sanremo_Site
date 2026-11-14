@@ -128,7 +128,7 @@ export default async function FamilyPage({ params }: Props) {
                       </div>
                       <span className="stock-label">
                         <i className={`dot ${stockUnits ? "st-in_stock" : "st-on_order"}`} />
-                        {stockUnits ? `На складе в Москве${stockUnits >= 3 ? ` · ${stockUnits} шт.` : ""}` : "Под заказ"}
+                        {stockUnits ? `На складе в Москве${stockUnits >= 3 ? ` · ${stockUnits} шт.` : ""}` : "Под заказ · 6–8 недель"}
                       </span>
                     </div>
                   </div>

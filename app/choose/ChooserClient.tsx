@@ -299,7 +299,7 @@ function ResultCard({
           </div>
           <span className="stock-label">
             <i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />
-            {m.stockUnits ? "На складе в Москве" : "Под заказ"}
+            {m.stockUnits ? "На складе в Москве" : "Под заказ · 6–8 недель"}
           </span>
         </div>
       </div>
@@ -315,7 +315,7 @@ function CandidateRow({ m }: { m: ChooserModel }) {
         <h3><a href={`/products/${m.family}/${m.slug}/`}>{m.name}</a></h3>
       </div>
       <span className="price num">{m.priceFrom ? `от ${formatPrice(m.priceFrom)}` : "Цена по запросу"}</span>
-      <span className="stock-label"><i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />{m.stockUnits ? "На складе в Москве" : "Под заказ"}</span>
+      <span className="stock-label"><i className={`dot ${m.stockUnits ? "st-in_stock" : "st-on_order"}`} />{m.stockUnits ? "На складе в Москве" : "Под заказ · 6–8 недель"}</span>
     </article>
   );
 }

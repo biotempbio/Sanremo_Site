@@ -38,3 +38,12 @@ test('API envelopes are accepted but empty exports are rejected', () => {
   assert.equal(normalizeExport({ products: [machine()] }).length, 1);
   assert.throws(() => normalizeExport({ message: 'error' }), /no product array/);
 });
+
+test('warranty warnings apply to machines, not spare parts without a warranty', () => {
+  const result = sanitize([
+    machine({ warranty: '24 месяца' }),
+    { brand: 'Sanremo', code: 'PART-TEST', name: 'Помпа Sanremo', category: 'Запчасти и комплектующие', categoryGroup: 'Запчасти и комплектующие', warranty: 0, priceRUB: 1000, dilerPriceRUB: 500 },
+  ], options);
+  assert.equal(result.warnings.length, 1);
+  assert.match(result.warnings[0], /208791/);
+});

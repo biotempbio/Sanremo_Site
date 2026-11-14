@@ -59,7 +59,7 @@ export default function CompareClient() {
       <thead><tr><th style={{ width: 190 }} />{cols.map((c) => <th key={c.model.slug} style={{ verticalAlign: "top", minWidth: 250 }}>
         <Image src={c.entry.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} style={{ width: "100%", height: 170, objectFit: "contain", background: "var(--gray)" }} />
         <p className="eyebrow" style={{ margin: "16px 0 7px" }}>{c.family.tagline}</p><h2 style={{ fontSize: 28 }}>{c.entry.label}</h2>
-        <p style={{ margin: "10px 0 4px" }}><b>от {money(c.model.priceFrom)}</b></p><p className="tiny" style={{ margin: 0 }}>{c.stock > 0 ? `На складе в Москве: ${c.stock}` : "Под заказ"}</p>
+        <p style={{ margin: "10px 0 4px" }}><b>от {money(c.model.priceFrom)}</b></p><p className="tiny" style={{ margin: 0 }}>{c.stock > 0 ? `На складе в Москве: ${c.stock}` : "Под заказ · 6–8 недель"}</p>
         <a className="btn btn-solid" href={modelPath(c.model)} style={{ marginTop: 16 }}>Открыть линейку</a>
       </th>)}</tr></thead>
       <tbody>{rows.map(([label, value]) => <tr key={label}><td className="eyebrow">{label}</td>{cols.map((c) => <td key={c.model.slug}>{value(c)}</td>)}</tr>)}</tbody>
@@ -69,7 +69,7 @@ export default function CompareClient() {
         <div className="compare-mobile-head">
           <Image src={c.entry.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} />
           <div><p className="eyebrow">{c.family.tagline}</p><h2>{c.entry.label}</h2><p className="compare-mobile-price">от {money(c.model.priceFrom)}</p>
-            <p className="small">{c.stock > 0 ? "На складе в Москве" : "Под заказ"}</p></div>
+            <p className="small">{c.stock > 0 ? "На складе в Москве" : "Под заказ · 6–8 недель"}</p></div>
         </div>
         <dl>{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value(c)}</dd></div>)}</dl>
         <a className="btn btn-solid" href={modelPath(c.model)}>Открыть линейку</a>

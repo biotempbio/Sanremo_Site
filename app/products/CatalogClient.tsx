@@ -247,7 +247,7 @@ export default function CatalogClient({
                           <b>{r.stockUnits >= 3 ? `На складе в Москве ${r.stockUnits} ${machineWord(r.stockUnits)}` : "На складе в Москве"}</b>
                           {r.stockUnits >= 3 ? <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small> : null}
                         </span>
-                      ) : "Сейчас нет на складе в Москве"}
+                      ) : "Под заказ · 6–8 недель"}
                     </span>
                   </div>
                 </div>
