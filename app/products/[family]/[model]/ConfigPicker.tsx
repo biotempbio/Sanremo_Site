@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import SkuImage from "../../../components/SkuImage";
 import { formatPrice } from "@/lib/format";
 import type { DescriptionBlock } from "@/lib/catalog";
+import { cleanDescriptionBlocks } from "@/lib/product-description.mjs";
 
 export interface PickerSku {
   code: string;
@@ -90,6 +91,7 @@ export default function ConfigPicker({
     ["Масса", current.weightNet ? `${String(current.weightNet).replace(".", ",")}\u00a0кг` : null],
     ...current.secondaryProps.map((item) => [item.name, item.value]),
   ].filter((item): item is string[] => Boolean(item[0] && item[1])).slice(0, 6);
+  const descriptionBlocks = cleanDescriptionBlocks(current.descriptionBlocks) as DescriptionBlock[];
 
   return (
     <div className="picker">
@@ -173,11 +175,11 @@ export default function ConfigPicker({
 
       </div>
 
-      {current.descriptionBlocks.length > 0 || current.secondaryProps.length > 0 ? <div className="picker-details">
-        {current.descriptionBlocks.length > 0 ? <section className="picker-description">
+      {descriptionBlocks.length > 0 || current.secondaryProps.length > 0 ? <div className="picker-details">
+        {descriptionBlocks.length > 0 ? <section className="picker-description">
           <p className="eyebrow">Описание исполнения</p>
           <h2>О Sanremo {modelName}</h2>
-          <div className="picker-description-copy">{current.descriptionBlocks.map((block, index) => block.type === "heading"
+          <div className="picker-description-copy">{descriptionBlocks.map((block, index) => block.type === "heading"
             ? <h3 key={index}>{block.text}</h3>
             : block.type === "list" ? <ul key={index}>{block.items.map((item, itemIndex) => <li key={itemIndex}>{item}</li>)}</ul>
             : <p key={index}>{block.text}</p>)}</div>

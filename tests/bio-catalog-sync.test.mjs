@@ -78,3 +78,9 @@ test('search keys treat Cyrillic lookalikes as Latin without changing source tex
   assert.equal(normalizeCatalogSearch('SР 300'), normalizeCatalogSearch('SP 300'));
   assert.equal(normalizeCatalogSearch('Х-ONE'), normalizeCatalogSearch('X-ONE'));
 });
+
+test('empty generic description introductions are omitted', () => {
+  const item = sanitize([machine({ description: 'Особенности:\nМОЩНОСТЬ\nЭспрессо готовится быстро.' })], options).products[0];
+  assert.doesNotMatch(item.description, /Особенности:/);
+  assert.match(item.description, /Мощность/);
+});

@@ -4,6 +4,8 @@ import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { LeadForm } from "../../components/LeadForm";
 import { grinders, imgUrl, money, PRICE_DATE } from "@/lib/catalog";
+import { cleanDescriptionBlocks } from "@/lib/product-description.mjs";
+import type { DescriptionBlock } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Кофемолка Sanremo X-One — характеристики, цены и наличие",
@@ -26,7 +28,7 @@ export default function XOnePage() {
   const knownPrices = entries.map((item) => item.rrp).filter((price) => price > 0);
   const priceFrom = knownPrices.length ? Math.min(...knownPrices) : null;
   const primary = entries.find((item) => item.availability === "in_stock") ?? entries[0];
-  const descriptionBlocks = primary?.descriptionBlocks ?? [];
+  const descriptionBlocks = cleanDescriptionBlocks(primary?.descriptionBlocks ?? []) as DescriptionBlock[];
   const secondaryProps = primary?.secondaryProps ?? [];
 
   return <>
