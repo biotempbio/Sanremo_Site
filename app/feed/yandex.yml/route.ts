@@ -8,17 +8,19 @@ const xml = (value: unknown) => String(value ?? "")
   .replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
 
 export function GET() {
-  const categories = families.map((family, index) => ({ id: index + 2, slug: family.slug, name: family.name }));
+  const categories = families.flatMap((family) => family.slug === "f18"
+    ? [{ slug: "f18-sb", name: "F18 Single Boiler" }, { slug: "f18-mb", name: "F18 MB" }]
+    : [{ slug: family.slug, name: family.name }]).map((category, index) => ({ ...category, id: index + 2 }));
   const categoryBySlug = new Map(categories.map((category) => [category.slug, category.id]));
   const modelBySlug = new Map(models.map((model) => [model.slug, model]));
-  const machineOffers = skus.filter((sku) => sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family)).map((sku) => {
+  const machineOffers = skus.filter((sku) => !sku.markdown && sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family === "f18" ? sku.model : sku.family)).map((sku) => {
     const model = modelBySlug.get(sku.model);
     const image = imgUrl(sku.image);
     const name = `Кофемашина Sanremo ${model?.name ?? sku.model}${sku.groups ? `, ${sku.groups} гр.` : ""} — ${sku.title}`;
     return `      <offer id="${xml(sku.code)}" available="${sku.free > 0}">
         <url>${xml(absoluteUrl(`/products/${sku.family}/${sku.model}/#sku-${encodeURIComponent(sku.code)}`))}</url>
         <price>${sku.rrp}</price><currencyId>RUB</currencyId>
-        <categoryId>${categoryBySlug.get(sku.family)}</categoryId>
+        <categoryId>${categoryBySlug.get(sku.family === "f18" ? sku.model : sku.family)}</categoryId>
         ${image ? `<picture>${xml(image)}</picture>` : ""}
         <vendor>Sanremo</vendor><model>${xml(model?.name ?? sku.model)}</model>
         <name>${xml(name)}</name>
@@ -26,7 +28,7 @@ export function GET() {
         <description>${xml(sku.description || model?.description || `Профессиональная кофемашина Sanremo ${model?.name ?? sku.model}.`)}</description>
       </offer>`;
   });
-  const grinderOffers = grinders.filter((grinder) => grinder.rrp > 0).map((grinder) => {
+  const grinderOffers = grinders.filter((grinder) => !grinder.markdown && grinder.rrp > 0).map((grinder) => {
     const image = imgUrl(grinder.image);
     return `      <offer id="${xml(grinder.code)}" available="${"inStock" in grinder && typeof grinder.inStock === "number" ? grinder.inStock > 0 : grinder.availability === "in_stock"}">
         <url>${xml(absoluteUrl("/products/x-one/"))}</url>
