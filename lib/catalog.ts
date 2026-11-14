@@ -127,7 +127,7 @@ const catalog = raw as unknown as Catalog;
 type ApiProduct = {
   code: string; name: string; kind: "machine" | "grinder" | "part"; tier: number;
   modelSlug: string | null; vendorCode: string | null; category: string; categoryGroup: string;
-  price: number | null; inStock: number; available: boolean; image: string | null;
+  price: number | null; inStock: number; image: string | null;
   sizeNet: Sku["sizeNet"]; weightNet: number | null; warranty: string | null;
   secondaryProps: { name: string; value: string }[];
 };

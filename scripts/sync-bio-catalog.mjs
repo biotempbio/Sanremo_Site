@@ -77,6 +77,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
   const hidden = { markdown: 0, retired: 0, invalid: 0, otherBrand: 0, unknownEquipment: 0, excludedGroup: 0, duplicate: 0 };
   const warnings = new Set();
   const seen = new Set();
+  const accessByCode = new Map();
   const products = [];
   for (const raw of rawItems) {
     if (!raw || typeof raw !== 'object') { hidden.invalid++; continue; }
@@ -105,6 +106,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     const safePrice = rrp !== null && rrp > 0 && dealer !== null && dealer >= 0 && rrp >= dealer ? Math.round(rrp) : null;
     const image = clean(first(raw, ['img', 'image', 'Картинка']));
     const stock = positive(first(raw, ['inStock', 'Остаток']));
+    accessByCode.set(code, positive(first(raw, ['inAccess', 'Доступно'])) > 0);
     const weight = amount(first(raw, ['weightNett', 'weightNet', 'weight', 'Вес']));
     const warranty = clean(first(raw, ['warranty', 'Гарантия']));
     if (kind !== 'part' && warranty && !/(?:12\s*мес|1\s*год|один\s*год)/i.test(warranty)) {
@@ -115,7 +117,6 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
       vendorCode: clean(first(raw, ['vendorCode', 'article', 'Артикул'])) || null,
       category, categoryGroup: group,
       price: safePrice, inStock: stock,
-      available: positive(first(raw, ['inAccess', 'Доступно'])) > 0,
       image: /^https:\/\//i.test(image) || image.startsWith('/api/img/') ? image : null,
       sizeNet: dimensions(raw), weightNet: weight && weight > 0 ? weight : null,
       warranty: warranty || null,
@@ -124,7 +125,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     if (knownParts.has(code) && kind === 'part') product.tier = tier;
     products.push(product);
   }
-  products.sort((a, b) => a.tier - b.tier || Number(b.price !== null && !!b.image) - Number(a.price !== null && !!a.image) || Number(b.available) - Number(a.available) || (b.price ?? 0) - (a.price ?? 0));
+  products.sort((a, b) => a.tier - b.tier || Number(b.price !== null && !!b.image) - Number(a.price !== null && !!a.image) || Number(accessByCode.get(b.code)) - Number(accessByCode.get(a.code)) || (b.price ?? 0) - (a.price ?? 0));
   return { products, hidden, warnings: [...warnings].sort(), received: seen.size, published: products.length, stockedProducts: products.filter((item) => item.inStock > 0).length };
 }
 

@@ -31,7 +31,7 @@ test('public snapshot keeps total stock, filters private values and validates RR
   assert.equal(result.products[1].price, null);
   assert.equal(result.products[1].modelSlug, 'cafe-racer');
   const serialized = JSON.stringify(result.products);
-  assert.doesNotMatch(serialized, /dilerPriceRUB|900000|Дилерская цена|inReserve/);
+  assert.doesNotMatch(serialized, /dilerPriceRUB|900000|Дилерская цена|inReserve|inAccess|available/);
 });
 
 test('API envelopes are accepted but empty exports are rejected', () => {
