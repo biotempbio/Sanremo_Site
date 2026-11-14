@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { normalizeExport, sanitize } from '../scripts/sync-bio-catalog.mjs';
+import { fetchSnapshot, normalizeExport, sanitize } from '../scripts/sync-bio-catalog.mjs';
 
 const tiers = JSON.parse(readFileSync(new URL('../config/catalog-tiers.json', import.meta.url)));
 const categoryGroups = JSON.parse(readFileSync(new URL('../config/sanremo-category-groups.json', import.meta.url)));
@@ -46,4 +46,10 @@ test('warranty warnings apply to machines, not spare parts without a warranty', 
   ], options);
   assert.equal(result.warnings.length, 1);
   assert.match(result.warnings[0], /208791/);
+});
+
+test('an all-zero stock export is rejected before replacing the last good snapshot', async () => {
+  const items = Array.from({ length: 463 }, (_, index) => machine({ code: `TEST-${index}`, inStock: 0 }));
+  const fetcher = async () => ({ ok: true, json: async () => items, headers: { get: () => '2026-11-14T02:30:00Z' } });
+  await assert.rejects(fetchSnapshot({ key: 'test-only', fetcher }), /zero stock/);
 });

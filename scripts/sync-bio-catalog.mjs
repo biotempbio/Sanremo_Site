@@ -143,7 +143,7 @@ export async function fetchSnapshot({ key, fetcher = fetch, previousState = null
   const prior = Math.max(463, Number(previousState?.received) || 0);
   if (result.received < Math.floor(prior * 0.8)) throw new Error(`BIO snapshot below 80% of prior count: ${result.received}/${prior}`);
   if (result.published === 0) throw new Error('BIO snapshot has no published products');
-  if (previousState?.stockedProducts > 0 && result.stockedProducts === 0) throw new Error('BIO snapshot has zero stock across all products');
+  if (result.stockedProducts === 0) throw new Error('BIO snapshot has zero stock across all products');
   const dataAsOf = clean(response.headers.get('X-Data-As-Of'));
   if (!dataAsOf || Number.isNaN(Date.parse(dataAsOf))) throw new Error('BIO snapshot missing valid X-Data-As-Of');
   return { ...result, dataAsOf, syncedAt: new Date().toISOString() };
