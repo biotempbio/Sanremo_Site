@@ -84,3 +84,9 @@ test('empty generic description introductions are omitted', () => {
   assert.doesNotMatch(item.description, /Особенности:/);
   assert.match(item.description, /Мощность/);
 });
+
+test('known BIO copy typos are corrected without changing specification values', () => {
+  const item = sanitize([machine({ description: 'Одногрупная Sanremo You. Бойлер 8 л.' })], options).products[0];
+  assert.match(item.description, /Одногруппная Sanremo YOU/);
+  assert.match(item.description, /8 л/);
+});
