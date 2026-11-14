@@ -17,6 +17,7 @@
 /.next/
 /.vinext/
 /out/
+/public/tpost/
 public/**/*-w480.webp
 public/**/*-w480.jpg
 public/**/*-w960.webp

@@ -22,3 +22,15 @@ test('all ten original news posts have full local pages, images and original dat
     assert.ok(sitemap.includes(`/news/${post.slug}/`), post.slug);
   }
 });
+
+test('five lower-priority Tilda URLs have canonical instant move pages', () => {
+  const moved = posts.filter((post) => existsSync(path.join(root, 'out', post.oldPath, 'index.html')));
+  assert.equal(moved.length, 5);
+  for (const post of moved) {
+    const page = readFileSync(path.join(root, 'out', post.oldPath, 'index.html'), 'utf8');
+    assert.match(page, /http-equiv="refresh" content="0;url=\/news\//);
+    assert.match(page, /name="robots" content="noindex,follow"/);
+    assert.ok(page.includes(`/news/${post.slug}/`), post.slug);
+    assert.ok(!page.includes(post.paragraphs.join(' ')), post.slug);
+  }
+});
