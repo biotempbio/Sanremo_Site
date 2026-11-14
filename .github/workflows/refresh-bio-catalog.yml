@@ -1,0 +1,25 @@
+name: Refresh BIO catalog snapshot
+
+on:
+  schedule:
+    # 05:00 Moscow time (UTC+3); GitHub schedules can start with a delay.
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  trigger-timeweb-build:
+    if: github.repository == 'biotempbio/Sanremo_Site'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Trigger existing Timeweb autodeploy
+        run: |
+          git config user.name 'Sanremo catalog refresh'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit --allow-empty -m "Refresh BIO catalog $(date -u +%F)"
+          git push origin HEAD:main
