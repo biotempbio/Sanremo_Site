@@ -49,11 +49,21 @@
 Тексты, даты и фотографии сохранены в `data/news.json` и `public/photo/news/`.
 Решение Сергея 14.11: пять приоритетных новостей получают HTTP 301 через пять
 свободных правил Timeweb; остальные пять — мгновенный HTML-переход со старого
-пути, canonical на новую страницу и `noindex`. У них фактический HTTP-код 200,
-а не 301. [Google считает мгновенный meta refresh постоянным переходом](https://developers.google.com/search/docs/crawling-indexing/301-redirects),
+пути, canonical на новую страницу и `noindex`. На существующем Caddy исходный
+адрес без слеша сначала получает технический `308` на тот же адрес со слешем;
+страница перехода затем отвечает `200`. Это два перехода, а не прямой `301`.
+[Google считает мгновенный meta refresh постоянным переходом](https://developers.google.com/search/docs/crawling-indexing/301-redirects),
 но [Яндекс описывает refresh с малой задержкой как временный](https://yandex.ru/support/webmaster/ru/robot-workings/managing-redirects).
 Поэтому для Яндекса этот вариант не эквивалентен HTTP 301; после индексации
 проверить перенос сигналов и при необходимости заменить правилами сервера.
+
+На боевом домене после деплоя 14.11.2026 проверены фактические ответы всех
+десяти старых URL и десяти конечных статей. В Timeweb действуют ровно десять
+правил `301`: `/moments` → `/cases/`, `/buy` → `/dealers/`,
+`/products/f18sb/` → `/products/f18/f18-sb/`,
+`/products/zoe-new/` → `/products/zoe/`, `www` → основной домен и пять
+приоритетных `/tpost/` из таблицы ниже. Первые пять правил после добавления
+новостей сохранили ожидаемый ответ `301`.
 
 | Старый URL | Новый URL | Способ |
 | --- | --- | --- |
@@ -61,12 +71,12 @@
 | `/tpost/fzpb79apg1-sanremo-tsentr-prityazheniya` | `/news/sanremo-pir-coffee-2025/` | HTTP 301 |
 | `/tpost/hngoulmxr1-poisk-sinergii-vkusov-na-dalnem-vostoke` | `/news/coffee-pairing-dalnii-vostok/` | HTTP 301 |
 | `/tpost/vz3l6i6rj1-rossiiskii-duet-raskrivaet-potentsial-ba` | `/news/d8-pro-julius-meinl-barista-skills/` | HTTP 301 |
-| `/tpost/9ejdiik9o1-360-sanremo-3` | `/news/360-sanremo-3/` | HTML-переход, HTTP 200 |
+| `/tpost/9ejdiik9o1-360-sanremo-3` | `/news/360-sanremo-3/` | 308 на путь со слешем → HTML-переход 200 |
 | `/tpost/3oa0z0r951-vstrechaite-novuyu-platformu-d8-na-vista` | `/news/d8-host-2023/` | HTTP 301 |
-| `/tpost/ou8np6rss1-360-sanremo-2` | `/news/360-sanremo-2/` | HTML-переход, HTTP 200 |
-| `/tpost/2oe6krp6j1-vo-ves-opor` | `/news/vo-ves-opor/` | HTML-переход, HTTP 200 |
-| `/tpost/akxi35jl41-komandnaya-rabota-kak-sposob-dostizheniy` | `/news/komandnaya-rabota/` | HTML-переход, HTTP 200 |
-| `/tpost/g105rcvzb1-nash-novii-ambassador-martin-shabaya` | `/news/martin-shabaya/` | HTML-переход, HTTP 200 |
+| `/tpost/ou8np6rss1-360-sanremo-2` | `/news/360-sanremo-2/` | 308 на путь со слешем → HTML-переход 200 |
+| `/tpost/2oe6krp6j1-vo-ves-opor` | `/news/vo-ves-opor/` | 308 на путь со слешем → HTML-переход 200 |
+| `/tpost/akxi35jl41-komandnaya-rabota-kak-sposob-dostizheniy` | `/news/komandnaya-rabota/` | 308 на путь со слешем → HTML-переход 200 |
+| `/tpost/g105rcvzb1-nash-novii-ambassador-martin-shabaya` | `/news/martin-shabaya/` | 308 на путь со слешем → HTML-переход 200 |
 
 ## URL, которые должны оставаться ошибкой
 
@@ -79,6 +89,6 @@
 1. Дополнить список URL из Яндекс Вебмастера, Google Search Console, Метрики и новостей `/tpost/`.
 2. Отметить в таблице URL с кликами, позициями и внешними ссылками — они получают приоритетную
    ручную проверку.
-3. Прогнать утверждённую карту: приоритетные старые новости возвращают один `301`, пять остальных — HTML-переход с кодом `200`, а конечные страницы — `200`.
+3. Прогнать утверждённую карту: приоритетные старые новости возвращают один `301`, пять остальных — `308` на адрес со слешем и HTML-переход с кодом `200`, а конечные страницы — `200`.
 4. После смены доменной точки входа проверить те же ответы на `https://sanremomachines.ru`, а не
    только на staging.
