@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { families, models } from "@/lib/catalog";
 import { CONTENT_DATE, SITE_URL } from "@/lib/seo";
 import { detailedCases } from "@/lib/cases";
+import { newsPosts } from "@/lib/news";
 
 export const dynamic = "force-static";
 
@@ -29,5 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...families.map((family) => ({ url: `${SITE_URL}/products/${family.slug}/`, lastModified: lastModified(["app/products/[family]/page.tsx", "data/catalog.json"]) })),
     ...models.map((model) => ({ url: `${SITE_URL}/products/${model.family}/${model.slug}/`, lastModified: lastModified(["app/products/[family]/[model]/page.tsx", "data/catalog.json"]) })),
     ...detailedCases.map((entry) => ({ url: `${SITE_URL}/cases/${entry.slug}/`, lastModified: lastModified(["app/cases/[slug]/page.tsx", "data/cases.json"]) })),
+    ...newsPosts.map((post) => ({ url: `${SITE_URL}/news/${post.slug}/`, lastModified: new Date(`${post.publishedAt}T00:00:00Z`) })),
   ];
 }

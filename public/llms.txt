@@ -1,18 +1,28 @@
-# Sanremo в России — официальный каталог Sanremo
+# Sanremo в России
 
-Компания BIO — официальный дистрибьютор профессиональных кофемашин Sanremo в России. На сайте опубликованы модели, конфигурации, характеристики, цены, складской статус, дилеры, сервис и запчасти. Цены и наличие указаны по артикулам.
+Официальный дистрибьютор профессиональных кофемашин Sanremo в России — компания BIO. Сайт содержит характеристики, актуальные цены и наличие оборудования, документы, сведения о дилерах, сервисе и запчастях.
 
-## Основные разделы
-- [Каталог кофемашин](/products/)
-- [Подбор по задаче](/choose/)
-- [Сравнение линеек](/compare/)
-- [Как выбрать кофемашину](/guide/)
-- [Гид для кофейни](/guide/kofemashina-dlya-kofejni/)
-- [Гид для ресторана](/guide/kofemashina-dlya-restorana/)
-- [Линейки Sanremo](/guide/linejki-sanremo/)
-- [Частые вопросы](/faq/)
-- [Дилеры](/dealers/)
-- [Сервис](/service/)
-- [Запчасти](/parts/)
+## Кофемашины
 
-Характеристики, цены и наличие указаны в карточках моделей.
+- [Zoe](https://sanremomachines.ru/products/zoe/)
+- [D8 и D8 PRO](https://sanremomachines.ru/products/d8/)
+- [F18 SB и F18 MB](https://sanremomachines.ru/products/f18/)
+- [Café Racer](https://sanremomachines.ru/products/cafe-racer/)
+- [Opera](https://sanremomachines.ru/products/opera/)
+- [YOU](https://sanremomachines.ru/products/you/)
+- [Кофемолка X-One](https://sanremomachines.ru/products/x-one/)
+
+## Разделы
+
+- [Каталог кофемашин](https://sanremomachines.ru/products/)
+- [Подбор по задаче](https://sanremomachines.ru/choose/)
+- [Сравнение линеек](https://sanremomachines.ru/compare/)
+- [Как выбрать кофемашину](https://sanremomachines.ru/guide/)
+- [Дилеры](https://sanremomachines.ru/dealers/)
+- [Сервис](https://sanremomachines.ru/service/)
+- [Запчасти](https://sanremomachines.ru/parts/)
+- [Документы](https://sanremomachines.ru/documents/)
+- [Кейсы](https://sanremomachines.ru/cases/)
+- [Новости](https://sanremomachines.ru/news/)
+
+Контакт: sales@sanremomachines.ru.

@@ -44,6 +44,23 @@
 | `/products/verona-rs/` | `/products/verona-rs/` | Архивная страница: сервис, поиск ЗИП и подбор актуальной замены |
 | `/products/torino/` | `/products/torino/` | Архивная страница: сервис, поиск ЗИП и подбор актуальной замены |
 
+## Новости Tilda — 14 ноября 2026 года
+
+Тексты, даты и фотографии сохранены в `data/news.json` и `public/photo/news/`. Новые страницы доступны по чистым адресам. Старым адресам нужен один HTTP 301 на соответствующую новость; это пока отдельный инфраструктурный пункт, поскольку у статического приложения Timeweb заняты 5 из 10 правил редиректа.
+
+| Старый URL | Новый URL |
+| --- | --- |
+| `/tpost/h16ppjnd31-no-drama-just-coffee` | `/news/zoe-2026/` |
+| `/tpost/fzpb79apg1-sanremo-tsentr-prityazheniya` | `/news/sanremo-pir-coffee-2025/` |
+| `/tpost/hngoulmxr1-poisk-sinergii-vkusov-na-dalnem-vostoke` | `/news/coffee-pairing-dalnii-vostok/` |
+| `/tpost/vz3l6i6rj1-rossiiskii-duet-raskrivaet-potentsial-ba` | `/news/d8-pro-julius-meinl-barista-skills/` |
+| `/tpost/9ejdiik9o1-360-sanremo-3` | `/news/360-sanremo-3/` |
+| `/tpost/3oa0z0r951-vstrechaite-novuyu-platformu-d8-na-vista` | `/news/d8-host-2023/` |
+| `/tpost/ou8np6rss1-360-sanremo-2` | `/news/360-sanremo-2/` |
+| `/tpost/2oe6krp6j1-vo-ves-opor` | `/news/vo-ves-opor/` |
+| `/tpost/akxi35jl41-komandnaya-rabota-kak-sposob-dostizheniy` | `/news/komandnaya-rabota/` |
+| `/tpost/g105rcvzb1-nash-novii-ambassador-martin-shabaya` | `/news/martin-shabaya/` |
+
 ## URL, которые должны оставаться ошибкой
 
 | Старый URL | Решение |
