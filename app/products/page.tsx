@@ -10,6 +10,7 @@ import {
   stockUnitsOfModel,
   familyBySlug,
   VOLUME_BANDS,
+  PRICE_DATE,
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
@@ -81,6 +82,7 @@ export default function ProductsPage() {
         </section>
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
+          <p className="tiny" style={{ marginTop: 18 }}>Наличие на {PRICE_DATE}</p>
         </section>
         <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>С чего начать выбор?</h2><p>Сравните рабочий поток, группы, бойлеры и условия подключения. В гиде эти вопросы разобраны на примере актуальных линеек Sanremo.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/kofemashina-dlya-restorana/">Гид для ресторана →</a> · <a href="/guide/linejki-sanremo/">Сравнение линеек →</a></div></section>
         <section className="wrap section-tight" aria-labelledby="discontinued-models">

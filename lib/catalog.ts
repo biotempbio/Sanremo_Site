@@ -1,4 +1,5 @@
 import raw from "@/data/catalog.json";
+import apiSnapshot from "@/data/bio-catalog.snapshot.json";
 
 /* ── Модель данных (ТЗ §6). Единый источник для всех страниц. ─────────────── */
 
@@ -36,6 +37,8 @@ export interface Sku {
   description: string;
   docs: { name: string; ref: string; type: string }[];
   spareParts: string[];
+  secondaryProps?: { name: string; value: string }[];
+  warranty?: string | null;
 }
 
 export interface Model {
@@ -81,6 +84,7 @@ export interface Part {
   image: string | null;
   fits: string[];
   fitsCount: number;
+  tier?: number;
 }
 
 export interface Analog {
@@ -120,11 +124,53 @@ interface Catalog {
 }
 
 const catalog = raw as unknown as Catalog;
+type ApiProduct = {
+  code: string; name: string; kind: "machine" | "grinder" | "part"; tier: number;
+  modelSlug: string | null; vendorCode: string | null; category: string; categoryGroup: string;
+  price: number | null; inStock: number; available: boolean; image: string | null;
+  sizeNet: Sku["sizeNet"]; weightNet: number | null; warranty: string | null;
+  secondaryProps: { name: string; value: string }[];
+};
+const api = apiSnapshot as { dataAsOf: string | null; received: number; products: ApiProduct[] };
+const apiReady = Boolean(api.dataAsOf && api.products.length);
+const statusFromStock = (stock: number): Availability => stock >= 3 ? "in_stock" : stock > 0 ? "limited" : "on_order";
+const apiProducts = apiReady ? api.products : [];
+const apiByCode = new Map(apiProducts.map((item) => [item.code, item]));
+const familyOfModel = (slug: string) => catalog.models.find((item) => item.slug === slug)?.family ?? "";
+const groupCount = (name: string) => Number(name.match(/\b([1-3])\s*(?:гр\.?|gr\b)/i)?.[1] ?? 0) || null;
+const colorOf = (name: string) => {
+  const lower = name.toLocaleLowerCase("ru-RU");
+  if (/черн|чёрн|black/.test(lower)) return { name: "Чёрная", hex: "#111111" };
+  if (/бел|white/.test(lower)) return { name: "Белая", hex: "#f4f2eb" };
+  return { name: null, hex: null };
+};
+function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
+  const slug = item.modelSlug ?? base?.model ?? "";
+  const model = catalog.models.find((entry) => entry.slug === slug);
+  const color = colorOf(item.name);
+  return {
+    code: item.code, vendorCode: item.vendorCode ?? base?.vendorCode ?? null,
+    family: model?.family ?? base?.family ?? familyOfModel(slug), model: slug,
+    modelName: model?.name ?? base?.modelName ?? slug, version: model?.version ?? base?.version ?? null,
+    edition: base?.edition ?? null, title: base?.title ?? item.name,
+    groups: base?.groups ?? groupCount(item.name), groupHeight: base?.groupHeight ?? null,
+    color: base?.color ?? color.name, colorHex: base?.colorHex ?? color.hex,
+    options: base?.options ?? [], rrp: item.price ?? 0, rrpIsRecommended: item.price !== null,
+    availability: statusFromStock(item.inStock), free: item.inStock, markdown: false,
+    power: base?.power ?? null, voltage: base?.voltage ?? null,
+    boilerTotal: base?.boilerTotal ?? null, seat: base?.seat ?? null,
+    lighting: base?.lighting ?? null, economizer: base?.economizer ?? null, control: base?.control ?? null,
+    sizeNet: item.sizeNet ?? base?.sizeNet ?? null, weightNet: item.weightNet ?? base?.weightNet ?? null,
+    image: item.image ?? base?.image ?? null, description: base?.description ?? "",
+    docs: base?.docs ?? [], spareParts: base?.spareParts ?? [],
+    secondaryProps: item.secondaryProps, warranty: item.warranty,
+  };
+}
 
 /* ── Актуальность коммерческих данных ─────────────────────────────────────
    Дата берётся из выгрузки BIO. В продакшене её проставляет импорт (ТЗ §18). */
-export const PRICE_DATE = "25.08.2026";
-export const PRICE_DATE_ISO = "2026-08-25";
+export const PRICE_DATE_ISO = apiReady ? api.dataAsOf!.slice(0, 10) : "2026-08-25";
+export const PRICE_DATE = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Moscow" }).format(new Date(apiReady ? api.dataAsOf! : `${PRICE_DATE_ISO}T00:00:00Z`));
 const priceValidUntil = new Date(`${PRICE_DATE_ISO}T00:00:00Z`);
 priceValidUntil.setUTCDate(priceValidUntil.getUTCDate() + 30);
 export const PRICE_VALID_UNTIL = priceValidUntil.toISOString().slice(0, 10);
@@ -136,12 +182,40 @@ export const imgUrl = (path: string | null | undefined) =>
 export const DATA_OWNER = "Компания BIO — официальный дистрибьютор Sanremo в России";
 
 export const families = [...catalog.families].sort((a, b) => a.order - b.order);
-export const models = catalog.models;
-export const skus = catalog.skus;
-export const grinders = catalog.grinders;
-/** Публичный каталог ЗИП показывает только физически доступные позиции. */
-export const parts = catalog.parts.filter((p) => p.stock > 0 && p.availability !== "on_order")
-  .map((p) => ({ ...p, node: p.node === "Стекла и стеклопакеты" ? "Стёкла и стеклопакеты" : p.node }));
+export const skus: Sku[] = apiReady
+  ? apiProducts.filter((item) => item.kind === "machine").map((item) => mergeSku(catalog.skus.find((base) => base.code === item.code), item))
+  : catalog.skus;
+export const grinders = apiReady
+  ? apiProducts.filter((item) => item.kind === "grinder").map((item) => {
+      const base = catalog.grinders.find((entry) => entry.code === item.code);
+      return { code: item.code, name: item.name, rrp: item.price ?? 0,
+        availability: statusFromStock(item.inStock), image: item.image ?? base?.image ?? null,
+        markdown: false, description: base?.description ?? "", inStock: item.inStock,
+        secondaryProps: item.secondaryProps, sizeNet: item.sizeNet, weightNet: item.weightNet, warranty: item.warranty };
+    })
+  : catalog.grinders;
+export const parts: Part[] = (apiReady
+  ? apiProducts.filter((item) => item.kind === "part").map((item) => {
+      const base = catalog.parts.find((entry) => entry.code === item.code);
+      return { code: item.code, article: item.vendorCode ?? base?.article ?? null,
+        name: item.name, node: base?.node ?? (item.categoryGroup || item.category),
+        category: item.category, rrp: item.price ?? 0, stock: item.inStock,
+        availability: statusFromStock(item.inStock), image: item.image ?? base?.image ?? null,
+        fits: base?.fits ?? [], fitsCount: base?.fitsCount ?? 0, tier: item.tier };
+    })
+  : catalog.parts.filter((p) => p.stock > 0 && p.availability !== "on_order"))
+  .map((p) => ({ ...p, node: p.node === "Стекла и стеклопакеты" ? "Стёкла и стеклопакеты" : p.node }))
+  .sort((a, b) => (a.tier ?? 3) - (b.tier ?? 3) || Number(b.rrp > 0 && !!b.image) - Number(a.rrp > 0 && !!a.image) || b.stock - a.stock);
+export const models: Model[] = apiReady ? catalog.models.map((model) => {
+  const entries = skus.filter((sku) => sku.model === model.slug);
+  const prices = entries.map((sku) => sku.rrp).filter((value) => value > 0);
+  const groupsAvailable = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
+  return { ...model, skus: entries.map((sku) => sku.code), skuCount: entries.length,
+    groupsAvailable, priceFrom: prices.length ? Math.min(...prices) : null,
+    priceTo: prices.length ? Math.max(...prices) : null,
+    inStockCount: entries.reduce((sum, sku) => sum + sku.free, 0),
+    heroSku: entries.some((sku) => sku.code === model.heroSku) ? model.heroSku : entries[0]?.code ?? null };
+}) : catalog.models;
 export const dealers = catalog.dealers;
 export const chains = catalog.chains;
 export const analogs = catalog.analogs;
@@ -234,9 +308,9 @@ export const moneyPrecise = (v: number) =>
 
 export const AVAILABILITY_LABEL: Record<Availability, string> = {
   in_stock: "На складе в Москве",
-  limited: "Ограниченное количество",
+  limited: "В наличии",
   reserved: "Зарезервировано",
-  on_order: "Под заказ",
+  on_order: "Под заказ · 6–8 недель",
 };
 
 /* ── Редакционная матрица нагрузки (ТЗ §9: ориентир, не паспортные данные) ── */

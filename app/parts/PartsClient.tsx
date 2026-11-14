@@ -19,9 +19,9 @@ export interface PartRow {
 
 const LABEL: Record<PartRow["availability"], string> = {
   in_stock: "В наличии",
-  limited: "Мало",
+  limited: "В наличии",
   reserved: "Зарезервировано",
-  on_order: "Нет на складе в Москве",
+  on_order: "Под заказ · 6–8 недель",
 };
 
 const PAGE = 40;

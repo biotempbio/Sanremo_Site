@@ -22,7 +22,8 @@ const features = [
 
 export default function GrindersPage() {
   const entries = grinders.filter((item) => /x one/i.test(item.name));
-  const priceFrom = entries.length ? Math.min(...entries.map((item) => item.rrp)) : null;
+  const knownPrices = entries.map((item) => item.rrp).filter((price) => price > 0);
+  const priceFrom = knownPrices.length ? Math.min(...knownPrices) : null;
   const primary = entries.find((item) => item.availability === "in_stock") ?? entries[0];
 
   return <>
@@ -75,7 +76,7 @@ export default function GrindersPage() {
       <section className="wrap section-tight">
         <div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>Цены и наличие</h2></div></div>
         <div className="table-scroll"><table className="data"><thead><tr><th>Артикул</th><th>Исполнение</th><th className="num">Цена</th><th>Статус</th></tr></thead><tbody>
-          {entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{money(item.rrp)}</td><td><Stock status={item.availability} /></td></tr>)}
+          {entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{item.rrp > 0 ? money(item.rrp) : "Цена по запросу"}</td><td><Stock status={item.availability} free={"inStock" in item && typeof item.inStock === "number" ? item.inStock : undefined} /></td></tr>)}
         </tbody></table></div>
       </section>
     </main>

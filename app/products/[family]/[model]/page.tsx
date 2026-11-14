@@ -94,10 +94,10 @@ export default async function ModelPage({ params }: Props) {
       image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
       color: s.color ?? undefined,
       url: absoluteUrl(`/products/${family}/${m.slug}/#sku-${encodeURIComponent(s.code)}`),
-      offers: { "@type": "Offer", price: s.rrp, priceCurrency: "RUB",
+      offers: s.rrp > 0 ? { "@type": "Offer", price: s.rrp, priceCurrency: "RUB",
         availability: s.availability === "in_stock" || s.availability === "limited" ? "https://schema.org/InStock" : s.availability === "reserved" ? "https://schema.org/OutOfStock" : "https://schema.org/PreOrder",
         seller: { "@type": "Organization", name: "BIO", url: absoluteUrl("/") },
-      },
+      } : undefined,
     })),
   };
 
@@ -224,7 +224,11 @@ export default async function ModelPage({ params }: Props) {
                   <Spec k="Высота" v={hero?.sizeNet ? `${hero.sizeNet.h}\u00a0мм` : null} />
                   <Spec k="Глубина" v={hero?.sizeNet ? `${hero.sizeNet.d}\u00a0мм` : null} />
                   <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet}\u00a0кг` : null} />
+                  <Spec k="Гарантия" v={"12 месяцев с даты продажи"} />
                 </SpecGroup>
+                {hero?.secondaryProps?.length ? <SpecGroup title="Характеристики исполнения">
+                  {hero.secondaryProps.map((item) => <Spec key={`${item.name}:${item.value}`} k={item.name} v={item.value} />)}
+                </SpecGroup> : null}
                 <SpecGroup title="Цены и наличие">
                   <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
                   <Spec k="Цена" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />

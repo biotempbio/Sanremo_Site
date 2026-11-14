@@ -24,9 +24,9 @@ export interface PickerSku {
 
 const LABEL: Record<PickerSku["availability"], string> = {
   in_stock: "На складе в Москве",
-  limited: "Ограниченное количество",
+  limited: "В наличии",
   reserved: "Зарезервировано",
-  on_order: "Под заказ",
+  on_order: "Под заказ · 6–8 недель",
 };
 
 export default function ConfigPicker({
@@ -127,7 +127,7 @@ export default function ConfigPicker({
           <div>
             <span className="price-from">Цена</span>
             <span className="price num" style={{ fontSize: 32 }}>
-              {formatPrice(current.rrp)}
+              {current.rrp > 0 ? formatPrice(current.rrp) : "Цена по запросу"}
             </span>
             <p className="tiny" style={{ margin: "6px 0 0" }}>
               Цены и наличие на {priceDate}
