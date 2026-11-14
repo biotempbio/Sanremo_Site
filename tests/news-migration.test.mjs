@@ -24,7 +24,7 @@ test('all ten original news posts have full local pages, images and original dat
 });
 
 test('five lower-priority Tilda URLs have canonical instant move pages', () => {
-  const moved = posts.filter((post) => existsSync(path.join(root, 'out', `${post.oldPath}.html`)));
+  const moved = posts.filter((post) => existsSync(path.join(root, 'out', post.oldPath, 'index.html')));
   assert.equal(moved.length, 5);
   assert.deepEqual(new Set(moved.map((post) => post.oldPath)), new Set([
     '/tpost/9ejdiik9o1-360-sanremo-3',
@@ -34,7 +34,7 @@ test('five lower-priority Tilda URLs have canonical instant move pages', () => {
     '/tpost/g105rcvzb1-nash-novii-ambassador-martin-shabaya',
   ]));
   for (const post of moved) {
-    const page = readFileSync(path.join(root, 'out', `${post.oldPath}.html`), 'utf8');
+    const page = readFileSync(path.join(root, 'out', post.oldPath, 'index.html'), 'utf8');
     assert.match(page, /http-equiv="refresh" content="0;url=\/news\//);
     assert.match(page, /name="robots" content="noindex,follow"/);
     assert.ok(page.includes(`/news/${post.slug}/`), post.slug);

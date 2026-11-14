@@ -1,4 +1,4 @@
-import { readFile, mkdir, writeFile, rm } from 'node:fs/promises';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 // Timeweb has only five spare HTTP 301 rules. These five lower-priority Tilda
@@ -21,12 +21,8 @@ for (const entry of news) {
   if (!htmlMoves.has(legacy)) continue;
   const target = `/news/${entry.slug}/`;
   const canonical = new URL(target, site).toString();
-  // A directory makes Caddy issue an unwanted 308 for the original slashless
-  // Tilda URL. Serve a flat HTML file through its clean-path static lookup.
-  const directory = join(process.cwd(), 'public', 'tpost');
-  await mkdir(directory, { recursive: true });
-  await rm(join(directory, legacy), { recursive: true, force: true });
-  const file = join(directory, `${legacy}.html`);
+  const file = join(process.cwd(), 'public', 'tpost', legacy, 'index.html');
+  await mkdir(join(process.cwd(), 'public', 'tpost', legacy), { recursive: true });
   await writeFile(file, `<!doctype html><html lang="ru"><head><meta charset="utf-8">
 <meta name="robots" content="noindex,follow">
 <meta http-equiv="refresh" content="0;url=${escape(target)}">
