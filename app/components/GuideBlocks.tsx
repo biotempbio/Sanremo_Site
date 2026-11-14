@@ -12,8 +12,8 @@ export function RelatedReading() {
 }
 
 export function FaqBlock({ questions, title = "Частые вопросы", schema = true }: { questions: (Question & { actionHref?: string; actionLabel?: string })[]; title?: string; schema?: boolean }) {
-  return <section className="guide-faq" aria-label={title}>
-    <h2>{title}</h2>
+  return <section className="guide-faq" aria-label={title || "Частые вопросы"}>
+    {title ? <h2>{title}</h2> : null}
     {questions.map(({ question, answer, actionHref, actionLabel }) => <details key={question}>
       <summary>{question}</summary><p>{answer}{actionHref ? <> <a href={actionHref}>{actionLabel ?? "Оставить заявку"} →</a></> : null}</p>
     </details>)}

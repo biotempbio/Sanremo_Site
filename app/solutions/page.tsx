@@ -3,6 +3,7 @@ import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { SCENARIOS, VOLUME_BANDS, modelBySlug, familyBySlug, money, modelPath } from "@/lib/catalog";
 import { ResponsiveImage } from "../components/ResponsiveImage";
+import { solutionLandings } from "@/lib/solution-landings";
 
 export const metadata: Metadata = {
   title: "Решения по формату бизнеса — какая Sanremo нужна вашей точке",
@@ -30,6 +31,7 @@ export default function SolutionsPage() {
             </div>
           </div>
           <div className="chips">
+            {solutionLandings.map((entry) => <a className="tag" key={entry.slug} href={`/solutions/${entry.slug}/`}>{entry.label}</a>)}
             {SCENARIOS.map((s) => (
               <a className="tag" key={s.id} href={`#${s.id}`} style={{ textDecoration: "none" }}>{s.title}</a>
             ))}

@@ -51,6 +51,7 @@ export default function DealersPage() {
         </section>
 
         <section className="wrap section-tight">
+          <p className="dealer-city-shortcuts"><a href="/dealers/moskva/">Дилеры в Москве</a><a href="/dealers/sankt-peterburg/">Дилеры в Санкт-Петербурге</a></p>
           <DealersClient
             dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified }))}
             cities={cities}
