@@ -33,9 +33,17 @@ test("mobile contact and grinder layouts have no fixed outer width", async () =>
   assert.match(contacts, /class="data contact-routes"/);
   assert.doesNotMatch(contacts, /min-width:460px/);
   for (const html of [grinders, xOne]) assert.match(html, /class="data spec-table"/);
-  const cssDir = new URL("../out/_next/static/chunks/", import.meta.url);
-  const cssNames = (await readdir(cssDir)).filter((name) => name.endsWith(".css"));
-  const css = (await Promise.all(cssNames.map((name) => readFile(new URL(name, cssDir), "utf8")))).join("\n");
+  const cssRoot = new URL("../out/_next/static/", import.meta.url);
+  const cssFiles = [];
+  const collectCss = async (dir) => {
+    for (const item of await readdir(dir, { withFileTypes: true })) {
+      const child = new URL(`${item.name}${item.isDirectory() ? "/" : ""}`, dir);
+      if (item.isDirectory()) await collectCss(child);
+      else if (item.name.endsWith(".css")) cssFiles.push(child);
+    }
+  };
+  await collectCss(cssRoot);
+  const css = (await Promise.all(cssFiles.map((file) => readFile(file, "utf8")))).join("\n");
   assert.match(css, /\.contacts-layout/);
   assert.match(css, /\.spec-table/);
   assert.match(css, /grid-template-columns:minmax\(0,1fr\)/);
