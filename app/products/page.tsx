@@ -6,6 +6,9 @@ import { itemList, jsonLd } from "@/lib/seo";
 import {
   catalogModels,
   CATALOG_LINEUP,
+  grinders,
+  skus,
+  money,
   skusOfModel,
   stockUnitsOfModel,
   familyBySlug,
@@ -14,12 +17,15 @@ import {
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Каталог кофемашин Sanremo — цены и наличие в России",
+  title: "Кофемашины Sanremo (Сан Ремо) — официальный дистрибьютор в России, цены и наличие",
   description:
     "Каталог кофемашин Sanremo в России: группы, архитектура бойлеров, исполнения, цены и наличие. Фильтры по потоку и задачам кофейни, карточки моделей Sanremo.",
 };
 
 export default function ProductsPage() {
+  const currentPrices = skus.map((sku) => sku.rrp).filter((price) => price > 0);
+  const minPrice = Math.min(...currentPrices);
+  const maxPrice = Math.max(...currentPrices);
   const rows: CatalogRow[] = catalogModels.map((m) => {
     const f = familyBySlug(m.family)!;
     const sk = skusOfModel(m.slug);
@@ -57,7 +63,10 @@ export default function ProductsPage() {
     };
   });
 
-  const listSchema = itemList("Профессиональные кофемашины Sanremo в России", rows.map((r) => ({ name: `Sanremo ${r.name}`, path: `/products/${r.family}/${r.slug}/` })));
+  const listSchema = itemList("Профессиональные кофемашины и кофемолки Sanremo в России", [
+    ...rows.map((row) => ({ name: `Кофемашина Sanremo ${row.name}`, path: `/products/${row.family}/${row.slug}/` })),
+    ...(grinders.length ? [{ name: "Кофемолка Sanremo X-One", path: "/products/x-one/" }] : []),
+  ]);
 
   return (
     <>
@@ -74,8 +83,10 @@ export default function ProductsPage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                {CATALOG_LINEUP.length} основных линеек. Для каждой версии —
-                цена, доступные исполнения и наличие.
+                {CATALOG_LINEUP.length} профессиональных линеек Sanremo (Сан Ремо). Цены на кофемашины — от {money(minPrice)} до {money(maxPrice)}.
+              </p>
+              <p className="small" style={{ maxWidth: "62ch", margin: 0 }}>
+                На страницах моделей указаны группы, бойлеры, мощность и наличие каждого исполнения. Гарантия — 12 месяцев с даты продажи. Машины со склада в Москве доступны к отгрузке; поставка из Италии под заказ занимает 6–8 недель. Дилеры и сервисные партнёры работают по всей России.
               </p>
             </div>
           </div>

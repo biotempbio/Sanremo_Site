@@ -6,7 +6,7 @@ import SkuImage from "../../components/SkuImage";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { FaqBlock } from "../../components/GuideBlocks";
 import { familyQuestions } from "@/lib/model-faq";
-import { itemList, jsonLd } from "@/lib/seo";
+import { absoluteUrl, itemList, jsonLd } from "@/lib/seo";
 import { casesForFamily } from "@/lib/cases";
 import { CaseCard } from "../../cases/CaseCard";
 import {
@@ -16,6 +16,7 @@ import {
   skusOfModel,
   stockUnitsOfModel,
   money,
+  kw,
   officialImageForFamily,
   officialImageForModel,
 } from "@/lib/catalog";
@@ -30,9 +31,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { family } = await params;
   const f = familyBySlug(family);
   if (!f) return {};
+  const entries = modelsOfFamily(family).flatMap((model) => skusOfModel(model.slug));
+  const prices = entries.map((sku) => sku.rrp).filter((price) => price > 0);
+  const groups = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
   return {
-    title: `Sanremo ${f.name} — конфигурации, цвета, цены и наличие`,
-    description: `Sanremo ${f.name}: модели и конфигурации каталога Sanremo. Сравните группы, исполнения, цены и наличие, затем найдите дилера и сервис в регионе.`,
+    title: `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
+    description: `Кофемашина Sanremo ${f.name}: ${groups.join(", ")} группы, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие на складе в Москве и официальные дилеры.`,
   };
 }
 
@@ -45,6 +49,16 @@ export default async function FamilyPage({ params }: Props) {
   const allSkus = fmodels.flatMap((m) => skusOfModel(m.slug));
   const colors = [...new Map(allSkus.filter((s) => s.color).map((s) => [s.color!, s.colorHex!])).entries()];
   const familyCases = casesForFamily(family);
+  const familyFaq = familyQuestions(f, fmodels, allSkus);
+  const pricedSkus = allSkus.filter((sku) => sku.rrp > 0);
+  const familyProductSchema = pricedSkus.length ? {
+    "@context": "https://schema.org", "@type": "Product", name: `Кофемашина Sanremo ${f.name}`,
+    brand: { "@type": "Brand", name: "Sanremo" },
+    url: absoluteUrl(`/products/${family}/`),
+    image: officialImageForFamily(f.slug) ? absoluteUrl(officialImageForFamily(f.slug)!) : undefined,
+    offers: { "@type": "AggregateOffer", lowPrice: Math.min(...pricedSkus.map((sku) => sku.rrp)),
+      highPrice: Math.max(...pricedSkus.map((sku) => sku.rrp)), priceCurrency: "RUB", offerCount: pricedSkus.length },
+  } : null;
 
   return (
     <>
@@ -65,9 +79,9 @@ export default async function FamilyPage({ params }: Props) {
             </div>
             <div className="module-copy">
               <p className="eyebrow">Линейка · {f.architecture}</p>
-              <h1>{f.name}</h1>
+              <h1>Кофемашина Sanremo {f.name}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
-              <p className="lead">{f.territory}</p>
+              <p className="lead">Sanremo (Сан Ремо) {f.name}: {f.territory}</p>
               <div className="chips" style={{ margin: "6px 0 20px" }}>
                 {f.scenarios.map((s) => <span className="tag tag-solid" key={s}>{s}</span>)}
               </div>
@@ -156,6 +170,9 @@ export default async function FamilyPage({ params }: Props) {
                     <th>Высота групп</th>
                     <th>Исполнение / цвет</th>
                     <th>Опции</th>
+                    <th>Бойлеры</th>
+                    <th>Мощность</th>
+                    <th>Напряжение</th>
                     <th className="num">Цена</th>
                     <th>Наличие</th>
                   </tr>
@@ -181,6 +198,9 @@ export default async function FamilyPage({ params }: Props) {
                           {s.edition && s.edition !== "Base" ? <div className="tiny">{s.edition}</div> : null}
                         </td>
                         <td className="tiny">{s.options.length ? s.options.join(", ") : "—"}</td>
+                        <td>{s.boilerTotal ? `${s.boilerTotal}\u00a0л` : f.architecture}</td>
+                        <td>{s.power ? `${kw(s.power)}\u00a0кВт` : "—"}</td>
+                        <td>{s.voltage ? `${s.voltage}\u00a0В` : "—"}</td>
                         <td className="num">{money(s.rrp)}</td>
                         <td><Stock status={s.availability} free={s.free} /></td>
                       </tr>
@@ -211,10 +231,11 @@ export default async function FamilyPage({ params }: Props) {
           <p className="home-cases-more"><a href={`/cases/?model=${family}`}>Все проекты с {f.name} →</a></p>
         </section>}
 
-        <section className="wrap section-tight"><FaqBlock questions={familyQuestions(f, fmodels, allSkus)} title={`Частые вопросы о ${f.name}`} />
+        <section className="wrap section-tight"><FaqBlock questions={familyFaq} title={`Частые вопросы о ${f.name}`} />
           <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
+        {familyProductSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(familyProductSchema) }} /> : null}
       </main>
       <Footer />
     </>

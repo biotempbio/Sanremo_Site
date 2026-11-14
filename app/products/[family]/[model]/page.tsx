@@ -27,6 +27,9 @@ import {
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
+const groupsLabel = (groups: number[]) => groups.length === 1
+  ? `${groups[0]} ${groups[0] === 1 ? "группа" : "группы"}`
+  : `${groups.join("/")} группы`;
 
 export function generateStaticParams() {
   return models.map((m) => ({ family: m.family, model: m.slug }));
@@ -36,9 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { model } = await params;
   const m = modelBySlug(model);
   if (!m) return {};
+  const groups = m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : "";
   return {
-    title: `Sanremo ${m.name} — характеристики, цена и наличие`,
-    description: `Sanremo ${m.name}: характеристики и конфигурации в России. Группы, цвет, цена и наличие по артикулу; контакты дилеров, сервис и запчасти.`,
+    title: `Sanremo ${m.name}${groups} — цена, характеристики, наличие`,
+    description: `Кофемашина Sanremo ${m.name}${groups}. Характеристики, артикулы, цена и наличие каждого исполнения; документы, официальные дилеры и сервис в России.`,
   };
 }
 
@@ -117,7 +121,7 @@ export default async function ModelPage({ params }: Props) {
         <section className="wrap" style={{ paddingBottom: "clamp(34px,4vw,64px)" }}>
           <div style={{ maxWidth: "72ch", marginBottom: 28 }}>
             <p className="eyebrow">{f.name} · {f.architecture}</p>
-            <h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Sanremo {m.name}</h1>
+            <h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Кофемашина Sanremo {m.name}{m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : ""}</h1>
             <p className="lead" style={{ marginTop: 14 }}>{f.territory}</p>
           </div>
           <ConfigPicker skus={pickerSkus} modelName={m.name} priceDate={PRICE_DATE} />
