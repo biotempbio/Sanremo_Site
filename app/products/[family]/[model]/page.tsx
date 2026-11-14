@@ -164,7 +164,7 @@ export default async function ModelPage({ params }: Props) {
               )}
             </div>
             <div className="callout" style={{ marginTop: 26 }}><h3>Когда {m.name} не подходит</h3>
-              <p>{unavailableGroups.length ? `Нет исполнения с ${unavailableGroups.join(" / ")} группами. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
+              <p>{unavailableGroups.length ? `Нет исполнения с ${unavailableGroups.join(" / ")} ${unavailableGroups.length === 1 && unavailableGroups[0] === 1 ? "группой" : "группами"}. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
               <a href="/guide/linejki-sanremo/">Сравнить линейки Sanremo →</a>
             </div>
           </div>

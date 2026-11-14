@@ -5,7 +5,7 @@ export function modelQuestions(model: Model, family: Family): Question[] {
   const groups = model.groupsAvailable.join(" / ");
   const stock = stockUnitsOfModel(model.slug);
   return [
-    { question: `Сколько групп у Sanremo ${model.name}?`, answer: `Для ${model.name} указаны исполнения с ${groups} группами. Доступные сочетания зависят от артикула.` },
+    { question: `Сколько групп у Sanremo ${model.name}?`, answer: `Для ${model.name} указаны исполнения с ${groups} ${model.groupsAvailable.length === 1 && model.groupsAvailable[0] === 1 ? "группой" : "группами"}. Доступные сочетания зависят от артикула.` },
     { question: `Сколько стоит Sanremo ${model.name}?`, answer: `Цена начинается от ${money(model.priceFrom)}. Цена выбранной конфигурации показана рядом с её артикулом и наличием.` },
     { question: `Есть ли Sanremo ${model.name} на складе?`, answer: stock ? `Модель есть на складе в Москве${stock >= 3 ? ` — ${stock} шт.` : ""}. Статус нужного цвета и исполнения смотрите по артикулу.` : `Сейчас свободных единиц модели на складе в Москве нет. Возможность заказа конкретного исполнения уточняйте у дилера.` },
     { question: `Где найти характеристики и запчасти для ${model.name}?`, answer: `Архитектура семейства ${family.name} — ${family.architecture}. Мощность, напряжение и габариты смотрите в карточке выбранного артикула. Совместимые детали ищите в разделе запчастей.` },
