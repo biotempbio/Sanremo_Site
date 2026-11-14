@@ -262,7 +262,7 @@ export const officialImageForFamily = (slug: string) => {
 };
 
 /** Продаваемые сейчас позиции: без уценённых/б-у единиц. */
-export const liveSkus = skus.filter((s) => !s.markdown);
+export const liveSkus = skus.filter((s) => !s.markdown && !/^[УВ]/i.test(s.code.trim()));
 
 export const familyBySlug = (slug: string) => families.find((f) => f.slug === slug);
 export const modelBySlug = (slug: string) => models.find((m) => m.slug === slug);
