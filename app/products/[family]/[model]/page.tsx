@@ -59,7 +59,7 @@ export default async function ModelPage({ params }: Props) {
   const partCodes = [...new Set(sk.flatMap((s) => s.spareParts))];
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
   const feats = [
-    m.groupsAvailable.length ? `Исполнения с ${m.groupsAvailable.join(" / ")} группами — выбирайте число рабочих мест под пиковую нагрузку.` : null,
+    m.groupsAvailable.length ? `Исполнения с ${m.groupsAvailable.join(" / ")} ${m.groupsAvailable.length === 1 && m.groupsAvailable[0] === 1 ? "группой" : "группами"} — выбирайте число рабочих мест под пиковую нагрузку.` : null,
     hero?.boilerTotal ? `Общий объём бойлеров — ${hero.boilerTotal}\u00a0л для выбранной конфигурации.` : null,
     hero?.control ? `Управление: ${hero.control}.` : null,
     m.optionsAvailable.length ? `Доступные опции: ${m.optionsAvailable.join(", ")}.` : null,
