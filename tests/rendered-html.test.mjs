@@ -57,9 +57,14 @@ test("SEO output includes canonical, organization, breadcrumbs and families", as
   assert.ok(sitemap.includes(`<loc>${siteUrl}/`));
   assert.ok(robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`));
   assert.match(robots, production ? /Allow: \// : /Disallow: \//);
+  if (production) {
+    for (const crawler of ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "anthropic-ai", "PerplexityBot", "Perplexity-User", "Google-Extended", "Applebot-Extended", "Bingbot", "YandexBot", "YandexAdditional", "CCBot", "Amazonbot", "DuckAssistBot", "meta-externalagent"]) {
+      assert.ok(robots.includes(`User-Agent: ${crawler}\nAllow: /`), crawler);
+    }
+  }
   assert.equal(home.includes("mc.yandex.ru/metrika/tag.js"), production && Boolean(process.env.NEXT_PUBLIC_METRIKA_ID));
   assert.match(home, /location\.hostname!=='sanremomachines\.ru'/);
-  if (production) assert.match(home, /location\.hostname===&#x27;sanremomachines\.ru&#x27;|location\.hostname==='sanremomachines\.ru'/);
+  if (production) assert.match(home, /rel="canonical" href="https:\/\/sanremomachines\.ru\/"/);
   assert.match(contacts, /"@type":"Organization"/);
   assert.match(contacts, /"@type":"BreadcrumbList"/);
   for (const family of ["zoe", "d8", "f18"]) assert.match(sitemap, new RegExp(`/products/${family}/</loc>`));
