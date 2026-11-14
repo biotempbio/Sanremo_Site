@@ -42,10 +42,14 @@ test('API envelopes are accepted but empty exports are rejected', () => {
 test('warranty warnings apply to machines, not spare parts without a warranty', () => {
   const result = sanitize([
     machine({ warranty: '24 месяца' }),
+    machine({ code: 'MACHINE-12', warranty: 12 }),
+    machine({ code: 'MACHINE-0', warranty: 0 }),
     { brand: 'Sanremo', code: 'PART-TEST', name: 'Помпа Sanremo', category: 'Запчасти и комплектующие', categoryGroup: 'Запчасти и комплектующие', warranty: 0, priceRUB: 1000, dilerPriceRUB: 500 },
   ], options);
   assert.equal(result.warnings.length, 1);
   assert.match(result.warnings[0], /208791/);
+  assert.equal(result.products.find((item) => item.code === 'MACHINE-12')?.warranty, '12 месяцев');
+  assert.equal(result.products.find((item) => item.code === 'MACHINE-0')?.warranty, null);
 });
 
 test('an all-zero stock export is rejected before replacing the last good snapshot', async () => {

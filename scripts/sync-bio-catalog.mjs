@@ -13,6 +13,11 @@ const amount = (value) => {
 const truth = (value) => value === true || /^(1|true|yes|да)$/i.test(clean(value));
 const positive = (value) => Math.max(0, Math.trunc(amount(value) ?? 0));
 const first = (obj, names) => names.map((name) => obj?.[name]).find((value) => value !== undefined && value !== null && value !== '');
+const warrantyText = (value) => {
+  const raw = clean(value);
+  if (!raw || raw === '0') return null;
+  return /^\d+$/.test(raw) ? `${raw} месяцев` : raw;
+};
 
 export function modelSlug(name) {
   const value = clean(name).toLowerCase().replaceAll('ё', 'е');
@@ -108,7 +113,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     const stock = positive(first(raw, ['inStock', 'Остаток']));
     accessByCode.set(code, positive(first(raw, ['inAccess', 'Доступно'])) > 0);
     const weight = amount(first(raw, ['weightNett', 'weightNet', 'weight', 'Вес']));
-    const warranty = clean(first(raw, ['warranty', 'Гарантия']));
+    const warranty = warrantyText(first(raw, ['warranty', 'Гарантия']));
     if (kind !== 'part' && warranty && !/(?:12\s*мес|1\s*год|один\s*год)/i.test(warranty)) {
       warnings.add(`Гарантия требует сверки: ${code} (${warranty.slice(0, 80)})`);
     }
