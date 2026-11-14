@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { formatPrice } from "@/lib/format";
 import { ARCHIVE_MODELS } from "@/lib/archive-models";
 import { LeadForm } from "@/app/components/LeadForm";
+import { normalizeCatalogSearch } from "@/lib/search-normalization.mjs";
 
 export interface PartRow {
   code: string;
@@ -36,12 +37,13 @@ const SEARCH_ALIASES: Record<string, string[]> = {
   электроклапан: ["клапан", "электромагнитный клапан"],
   манометр: ["датчик давления"],
 };
-const normalized = (value: string) => value.toLocaleLowerCase("ru-RU").replaceAll("ё", "е");
+const normalized = normalizeCatalogSearch;
+const normalizedAliases = new Map(Object.entries(SEARCH_ALIASES).map(([key, values]) => [normalized(key), values.map(normalized)]));
 function matchesPart(part: PartRow, query: string) {
   const source = normalized([part.name, part.article, part.code, ...part.models].filter(Boolean).join(" "));
   const phrase = normalized(query.trim());
   if (source.includes(phrase)) return true;
-  return phrase.split(/\s+/).every((word) => [word, ...(SEARCH_ALIASES[word] ?? [])].some((term) => source.includes(term)));
+  return phrase.split(/\s+/).every((word) => [word, ...(normalizedAliases.get(word) ?? [])].some((term) => source.includes(term)));
 }
 
 export default function PartsClient({

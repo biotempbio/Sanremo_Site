@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import SkuImage from "../../../components/SkuImage";
 import { formatPrice } from "@/lib/format";
+import type { DescriptionBlock } from "@/lib/catalog";
 
 export interface PickerSku {
   code: string;
@@ -19,6 +20,11 @@ export interface PickerSku {
   free: number;
   power: number | null;
   voltage: string | null;
+  boilerTotal: string | null;
+  sizeNet: { w: number; h: number; d: number } | null;
+  weightNet: number | null;
+  secondaryProps: { name: string; value: string }[];
+  descriptionBlocks: DescriptionBlock[];
   image: string | null;
 }
 
@@ -74,6 +80,16 @@ export default function ConfigPicker({
   };
 
   if (!current) return null;
+  const keySpecs = [
+    ["Группы", current.groups ? String(current.groups) : null],
+    ["Высота групп", current.groupHeight],
+    ["Мощность", current.power ? `${String(current.power).replace(".", ",")}\u00a0кВт` : null],
+    ["Напряжение", current.voltage ? `${current.voltage}\u00a0В` : null],
+    ["Объём бойлеров", current.boilerTotal ? `${current.boilerTotal}\u00a0л` : null],
+    ["Габариты", current.sizeNet ? `${current.sizeNet.w} × ${current.sizeNet.h} × ${current.sizeNet.d}\u00a0мм` : null],
+    ["Масса", current.weightNet ? `${String(current.weightNet).replace(".", ",")}\u00a0кг` : null],
+    ...current.secondaryProps.map((item) => [item.name, item.value]),
+  ].filter((item): item is string[] => Boolean(item[0] && item[1])).slice(0, 6);
 
   return (
     <div className="picker">
@@ -146,10 +162,7 @@ export default function ConfigPicker({
         </div>
 
         <dl className="picker-specs">
-          <Row k="Высота групп" v={current.groupHeight} />
-          <Row k="Мощность" v={current.power ? `${String(current.power).replace(".", ",")}\u00a0кВт` : null} />
-          <Row k="Напряжение" v={current.voltage ? `${current.voltage}\u00a0В` : null} />
-          <Row k="Опции" v={current.options.length ? current.options.join(", ") : null} />
+          {keySpecs.map(([name, value]) => <Row key={`${name}:${value}`} k={name} v={value} />)}
         </dl>
 
         <div className="picker-actions">
@@ -160,6 +173,21 @@ export default function ConfigPicker({
 
       </div>
 
+      {current.descriptionBlocks.length > 0 || current.secondaryProps.length > 0 ? <div className="picker-details">
+        {current.descriptionBlocks.length > 0 ? <section className="picker-description">
+          <p className="eyebrow">Описание исполнения</p>
+          <h2>О Sanremo {modelName}</h2>
+          <div className="picker-description-copy">{current.descriptionBlocks.map((block, index) => block.type === "heading"
+            ? <h3 key={index}>{block.text}</h3>
+            : block.type === "list" ? <ul key={index}>{block.items.map((item, itemIndex) => <li key={itemIndex}>{item}</li>)}</ul>
+            : <p key={index}>{block.text}</p>)}</div>
+        </section> : null}
+        {current.secondaryProps.length > 0 ? <details className="picker-all-specs">
+          <summary>Все характеристики исполнения · {current.secondaryProps.length}</summary>
+          <dl>{current.secondaryProps.map((item) => <Row key={`${item.name}:${item.value}`} k={item.name} v={item.value} />)}</dl>
+        </details> : null}
+      </div> : null}
+
       <style>{`
         .picker { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: clamp(20px,3vw,54px); align-items: start; }
         .picker-visual { background: var(--gray-bg); aspect-ratio: 4/3; }
@@ -168,6 +196,16 @@ export default function ConfigPicker({
           padding: 20px 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
         .picker-specs { margin: 0; display: grid; gap: 0; }
         .picker-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        .picker-details { grid-column: 1 / -1; display: grid; gap: 28px; padding-top: clamp(26px,4vw,48px); border-top: 1px solid var(--line); }
+        .picker-description { max-width: 720px; }
+        .picker-description h2 { font-size: clamp(28px,3vw,40px); margin-bottom: 18px; }
+        .picker-description-copy { line-height: 1.65; overflow-wrap: anywhere; }
+        .picker-description-copy p, .picker-description-copy ul { margin: 0 0 16px; }
+        .picker-description-copy h3 { font-size: clamp(20px,2vw,26px); margin: 32px 0 12px; }
+        .picker-description-copy li { margin-bottom: 7px; }
+        .picker-all-specs { max-width: 900px; border-top: 1px solid var(--line); padding-top: 16px; }
+        .picker-all-specs summary { cursor: pointer; font-weight: 600; }
+        .picker-all-specs dl { margin: 16px 0 0; }
         @media (max-width: 900px) { .picker { grid-template-columns: 1fr; } .picker-commerce { grid-template-columns: 1fr; align-items: start; } }
       `}</style>
     </div>

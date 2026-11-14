@@ -77,7 +77,10 @@ export default async function ModelPage({ params }: Props) {
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
     // Изображения F18 SB из выгрузки показывают три группы при двух в данных.
     // До получения точных фото используем схему выбранной версии.
-    power: s.power, voltage: s.voltage, image: m.slug === "f18-sb" ? null : imgUrl(s.image),
+    power: s.power, voltage: s.voltage, boilerTotal: s.boilerTotal,
+    sizeNet: s.sizeNet, weightNet: s.weightNet,
+    secondaryProps: s.secondaryProps ?? [], descriptionBlocks: s.descriptionBlocks ?? [],
+    image: m.slug === "f18-sb" ? null : imgUrl(s.image),
   }));
 
   const productSchema = {
@@ -230,9 +233,6 @@ export default async function ModelPage({ params }: Props) {
                   <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet}\u00a0кг` : null} />
                   <Spec k="Гарантия" v={"12 месяцев с даты продажи"} />
                 </SpecGroup>
-                {hero?.secondaryProps?.length ? <SpecGroup title="Характеристики исполнения">
-                  {hero.secondaryProps.map((item) => <Spec key={`${item.name}:${item.value}`} k={item.name} v={item.value} />)}
-                </SpecGroup> : null}
                 <SpecGroup title="Цены и наличие">
                   <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
                   <Spec k="Цена" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />

@@ -22,10 +22,12 @@ const features = [
 ];
 
 export default function XOnePage() {
-  const entries = grinders.filter((item) => /x one/i.test(item.name));
+  const entries = grinders.filter((item) => /x[\s-]?one/i.test(item.name));
   const knownPrices = entries.map((item) => item.rrp).filter((price) => price > 0);
   const priceFrom = knownPrices.length ? Math.min(...knownPrices) : null;
   const primary = entries.find((item) => item.availability === "in_stock") ?? entries[0];
+  const descriptionBlocks = primary?.descriptionBlocks ?? [];
+  const secondaryProps = primary?.secondaryProps ?? [];
 
   return <>
     <Header active="/products" />
@@ -48,6 +50,9 @@ export default function XOnePage() {
       </div></div></section>
 
       <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Характеристики</p><h2>Всё необходимое — на странице</h2></div><p className="lead">Характеристики, доступные исполнения и цены X-One — прямо на странице.</p></div><div className="table-scroll"><table className="data spec-table"><tbody>{features.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div></section>
+
+      {descriptionBlocks.length > 0 ? <section className="wrap section-tight"><div style={{ maxWidth: 720 }}><p className="eyebrow">Описание кофемолки</p><h2>Sanremo X-One</h2><div className="product-description">{descriptionBlocks.map((block, index) => block.type === "heading" ? <h3 key={index}>{block.text}</h3> : block.type === "list" ? <ul key={index}>{block.items.map((item, itemIndex) => <li key={itemIndex}>{item}</li>)}</ul> : <p key={index}>{block.text}</p>)}</div></div></section> : null}
+      {secondaryProps.length > 0 ? <section className="wrap section-tight"><details className="product-more-specs"><summary>Все характеристики исполнения · {secondaryProps.length}</summary><div className="table-scroll"><table className="data spec-table"><tbody>{secondaryProps.map((item) => <tr key={`${item.name}:${item.value}`}><th scope="row">{item.name}</th><td>{item.value}</td></tr>)}</tbody></table></div></details></section> : null}
 
       <section className="wrap section-tight"><div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>Цены и наличие</h2></div></div><div className="table-scroll"><table className="data"><thead><tr><th>Артикул</th><th>Исполнение</th><th className="num">Цена</th><th>Статус</th></tr></thead><tbody>{entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{item.rrp > 0 ? money(item.rrp) : "Цена по запросу"}</td><td><Stock status={item.availability} free={"inStock" in item && typeof item.inStock === "number" ? item.inStock : undefined} /></td></tr>)}</tbody></table></div></section>
 

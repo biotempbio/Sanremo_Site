@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { extractDescription } from '../lib/product-description.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = async (name) => JSON.parse(await readFile(path.join(root, name), 'utf8'));
@@ -40,12 +41,12 @@ export function secondaryProps(raw) {
   const add = (name, value, unit = '') => {
     const label = clean(name);
     const display = clean(typeof value === 'object' && value !== null ? first(value, ['value', 'Value', 'Значение']) : value);
-    if (!label || !display || /(diler|dealer|дилер|закуп|оптов|себесто|in(?:stock|reserve|access|wait)|остат|резерв|receiptdate)/i.test(`${label} ${display}`)) return;
+    if (!label || !display || /(diler|dealer|дилер|закуп|оптов|себесто|in(?:stock|reserve|access|wait)|остат|резерв|receiptdate)/i.test(label)) return;
     const rendered = clean(`${display} ${clean(unit)}`);
     if (!result.some((item) => item.name === label && item.value === rendered)) result.push({ name: label.slice(0, 160), value: rendered.slice(0, 300) });
   };
   if (Array.isArray(raw)) {
-    for (const item of raw) if (item && typeof item === 'object') add(first(item, ['name', 'key', 'title', 'caption', 'propertyName', 'Наименование']), first(item, ['value', 'val', 'text', 'valueText', 'propertyValue', 'Значение']), first(item, ['unit', 'unitName', 'Единица']));
+    for (const item of raw) if (item && typeof item === 'object') add(first(item, ['name', 'prop', 'key', 'title', 'caption', 'propertyName', 'Наименование']), first(item, ['value', 'val', 'text', 'valueText', 'propertyValue', 'Значение']), first(item, ['unit', 'unitName', 'Единица']));
   } else if (raw && typeof raw === 'object') {
     for (const [key, value] of Object.entries(raw)) add(key, value);
   }
@@ -114,6 +115,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     accessByCode.set(code, positive(first(raw, ['inAccess', 'Доступно'])) > 0);
     const weight = amount(first(raw, ['weightNett', 'weightNet', 'weight', 'Вес']));
     const warranty = warrantyText(first(raw, ['warranty', 'Гарантия']));
+    const description = extractDescription(raw);
     if (kind !== 'part' && warranty && !/(?:12\s*мес|1\s*год|один\s*год)/i.test(warranty)) {
       warnings.add(`Гарантия требует сверки: ${code} (${warranty.slice(0, 80)})`);
     }
@@ -125,6 +127,8 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
       image: /^https:\/\//i.test(image) || image.startsWith('/api/img/') ? image : null,
       sizeNet: dimensions(raw), weightNet: weight && weight > 0 ? weight : null,
       warranty: warranty || null,
+      description: description.text,
+      descriptionBlocks: description.blocks,
       secondaryProps: secondaryProps(first(raw, ['secondaryProps', 'Характеристики'])),
     };
     if (knownParts.has(code) && kind === 'part') product.tier = tier;

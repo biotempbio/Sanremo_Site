@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fetchSnapshot, normalizeExport, sanitize } from '../scripts/sync-bio-catalog.mjs';
+import { descriptionHtml } from '../lib/product-description.mjs';
+import { normalizeCatalogSearch } from '../lib/search-normalization.mjs';
 
 const tiers = JSON.parse(readFileSync(new URL('../config/catalog-tiers.json', import.meta.url)));
 const categoryGroups = JSON.parse(readFileSync(new URL('../config/sanremo-category-groups.json', import.meta.url)));
@@ -56,4 +58,23 @@ test('an all-zero stock export is rejected before replacing the last good snapsh
   const items = Array.from({ length: 463 }, (_, index) => machine({ code: `TEST-${index}`, inStock: 0 }));
   const fetcher = async () => ({ ok: true, json: async () => items, headers: { get: () => '2026-11-14T02:30:00Z' } });
   await assert.rejects(fetchSnapshot({ key: 'test-only', fetcher }), /zero stock/);
+});
+
+test('full public descriptions survive import and unsafe HTML is not rendered', () => {
+  const result = sanitize([machine({
+    description: '<h2>ОСОБЕННОСТИ МОДЕЛИ</h2><p>Остатки кофе легко убрать.</p><script>alert(1)</script><p>Контроль <b>помола</b>.</p>',
+    secondaryProps: [{ prop: 'Объём', value: 'Резервуар 2 л' }, { prop: 'Закупочная цена', value: '500000' }],
+  })], options);
+  const item = result.products[0];
+  assert.match(item.description, /Остатки кофе/);
+  assert.deepEqual(item.descriptionBlocks.map((block) => block.type), ['heading', 'paragraph', 'paragraph']);
+  assert.equal(item.secondaryProps.length, 1);
+  assert.equal(item.secondaryProps[0].value, 'Резервуар 2 л');
+  assert.doesNotMatch(JSON.stringify(item), /alert\(1\)|500000/);
+  assert.doesNotMatch(descriptionHtml(item.description, item.descriptionBlocks), /<script|<b>/);
+});
+
+test('search keys treat Cyrillic lookalikes as Latin without changing source text', () => {
+  assert.equal(normalizeCatalogSearch('SР 300'), normalizeCatalogSearch('SP 300'));
+  assert.equal(normalizeCatalogSearch('Х-ONE'), normalizeCatalogSearch('X-ONE'));
 });

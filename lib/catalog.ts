@@ -4,6 +4,7 @@ import apiSnapshot from "@/data/bio-catalog.snapshot.json";
 /* ── Модель данных (ТЗ §6). Единый источник для всех страниц. ─────────────── */
 
 export type Availability = "in_stock" | "limited" | "reserved" | "on_order";
+export type DescriptionBlock = { type: "heading" | "paragraph"; text: string } | { type: "list"; items: string[] };
 
 export interface Sku {
   code: string;
@@ -35,6 +36,7 @@ export interface Sku {
   weightNet: number | null;
   image: string | null;
   description: string;
+  descriptionBlocks?: DescriptionBlock[];
   docs: { name: string; ref: string; type: string }[];
   spareParts: string[];
   secondaryProps?: { name: string; value: string }[];
@@ -116,7 +118,7 @@ interface Catalog {
   families: Family[];
   models: Model[];
   skus: Sku[];
-  grinders: { code: string; name: string; rrp: number; availability: Availability; image: string | null; markdown: boolean; description: string }[];
+  grinders: { code: string; name: string; rrp: number; availability: Availability; image: string | null; markdown: boolean; description: string; descriptionBlocks?: DescriptionBlock[]; secondaryProps?: { name: string; value: string }[] }[];
   parts: Part[];
   dealers: Dealer[];
   chains: string[];
@@ -130,6 +132,8 @@ type ApiProduct = {
   price: number | null; inStock: number; image: string | null;
   sizeNet: Sku["sizeNet"]; weightNet: number | null; warranty: string | null;
   secondaryProps: { name: string; value: string }[];
+  description?: string;
+  descriptionBlocks?: DescriptionBlock[];
 };
 const api = apiSnapshot as { dataAsOf: string | null; received: number; products: ApiProduct[] };
 const apiReady = Boolean(api.dataAsOf && api.products.length);
@@ -161,7 +165,8 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
     boilerTotal: base?.boilerTotal ?? null, seat: base?.seat ?? null,
     lighting: base?.lighting ?? null, economizer: base?.economizer ?? null, control: base?.control ?? null,
     sizeNet: item.sizeNet ?? base?.sizeNet ?? null, weightNet: item.weightNet ?? base?.weightNet ?? null,
-    image: item.image ?? base?.image ?? null, description: base?.description ?? "",
+    image: item.image ?? base?.image ?? null, description: item.description || base?.description || "",
+    descriptionBlocks: item.descriptionBlocks,
     docs: base?.docs ?? [], spareParts: base?.spareParts ?? [],
     secondaryProps: item.secondaryProps, warranty: item.warranty,
   };
@@ -190,7 +195,7 @@ export const grinders = apiReady
       const base = catalog.grinders.find((entry) => entry.code === item.code);
       return { code: item.code, name: item.name, rrp: item.price ?? 0,
         availability: statusFromStock(item.inStock), image: item.image ?? base?.image ?? null,
-        markdown: false, description: base?.description ?? "", inStock: item.inStock,
+        markdown: false, description: item.description || base?.description || "", descriptionBlocks: item.descriptionBlocks, inStock: item.inStock,
         secondaryProps: item.secondaryProps, sizeNet: item.sizeNet, weightNet: item.weightNet, warranty: item.warranty };
     })
   : catalog.grinders;
