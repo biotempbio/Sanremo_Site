@@ -122,8 +122,17 @@ def make_message(data: dict, sender: str, recipient: str) -> EmailMessage:
     message = EmailMessage()
     message["From"] = sender
     message["To"] = recipient
-    message["Subject"] = f"[Sanremo] заявка {data['requestId']}"
     fields = data["fields"]
+    if str(fields.get("task", "")).startswith("Лизинг кофемашины Sanremo"):
+        def header_part(value: object) -> str:
+            return " ".join(str(value or "").split())[:120]
+
+        message["Subject"] = (
+            f"Лизинг Sanremo — {header_part(fields.get('model')) or 'модель не указана'}"
+            f" — {header_part(fields.get('company')) or 'компания не указана'}"
+        )
+    else:
+        message["Subject"] = f"[Sanremo] заявка {data['requestId']}"
     lines = [
         "Заявка с сайта Sanremo",
         f"Номер: {data['requestId']}",
