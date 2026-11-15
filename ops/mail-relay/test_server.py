@@ -13,7 +13,7 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 
-from server import TLSHTTPServer, connect_db, handler_factory, send_copies, send_pending, store, valid_payload, verify_signature
+from server import TLSHTTPServer, connect_db, handler_factory, make_message, send_copies, send_pending, store, valid_payload, verify_signature
 
 
 SAMPLE = {
@@ -47,6 +47,11 @@ class FakeSMTP:
 
 
 class RelayTests(unittest.TestCase):
+    def test_leasing_subject_uses_model_and_company(self):
+        fields = {**SAMPLE["fields"], "task": "Лизинг Sanremo — D8 — Кофейня", "model": "D8 · 2 гр. (194570)", "company": "Кофейня"}
+        message = make_message({**SAMPLE, "fields": fields}, "sales@sanremomachines.ru", "sales@sanremomachines.ru")
+        self.assertEqual(message["Subject"], "Лизинг Sanremo — D8 · 2 гр. — Кофейня")
+
     def test_signature_and_required_consent(self):
         body = json.dumps(SAMPLE).encode()
         digest = hmac.new(b"test-secret", body, hashlib.sha256).hexdigest()

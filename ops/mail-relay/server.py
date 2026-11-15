@@ -122,8 +122,16 @@ def make_message(data: dict, sender: str, recipient: str) -> EmailMessage:
     message = EmailMessage()
     message["From"] = sender
     message["To"] = recipient
-    message["Subject"] = f"[Sanremo] заявка {data['requestId']}"
     fields = data["fields"]
+    task = str(fields.get("task", ""))
+    if task.startswith("Лизинг Sanremo — "):
+        # The model and company come from form fields, never from an arbitrary header.
+        model = str(fields.get("model", "")).split(" (")[0].strip()
+        company = str(fields.get("company", "")).strip()
+        safe = lambda value: " ".join(value.replace("\r", " ").replace("\n", " ").split())[:100]
+        message["Subject"] = f"Лизинг Sanremo — {safe(model)} — {safe(company)}"
+    else:
+        message["Subject"] = f"[Sanremo] заявка {data['requestId']}"
     lines = [
         "Заявка с сайта Sanremo",
         f"Номер: {data['requestId']}",

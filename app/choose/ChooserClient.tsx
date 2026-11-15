@@ -230,6 +230,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <a className="btn btn-amber" href="/contacts/">Запросить предложение</a>
                 <a className="btn" href="/dealers/">Найти дилера</a>
+                {selection.recommendations[0] ? <a className="btn" href={`/leasing/?model=${encodeURIComponent(selection.recommendations[0].m.name)}#leasing-request`}>Купить в лизинг</a> : null}
               </div>
             </div>
           </>
