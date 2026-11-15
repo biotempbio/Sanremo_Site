@@ -37,6 +37,14 @@ const LABEL: Record<PickerSku["availability"], string> = {
   on_order: "Под заказ · 6–8 недель",
 };
 
+function chooseSku(pool: PickerSku[], modelSlug: string) {
+  return pool.find((s) => modelSlug === "d8" && s.code === "194570" && s.free >= 3)
+    ?? pool.find((s) => /ч[её]рн|black/i.test(s.color ?? "") && s.free >= 3)
+    ?? pool.find((s) => s.free >= 3)
+    ?? pool.find((s) => /ч[её]рн|black/i.test(s.color ?? ""))
+    ?? pool[0];
+}
+
 export default function ConfigPicker({
   skus,
   modelName,
@@ -65,9 +73,7 @@ export default function ConfigPicker({
     () => skus.filter((s) => (groups ? s.groups === groups : true)),
     [skus, groups]
   );
-  const chooseSku = (pool: PickerSku[]) => pool.find((s) => /ч[её]рн|black/i.test(s.color ?? "") && s.free >= 3)
-    ?? pool.find((s) => s.free >= 3) ?? pool.find((s) => /ч[её]рн|black/i.test(s.color ?? "")) ?? pool[0];
-  const [code, setCode] = useState<string>(chooseSku(byGroups)?.code ?? "");
+  const [code, setCode] = useState<string>(chooseSku(byGroups, modelSlug)?.code ?? "");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const requestedCode = params.get("sku");
@@ -75,12 +81,12 @@ export default function ConfigPicker({
     const requestedColor = params.get("color")?.toLocaleLowerCase("ru-RU");
     const match = skus.find((s) => s.code === requestedCode || s.vendorCode === requestedCode)
       ?? chooseSku(skus.filter((s) => (!requestedGroup || s.groups === requestedGroup)
-        && (!requestedColor || s.color?.toLocaleLowerCase("ru-RU") === requestedColor)));
+        && (!requestedColor || s.color?.toLocaleLowerCase("ru-RU") === requestedColor)), modelSlug);
     if (match && (requestedCode || requestedGroup || requestedColor)) {
       setGroups(match.groups);
       setCode(match.code);
     }
-  }, [skus]);
+  }, [skus, modelSlug]);
 
   const current = byGroups.find((s) => s.code === code) ?? byGroups[0];
 
@@ -100,7 +106,7 @@ export default function ConfigPicker({
   const pickGroups = (g: number) => {
     setGroups(g);
     const pool = skus.filter((s) => s.groups === g);
-    setCode(chooseSku(pool)?.code ?? "");
+    setCode(chooseSku(pool, modelSlug)?.code ?? "");
   };
 
   if (!current) return null;
