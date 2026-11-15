@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "./components/Chrome";
 import { ResponsiveImage } from "./components/ResponsiveImage";
-import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, VOLUME_BANDS } from "@/lib/catalog";
+import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, stockUnitsOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { pluralize, stockSummary } from "@/lib/format";
 import { sanremoCases } from "@/lib/cases";
 import { CaseCard } from "./cases/CaseCard";
 
@@ -52,7 +53,7 @@ export default function HomePage() {
           <p className="eyebrow">Sanremo Coffee Machines · Россия</p>
           <h1>Профессиональные кофемашины Sanremo в России</h1>
           <p className="home-subtitle">Кофемашина для вашего проекта</p>
-          <p className="lead">{lineup.length} профессиональных линеек для кофеен, ресторанов, сетей и лабораторий. В каталоге — исполнения, характеристики, цены и наличие; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
+          <p className="lead">{lineup.length} {pluralize(lineup.length, "профессиональная линейка", "профессиональные линейки", "профессиональных линеек")} для кофеен, ресторанов, сетей и лабораторий. В каталоге — исполнения, характеристики, цены и наличие; поставку и запуск обеспечивают официальные дилеры Sanremo в России.</p>
           <div className="home-actions"><a className="btn btn-solid" href="/choose/">Подобрать модель</a><a className="btn" href="/products/">Открыть каталог</a></div>
         </div>
         <figure className="home-hero-image">
@@ -75,9 +76,9 @@ export default function HomePage() {
 
       <section className="bg-gray"><div className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Линейки Sanremo</p><h2>Машины под разные сценарии работы</h2></div><p className="lead">Каждая карточка ведёт к точным характеристикам, исполнениям и актуальным данным по модели.</p></div>
-        <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card" key={model.slug}>
+        <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card home-product-card" key={model.slug}>
           <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" /></a>
-          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><span className="price">от {money(model.priceFrom)}</span><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
+          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(model.priceFrom)}</span></p><p className="home-product-status">{stockSummary(stockUnitsOfModel(model.slug))}</p><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
         </article>)}</div>
       </div></section>
 

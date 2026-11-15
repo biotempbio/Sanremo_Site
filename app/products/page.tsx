@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
+import { pluralize } from "@/lib/format";
 import { itemList, jsonLd } from "@/lib/seo";
 import {
   catalogModels,
@@ -83,7 +84,7 @@ export default function ProductsPage() {
             </div>
             <div>
               <p className="lead" style={{ marginBottom: 12 }}>
-                {CATALOG_LINEUP.length} профессиональных линеек Sanremo (Сан Ремо). Цены на кофемашины — от {money(minPrice)} до {money(maxPrice)}.
+                {CATALOG_LINEUP.length} {pluralize(CATALOG_LINEUP.length, "профессиональная линейка", "профессиональные линейки", "профессиональных линеек")} Sanremo (Сан Ремо). Цены на кофемашины — от {money(minPrice)} до {money(maxPrice)}.
               </p>
               <p className="small" style={{ maxWidth: "62ch", margin: 0 }}>
                 На страницах моделей указаны группы, бойлеры, мощность и наличие каждого исполнения. Гарантия — 12 месяцев с даты продажи. Машины со склада в Москве доступны к отгрузке; поставка из Италии под заказ занимает 6–8 недель. Дилеры и сервисные партнёры работают по всей России.

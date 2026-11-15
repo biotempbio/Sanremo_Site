@@ -9,6 +9,7 @@ import { familyQuestions } from "@/lib/model-faq";
 import { absoluteUrl, itemList, jsonLd } from "@/lib/seo";
 import { casesForFamily } from "@/lib/cases";
 import { CaseCard } from "../../cases/CaseCard";
+import { stockSummary } from "@/lib/format";
 import {
   families,
   familyBySlug,
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const groups = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
   return {
     title: `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
-    description: `Кофемашина Sanremo ${f.name}: ${groups.join(", ")} группы, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие на складе в Москве и официальные дилеры.`,
+    description: `Кофемашина Sanremo ${f.name}: группы ${groups.join(", ")}, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие на складе в Москве и официальные дилеры.`,
   };
 }
 
@@ -124,26 +125,23 @@ export default async function FamilyPage({ params }: Props) {
               const stockUnits = stockUnitsOfModel(m.slug);
               const hero = sk.find((s) => s.availability === "in_stock") ?? sk[0];
               return (
-                <article className="card" key={m.slug}>
-                  <div className="card-visual">
-                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} label={m.name} />
-                  </div>
+                <article className="card catalog-card" key={m.slug}>
+                  <a className="card-visual catalog-card-visual" href={`/products/${family}/${m.slug}/`} aria-label={`Открыть ${m.name}`}>
+                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" />
+                  </a>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>
                     {m.version ? <p className="small" style={{ margin: 0 }}>Версия: {m.version}</p> : null}
-                    <div className="chips">
+                    <div className="chips catalog-card-tags">
                       <span className="tag">{m.groupsAvailable.join("/")} гр.</span>
                       {m.optionsAvailable.slice(0, 3).map((o) => <span className="tag" key={o}>{o}</span>)}
                     </div>
-                    <div className="card-foot">
-                      <div>
-                        <span className="price-from">Цена от</span>
-                        <span className="price num">{money(m.priceFrom)}</span>
+                    <div className="card-foot catalog-card-foot">
+                      <p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(m.priceFrom)}</span></p>
+                      <div className="catalog-card-availability">
+                        <i className={`dot ${stockUnits >= 3 ? "st-in_stock" : stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" />
+                        <span>{stockSummary(stockUnits)}</span>
                       </div>
-                      <span className="stock-label">
-                        <i className={`dot ${stockUnits ? "st-in_stock" : "st-on_order"}`} />
-                        {stockUnits ? `На складе в Москве${stockUnits >= 3 ? ` · ${stockUnits} шт.` : ""}` : "Под заказ · 6–8 недель"}
-                      </span>
                     </div>
                   </div>
                 </article>

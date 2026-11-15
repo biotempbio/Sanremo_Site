@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AVAILABILITY_LABEL, CATALOG_LINEUP, VOLUME_BANDS, familyBySlug, modelBySlug, modelPath, money, skusOfModel } from "@/lib/catalog";
+import { pluralize } from "@/lib/format";
 
 const defaults = ["zoe-competition", "d8", "f18-sb"];
 
@@ -46,7 +47,7 @@ export default function CompareClient() {
     ["Бойлеры", (c: ReturnType<typeof line>) => c.family.architecture],
     ["Управление", (c: ReturnType<typeof line>) => c.controls || c.model.version || "—"],
     ["Возможности", (c: ReturnType<typeof line>) => c.model.optionsAvailable.join(" · ") || "Базовая комплектация"],
-    ["Исполнения", (c: ReturnType<typeof line>) => `${c.model.skuCount} исполнений`],
+    ["Исполнения", (c: ReturnType<typeof line>) => `${c.model.skuCount} ${pluralize(c.model.skuCount, "исполнение", "исполнения", "исполнений")}`],
     ["Наличие", (c: ReturnType<typeof line>) => c.first ? AVAILABILITY_LABEL[c.first.availability] : "—"],
   ] as const;
 

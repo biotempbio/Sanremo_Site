@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pluralize } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../../components/Chrome";
 import { Crumbs, Stock } from "../../../components/Bits";
@@ -28,7 +29,7 @@ import {
 
 type Props = { params: Promise<{ family: string; model: string }> };
 const groupsLabel = (groups: number[]) => groups.length === 1
-  ? `${groups[0]} ${groups[0] === 1 ? "группа" : "группы"}`
+  ? `${groups[0]} ${pluralize(groups[0], "группа", "группы", "групп")}`
   : `${groups.join("/")} группы`;
 
 export function generateStaticParams() {

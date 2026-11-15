@@ -287,6 +287,30 @@ p { margin: 0 0 1em; }
 .card-body h3 a { text-decoration: none; }
 .card-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
+/* Каталог: одна композиция фото, текста и складского блока для всех линеек. */
+.catalog-card-visual { display: block; aspect-ratio: 16 / 9; background: var(--gray-bg); }
+.catalog-card-visual .sku-photo { background: var(--gray-bg); }
+.catalog-card-visual img { width: 100%; height: 100%; object-fit: cover; }
+.catalog-card .card-body { gap: 12px; padding: 20px 20px 22px; }
+.catalog-card .card-body h3 { min-height: 2.4em; line-height: 1.2; }
+.catalog-card-description { margin: 0; min-height: 3em; }
+.catalog-card-tags { align-content: start; }
+.catalog-card-tags .tag { display: inline-flex; min-height: 27px; align-items: center; white-space: nowrap; line-height: 1.2; }
+.catalog-card-colors { min-height: 20px; }
+.catalog-card-foot { display: block; width: 100%; padding-top: 17px; }
+.catalog-card-price { display: flex; align-items: baseline; gap: 6px; margin: 0; white-space: nowrap; }
+.catalog-card-price .price-from { display: inline; text-transform: none; letter-spacing: 0; font-size: 14px; }
+.catalog-card-availability { display: flex; align-items: baseline; gap: 6px; min-height: 44px; margin-top: 10px; font-family: var(--sans); font-size: 12px; line-height: 1.45; }
+.catalog-card-availability .dot { flex: none; margin-right: 0; }
+.catalog-card-availability small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+.home-product-card .card-foot { display: block; }
+.home-product-card .card-foot .price-from { display: inline; text-transform: none; letter-spacing: 0; font-size: 14px; }
+.home-product-status { margin: 9px 0 12px; font-family: var(--sans); font-size: 12px; color: var(--ink-2); }
+.home-product-card .card-body > .small { margin-bottom: 0; }
+.home-product-card .home-product-image { aspect-ratio: 16 / 9; background: var(--gray-bg); }
+.home-product-card .home-product-image img { object-fit: cover; }
+@media (max-width: 620px) { .catalog-card .card-body h3, .catalog-card-description { min-height: 0; } }
+
 /* заглушка визуала машины (пока нет прав на фото конкретного SKU) */
 .machine-vis { position: relative; width: 100%; height: 100%; display: grid; place-items: center; background: linear-gradient(160deg, #fbfbfa 0%, #eeece8 100%); }
 .machine-vis .mv-body { width: 72%; }

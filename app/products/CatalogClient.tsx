@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import SkuImage from "../components/SkuImage";
-import { formatPrice } from "@/lib/format";
+import { formatPrice, pluralize, stockSummary } from "@/lib/format";
 
 export interface CatalogRow {
   slug: string;
@@ -33,6 +33,10 @@ const PRICE_BANDS = [
   { id: "p3", label: `${formatPrice(700_000)} — ${formatPrice(1_000_000)}`, min: 700_000, max: 1_000_000 },
   { id: "p4", label: `от ${formatPrice(1_000_000)}`, min: 1_000_000, max: Infinity },
 ];
+
+function architectureLabel(value: string) {
+  return value === "Single boiler или мультибойлер" ? "Одно- или мультибойлер" : value;
+}
 
 function toggle(list: string[], v: string) {
   return list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
@@ -158,7 +162,7 @@ export default function CatalogClient({
 
         <Group title="Архитектура">
           {allArch.map((a) => (
-            <Chip key={a} on={arch.includes(a)} onClick={() => setArch(toggle(arch, a))}>{a}</Chip>
+            <Chip key={a} on={arch.includes(a)} onClick={() => setArch(toggle(arch, a))}>{architectureLabel(a)}</Chip>
           ))}
         </Group>
 
@@ -214,41 +218,34 @@ export default function CatalogClient({
         ) : (
           <div className="grid g3">
             {filtered.map((r) => (
-              <article className="card" key={r.slug}>
-                <div className="card-visual">
-                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} label={r.name} />
-                </div>
+              <article className="card catalog-card" key={r.slug}>
+                <a className="card-visual catalog-card-visual" href={`/products/${r.family}/${r.slug}/`} aria-label={`Открыть ${r.name}`}>
+                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" />
+                </a>
                 <div className="card-body">
-                  <p className="eyebrow" style={{ margin: 0 }}>{r.familyName}</p>
                   <h3><a href={`/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>
-                  <p className="small" style={{ margin: 0 }}>{r.familyTagline}</p>
-                  <div className="chips">
+                  <p className="small catalog-card-description">{r.familyTagline}</p>
+                  <div className="chips catalog-card-tags">
                     <span className="tag">{r.groups.join("/")} гр.</span>
-                    <span className="tag">{r.architecture}</span>
+                    <span className="tag">{architectureLabel(r.architecture)}</span>
                     {r.options.slice(0, 2).map((o) => <span className="tag" key={o}>{o}</span>)}
                   </div>
                   {r.colors.length > 0 && (
-                    <div className="swatches">
+                    <div className="swatches catalog-card-colors">
                       {r.colors.slice(0, 8).map((c) => (
                         <i className="swatch" key={c.name} style={{ background: c.hex }} title={c.name} />
                       ))}
-                      <span className="tiny">{r.colors.length} цветов на складе в Москве</span>
+                      <span className="tiny">{r.colors.length} {pluralize(r.colors.length, "цвет", "цвета", "цветов")} в наличии</span>
                     </div>
                   )}
-                  <div className="card-foot">
-                    <div>
-                      <span className="price-from">от</span>
-                      <span className="price num">{formatPrice(r.priceFrom)}</span>
+                  <div className="card-foot catalog-card-foot">
+                    <p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{formatPrice(r.priceFrom)}</span></p>
+                    <div className="catalog-card-availability">
+                      <i className={`dot ${r.stockUnits >= 3 ? "st-in_stock" : r.stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" />
+                      <div><span>{stockSummary(r.stockUnits)}</span>
+                        {r.stockUnits >= 3 && r.stockExecutions > 0 ? <small>{r.stockExecutions} {pluralize(r.stockExecutions, "исполнение", "исполнения", "исполнений")}</small> : null}
+                      </div>
                     </div>
-                    <span className="stock-label" style={{ alignItems: "flex-start" }}>
-                      <i className={`dot ${r.stockUnits ? "st-in_stock" : "st-reserved"}`} style={{ marginTop: 6 }} />
-                      {r.stockUnits ? (
-                        <span>
-                          <b>{r.stockUnits >= 3 ? `На складе в Москве ${r.stockUnits} ${machineWord(r.stockUnits)}` : "На складе в Москве"}</b>
-                          {r.stockUnits >= 3 ? <small style={{ display: "block", marginTop: 3 }}>{r.stockExecutions} {executionWord(r.stockExecutions)}</small> : null}
-                        </span>
-                      ) : "Под заказ · 6–8 недель"}
-                    </span>
                   </div>
                 </div>
               </article>
@@ -281,22 +278,4 @@ function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; chi
       {children}
     </button>
   );
-}
-
-function machineWord(n: number) {
-  const mod100 = n % 100;
-  const mod10 = n % 10;
-  if (mod100 >= 11 && mod100 <= 14) return "машин";
-  if (mod10 === 1) return "машина";
-  if (mod10 >= 2 && mod10 <= 4) return "машины";
-  return "машин";
-}
-
-function executionWord(n: number) {
-  const mod100 = n % 100;
-  const mod10 = n % 10;
-  if (mod100 >= 11 && mod100 <= 14) return "исполнений";
-  if (mod10 === 1) return "исполнение";
-  if (mod10 >= 2 && mod10 <= 4) return "исполнения";
-  return "исполнений";
 }
