@@ -77,7 +77,7 @@ export default function HomePage() {
       <section className="bg-gray"><div className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Линейки Sanremo</p><h2>Машины под разные сценарии работы</h2></div><p className="lead">Каждая карточка ведёт к точным характеристикам, исполнениям и актуальным данным по модели.</p></div>
         <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card home-product-card" key={model.slug}>
-          <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" /></a>
+          <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" eager /></a>
           <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(model.priceFrom)}</span></p><p className="home-product-status">{stockSummary(stockUnitsOfModel(model.slug))}</p><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
         </article>)}</div>
       </div></section>

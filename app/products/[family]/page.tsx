@@ -127,7 +127,7 @@ export default async function FamilyPage({ params }: Props) {
               return (
                 <article className="card catalog-card" key={m.slug}>
                   <a className="card-visual catalog-card-visual" href={`/products/${family}/${m.slug}/`} aria-label={`Открыть ${m.name}`}>
-                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" />
+                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager />
                   </a>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>

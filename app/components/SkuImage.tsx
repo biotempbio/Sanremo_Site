@@ -16,6 +16,7 @@ export default function SkuImage({
   color,
   label,
   fit = "contain",
+  eager = false,
 }: {
   src: string | null;
   alt: string;
@@ -23,6 +24,7 @@ export default function SkuImage({
   color?: string | null;
   label?: string;
   fit?: "cover" | "contain";
+  eager?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
@@ -33,7 +35,7 @@ export default function SkuImage({
   return (
     <figure className="sku-photo" style={{ margin: 0 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      {src.startsWith("/") ? <ResponsiveImage src={src} alt={alt} width={1536} height={864} style={{ objectFit: fit }} /> : <img src={src} alt={alt} width="1536" height="864" loading="lazy" decoding="async" onError={() => setFailed(true)} style={{ objectFit: fit }} />}
+      {src.startsWith("/") ? <ResponsiveImage src={src} alt={alt} width={1536} height={864} style={{ objectFit: fit }} eager={eager} /> : <img src={src} alt={alt} width="1536" height="864" loading={eager ? "eager" : "lazy"} decoding="async" onError={() => setFailed(true)} style={{ objectFit: fit }} />}
       {label ? <figcaption>{label}</figcaption> : null}
     </figure>
   );

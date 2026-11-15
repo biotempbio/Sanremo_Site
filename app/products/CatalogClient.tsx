@@ -58,6 +58,7 @@ export default function CatalogClient({
   const [price, setPrice] = useState<string[]>([]);
   const [stockOnly, setStockOnly] = useState(false);
   const [sort, setSort] = useState("lineup");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [urlReady, setUrlReady] = useState(false);
 
   useEffect(() => {
@@ -131,10 +132,21 @@ export default function CatalogClient({
     setOpts([]); setVol([]); setPrice([]); setStockOnly(false);
   };
 
+  const sortOptions = <>
+    <option value="price-asc">Цена: по возрастанию</option>
+    <option value="lineup">Порядок линейки</option>
+    <option value="price-desc">Цена: по убыванию</option>
+    <option value="stock">Сначала склад в Москве</option>
+    <option value="name">По названию</option>
+  </>;
+
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0,265px) minmax(0,1fr)", gap: "clamp(20px,3vw,52px)", alignItems: "start" }}
-         className="catalog-layout">
-      <aside className="filters">
+    <div className="catalog-layout">
+      <div className="catalog-mobile-toolbar">
+        <button type="button" className="catalog-filter-toggle" aria-expanded={filtersOpen} aria-controls="catalog-filters" onClick={() => setFiltersOpen(!filtersOpen)}>Фильтры{active ? ` (${active})` : ""}<span aria-hidden="true">{filtersOpen ? "−" : "+"}</span></button>
+        <label className="catalog-mobile-sort"><span className="sr-only">Сортировка</span><select aria-label="Сортировка" value={sort} onChange={(e) => setSort(e.target.value)}>{sortOptions}</select></label>
+      </div>
+      <aside id="catalog-filters" className={`filters ${filtersOpen ? "filters-open" : ""}`}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10 }}>
           <h3 style={{ fontSize: 16 }}>Фильтры</h3>
           {active > 0 && (
@@ -166,13 +178,13 @@ export default function CatalogClient({
           ))}
         </Group>
 
-        <Group title="Сценарий">
+        <Group title="Сценарий" collapsible count={scen.length}>
           {allScen.map((s) => (
             <Chip key={s} on={scen.includes(s)} onClick={() => setScen(toggle(scen, s))}>{s}</Chip>
           ))}
         </Group>
 
-        <Group title="Опции и исполнение">
+        <Group title="Опции и исполнение" collapsible count={opts.length}>
           {allOpts.map((o) => (
             <Chip key={o} on={opts.includes(o)} onClick={() => setOpts(toggle(opts, o))}>{o}</Chip>
           ))}
@@ -191,18 +203,14 @@ export default function CatalogClient({
       </aside>
 
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap", marginBottom: 20 }}>
+        <div className="catalog-results-toolbar">
           <p className="small" style={{ margin: 0 }}>
             Найдено моделей: <b>{filtered.length}</b> из {rows.length}
           </p>
-          <label className="field" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <label className="field catalog-desktop-sort" style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ margin: 0 }}>Сортировка</span>
             <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ minWidth: 210, minHeight: 42 }}>
-              <option value="price-asc">Цена: по возрастанию</option>
-              <option value="lineup">Порядок линейки</option>
-              <option value="price-desc">Цена: по убыванию</option>
-              <option value="stock">Сначала склад в Москве</option>
-              <option value="name">По названию</option>
+              {sortOptions}
             </select>
           </label>
         </div>
@@ -220,7 +228,7 @@ export default function CatalogClient({
             {filtered.map((r) => (
               <article className="card catalog-card" key={r.slug}>
                 <a className="card-visual catalog-card-visual" href={`/products/${r.family}/${r.slug}/`} aria-label={`Открыть ${r.name}`}>
-                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" />
+                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" eager />
                 </a>
                 <div className="card-body">
                   <h3><a href={`/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>
@@ -254,16 +262,15 @@ export default function CatalogClient({
         )}
       </div>
 
-      <style>{`
-        @media (max-width: 980px) {
-          .catalog-layout { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </div>
   );
 }
 
-function Group({ title, children }: { title: string; children: React.ReactNode }) {
+function Group({ title, children, collapsible = false, count = 0 }: { title: string; children: React.ReactNode; collapsible?: boolean; count?: number }) {
+  if (collapsible) return <details className="filter-group filter-group-collapsible">
+    <summary>{title}{count > 0 ? ` · ${count}` : ""}<span aria-hidden="true">⌄</span></summary>
+    <div className="chips">{children}</div>
+  </details>;
   return (
     <div className="filter-group">
       <h4>{title}</h4>
