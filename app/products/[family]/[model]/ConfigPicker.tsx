@@ -97,7 +97,12 @@ export default function ConfigPicker({
     const dup = byGroups.filter((x) => (x.color ?? x.edition ?? x.code) === base).length > 1;
     return dup && s.edition && s.edition !== "Base" ? `${base} · ${s.edition}` : base;
   };
-  const labels = [...new Map(byGroups.map((s) => [baseLabel(s), s])).values()];
+  const labelGroups = new Map<string, PickerSku[]>();
+  for (const sku of byGroups) {
+    const label = baseLabel(sku);
+    labelGroups.set(label, [...(labelGroups.get(label) ?? []), sku]);
+  }
+  const labels = [...labelGroups.values()].map((pool) => chooseSku(pool, modelSlug)).filter((sku): sku is PickerSku => Boolean(sku));
 
   const pickGroups = (g: number) => {
     setGroups(g);

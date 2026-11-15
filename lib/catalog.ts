@@ -154,6 +154,13 @@ const colorOf = (name: string) => {
   if (/бел|white/.test(lower)) return { name: "Белая", hex: "#f4f2eb" };
   return { name: null, hex: null };
 };
+const editionOf = (name: string) => {
+  const match = name.match(/custom renegade|naked|racing|freedom|dolomiti/i);
+  if (!match) return null;
+  return match[0].toLocaleLowerCase("en-US") === "custom renegade"
+    ? "Custom Renegade"
+    : match[0].charAt(0).toLocaleUpperCase("en-US") + match[0].slice(1).toLocaleLowerCase("en-US");
+};
 function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
   const slug = item.modelSlug ?? base?.model ?? "";
   const model = catalog.models.find((entry) => entry.slug === slug);
@@ -162,7 +169,7 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
     code: item.code, vendorCode: item.vendorCode ?? base?.vendorCode ?? null,
     family: model?.family ?? base?.family ?? familyOfModel(slug), model: slug,
     modelName: model?.name ?? base?.modelName ?? slug, version: model?.version ?? base?.version ?? null,
-    edition: base?.edition ?? null, title: base?.title ?? item.name,
+    edition: base?.edition ?? editionOf(item.name), title: base?.title ?? item.name,
     groups: groupCount(item.name) ?? base?.groups ?? null, groupHeight: base?.groupHeight ?? null,
     color: base?.color ?? color.name, colorHex: base?.colorHex ?? color.hex,
     options: base?.options ?? [], rrp: item.price ?? 0, rrpIsRecommended: item.price !== null,
