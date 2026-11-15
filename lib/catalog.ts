@@ -249,6 +249,10 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
 export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
 /** Large product photos never use the 340px portal previews. Exact SKU media can be added here after verification. */
 export const skuHeroMedia = (sku: Pick<Sku, "code" | "model">) => {
+  // Официальное фото D8 показывает именно базовую чёрную машину с двумя группами.
+  if (sku.model === "d8" && sku.code === "194570") {
+    return { image: "/photo/model-d8.webp", exact: true, source: "official-sku" as const };
+  }
   const image = officialImageForModel(sku.model);
   return { image, exact: false, source: image ? "official-lineup" as const : "unavailable" as const };
 };
