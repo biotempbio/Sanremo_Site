@@ -28,6 +28,9 @@ export interface PickerSku {
   descriptionBlocks: DescriptionBlock[];
   image: string | null;
   imageExact: boolean;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageCaption?: string | null;
 }
 
 const LABEL: Record<PickerSku["availability"], string> = {
@@ -127,10 +130,12 @@ export default function ConfigPicker({
       <div className="picker-visual">
         <SkuImage
           src={current.image}
-          alt={current.imageExact ? `Sanremo ${modelName}, ${current.groups ?? ""} гр., ${current.color ?? ""}` : `Sanremo ${modelName} — фото линейки`}
+          alt={current.imageExact ? `Sanremo ${modelName}, ${current.groups ?? ""} гр., ${current.color ?? ""}` : `Sanremo ${modelName} — фото модели`}
           groups={current.groups}
           color={current.colorHex}
-          label={current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото линейки, исполнение может отличаться"}
+          width={current.imageWidth}
+          height={current.imageHeight}
+          label={current.imageCaption ?? (current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото линейки, исполнение может отличаться")}
         />
       </div>
 

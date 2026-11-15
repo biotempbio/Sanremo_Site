@@ -1,7 +1,9 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { extractDescription } from '../lib/product-description.mjs';
+import { bestLargeImage, imageUrls } from '../lib/bio-media.mjs';
+import sharp from 'sharp';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = async (name) => JSON.parse(await readFile(path.join(root, name), 'utf8'));
@@ -158,6 +160,69 @@ export async function fetchSnapshot({ key, fetcher = fetch, previousState = null
   return { ...result, dataAsOf, syncedAt: new Date().toISOString() };
 }
 
+async function attachEquipmentMedia(products, key, { fetcher = fetch } = {}) {
+  const equipment = products.filter((item) => item.kind !== 'part');
+  const cache = new Map();
+  const report = { checked: equipment.length, exactLarge: 0, substituted: 0, noLarge: 0, cardsFailed: 0, items: [] };
+  let cursor = 0;
+  await Promise.all(Array.from({ length: Math.min(5, equipment.length) }, async () => {
+    while (cursor < equipment.length) {
+      const item = equipment[cursor++];
+      const record = { code: item.code, model: item.modelSlug, fullCard: false, candidates: 0, largest: null, selected: null };
+      try {
+        const response = await fetcher(`https://portal.holdingbio.ru/api/catalog/products/${encodeURIComponent(item.code)}`, {
+          headers: { 'X-API-Key': key, Accept: 'application/json' }, signal: AbortSignal.timeout(30_000),
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const card = payload.product ?? payload.data ?? payload.result ?? payload;
+        record.fullCard = true;
+        // Export img remains a candidate if the full card omits its primary image.
+        const media = await bestLargeImage({ ...card, exportImage: item.image }, { fetcher, imageCache: cache });
+        record.candidates = imageUrls({ ...card, exportImage: item.image }).length;
+        record.largest = media.inspected[0] ? `${media.inspected[0].width}×${media.inspected[0].height}` : null;
+        if (media.selected) {
+          const directory = path.join(root, 'public/photo/catalog');
+          await mkdir(directory, { recursive: true });
+          const filename = `${item.code}.webp`;
+          await writeFile(path.join(directory, filename), await sharp(media.selected.bytes).webp({ quality: 86, effort: 4 }).toBuffer());
+          item.imageLocal = `/photo/catalog/${filename}`;
+          item.imageWidth = media.selected.width;
+          item.imageHeight = media.selected.height;
+          record.selected = `${media.selected.width}×${media.selected.height}`;
+          report.exactLarge++;
+        }
+      } catch (error) {
+        record.error = error instanceof Error ? error.message : String(error);
+        report.cardsFailed++;
+      }
+      report.items.push(record);
+    }
+  }));
+  const baseSkus = (await readJson('data/catalog.json')).skus;
+  const groupOf = (item) => baseSkus.find((sku) => sku.code === item.code)?.groups
+    ?? Number(item.name.match(/\b([1-3])\s*(?:гр\.?|gr\b)/i)?.[1] ?? 0);
+  for (const item of equipment.filter((entry) => !entry.imageLocal)) {
+    const peers = equipment.filter((peer) => peer.imageLocal && peer.modelSlug === item.modelSlug && peer.code !== item.code);
+    peers.sort((a, b) => Number(groupOf(b) === groupOf(item)) - Number(groupOf(a) === groupOf(item))
+      || (b.imageWidth * b.imageHeight) - (a.imageWidth * a.imageHeight));
+    const peer = peers[0];
+    const record = report.items.find((entry) => entry.code === item.code);
+    if (peer) {
+      item.imagePeerCode = peer.code;
+      item.imageLocal = peer.imageLocal;
+      item.imageWidth = peer.imageWidth;
+      item.imageHeight = peer.imageHeight;
+      item.imagePeerSameGroups = groupOf(peer) === groupOf(item);
+      record.substitutedFrom = peer.code;
+      record.peerSameGroups = item.imagePeerSameGroups;
+      report.substituted++;
+    } else report.noLarge++;
+  }
+  report.items.sort((a, b) => Number(a.code) - Number(b.code));
+  return report;
+}
+
 async function main() {
   const key = process.env.BIO_CATALOG_API_KEY;
   if (!key) { console.log('BIO catalog sync skipped: no key in build environment'); return; }
@@ -167,6 +232,8 @@ async function main() {
     if (live.ok) previousState = await live.json();
   } catch { /* A first staging build or a temporary DNS issue uses the checked baseline. */ }
   const result = await fetchSnapshot({ key, previousState });
+  const media = await attachEquipmentMedia(result.products, key);
+  await writeFile(path.join(root, 'public/catalog-media-audit.json'), JSON.stringify(media));
   await writeFile(path.join(root, 'data/bio-catalog.snapshot.json'), JSON.stringify({
     dataAsOf: result.dataAsOf, syncedAt: result.syncedAt, received: result.received, products: result.products,
   }));
@@ -175,6 +242,7 @@ async function main() {
     published: result.published, stockedProducts: result.stockedProducts, hidden: result.hidden, warnings: result.warnings,
   }));
   console.log(`BIO Sanremo catalog: received ${result.received}, published ${result.published}, hidden ${Object.values(result.hidden).reduce((a, b) => a + b, 0)}; as of ${result.dataAsOf}`);
+  console.log(`BIO Sanremo media: checked ${media.checked}, exact >=800px ${media.exactLarge}, same-model substitution ${media.substituted}, no large model photo ${media.noLarge}, full cards failed ${media.cardsFailed}`);
   for (const warning of result.warnings) console.warn(warning);
 }
 

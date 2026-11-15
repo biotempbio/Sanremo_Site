@@ -76,12 +76,14 @@ export default async function ModelPage({ params }: Props) {
     code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
     groupHeight: s.groupHeight, color: s.color, colorHex: s.colorHex, edition: s.edition,
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
-    // Превью BIO слишком малы для крупного фото; показываем проверенное фото линейки.
     power: s.power, voltage: s.voltage, boilerTotal: s.boilerTotal,
     sizeNet: s.sizeNet, weightNet: s.weightNet,
     secondaryProps: s.secondaryProps ?? [], descriptionBlocks: s.descriptionBlocks ?? [],
     image: skuHeroMedia(s).image,
     imageExact: skuHeroMedia(s).exact,
+    imageWidth: skuHeroMedia(s).width,
+    imageHeight: skuHeroMedia(s).height,
+    imageCaption: skuHeroMedia(s).caption,
   }));
 
   const productSchema = {

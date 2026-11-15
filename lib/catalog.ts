@@ -35,6 +35,11 @@ export interface Sku {
   sizeNet: { w: number; h: number; d: number } | null;
   weightNet: number | null;
   image: string | null;
+  imageLocal?: string | null;
+  imageWidth?: number | null;
+  imageHeight?: number | null;
+  imagePeerCode?: string | null;
+  imagePeerSameGroups?: boolean | null;
   description: string;
   descriptionBlocks?: DescriptionBlock[];
   docs: { name: string; ref: string; type: string }[];
@@ -130,6 +135,8 @@ type ApiProduct = {
   code: string; name: string; kind: "machine" | "grinder" | "part"; tier: number;
   modelSlug: string | null; vendorCode: string | null; category: string; categoryGroup: string;
   price: number | null; inStock: number; image: string | null;
+  imageLocal?: string | null; imageWidth?: number; imageHeight?: number;
+  imagePeerCode?: string; imagePeerSameGroups?: boolean;
   sizeNet: Sku["sizeNet"]; weightNet: number | null; warranty: string | null;
   secondaryProps: { name: string; value: string }[];
   description?: string;
@@ -164,7 +171,11 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
     boilerTotal: base?.boilerTotal ?? null, seat: base?.seat ?? null,
     lighting: base?.lighting ?? null, economizer: base?.economizer ?? null, control: base?.control ?? null,
     sizeNet: item.sizeNet ?? base?.sizeNet ?? null, weightNet: item.weightNet ?? base?.weightNet ?? null,
-    image: item.image ?? base?.image ?? null, description: item.description || base?.description || "",
+    image: item.image ?? base?.image ?? null,
+    imageLocal: item.imageLocal ?? null, imageWidth: item.imageWidth ?? null,
+    imageHeight: item.imageHeight ?? null, imagePeerCode: item.imagePeerCode ?? null,
+    imagePeerSameGroups: item.imagePeerSameGroups ?? null,
+    description: item.description || base?.description || "",
     descriptionBlocks: item.descriptionBlocks,
     docs: base?.docs ?? [], spareParts: base?.spareParts ?? [],
     secondaryProps: item.secondaryProps, warranty: item.warranty,
@@ -247,14 +258,22 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
   "d8-pro": "/photo/official/d8-pro.jpg",
 };
 export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
-/** Large product photos never use the 340px portal previews. Exact SKU media can be added here after verification. */
-export const skuHeroMedia = (sku: Pick<Sku, "code" | "model">) => {
+/** Use the largest measured full-card image; never stretch an export thumbnail as hero. */
+export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerSameGroups">) => {
+  if (sku.imageLocal) return {
+    image: sku.imageLocal, exact: !sku.imagePeerCode,
+    width: sku.imageWidth ?? 900, height: sku.imageHeight ?? 900,
+    caption: sku.imagePeerCode
+      ? sku.imagePeerSameGroups ? "Цвет может отличаться" : "Цвет и число групп могут отличаться"
+      : null,
+    source: sku.imagePeerCode ? "same-model" as const : "bio-full-card" as const,
+  };
   // Официальное фото D8 показывает именно базовую чёрную машину с двумя группами.
   if (sku.model === "d8" && sku.code === "194570") {
-    return { image: "/photo/model-d8.webp", exact: true, source: "official-sku" as const };
+    return { image: "/photo/model-d8.webp", exact: true, width: 1440, height: 864, caption: null, source: "official-sku" as const };
   }
   const image = officialImageForModel(sku.model);
-  return { image, exact: false, source: image ? "official-lineup" as const : "unavailable" as const };
+  return { image, exact: false, width: 1536, height: 864, caption: "Фото линейки, исполнение может отличаться", source: image ? "official-lineup" as const : "unavailable" as const };
 };
 export const officialImageForFamily = (slug: string) => {
   const preferred: Record<string, string> = {

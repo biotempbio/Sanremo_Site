@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 import { fetchSnapshot, normalizeExport, sanitize } from '../scripts/sync-bio-catalog.mjs';
 import { descriptionHtml } from '../lib/product-description.mjs';
 import { normalizeCatalogSearch } from '../lib/search-normalization.mjs';
+import { bestLargeImage, imageUrls } from '../lib/bio-media.mjs';
+import sharp from 'sharp';
 
 const tiers = JSON.parse(readFileSync(new URL('../config/catalog-tiers.json', import.meta.url)));
 const categoryGroups = JSON.parse(readFileSync(new URL('../config/sanremo-category-groups.json', import.meta.url)));
@@ -89,4 +91,19 @@ test('known BIO copy typos are corrected without changing specification values',
   const item = sanitize([machine({ description: 'Одногрупная Sanremo You. Бойлер 8 л.' })], options).products[0];
   assert.match(item.description, /Одногруппная Sanremo YOU/);
   assert.match(item.description, /8 л/);
+});
+
+test('full card gallery beats its thumbnail and images are measured without width query', async () => {
+  const small = 'https://portal.holdingbio.ru/api/img/11111111-1111-1111-1111-111111111111.jpg';
+  const large = 'https://portal.holdingbio.ru/api/img/22222222-2222-2222-2222-222222222222.jpg';
+  const card = { img: `${small}?width=150`, gallery: [{ image: `${large}?width=150` }], description: `See ${large}` };
+  assert.deepEqual(imageUrls(card), [small, large]);
+  const buffers = new Map([
+    [small, await sharp({ create: { width: 340, height: 255, channels: 3, background: '#ddd' } }).jpeg().toBuffer()],
+    [large, await sharp({ create: { width: 900, height: 900, channels: 3, background: '#fff' } }).jpeg().toBuffer()],
+  ]);
+  const fetcher = async (url) => ({ ok: true, headers: { get: () => 'image/jpeg' }, arrayBuffer: async () => buffers.get(url) });
+  const result = await bestLargeImage(card, { fetcher });
+  assert.equal(result.selected.url, large);
+  assert.equal(result.selected.width, 900);
 });
