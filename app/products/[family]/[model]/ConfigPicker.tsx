@@ -128,7 +128,7 @@ export default function ConfigPicker({
           color={current.colorHex}
           width={current.imageWidth}
           height={current.imageHeight}
-          label={current.imageCaption ?? (current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото этого исполнения скоро добавим")}
+          label={current.imageCaption ?? (current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${baseLabel(current)}` : "Фото этого исполнения скоро добавим")}
         />
       </div>
 
