@@ -23,7 +23,8 @@ const chosen = ["zoe-compact", "d8", "f18-sb", "cafe-racer"]
   .map((slug) => modelBySlug(slug)).filter((model) => model !== undefined);
 const options = liveSkus.filter((sku) => sku.rrp > 0 && sku.model && !sku.markdown)
   .sort((a, b) => a.rrp - b.rrp)
-  .map((sku) => ({ code: sku.code, label: [sku.modelName, sku.groups ? `${sku.groups} гр.` : null, sku.color, sku.edition].filter(Boolean).join(" · ") }));
+  .map((sku) => ({ code: sku.code, modelName: sku.modelName ?? sku.model, groups: sku.groups, stock: sku.free,
+    label: [sku.modelName, sku.groups ? `${sku.groups} гр.` : null, sku.color, sku.edition].filter(Boolean).join(" · ") }));
 
 export default function LeasingPage() {
   return <><Header active="/solutions/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/solutions/", label: "Решения" }, { label: "Лизинг" }]} />

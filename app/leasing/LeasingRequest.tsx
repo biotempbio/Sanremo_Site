@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { LeadForm } from "../components/LeadForm";
 
-type Option = { code: string; label: string };
+type Option = { code: string; label: string; modelName: string; groups: number | null; stock: number };
 
 export function LeasingRequest({ options }: { options: Option[] }) {
   const [code, setCode] = useState("");
@@ -14,7 +14,13 @@ export function LeasingRequest({ options }: { options: Option[] }) {
     const requested = params.get("sku");
     const model = params.get("model");
     if (requested && options.some((option) => option.code === requested)) setCode(requested);
-    else if (model) setCode(options.find((option) => option.label.toLocaleLowerCase("ru-RU").startsWith(model.toLocaleLowerCase("ru-RU")))?.code ?? "");
+    else if (model) {
+      const candidates = options.filter((option) => option.modelName?.toLocaleLowerCase("ru-RU") === model.toLocaleLowerCase("ru-RU"));
+      setCode((candidates.find((option) => option.groups === 2 && option.stock >= 3)
+        ?? candidates.find((option) => option.groups === 2)
+        ?? candidates.find((option) => option.stock >= 3)
+        ?? candidates[0])?.code ?? "");
+    }
   }, [options]);
   const selected = options.find((option) => option.code === code);
   const model = selected?.label ?? "модель не выбрана";
