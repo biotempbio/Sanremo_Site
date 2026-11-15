@@ -5,6 +5,7 @@ import { fetchSnapshot, normalizeExport, sanitize } from '../scripts/sync-bio-ca
 import { descriptionHtml } from '../lib/product-description.mjs';
 import { normalizeCatalogSearch } from '../lib/search-normalization.mjs';
 import { bestLargeImage, imageUrls } from '../lib/bio-media.mjs';
+import { groupCount, visualIdentity } from '../lib/sku-identity.mjs';
 import sharp from 'sharp';
 
 const tiers = JSON.parse(readFileSync(new URL('../config/catalog-tiers.json', import.meta.url)));
@@ -111,4 +112,20 @@ test('full card gallery beats its thumbnail and images are measured without widt
 test('extensionless BIO image path and imageId resolve to one original', () => {
   const guid = '08850024-63d8-11f1-b7a1-a87cb3c289fa';
   assert.deepEqual(imageUrls({ imageId: guid, img: `/api/img/${guid}` }), [`https://portal.holdingbio.ru/api/img/${guid}`]);
+});
+
+test('photo substitution requires identical model, colour and finish across group counts', () => {
+  const blackTwo = { modelSlug: 'cafe-racer', name: 'Café Racer Naked 2 гр. чёрная' };
+  const blackThree = { modelSlug: 'cafe-racer', name: 'Café Racer Naked 3 гр. чёрная' };
+  const blueTwo = { modelSlug: 'cafe-racer', name: 'Café Racer Custom Renegade 2 гр. голубая' };
+  assert.equal(visualIdentity(blackTwo, { color: 'Чёрная', edition: 'Naked' }), visualIdentity(blackThree, { color: 'Чёрная', edition: 'Naked' }));
+  assert.notEqual(visualIdentity(blackTwo, { color: 'Чёрная', edition: 'Naked' }), visualIdentity(blueTwo, { color: 'Голубая', edition: 'Custom Renegade' }));
+  assert.equal(groupCount('Кофемашина Café Racer Custom Renegade 3 гр. коричневая'), 3);
+});
+
+test('a 680-pixel own photo is large enough', async () => {
+  const url = 'https://portal.holdingbio.ru/api/img/33333333-3333-3333-3333-333333333333.jpg';
+  const bytes = await sharp({ create: { width: 680, height: 540, channels: 3, background: '#eee' } }).jpeg().toBuffer();
+  const fetcher = async () => ({ ok: true, headers: { get: () => 'image/jpeg' }, arrayBuffer: async () => bytes });
+  assert.equal((await bestLargeImage({ img: url }, { fetcher })).selected?.width, 680);
 });

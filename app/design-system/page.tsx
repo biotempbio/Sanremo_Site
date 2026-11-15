@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Дизайн-система — внутренний UI-kit",
@@ -422,7 +421,7 @@ export default function DesignSystemPage() {
 
           <Row label="Сообщения">
             <div className="stack">
-              <div className="notice"><b>Цены и наличие на {PRICE_DATE}.</b> Выберите конфигурацию для просмотра цены.</div>
+              <div className="notice">Выберите исполнение для просмотра цены.</div>
               <div className="notice ok"><b>Есть на складе.</b> Уточните исполнение в карточке модели.</div>
               <div className="notice calm">Позиция снята с производства, подберём аналог из текущей линейки.</div>
               <div className="notice err"><b>Не удалось отправить форму.</b> Проверьте телефон и попробуйте ещё раз.</div>

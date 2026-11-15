@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
-import { grinders, money, PRICE_DATE } from "@/lib/catalog";
+import { grinders, money } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
@@ -55,7 +55,6 @@ export default function GrindersPage() {
                   <span className="price-from">от</span>
                   <span className="price num">{money(priceFrom)}</span>
                   {primary ? <div style={{ marginTop: 12 }}><Stock status={primary.availability} /></div> : <div style={{ marginTop: 12 }}><Stock status="on_order" /></div>}
-                  <p className="tiny" style={{ margin: "12px 0 0" }}>Цены и наличие на {PRICE_DATE}.</p>
                   <a className="btn btn-solid" href="/contacts/?type=model" style={{ marginTop: 18 }}>Запросить поставку</a>
                 </div>
               </div>

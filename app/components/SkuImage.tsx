@@ -1,17 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { MachineVisual } from "./Bits";
 import { ResponsiveImage } from "./ResponsiveImage";
 
 /**
  * Крупное изображение из локальной медиабиблиотеки.
- * Если файла нет — показываем схему машины в цвете исполнения.
+ * Без подтверждённого фото не подменяем цвет другой машиной.
  */
 export default function SkuImage({
   src,
   alt,
-  groups,
   color,
   label,
   width = 1536,
@@ -32,7 +30,15 @@ export default function SkuImage({
   const [failed, setFailed] = useState(false);
 
   if (!src || failed) {
-    return <MachineVisual groups={groups} color={color} label={label} />;
+    return <figure className="sku-photo sku-photo-placeholder" style={{ margin: 0 }} role="img" aria-label={`${alt}. Фото этого исполнения скоро добавим`}>
+      <div className="sku-photo-placeholder-inner">
+        <span className="sku-photo-placeholder-swatch" style={{ background: color || "#dedbd5" }} aria-hidden="true" />
+        <span>Фото этого исполнения<br />скоро добавим</span>
+      </div>
+      <style>{`.sku-photo-placeholder { display: grid; place-items: center; min-height: 320px; background: #f3f1ed; }
+        .sku-photo-placeholder-inner { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; color: #575550; font-size: clamp(18px, 2vw, 24px); line-height: 1.3; }
+        .sku-photo-placeholder-swatch { display: block; width: 64px; height: 64px; border: 1px solid #b9b5ae; border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,.08); }`}</style>
+    </figure>;
   }
 
   return (

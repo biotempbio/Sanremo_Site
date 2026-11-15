@@ -17,7 +17,6 @@ import {
   partsForSku,
   dealerCities,
   VOLUME_BANDS,
-  PRICE_DATE,
   money,
   moneyPrecise,
   kw,
@@ -130,7 +129,7 @@ export default async function ModelPage({ params }: Props) {
             <h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Кофемашина Sanremo {m.name}{m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : ""}</h1>
             <p className="lead" style={{ marginTop: 14 }}>{f.territory}</p>
           </div>
-          <ConfigPicker skus={pickerSkus} modelName={m.name} modelSlug={m.slug} priceDate={PRICE_DATE} />
+          <ConfigPicker skus={pickerSkus} modelName={m.name} modelSlug={m.slug} />
         </section>
 
         {/* 7.2.1 — кому подходит */}
@@ -239,7 +238,6 @@ export default async function ModelPage({ params }: Props) {
                 <SpecGroup title="Цены и наличие">
                   <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
                   <Spec k="Цена" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />
-                  <Spec k="Цены и наличие на" v={PRICE_DATE} />
                 </SpecGroup>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { AVAILABILITY_LABEL, Availability, money, PRICE_DATE } from "@/lib/catalog";
+import { AVAILABILITY_LABEL, Availability, money } from "@/lib/catalog";
 
 export function Stock({ status, free }: { status: Availability; free?: number }) {
   return (
@@ -10,11 +10,10 @@ export function Stock({ status, free }: { status: Availability; free?: number })
   );
 }
 
-export function Price({ value, from, note = true }: { value: number | null; from?: boolean; note?: boolean }) {
+export function Price({ value, from }: { value: number | null; from?: boolean; note?: boolean }) {
   return (
     <div>
       <span className="price num">{from ? "от " : "Цена: "}{money(value)}</span>
-      {note ? <span className="tiny" style={{ display: "block", marginTop: 4 }}>Цены и наличие на {PRICE_DATE}</span> : null}
     </div>
   );
 }

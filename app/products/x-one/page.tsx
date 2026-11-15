@@ -3,7 +3,7 @@ import { Header, Footer } from "../../components/Chrome";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { LeadForm } from "../../components/LeadForm";
-import { grinders, money, PRICE_DATE } from "@/lib/catalog";
+import { grinders, money } from "@/lib/catalog";
 import { cleanDescriptionBlocks } from "@/lib/product-description.mjs";
 import type { DescriptionBlock } from "@/lib/catalog";
 
@@ -47,7 +47,7 @@ export default function XOnePage() {
           <ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One" width={1536} height={864} sizes="(max-width: 900px) 100vw, 50vw" style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "contain" }} />
         </div>
         <div><p className="eyebrow">Цена и поставка</p><h2>Точный помол для профессиональной рабочей зоны</h2><p className="lead">X-One помогает бариста работать с разными сортами зерна без лишних переключений: хранит рецепты, поддерживает несколько скоростей помола и взвешивает зерно до помола.</p>
-          <div className="card" style={{ marginTop: 26 }}><div className="card-body"><span className="price-from">от</span><span className="price num">{money(priceFrom)}</span>{primary ? <div style={{ marginTop: 12 }}><Stock status={primary.availability} /></div> : <div style={{ marginTop: 12 }}><Stock status="on_order" /></div>}<p className="tiny" style={{ margin: "12px 0 0" }}>Цены и наличие на {PRICE_DATE}.</p></div></div>
+          <div className="card" style={{ marginTop: 26 }}><div className="card-body"><span className="price-from">от</span><span className="price num">{money(priceFrom)}</span>{primary ? <div style={{ marginTop: 12 }}><Stock status={primary.availability} /></div> : <div style={{ marginTop: 12 }}><Stock status="on_order" /></div>}</div></div>
         </div>
       </div></div></section>
 

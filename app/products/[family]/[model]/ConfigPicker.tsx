@@ -52,12 +52,10 @@ export default function ConfigPicker({
   skus,
   modelName,
   modelSlug,
-  priceDate,
 }: {
   skus: PickerSku[];
   modelName: string;
   modelSlug: string;
-  priceDate: string;
 }) {
   const groupOptions = useMemo(
     () => [...new Set(skus.map((s) => s.groups).filter((g): g is number => !!g))].sort(),
@@ -99,12 +97,7 @@ export default function ConfigPicker({
     const dup = byGroups.filter((x) => (x.color ?? x.edition ?? x.code) === base).length > 1;
     return dup && s.edition && s.edition !== "Base" ? `${base} · ${s.edition}` : base;
   };
-  const labelOf = (s: PickerSku) => {
-    const l = baseLabel(s);
-    return byGroups.filter((x) => baseLabel(x) === l).length > 1
-      ? `${l} · ${s.vendorCode ?? s.code}`
-      : l;
-  };
+  const labels = [...new Map(byGroups.map((s) => [baseLabel(s), s])).values()];
 
   const pickGroups = (g: number) => {
     setGroups(g);
@@ -135,7 +128,7 @@ export default function ConfigPicker({
           color={current.colorHex}
           width={current.imageWidth}
           height={current.imageHeight}
-          label={current.imageCaption ?? (current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото линейки, исполнение может отличаться")}
+          label={current.imageCaption ?? (current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото этого исполнения скоро добавим")}
         />
       </div>
 
@@ -154,19 +147,19 @@ export default function ConfigPicker({
         )}
 
         <div className="filter-group">
-          <h4>Исполнение и цвет · {byGroups.length}</h4>
+          <h4>Исполнение и цвет · {labels.length}</h4>
           <div className="chips">
-            {byGroups.map((s) => (
+            {labels.map((s) => (
               <button
                 key={s.code}
                 className="chip"
-                aria-pressed={s.code === current.code}
+                aria-pressed={baseLabel(s) === baseLabel(current)}
                 onClick={() => setCode(s.code)}
                 title={s.title}
                 style={{ display: "inline-flex", alignItems: "center", gap: 7 }}
               >
                 {s.colorHex ? <i className="swatch" style={{ background: s.colorHex, width: 13, height: 13 }} /> : null}
-                {labelOf(s)}
+                {baseLabel(s)}
               </button>
             ))}
           </div>
@@ -181,9 +174,6 @@ export default function ConfigPicker({
             <span className="price num" style={{ fontSize: 32 }}>
               {current.rrp > 0 ? formatPrice(current.rrp) : "Цена по запросу"}
             </span>
-            <p className="tiny" style={{ margin: "6px 0 0" }}>
-              Цены и наличие на {priceDate}
-            </p>
           </div>
           <div>
             <span className="stock-label">

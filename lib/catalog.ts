@@ -39,7 +39,7 @@ export interface Sku {
   imageWidth?: number | null;
   imageHeight?: number | null;
   imagePeerCode?: string | null;
-  imagePeerSameGroups?: boolean | null;
+  imagePeerGroups?: number | null;
   description: string;
   descriptionBlocks?: DescriptionBlock[];
   docs: { name: string; ref: string; type: string }[];
@@ -136,7 +136,7 @@ type ApiProduct = {
   modelSlug: string | null; vendorCode: string | null; category: string; categoryGroup: string;
   price: number | null; inStock: number; image: string | null;
   imageLocal?: string | null; imageWidth?: number; imageHeight?: number;
-  imagePeerCode?: string; imagePeerSameGroups?: boolean;
+  imagePeerCode?: string; imagePeerGroups?: number;
   sizeNet: Sku["sizeNet"]; weightNet: number | null; warranty: string | null;
   secondaryProps: { name: string; value: string }[];
   description?: string;
@@ -163,7 +163,7 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
     family: model?.family ?? base?.family ?? familyOfModel(slug), model: slug,
     modelName: model?.name ?? base?.modelName ?? slug, version: model?.version ?? base?.version ?? null,
     edition: base?.edition ?? null, title: base?.title ?? item.name,
-    groups: base?.groups ?? groupCount(item.name), groupHeight: base?.groupHeight ?? null,
+    groups: groupCount(item.name) ?? base?.groups ?? null, groupHeight: base?.groupHeight ?? null,
     color: base?.color ?? color.name, colorHex: base?.colorHex ?? color.hex,
     options: base?.options ?? [], rrp: item.price ?? 0, rrpIsRecommended: item.price !== null,
     availability: statusFromStock(item.inStock), free: item.inStock, markdown: false,
@@ -174,7 +174,7 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
     image: item.image ?? base?.image ?? null,
     imageLocal: item.imageLocal ?? null, imageWidth: item.imageWidth ?? null,
     imageHeight: item.imageHeight ?? null, imagePeerCode: item.imagePeerCode ?? null,
-    imagePeerSameGroups: item.imagePeerSameGroups ?? null,
+    imagePeerGroups: item.imagePeerGroups ?? null,
     description: item.description || base?.description || "",
     descriptionBlocks: item.descriptionBlocks,
     docs: base?.docs ?? [], spareParts: base?.spareParts ?? [],
@@ -259,21 +259,18 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
 };
 export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
 /** Use the largest measured full-card image; never stretch an export thumbnail as hero. */
-export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerSameGroups">) => {
+export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerGroups">) => {
   if (sku.imageLocal) return {
     image: sku.imageLocal, exact: !sku.imagePeerCode,
     width: sku.imageWidth ?? 900, height: sku.imageHeight ?? 900,
-    caption: sku.imagePeerCode
-      ? sku.imagePeerSameGroups ? "Фото другого исполнения модели; цвет и отделка могут отличаться" : "Фото другого исполнения модели; цвет, отделка и число групп могут отличаться"
-      : null,
-    source: sku.imagePeerCode ? "same-model" as const : "bio-full-card" as const,
+    caption: sku.imagePeerCode ? `Фото ${sku.imagePeerGroups}-группового исполнения` : null,
+    source: sku.imagePeerCode ? "same-color-peer" as const : "bio-full-card" as const,
   };
   // Официальное фото D8 показывает именно базовую чёрную машину с двумя группами.
   if (sku.model === "d8" && sku.code === "194570") {
     return { image: "/photo/model-d8.webp", exact: true, width: 1440, height: 864, caption: null, source: "official-sku" as const };
   }
-  const image = officialImageForModel(sku.model);
-  return { image, exact: false, width: 1536, height: 864, caption: "Фото линейки, исполнение может отличаться", source: image ? "official-lineup" as const : "unavailable" as const };
+  return { image: null, exact: false, width: 1536, height: 864, caption: "Фото этого исполнения скоро добавим", source: "unavailable" as const };
 };
 export const officialImageForFamily = (slug: string) => {
   const preferred: Record<string, string> = {

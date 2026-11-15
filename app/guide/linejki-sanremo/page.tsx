@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { RelatedReading } from "../../components/GuideBlocks";
-import { familyBySlug, familyPriceFrom, modelBySlug, modelsOfFamily, money, officialImageForModel, PRICE_DATE, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { familyBySlug, familyPriceFrom, modelBySlug, modelsOfFamily, money, officialImageForModel, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -59,7 +59,6 @@ export default function LinejkiPage() {
             <td className="lineup-nowrap">от {money(line.price)}</td><td><span className="lineup-tags">{line.fit.map((tag) => <span key={tag}>{tag}</span>)}</span></td>
           </tr>)}</tbody></table>
       </div>
-      <p className="guide-note">Цены и наличие на {PRICE_DATE}.</p>
       <section className="guide-lineup-notes" aria-labelledby="lineup-details"><h2 id="lineup-details">Чем различаются линейки</h2>
         <div>{rows.map((line, index) => <section className="guide-lineup-note" key={line.key}><span className="guide-lineup-index">{String(index + 1).padStart(2, "0")}</span><div><h3>{line.name}</h3><p className="guide-lineup-kicker">{line.headline}</p><p>{line.description}</p><a href={"/products/" + line.family + "/"}>Смотреть версии {line.name} →</a></div></section>)}</div>
       </section>
