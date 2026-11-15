@@ -107,3 +107,8 @@ test('full card gallery beats its thumbnail and images are measured without widt
   assert.equal(result.selected.url, large);
   assert.equal(result.selected.width, 900);
 });
+
+test('extensionless BIO image path and imageId resolve to one original', () => {
+  const guid = '08850024-63d8-11f1-b7a1-a87cb3c289fa';
+  assert.deepEqual(imageUrls({ imageId: guid, img: `/api/img/${guid}` }), [`https://portal.holdingbio.ru/api/img/${guid}`]);
+});
