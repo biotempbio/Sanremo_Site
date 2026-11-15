@@ -266,9 +266,9 @@ export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "i
     caption: sku.imagePeerCode ? `Фото ${sku.imagePeerGroups}-группового исполнения` : null,
     source: sku.imagePeerCode ? "same-color-peer" as const : "bio-full-card" as const,
   };
-  // Официальное фото D8 показывает именно базовую чёрную машину с двумя группами.
+  // Проверенное фото производителя: базовая чёрная D8 с двумя группами.
   if (sku.model === "d8" && sku.code === "194570") {
-    return { image: "/photo/model-d8.webp", exact: true, width: 1440, height: 864, caption: null, source: "official-sku" as const };
+    return { image: "/photo/model-d8.webp", exact: false, width: 1440, height: 864, caption: "Фото производителя", source: "official-colour" as const };
   }
   return { image: null, exact: false, width: 1536, height: 864, caption: "Фото этого исполнения скоро добавим", source: "unavailable" as const };
 };
