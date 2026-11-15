@@ -177,6 +177,8 @@ async function attachEquipmentMedia(products, key, { fetcher = fetch } = {}) {
         const payload = await response.json();
         const card = payload.product ?? payload.data ?? payload.result ?? payload;
         record.fullCard = true;
+        record.mediaShape = Object.fromEntries(Object.entries(card).filter(([name]) => /img|image|photo|gallery|media|picture/i.test(name)).map(([name, value]) => [name, JSON.stringify(value).slice(0, 350)]));
+        record.exportImage = item.image;
         // Export img remains a candidate if the full card omits its primary image.
         const media = await bestLargeImage({ ...card, exportImage: item.image }, { fetcher, imageCache: cache });
         record.candidates = imageUrls({ ...card, exportImage: item.image }).length;
