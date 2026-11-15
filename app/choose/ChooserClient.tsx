@@ -230,6 +230,7 @@ export default function ChooserClient({ models }: { models: ChooserModel[] }) {
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <a className="btn btn-amber" href="/contacts/">Запросить предложение</a>
                 <a className="btn" href="/dealers/">Найти дилера</a>
+                <a className="btn" href={`/leasing/?model=${encodeURIComponent(selection.recommendations[0]?.m.name ?? "")}#leasing-request`}>Купить в лизинг</a>
               </div>
             </div>
           </>
@@ -302,6 +303,7 @@ function ResultCard({
             {m.stockUnits ? "На складе в Москве" : "Под заказ · 6–8 недель"}
           </span>
         </div>
+        <a className="btn" style={{ marginTop: 14, alignSelf: "flex-start" }} href={`/leasing/?model=${encodeURIComponent(m.name)}#leasing-request`}>Купить в лизинг</a>
       </div>
     </article>
   );

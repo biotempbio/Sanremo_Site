@@ -94,6 +94,7 @@ export default async function FamilyPage({ params }: Props) {
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 <a className="btn btn-solid" href="/choose/">Подобрать версию</a>
                 <a className="btn" href="/dealers/">Где купить</a>
+                <a className="btn" href={`/leasing/?model=${encodeURIComponent(f.name)}#leasing-request`}>Купить в лизинг</a>
               </div>
               <ul className="family-trust-details"><li>Гарантия 12 месяцев с даты продажи</li><li>Со склада в Москве или под заказ из Италии за 6–8 недель</li><li>Покупка в лизинг</li><li>Дилеры и сервис по всей России</li></ul>
             </div>

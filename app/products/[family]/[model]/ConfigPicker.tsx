@@ -198,6 +198,7 @@ export default function ConfigPicker({
 
         <div className="picker-actions">
           <a className="btn btn-amber" href="/dealers/" data-analytics-action="dealer-buy">Где купить</a>
+          <a className="btn" href={`/leasing/?model=${encodeURIComponent([modelName, current.groups ? `${current.groups} гр.` : null, current.color, current.edition].filter(Boolean).join(" · "))}&sku=${encodeURIComponent(current.vendorCode ?? current.code)}#leasing-request`}>Купить в лизинг</a>
           <a className="btn btn-solid" href={`/contacts/?model=${encodeURIComponent(modelName)}&sku=${encodeURIComponent(current.vendorCode ?? current.code)}`}>Запросить конфигурацию</a>
           <a className="btn" href="/compare/">Сравнить</a>
         </div>

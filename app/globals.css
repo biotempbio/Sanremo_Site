@@ -1121,3 +1121,15 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .product-description li{margin-bottom:7px}
 .product-more-specs{max-width:900px;border-top:1px solid var(--line);padding-top:16px}
 .product-more-specs summary{cursor:pointer;font-weight:600;margin-bottom:16px}
+
+/* Лизинг: одна заявка, без имитации договорного расчёта. */
+.leasing-intro .leasing-explain{gap:clamp(28px,5vw,86px)}
+.leasing-intro .leasing-explain p{max-width:68ch;margin-top:0;line-height:1.68}
+.leasing-steps{grid-template-columns:repeat(5,minmax(0,1fr))}
+.leasing-form-full{max-width:940px;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px;border-top:1px solid var(--line-strong);padding-top:28px}
+.leasing-form-full .field input,.leasing-form-full .field textarea{width:100%}
+.leasing-form-full .leasing-comment{grid-column:1/-1}
+.leasing-form-full .leasing-consent{margin:4px 0}
+.leasing-page #leasing-request{scroll-margin-top:138px}
+@media(max-width:900px){.leasing-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.leasing-form-full{grid-template-columns:1fr}.leasing-form-full .leasing-comment{grid-column:1}.leasing-steps{grid-template-columns:1fr}}
