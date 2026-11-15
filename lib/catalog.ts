@@ -264,7 +264,7 @@ export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "i
     image: sku.imageLocal, exact: !sku.imagePeerCode,
     width: sku.imageWidth ?? 900, height: sku.imageHeight ?? 900,
     caption: sku.imagePeerCode
-      ? sku.imagePeerSameGroups ? "Цвет может отличаться" : "Цвет и число групп могут отличаться"
+      ? sku.imagePeerSameGroups ? "Фото другого исполнения модели; цвет и отделка могут отличаться" : "Фото другого исполнения модели; цвет, отделка и число групп могут отличаться"
       : null,
     source: sku.imagePeerCode ? "same-model" as const : "bio-full-card" as const,
   };

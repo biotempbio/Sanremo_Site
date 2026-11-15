@@ -10,7 +10,8 @@ export function ResponsiveImage({ src, alt, width, height, className, style, siz
   const localRaster = src.startsWith("/") && /\.(?:jpe?g|png|webp)$/i.test(src);
   if (!localRaster) return <img src={src} alt={alt} width={width} height={height} className={className} style={style} loading={priority || eager ? "eager" : "lazy"} decoding="async" fetchPriority={priority ? "high" : "auto"} />;
   const available = [480, 960, 1440].filter((value) => value <= width);
-  const webp = available.map((value) => `${variant(src, value, "webp")} ${value}w`).join(", ");
+  const webp = [...available.map((value) => `${variant(src, value, "webp")} ${value}w`),
+    ...(src.toLowerCase().endsWith(".webp") && !available.includes(width) ? [`${src} ${width}w`] : [])].join(", ");
   const jpg = available.map((value) => `${variant(src, value, "jpg")} ${value}w`).join(", ");
   return <picture>{webp && <source type="image/webp" srcSet={webp} sizes={sizes} />}{jpg && <source type="image/jpeg" srcSet={jpg} sizes={sizes} />}<img src={src} alt={alt} width={width} height={height} className={className} style={style} loading={priority || eager ? "eager" : "lazy"} decoding="async" fetchPriority={priority ? "high" : "auto"} /></picture>;
 }

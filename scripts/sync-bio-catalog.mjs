@@ -177,8 +177,6 @@ async function attachEquipmentMedia(products, key, { fetcher = fetch } = {}) {
         const payload = await response.json();
         const card = payload.product ?? payload.data ?? payload.result ?? payload;
         record.fullCard = true;
-        record.mediaShape = Object.fromEntries(Object.entries(card).filter(([name]) => /img|image|photo|gallery|media|picture/i.test(name)).map(([name, value]) => [name, JSON.stringify(value).slice(0, 350)]));
-        record.exportImage = item.image;
         // Export img remains a candidate if the full card omits its primary image.
         const media = await bestLargeImage({ ...card, exportImage: item.image }, { fetcher, imageCache: cache });
         record.candidates = imageUrls({ ...card, exportImage: item.image }).length;
@@ -202,8 +200,8 @@ async function attachEquipmentMedia(products, key, { fetcher = fetch } = {}) {
     }
   }));
   const baseSkus = (await readJson('data/catalog.json')).skus;
-  const groupOf = (item) => baseSkus.find((sku) => sku.code === item.code)?.groups
-    ?? Number(item.name.match(/\b([1-3])\s*(?:гр\.?|gr\b)/i)?.[1] ?? 0);
+  const groupOf = (item) => Number(item.name.match(/\b([1-3])\s*(?:гр\.?|gr\b)/i)?.[1] ?? 0)
+    || baseSkus.find((sku) => sku.code === item.code)?.groups || 0;
   for (const item of equipment.filter((entry) => !entry.imageLocal)) {
     const peers = equipment.filter((peer) => peer.imageLocal && peer.modelSlug === item.modelSlug && peer.code !== item.code);
     peers.sort((a, b) => Number(groupOf(b) === groupOf(item)) - Number(groupOf(a) === groupOf(item))
