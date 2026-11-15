@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SkuImage from "../../../components/SkuImage";
 import { formatPrice } from "@/lib/format";
 import type { DescriptionBlock } from "@/lib/catalog";
@@ -27,6 +27,7 @@ export interface PickerSku {
   secondaryProps: { name: string; value: string }[];
   descriptionBlocks: DescriptionBlock[];
   image: string | null;
+  imageExact: boolean;
 }
 
 const LABEL: Record<PickerSku["availability"], string> = {
@@ -39,25 +40,47 @@ const LABEL: Record<PickerSku["availability"], string> = {
 export default function ConfigPicker({
   skus,
   modelName,
+  modelSlug,
   priceDate,
 }: {
   skus: PickerSku[];
   modelName: string;
+  modelSlug: string;
   priceDate: string;
 }) {
   const groupOptions = useMemo(
     () => [...new Set(skus.map((s) => s.groups).filter((g): g is number => !!g))].sort(),
     [skus]
   );
-  const [groups, setGroups] = useState<number | null>(groupOptions[0] ?? null);
+  const DEFAULT_GROUPS: Record<string, number> = {
+    "zoe-competition": 2, "zoe-compact": 2, "zoe-sed": 2, "zoe-sap": 2,
+    d8: 2, "d8-pro": 2, "f18-sb": 2, "f18-mb": 2,
+    "cafe-racer": 2, opera: 2, you: 1,
+  };
+  const preferredGroup = DEFAULT_GROUPS[modelSlug];
+  const defaultGroup = groupOptions.includes(preferredGroup) ? preferredGroup : groupOptions[0] ?? null;
+  const [groups, setGroups] = useState<number | null>(defaultGroup);
 
   const byGroups = useMemo(
     () => skus.filter((s) => (groups ? s.groups === groups : true)),
     [skus, groups]
   );
-  const [code, setCode] = useState<string>(
-    (byGroups.find((s) => s.availability === "in_stock") ?? byGroups[0])?.code ?? ""
-  );
+  const chooseSku = (pool: PickerSku[]) => pool.find((s) => /ч[её]рн|black/i.test(s.color ?? "") && s.free >= 3)
+    ?? pool.find((s) => s.free >= 3) ?? pool.find((s) => /ч[её]рн|black/i.test(s.color ?? "")) ?? pool[0];
+  const [code, setCode] = useState<string>(chooseSku(byGroups)?.code ?? "");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requestedCode = params.get("sku");
+    const requestedGroup = Number(params.get("groups"));
+    const requestedColor = params.get("color")?.toLocaleLowerCase("ru-RU");
+    const match = skus.find((s) => s.code === requestedCode || s.vendorCode === requestedCode)
+      ?? chooseSku(skus.filter((s) => (!requestedGroup || s.groups === requestedGroup)
+        && (!requestedColor || s.color?.toLocaleLowerCase("ru-RU") === requestedColor)));
+    if (match && (requestedCode || requestedGroup || requestedColor)) {
+      setGroups(match.groups);
+      setCode(match.code);
+    }
+  }, [skus]);
 
   const current = byGroups.find((s) => s.code === code) ?? byGroups[0];
 
@@ -77,7 +100,7 @@ export default function ConfigPicker({
   const pickGroups = (g: number) => {
     setGroups(g);
     const pool = skus.filter((s) => s.groups === g);
-    setCode((pool.find((s) => s.availability === "in_stock") ?? pool[0])?.code ?? "");
+    setCode(chooseSku(pool)?.code ?? "");
   };
 
   if (!current) return null;
@@ -98,10 +121,10 @@ export default function ConfigPicker({
       <div className="picker-visual">
         <SkuImage
           src={current.image}
-          alt={`Sanremo ${modelName}, ${current.groups ?? ""} гр., ${current.color ?? ""}`}
+          alt={current.imageExact ? `Sanremo ${modelName}, ${current.groups ?? ""} гр., ${current.color ?? ""}` : `Sanremo ${modelName} — фото линейки`}
           groups={current.groups}
           color={current.colorHex}
-          label={`${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}`}
+          label={current.imageExact ? `${modelName} · ${current.groups ?? "?"} гр. · ${current.color ?? "исполнение"}` : "Фото линейки, исполнение может отличаться"}
         />
       </div>
 
@@ -193,9 +216,15 @@ export default function ConfigPicker({
       <style>{`
         .picker { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,1fr); gap: clamp(20px,3vw,54px); align-items: start; }
         .picker-visual { background: var(--gray-bg); aspect-ratio: 4/3; }
-        .picker-panel { display: flex; flex-direction: column; gap: 22px; }
-        .picker-commerce { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: end;
+        .picker-panel { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+        .picker-panel > * { min-width: 0; }
+        .picker-panel .chips { min-width: 0; max-width: 100%; }
+        .picker-panel .chip { max-width: 100%; overflow-wrap: anywhere; }
+        .picker-commerce { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; align-items: end;
           padding: 20px 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+        .picker-commerce > div { min-width: 0; overflow-wrap: anywhere; }
+        .picker-specs .spec-row { min-width: 0; grid-template-columns: minmax(0,1fr) minmax(0,1.1fr); }
+        .picker-specs dd { min-width: 0; overflow-wrap: anywhere; }
         .picker-specs { margin: 0; display: grid; gap: 0; }
         .picker-actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .picker-details { grid-column: 1 / -1; display: grid; gap: 28px; padding-top: clamp(26px,4vw,48px); border-top: 1px solid var(--line); }
@@ -208,7 +237,8 @@ export default function ConfigPicker({
         .picker-all-specs { max-width: 900px; border-top: 1px solid var(--line); padding-top: 16px; }
         .picker-all-specs summary { cursor: pointer; font-weight: 600; }
         .picker-all-specs dl { margin: 16px 0 0; }
-        @media (max-width: 900px) { .picker { grid-template-columns: 1fr; } .picker-commerce { grid-template-columns: 1fr; align-items: start; } }
+        @media (max-width: 1100px) { .picker { grid-template-columns: 1fr; } }
+        @media (max-width: 620px) { .picker-commerce { grid-template-columns: 1fr; align-items: start; } .picker-specs .spec-row { grid-template-columns: 1fr; } }
       `}</style>
     </div>
   );

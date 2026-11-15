@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
-import { grinders, imgUrl, money, PRICE_DATE } from "@/lib/catalog";
+import { grinders, money, PRICE_DATE } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
@@ -44,7 +44,7 @@ export default function GrindersPage() {
         <div className="wrap section">
           <div className="grid g2" style={{ alignItems: "start" }}>
             <div className="card-visual" style={{ minHeight: 320 }}>
-              {primary?.image ? <ResponsiveImage src={imgUrl(primary.image) ?? ""} alt="Кофемолка Sanremo X-One" width={900} height={900} sizes="(max-width: 900px) 100vw, 50vw" style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "contain" }} /> : null}
+              <ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One" width={1536} height={864} sizes="(max-width: 900px) 100vw, 50vw" style={{ width: "100%", height: "100%", minHeight: 320, objectFit: "contain" }} />
             </div>
             <div>
               <p className="eyebrow">Кофемолка Sanremo X-One</p>

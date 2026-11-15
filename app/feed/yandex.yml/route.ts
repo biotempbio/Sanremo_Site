@@ -1,4 +1,4 @@
-import { families, grinders, imgUrl, models, skus } from "@/lib/catalog";
+import { families, grinders, models, skus, officialImageForModel } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -15,13 +15,13 @@ export function GET() {
   const modelBySlug = new Map(models.map((model) => [model.slug, model]));
   const machineOffers = skus.filter((sku) => !sku.markdown && sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family === "f18" ? sku.model : sku.family)).map((sku) => {
     const model = modelBySlug.get(sku.model);
-    const image = imgUrl(sku.image);
+    const image = officialImageForModel(sku.model);
     const name = `Кофемашина Sanremo ${model?.name ?? sku.model}${sku.groups ? `, ${sku.groups} гр.` : ""} — ${sku.title}`;
     return `      <offer id="${xml(sku.code)}" available="${sku.free > 0}">
         <url>${xml(absoluteUrl(`/products/${sku.family}/${sku.model}/#sku-${encodeURIComponent(sku.code)}`))}</url>
         <price>${sku.rrp}</price><currencyId>RUB</currencyId>
         <categoryId>${categoryBySlug.get(sku.family === "f18" ? sku.model : sku.family)}</categoryId>
-        ${image ? `<picture>${xml(image)}</picture>` : ""}
+        ${image ? `<picture>${xml(absoluteUrl(image))}</picture>` : ""}
         <vendor>Sanremo</vendor><model>${xml(model?.name ?? sku.model)}</model>
         <name>${xml(name)}</name>
         <vendorCode>${xml(sku.vendorCode ?? sku.code)}</vendorCode>
@@ -29,11 +29,11 @@ export function GET() {
       </offer>`;
   });
   const grinderOffers = grinders.filter((grinder) => !grinder.markdown && grinder.rrp > 0).map((grinder) => {
-    const image = imgUrl(grinder.image);
+    const image = "/photo/official/x-one.webp";
     return `      <offer id="${xml(grinder.code)}" available="${"inStock" in grinder && typeof grinder.inStock === "number" ? grinder.inStock > 0 : grinder.availability === "in_stock"}">
         <url>${xml(absoluteUrl("/products/x-one/"))}</url>
         <price>${grinder.rrp}</price><currencyId>RUB</currencyId><categoryId>100</categoryId>
-        ${image ? `<picture>${xml(image)}</picture>` : ""}
+        <picture>${xml(absoluteUrl(image))}</picture>
         <vendor>Sanremo</vendor><model>X-One</model><name>${xml(grinder.name)}</name>
         <vendorCode>${xml(grinder.code)}</vendorCode>
         <description>${xml(grinder.description || "Профессиональная кофемолка Sanremo X-One.")}</description>

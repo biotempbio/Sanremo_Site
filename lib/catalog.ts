@@ -139,7 +139,6 @@ const api = apiSnapshot as { dataAsOf: string | null; received: number; products
 const apiReady = Boolean(api.dataAsOf && api.products.length);
 const statusFromStock = (stock: number): Availability => stock >= 3 ? "in_stock" : stock > 0 ? "limited" : "on_order";
 const apiProducts = apiReady ? api.products : [];
-const apiByCode = new Map(apiProducts.map((item) => [item.code, item]));
 const familyOfModel = (slug: string) => catalog.models.find((item) => item.slug === slug)?.family ?? "";
 const groupCount = (name: string) => Number(name.match(/\b([1-3])\s*(?:гр\.?|gr\b)/i)?.[1] ?? 0) || null;
 const colorOf = (name: string) => {
@@ -179,11 +178,6 @@ export const PRICE_DATE = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", mon
 const priceValidUntil = new Date(`${PRICE_DATE_ISO}T00:00:00Z`);
 priceValidUntil.setUTCDate(priceValidUntil.getUTCDate() + 30);
 export const PRICE_VALID_UNTIL = priceValidUntil.toISOString().slice(0, 10);
-/** Медиабиблиотека BIO: в выгрузке лежат относительные пути вида /api/img/{uuid}.jpg. */
-export const IMG_BASE =
-  process.env.NEXT_PUBLIC_SANREMO_IMG_BASE ?? "https://portal.holdingbio.ru";
-export const imgUrl = (path: string | null | undefined) =>
-  path ? (path.startsWith("http") ? path : IMG_BASE + path) : null;
 export const DATA_OWNER = "Компания BIO — официальный дистрибьютор Sanremo в России";
 
 export const families = [...catalog.families].sort((a, b) => a.order - b.order);
@@ -249,14 +243,19 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
   "cafe-racer": "/photo/official/cafe-racer.jpg",
   opera: "/photo/official/opera.jpg",
   you: "/photo/official/you.png",
-  d8: "/photo/official/d8-pro.jpg",
+  d8: "/photo/model-d8.webp",
   "d8-pro": "/photo/official/d8-pro.jpg",
 };
 export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
+/** Large product photos never use the 340px portal previews. Exact SKU media can be added here after verification. */
+export const skuHeroMedia = (sku: Pick<Sku, "code" | "model">) => {
+  const image = officialImageForModel(sku.model);
+  return { image, exact: false, source: image ? "official-lineup" as const : "unavailable" as const };
+};
 export const officialImageForFamily = (slug: string) => {
   const preferred: Record<string, string> = {
     zoe: "zoe-competition", f18: "f18-mb", "cafe-racer": "cafe-racer",
-    opera: "opera", you: "you", d8: "d8-pro",
+    opera: "opera", you: "you", d8: "d8",
   };
   return officialImageForModel(preferred[slug] ?? "");
 };
