@@ -26,7 +26,9 @@ export default async function DealerCityPage({ params }: { params: Promise<{ cit
   const local = dealers.filter((item) => item.city === config.city && item.verified && item.address && item.site);
   if (!local.length) notFound();
   const cases = sanremoCases.filter((item) => item.city.value === config.city).slice(0, 3);
-  const featuredCase = cases[0];
+  const featuredCase = config.slug === "moskva"
+    ? sanremoCases.find((item) => item.slug === "st-riders")
+    : cases[0];
   const questions: Question[] = [
     { question: `Где купить Sanremo в ${config.name}?`, answer: `Обратитесь к одному из дилеров, перечисленных на этой странице. Адреса и сайты взяты из действующего справочника дилерской сети.` },
     { question: "Можно увидеть цены до обращения к дилеру?", answer: "Да. На страницах моделей указаны цены и наличие для доступных исполнений." },
