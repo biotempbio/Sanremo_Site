@@ -20,7 +20,11 @@ export function LeadForm({ form, children, className, style, submitLabel }: { fo
       if (!response.ok) throw new Error("request failed");
       const result = await response.json();
       setTicket(result.requestId ?? "принято"); setState("sent");
-      const id = process.env.NEXT_PUBLIC_METRIKA_ID; if (id && location.hostname === "sanremomachines.ru" && window.ym) window.ym(Number(id), "reachGoal", "lead_sent");
+      const id = process.env.NEXT_PUBLIC_METRIKA_ID;
+      if (id && location.hostname === "sanremomachines.ru" && window.ym) {
+        window.ym(Number(id), "reachGoal", "lead_sent");
+        if (location.pathname === "/leasing/" || data.task === "Лизинг кофемашины Sanremo") window.ym(Number(id), "reachGoal", "leasing_sent");
+      }
     } catch { setState("error"); }
   }
   if (state === "sent") return <div className="form-result" role="status"><p className="eyebrow">Обращение № {ticket}</p><h3>Заявка отправлена</h3><p>Ответим в рабочее время. Если вопрос срочный, позвоните: <a href="tel:+74953633801">8 (495) 363-38-01</a>.</p></div>;
