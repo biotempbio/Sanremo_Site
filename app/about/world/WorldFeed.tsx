@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { WorldPost } from "@/lib/world-posts";
 import { worldCover, worldDate, worldPostHref } from "@/lib/world-posts";
+import { CardAction } from "@/app/components/ActionArrow";
 
 export default function WorldFeed({ posts }: { posts: WorldPost[] }) {
   const [country, setCountry] = useState("");
@@ -31,10 +32,10 @@ export default function WorldFeed({ posts }: { posts: WorldPost[] }) {
   };
   return <>
     <div className="world-filters" role="group" aria-label="Фильтры публикаций"><button type="button" aria-pressed={!country} onClick={() => choose("")}>Все страны</button>{countries.map((name) => <button type="button" key={name} aria-pressed={country === name} onClick={() => choose(name)}>{name}</button>)}{cities.length > 0 ? <label>Город<select value={city} onChange={(event) => chooseCity(event.target.value)}><option value="">Все города</option>{cities.map((name) => <option key={name} value={name}>{name}</option>)}</select></label> : null}</div>
-    <div className="world-grid">{filtered.map((post) => <article className="world-card" key={post.id}>
-      <a href={worldPostHref(post)} className="world-card-image" aria-label={post.title}>{worldCover(post) ? <img src={worldCover(post)!} alt="" loading="lazy" /> : <span>Sanremo</span>}{post.video ? <span className="world-video-mark">Видео</span> : null}</a>
-      <div className="world-card-copy"><p>{worldDate(post.date)}{post.country ? ` · ${post.city ? `${post.city}, ` : ""}${post.country}` : ""}</p><h2><a href={worldPostHref(post)}>{post.title}</a></h2><a className="world-card-more" href={worldPostHref(post)}>Читать публикацию</a></div>
-    </article>)}</div>
+    <div className="world-grid">{filtered.map((post) => <a className="world-card" href={worldPostHref(post)} key={post.id}>
+      <span className="world-card-image">{worldCover(post) ? <img src={worldCover(post)!} alt="" loading="lazy" /> : <span>Sanremo</span>}{post.video ? <span className="world-video-mark">Видео</span> : null}</span>
+      <span className="world-card-copy"><span className="world-card-date">{worldDate(post.date)}{post.country ? ` · ${post.city ? `${post.city}, ` : ""}${post.country}` : ""}</span><strong className="world-card-title">{post.title}</strong><CardAction>Читать</CardAction></span>
+    </a>)}</div>
     {!filtered.length ? <p className="world-empty">Для этой страны публикаций пока нет. <button type="button" onClick={() => choose("")}>Показать все</button></p> : null}
   </>;
 }

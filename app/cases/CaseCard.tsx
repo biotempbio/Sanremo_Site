@@ -1,4 +1,5 @@
 import { caseHref, type SanremoCase } from "@/lib/cases";
+import { CardAction } from "@/app/components/ActionArrow";
 
 export function CaseCard({ entry, compact = false, onOpenGallery }: { entry: SanremoCase; compact?: boolean; onOpenGallery?: (entry: SanremoCase) => void }) {
   const href = caseHref(entry);
@@ -16,8 +17,8 @@ export function CaseCard({ entry, compact = false, onOpenGallery }: { entry: San
       {(entry.model || entry.page || compact || onOpenGallery) && <div className="case-card-foot">
         {entry.model && <a href={`/products/${entry.model.family}/`}>Sanremo {entry.model.value}{entry.groups ? ` · ${entry.groups.value} гр.` : ""}</a>}
         {onOpenGallery && <button type="button" className="case-card-gallery-link" onClick={() => onOpenGallery(entry)}>Смотреть фото · {entry.photos.length}</button>}
-        {!compact && telegramPost && <a href={`https://t.me/sanremofamily/${telegramPost}`} target="_blank" rel="noopener noreferrer">Пост в Telegram ↗</a>}
-        {(entry.page || compact) && <a className="link-arrow" href={href}>{entry.page ? "Смотреть историю" : "Все проекты"}</a>}
+        {!compact && telegramPost && <a href={`https://t.me/sanremofamily/${telegramPost}`} target="_blank" rel="noopener noreferrer"><CardAction>Пост в Telegram</CardAction></a>}
+        {(entry.page || compact) && <a className="link-arrow" href={href}><CardAction>{entry.page ? "Смотреть историю" : "Все проекты"}</CardAction></a>}
       </div>}
     </div>
   </article>;

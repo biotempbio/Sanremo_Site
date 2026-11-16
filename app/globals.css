@@ -213,7 +213,8 @@ p { margin: 0 0 1em; }
 .bg-sage { background: var(--wash-sage); }
 .bg-cream { background: var(--wash-cream); }
 .bg-petrol { background: var(--wash-petrol); }
-.bg-forest { background: var(--wash-forest); }
+.bg-forest { background: var(--forest); color: #fff; }
+.bg-forest .tiny { color: #fff; }
 .rule { border-top: 1px solid var(--line); }
 
 .sec-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 80px); align-items: end; margin-bottom: clamp(28px, 3vw, 52px); }
@@ -309,6 +310,15 @@ p { margin: 0 0 1em; }
 .home-product-card .card-body > .small { margin-bottom: 0; }
 .home-product-card .home-product-image { aspect-ratio: 16 / 9; background: var(--gray-bg); }
 .home-product-card .home-product-image img { object-fit: cover; }
+.home-product-card { color: var(--ink); text-decoration: none; transition: background-color 150ms ease, border-color 150ms ease; }
+.home-product-card:hover,.home-product-card:focus-visible { border-top-color: var(--forest); background: #f1f3ef; }
+.home-product-card .home-product-title { display: block; margin: 0; font: 500 30px/1.2 var(--sans); }
+.home-product-card .home-product-status { display: block; }
+.home-product-card .card-action { margin-top: 12px; }
+.home-task { transition: background-color 150ms ease, border-color 150ms ease; }
+.home-task:hover,.home-task:focus-visible { border-top-color: var(--forest); background: #f1f3ef; }
+.home-task .card-action { margin-top: auto; padding-top: 22px; color: var(--forest); font: 500 13px/1.2 var(--sans); letter-spacing: .06em; }
+.home-service .btn:hover,.home-service .btn:focus-visible { background: #fff; color: var(--forest); border-color: #fff; }
 @media (max-width: 620px) { .catalog-card .card-body h3, .catalog-card-description { min-height: 0; } }
 
 /* заглушка визуала машины (пока нет прав на фото конкретного SKU) */
@@ -344,9 +354,13 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 .brand { display: block; flex: none; }
 .brand img { width: clamp(132px,11vw,176px); height: auto; }
 .mainnav { display: flex; align-items: center; justify-content: flex-end; gap: clamp(9px,1.45vw,25px); flex: 1; min-width: 0; }
-.mainnav a { font: 500 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: 28px 0 26px; border-bottom: 2px solid transparent; white-space: nowrap; }
+.mainnav a { font: 500 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: 28px 0 28px; white-space: nowrap; }
 .mainnav a:focus-visible,.header-cta:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
-.mainnav a:hover, .mainnav a[data-active="true"] { border-color: var(--ink); }
+.mainnav .nav-label{display:inline-block;position:relative}
+.mainnav .nav-label::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:#111;border-radius:0;opacity:.4;transform:scaleX(0);transform-origin:left;transition:transform 200ms ease-out}
+.mainnav a[data-nav-section]:hover .nav-label::after,.mainnav a[data-nav-section]:focus-visible .nav-label::after{transform:scaleX(1)}
+.mainnav a[data-nav-section][aria-current="page"] .nav-label::after{transform:scaleX(1);opacity:1}
+@media(prefers-reduced-motion:reduce){.mainnav .nav-label::after{transition:none}}
 .mainnav .nav-search { display: inline-flex; align-items: center; justify-content: center; padding: 27px 0 25px; }
 .nav-search span { position: absolute; width: 1px; height: 1px; clip-path: inset(50%); overflow: hidden; }
 .header-cta { flex: none; background: var(--ink); color: #fff; padding: 14px clamp(12px,1.2vw,22px); font: 500 14px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
@@ -356,7 +370,7 @@ table.data td.num, table.data th.num { text-align: right; font-variant-numeric: 
 @media (max-width: 1100px) {
   .mainnav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--line); box-shadow:0 20px 30px rgba(0,0,0,.1); flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--pad) 20px; max-height:calc(100dvh - 76px); overflow-y:auto; }
   .mainnav.open { display: flex; }
-  .mainnav a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .mainnav a { padding: 14px 0; font-size: 15px; }
   .mainnav .nav-search { justify-content: flex-start; gap: 8px; padding:14px 0; }
   .nav-search span { position: static; width: auto; height: auto; clip-path: none; }
   .mobile-nav-tail { display:grid; gap:0; margin-top:12px; border-top:1px solid var(--line); }
@@ -1399,3 +1413,40 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .unified-product-feature-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 28px;max-width:none;padding-left:24px}
 @media(max-width:760px){.archive-hero{grid-template-columns:1fr}.archive-hero-panel{max-width:none}.prose h2,.news-article-copy h2{margin-top:44px}}
 @media(max-width:760px){.unified-product-feature-list{grid-template-columns:1fr}}
+
+/* Единый знак действия для карточек и разделов. */
+.card-action{display:inline-flex;align-items:center;gap:10px;color:var(--forest);font:500 13px/1.2 var(--sans);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.card-action .action-arrow-icon,.action-arrow-icon{display:inline-block;flex:none;vertical-align:middle;transition:transform 150ms ease}
+a:hover .action-arrow-icon,a:focus-visible .action-arrow-icon{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){.action-arrow-icon{transition:none}}
+
+.guide-choose-panel>span:first-child,.about-world-link>span:first-child{display:grid;gap:8px}
+.guide-choose-panel>.guide-choose-button{display:inline-flex;justify-content:center;align-self:center;flex:none;min-height:48px;padding:15px 18px;background:#fff;color:var(--forest);font:500 14px/1 var(--sans);letter-spacing:.06em}
+.guide-choose-panel:hover>.guide-choose-button{background:#f0f2ed}
+.about-world-link>.about-world-action{display:inline-flex;align-self:center;color:#fff;border-bottom:1px solid rgba(255,255,255,.55);padding-bottom:5px}
+.guide-choose-panel:focus-visible,.about-world-link:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+.guide-comparison-grid a,.guide-index-card,.world-card{transition:background-color 150ms ease,border-color 150ms ease}
+.guide-comparison-grid a{color:var(--ink)}
+.guide-comparison-grid a>span:not(.card-action){font:400 15px/1.5 var(--text);color:var(--ink-2)}
+.guide-comparison-grid a>.card-action{margin-top:auto;color:var(--forest)}
+.guide-comparison-grid a:hover,.guide-comparison-grid a:focus-visible{border-top-color:var(--forest);background:#e9ede7}
+.guide-comparison-grid a:focus-visible,.guide-index-card:focus-visible,.world-card:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+
+.guide-index-card{color:var(--ink);text-decoration:none;padding:14px 14px 18px}
+.guide-index-card:hover,.guide-index-card:focus-visible{border-top-color:var(--forest);background:#f1f3ef}
+.guide-index-card:hover .guide-index-visual img{transform:none}
+.guide-index-card>.card-action{margin-top:auto}
+
+.world-card{color:var(--ink);text-decoration:none}
+.world-card:hover,.world-card:focus-visible{background:#f1f3ef}
+.world-card:hover .world-card-copy,.world-card:focus-visible .world-card-copy{border-top-color:var(--forest)}
+.world-card-date{display:block;margin:0 0 10px;color:var(--muted);font:400 12px/1.5 var(--text)}
+.world-card-title{display:block;margin:0 0 18px;font:500 clamp(22px,2vw,28px)/1.2 var(--sans)}
+.world-card-copy>.card-action{margin-top:auto}
+.case-card{transition:background-color 150ms ease,border-color 150ms ease}
+.case-card:hover{border-top-color:var(--forest);background:#f5f6f3}
+.case-card-foot .card-action{font-size:12px}
+.competitor-table .action-arrow-icon,.competitor-mobile .action-arrow-icon,.competitor-reading .action-arrow-icon{width:16px;height:13px}
+
+@media(max-width:800px){.guide-choose-panel,.about-world-link{flex-direction:column;align-items:stretch}.guide-choose-panel>.guide-choose-button{width:100%;align-self:stretch}.about-world-link>.about-world-action{align-self:flex-start}}

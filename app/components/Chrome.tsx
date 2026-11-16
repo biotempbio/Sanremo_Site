@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 const NAV = [
@@ -13,8 +14,16 @@ const NAV = [
   { href: "/about/", label: "О Sanremo" },
 ];
 
+function activeSection(path: string) {
+  const normalized = path === "/compare" || path.startsWith("/compare/") || path === "/choose" || path.startsWith("/choose/") ? "/guide/" : path;
+  return [...NAV].sort((a, b) => b.href.length - a.href.length)
+    .find(({ href }) => normalized === href.slice(0, -1) || normalized.startsWith(href))?.href;
+}
+
 export function Header({ active }: { active?: string }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const activeHref = activeSection(pathname ?? "") ?? activeSection(active ?? "");
   return (
     <>
       <div className="topbar">
@@ -38,8 +47,8 @@ export function Header({ active }: { active?: string }) {
           </button>
           <nav id="site-main-nav" className={open ? "mainnav open" : "mainnav"} aria-label="Основное меню">
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} aria-current={active === n.href || active === n.href.slice(0, -1) || (n.href === "/guide/" && (active === "/compare" || active === "/compare/")) ? "page" : undefined} data-active={active === n.href || active === n.href.slice(0, -1) || (n.href === "/guide/" && (active === "/compare" || active === "/compare/"))}>
-                {n.label}
+              <a key={n.href} href={n.href} aria-current={activeHref === n.href ? "page" : undefined} data-active={activeHref === n.href} data-nav-section="true">
+                <span className="nav-label">{n.label}</span>
               </a>
             ))}
             <a className="nav-search" href="/search/" aria-label="Поиск по сайту"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><span>Поиск</span></a>

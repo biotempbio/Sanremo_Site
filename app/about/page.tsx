@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { ResponsiveImage } from "../components/ResponsiveImage";
 import { Crumbs } from "../components/Bits";
+import { CardAction } from "../components/ActionArrow";
 import { models, liveSkus, parts, families } from "@/lib/catalog";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
@@ -109,7 +110,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="wrap section-tight"><a className="about-world-link" href="/about/world/"><span><small>География бренда</small><strong>Sanremo в мире</strong><em>Проекты, события и шоурумы из разных стран</em></span><b aria-hidden="true">↗</b></a></section>
+        <section className="wrap section-tight"><a className="about-world-link" href="/about/world/"><span><small>География бренда</small><strong>Sanremo в мире</strong><em>Проекты, события и шоурумы из разных стран</em></span><CardAction className="about-world-action">Открыть</CardAction></a></section>
 
         <section className="section bg-petrol">
           <div className="wrap" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(0,1fr)", gap: "clamp(24px,4vw,64px)", alignItems: "center" }}>

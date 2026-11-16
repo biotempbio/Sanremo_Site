@@ -6,6 +6,7 @@ import { pluralize, stockSummary } from "@/lib/format";
 import { sanremoCases } from "@/lib/cases";
 import { CaseCard } from "./cases/CaseCard";
 import { WorldTeasers } from "./components/WorldTeasers";
+import { CardAction } from "./components/ActionArrow";
 import { xOneVariants, xOneStockLabel } from "@/lib/x-one";
 
 export const metadata: Metadata = {
@@ -72,16 +73,16 @@ export default function HomePage() {
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>
-        <div className="home-tasks">{tasks.map((task, index) => <a className="home-task" href={task.href} key={task.href}><span>0{index + 1}</span><h3>{task.title}</h3><p>{task.text}</p><b>Перейти →</b></a>)}</div>
+        <div className="home-tasks">{tasks.map((task, index) => <a className="home-task" href={task.href} key={task.href}><span>0{index + 1}</span><h3>{task.title}</h3><p>{task.text}</p><CardAction>Открыть</CardAction></a>)}</div>
         <nav className="home-solution-links" aria-label="Кофемашины по формату"><span>По формату:</span><a href="/solutions/kofejnya/">Для кофейни</a><a href="/solutions/restoran/">Для ресторана</a><a href="/solutions/otel/">Для отеля</a><a href="/solutions/kofe-s-soboj/">Кофе с собой</a><a href="/leasing/">В лизинг</a></nav>
       </section>
 
       <section className="bg-gray"><div className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Линейки Sanremo</p><h2>Машины под разные сценарии работы</h2></div><p className="lead">Каждая карточка ведёт к точным характеристикам, исполнениям и актуальным данным по модели.</p></div>
-        <div className="home-products">{lineup.map(({ label, image, model, family }) => <article className="card home-product-card" key={model.slug}>
-          <a className="home-product-image" href={modelPath(model)} aria-label={`Открыть ${label}`}><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" eager /></a>
-          <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(model.priceFrom)}</span></p><p className="home-product-status">{stockSummary(stockUnitsOfModel(model.slug))}</p><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
-        </article>)}</div>
+        <div className="home-products">{lineup.map(({ label, image, model, family }) => <a className="card home-product-card" href={modelPath(model)} key={model.slug}>
+          <span className="home-product-image"><ResponsiveImage src={image} alt={`Sanremo ${label}`} width={960} height={640} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw" eager /></span>
+          <span className="card-body"><span className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</span><h3 className="home-product-title">{label}</h3><span className="small">{lineupDescriptions[model.slug]}</span><span className="card-foot"><span className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(model.priceFrom)}</span></span><span className="home-product-status">{stockSummary(stockUnitsOfModel(model.slug))}</span><CardAction>Открыть модель</CardAction></span></span>
+        </a>)}</div>
       </div></section>
 
       <section className="wrap section home-xone">
