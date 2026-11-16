@@ -12,11 +12,14 @@ export const metadata: Metadata = {
 };
 
 const articles = [
-  { name: "Как выбрать для кофейни", path: "/guide/kofemashina-dlya-kofejni/", summary: "Поток, группы, бойлеры, молочное меню и бюджет — от задачи до подходящей версии.", image: officialImageForModel("zoe-competition"), alt: "Кофемашина Sanremo Zoe Competition", time: "≈ 8 мин", number: "01" },
-  { name: "Как выбрать для ресторана", path: "/guide/kofemashina-dlya-restorana/", summary: "Как учесть пики заказов, работу нескольких сотрудников и подготовку бара.", image: officialImageForModel("f18-sb"), alt: "Кофемашина Sanremo F18 Single Boiler", time: "≈ 4 мин", number: "02" },
-  { name: "Линейки Sanremo", path: "/guide/linejki-sanremo/", summary: "Семь линеек в одной таблице: бойлеры, группы, управление, поток и цены.", image: officialImageForModel("cafe-racer"), alt: "Кофемашина Sanremo Café Racer", time: "≈ 4 мин", number: "03" },
-  { name: "Двухгруппная кофемашина", path: "/guide/dvuhgruppnaya-kofemashina/", summary: "Когда нужны две группы и чем отличаются двухгруппные версии Sanremo.", image: officialImageForModel("d8"), alt: "Двухгруппная кофемашина Sanremo D8", time: "≈ 5 мин", number: "04" },
-  { name: "Мультибойлерная кофемашина", path: "/guide/multiboylernaya-kofemashina/", summary: "Раздельная температура групп, пар и выбор между гибридом и мультибойлером.", image: officialImageForModel("f18-mb"), alt: "Мультибойлерная кофемашина Sanremo F18 MB", time: "≈ 4 мин", number: "05" },
+  { name: "Кофемолка для кофейни", path: "/guide/kofemolka-dlya-kofejni/", summary: "Жернова, доза по весу и число сортов: как выбрать кофемолку под свою стойку.", image: "/photo/official/x-one.webp", alt: "Кофемолка Sanremo X-One", time: "≈ 6 мин", number: "01" },
+  { name: "Купить, лизинг или аренда", path: "/guide/kupit-lizing-ili-arenda-kofemashiny/", summary: "Сравнение способов покупки и текущие цены моделей Sanremo из каталога.", image: officialImageForModel("f18-sb"), alt: "Кофемашина Sanremo F18", time: "≈ 5 мин", number: "02" },
+  { name: "Оборудование для кофейни", path: "/guide/oborudovanie-dlya-kofejni/", summary: "Что поставить на стойку сразу, что добавить позже и как оценить бюджет.", image: officialImageForModel("d8"), alt: "Кофемашина Sanremo D8", time: "≈ 6 мин", number: "03" },
+  { name: "Как выбрать для кофейни", path: "/guide/kofemashina-dlya-kofejni/", summary: "Поток, группы, бойлеры, молочное меню и бюджет — от задачи до подходящей версии.", image: officialImageForModel("zoe-competition"), alt: "Кофемашина Sanremo Zoe Competition", time: "≈ 8 мин", number: "04" },
+  { name: "Как выбрать для ресторана", path: "/guide/kofemashina-dlya-restorana/", summary: "Как учесть пики заказов, работу нескольких сотрудников и подготовку бара.", image: officialImageForModel("f18-sb"), alt: "Кофемашина Sanremo F18 Single Boiler", time: "≈ 4 мин", number: "05" },
+  { name: "Линейки Sanremo", path: "/guide/linejki-sanremo/", summary: "Семь линеек в одной таблице: бойлеры, группы, управление, поток и цены.", image: officialImageForModel("cafe-racer"), alt: "Кофемашина Sanremo Café Racer", time: "≈ 4 мин", number: "06" },
+  { name: "Двухгруппная кофемашина", path: "/guide/dvuhgruppnaya-kofemashina/", summary: "Когда нужны две группы и чем отличаются двухгруппные версии Sanremo.", image: officialImageForModel("d8"), alt: "Двухгруппная кофемашина Sanremo D8", time: "≈ 5 мин", number: "07" },
+  { name: "Мультибойлерная кофемашина", path: "/guide/multiboylernaya-kofemashina/", summary: "Раздельная температура групп, пар и выбор между гибридом и мультибойлером.", image: officialImageForModel("f18-mb"), alt: "Мультибойлерная кофемашина Sanremo F18 MB", time: "≈ 4 мин", number: "08" },
 ];
 const comparisons = [
   { name: "Сравнить линейки Sanremo", path: "/compare/", summary: "Группы, бойлеры, управление, цена и наличие в одной таблице." },
