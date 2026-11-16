@@ -23,6 +23,6 @@ export function plainArticle(value: string | null | undefined) {
 }
 
 export function stockSummary(units: number) {
-  if (units >= 3) return `В наличии в Москве: ${units} ${pluralize(units, "машина", "машины", "машин")}`;
-  return units > 0 ? "Мало на складе, уточните наличие" : "Под заказ · 6–8 недель";
+  if (units >= 3) return `В наличии · на складе ${units} шт`;
+  return units > 0 ? "В наличии" : "Под заказ";
 }

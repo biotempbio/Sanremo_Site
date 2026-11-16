@@ -329,7 +329,7 @@ export default function DesignSystemPage() {
             <div className="grid g3">
               {[
                 { name: "D8 Pro", st: "in_stock", label: "В наличии", price: "1 249 000" },
-                { name: "F18 MB", st: "limited", label: "Мало на складе", price: "986 000" },
+                { name: "F18 MB", st: "limited", label: "В наличии", price: "986 000" },
                 { name: "Cube", st: "on_order", label: "Под заказ", price: "742 000" },
               ].map((m) => (
                 <article className="card" key={m.name}>
