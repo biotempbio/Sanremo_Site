@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const prices = entries.map((sku) => sku.rrp).filter((price) => price > 0);
   const groups = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
   return {
-    title: family === "d8" ? "Кофемашина Sanremo D8 и D8 PRO — цены и наличие" : family === "zoe" ? "Кофемашина Sanremo Zoe — Competition, Compact, SED, SAP: цены" : family === "cafe-racer" ? "Кофемашина Sanremo Café Racer (Cafe Racer) — цены и наличие" : `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
-    description: family === "zoe" ? `Sanremo Zoe Competition, Compact, SED и SAP: версии с высокими группами, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}, характеристики и наличие в Москве.` : `Кофемашина Sanremo ${f.name}${family === "d8" ? " и D8 PRO" : family === "cafe-racer" ? " (Cafe Racer)" : ""}: группы ${groups.join(", ")}, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие в Москве и дилеры.`,
+    title: `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
+    description: `Кофемашина Sanremo ${f.name}: группы ${groups.join(", ")}, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие на складе в Москве и официальные дилеры.`,
   };
 }
 
@@ -80,7 +80,7 @@ export default async function FamilyPage({ params }: Props) {
             </div>
             <div className="module-copy">
               <p className="eyebrow">Линейка · {f.architecture}</p>
-              <h1>Кофемашина Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
+              <h1>Кофемашина Sanremo {f.name}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
               <p className="lead">Sanremo (Сан Ремо) {f.name}: {f.territory}</p>
               <div className="chips" style={{ margin: "6px 0 20px" }}>

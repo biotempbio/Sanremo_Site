@@ -663,40 +663,6 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .guide-long .prose>h1{margin-bottom:0}
 .guide-long .prose>.lead{margin-top:24px;margin-bottom:0}
 .guide-long .prose>.table-scroll{margin:32px 0}
-.guide-primary-link{margin-top:24px!important;font-weight:600}
-.guide-model-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;max-width:1000px!important;margin:36px auto 0!important}
-.guide-model-card{min-width:0;display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid var(--line);text-decoration:none!important}
-.guide-model-card img{display:block;width:100%;height:130px;object-fit:contain;background:var(--gray-bg)}
-.guide-model-card span{font-family:var(--serif);font-size:20px;color:var(--ink)}
-.guide-model-card small{color:var(--ink-2);font-size:12px}
-.guide-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px!important}
-.guide-note{color:var(--muted);font-size:12px!important}
-.solution-cafe-note{max-width:920px;margin:36px 0;padding:24px;border-left:3px solid var(--ink);background:var(--gray-bg)}
-.competitor-intro{max-width:820px;margin:0 auto 52px}
-.competitor-intro h1{font-family:var(--serif);font-weight:500;font-size:clamp(36px,3.6vw,52px);line-height:1.13}
-.competitor-intro .lead{margin:22px 0 16px}
-.competitor-intro p:not(.eyebrow){max-width:72ch;line-height:1.6}
-.competitor-wide{max-width:1200px;margin:0 auto}
-.competitor-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line)}
-.competitor-table{min-width:800px;width:100%;margin:0}
-.competitor-table th,.competitor-table td{min-width:165px;padding:14px 16px;vertical-align:top;line-height:1.45}
-.competitor-table th:first-child{min-width:145px;background:var(--gray-bg);font-size:12px}
-.competitor-table thead th{background:var(--gray-bg)}
-.competitor-table thead a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
-.competitor-mobile{display:none}
-.competitor-reading{max-width:720px;margin:64px auto 0}
-.competitor-reading h2{font-size:30px;margin:48px 0 16px}
-.competitor-reading p,.competitor-reading li{font-size:16px;line-height:1.65;margin-bottom:16px}
-.competitor-reading ul{padding-left:22px;overflow-wrap:anywhere}
-.competitor-actions{max-width:720px;display:flex;flex-wrap:wrap;gap:12px;margin:40px auto}
-.competitor-back{max-width:720px;margin:0 auto;border-top:1px solid var(--line);padding-top:20px}
-.competitor-links{margin-top:80px;border-top:2px solid var(--ink);padding-top:32px}
-.competitor-links h2{font-size:clamp(28px,3vw,40px);margin-bottom:24px}
-.competitor-links a{display:flex;flex-direction:column;gap:12px;padding:22px;border:1px solid var(--line);text-decoration:none}
-.competitor-links strong{font-family:var(--serif);font-size:24px;font-weight:500}
-.competitor-links span{color:var(--ink-2);font-size:14px}
-@media(max-width:760px){.guide-model-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.competitor-page{min-width:0;overflow:hidden}.competitor-intro{margin-bottom:32px}.competitor-scroll{display:none}.competitor-mobile{display:grid;gap:28px}.competitor-mobile article{min-width:0;border-top:2px solid var(--ink);padding-top:16px}.competitor-mobile h2{font-family:var(--serif);font-size:25px;margin:0 0 18px}.competitor-mobile h2 a{text-decoration:none}.competitor-mobile dl{margin:0}.competitor-mobile dl>div{display:grid;grid-template-columns:38% minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--line)}.competitor-mobile dt{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.06em}.competitor-mobile dd{margin:0;font-size:14px;line-height:1.45;overflow-wrap:anywhere}}
-@media(max-width:420px){.guide-model-cards{gap:8px}.guide-model-card{padding:10px}.guide-model-card img{height:95px}.guide-model-card span{font-size:17px}.competitor-actions .btn{width:100%;text-align:center}}
 .guide-page .guide-related{max-width:960px;margin:80px auto 0;padding-top:28px}
 .guide-page .guide-related h2{font-size:27px;margin-bottom:22px}
 .guide-page .guide-related a{min-height:88px;display:flex;align-items:center;font-family:var(--text);font-size:15px;font-weight:500}
