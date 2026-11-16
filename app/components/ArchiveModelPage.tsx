@@ -4,6 +4,7 @@ import { BaristaAccessories } from "./BaristaAccessories";
 import { Crumbs } from "./Bits";
 import { ARCHIVE_MODELS, type ArchiveModelSlug } from "@/lib/archive-models";
 import { money } from "@/lib/catalog";
+import { plainArticle } from "@/lib/format";
 import { capriParts, capriAvailability } from "@/lib/capri-parts";
 import CapriPartsTable from "../products/capri/CapriPartsTable";
 
@@ -36,7 +37,7 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
 
       {slug === "capri" ? <section className="wrap section-tight">
         <div className="sec-head"><div><p className="eyebrow">Каталог запчастей</p><h2>Детали для Capri · {matchingParts.length}</h2></div><p className="lead">Совместимость конкретной машины проверяем по серийному номеру.</p></div>
-        <CapriPartsTable rows={matchingParts.map((part) => ({ code: part.code, name: part.name, article: part.article ?? part.code, price: part.rrp > 0 ? money(part.rrp) : "Цена по запросу", stock: part.stock, availability: capriAvailability(part.stock) }))} />
+        <CapriPartsTable rows={matchingParts.map((part) => ({ code: part.code, name: part.name, article: plainArticle(part.article) ?? part.code, price: part.rrp > 0 ? money(part.rrp) : "Цена по запросу", stock: part.stock, availability: capriAvailability(part.stock) }))} />
         <a className="btn btn-solid" href={partsHref} style={{ marginTop: 24 }}>Заявка на сервис / запчасти</a>
       </section> : null}
 

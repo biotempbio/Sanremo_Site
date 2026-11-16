@@ -4,6 +4,7 @@ import { Crumbs } from "../components/Bits";
 import PartsClient, { PartRow } from "./PartsClient";
 import { parts, partNodes, catalogModels, CATALOG_LINEUP, skuByCode } from "@/lib/catalog";
 import { capriParts } from "@/lib/capri-parts";
+import { plainArticle } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Запчасти Sanremo — каталог ЗИП с совместимостью и наличием",
@@ -21,7 +22,7 @@ export default function PartsPage() {
     const slugs = [...new Set(linked.map((s) => s!.model))];
     return {
       code: p.code,
-      article: p.article,
+      article: plainArticle(p.article),
       name: p.name,
       node: p.node,
       rrp: p.rrp,

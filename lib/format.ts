@@ -15,6 +15,13 @@ export function pluralize(count: number, one: string, few: string, many: string)
   return many;
 }
 
+/** Артикул — идентификатор, поэтому пробелы между его цифрами не являются разрядами цены. */
+export function plainArticle(value: string | null | undefined) {
+  if (value == null) return null;
+  const article = value.trim();
+  return /^[0-9\s\u00a0\u202f]+$/.test(article) ? article.replace(/\s/g, "") : article;
+}
+
 export function stockSummary(units: number) {
   if (units >= 3) return `В наличии в Москве: ${units} ${pluralize(units, "машина", "машины", "машин")}`;
   return units > 0 ? "Мало на складе, уточните наличие" : "Под заказ · 6–8 недель";
