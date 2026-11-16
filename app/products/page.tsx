@@ -4,11 +4,11 @@ import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
 import { pluralize } from "@/lib/format";
+import { xOneEntries, xOneVariants, xOneHasPrice, xOnePriceFrom, xOneStockLabel } from "@/lib/x-one";
 import { itemList, jsonLd } from "@/lib/seo";
 import {
   catalogModels,
   CATALOG_LINEUP,
-  grinders,
   skus,
   money,
   skusOfModel,
@@ -64,10 +64,20 @@ export default function ProductsPage() {
       volumeBands: VOLUME_BANDS.filter((b) => b.models.includes(m.slug)).map((b) => b.id),
     };
   });
+  const nero = xOneVariants.find((variant) => variant.color === "Nero")!;
+  rows.push({
+    slug: "x-one", href: "/products/x-one/", kind: "grinder", name: "X-One",
+    family: "grinders", familyName: "Кофемолки", familyTagline: "Два бункера и взвешивание зерна перед помолом.",
+    architecture: "Кофемолка", scenarios: [], version: null, groups: [], heights: [], options: [],
+    colors: [{name:"Nero",hex:"#151515"},{name:"White",hex:"#f2f0e9"}],
+    priceFrom: xOneHasPrice ? xOnePriceFrom : null, priceTo: xOneHasPrice ? xOnePriceFrom : null,
+    stockUnits: nero.stock ?? 0, stockExecutions: 0, skuCount: xOneEntries.length,
+    heroColor: "#151515", heroImage: "/photo/official/x-one.webp", volumeBands: [],
+    stockText: xOneStockLabel(nero), stockStatus: nero.availability,
+  });
 
   const listSchema = itemList("Профессиональные кофемашины и кофемолки Sanremo в России", [
-    ...rows.map((row) => ({ name: `Кофемашина Sanremo ${row.name}`, path: `/products/${row.family}/${row.slug}/` })),
-    ...(grinders.length ? [{ name: "Кофемолка Sanremo X-One", path: "/products/x-one/" }] : []),
+    ...rows.map((row) => ({ name: `${row.kind === "grinder" ? "Кофемолка" : "Кофемашина"} Sanremo ${row.name}`, path: row.href ?? `/products/${row.family}/${row.slug}/` })),
   ]);
 
   return (
@@ -100,7 +110,7 @@ export default function ProductsPage() {
         <section className="wrap section-tight" aria-labelledby="discontinued-models">
           <div className="callout">
             <h2 id="discontinued-models" style={{ fontSize: "clamp(24px,2.4vw,34px)", marginBottom: 12 }}>Модели, снятые с поставки</h2>
-            <p style={{ margin: 0 }}><a href="/products/napoli/">Napoli</a>, <a href="/products/cube/">Cube</a>, <a href="/products/verona/">Verona</a>, <a href="/products/verona-rs/">Verona RS</a>, <a href="/products/torino/">Torino</a>. На архивных страницах — сервис, поиск запчастей и подбор актуальной замены.</p>
+            <p style={{ margin: 0 }}><a href="/products/napoli/">Napoli</a>, <a href="/products/cube/">Cube</a>, <a href="/products/verona/">Verona</a>, <a href="/products/verona-rs/">Verona RS</a>, <a href="/products/torino/">Torino</a>, <a href="/products/capri/">Capri</a>. На архивных страницах — сервис, поиск запчастей и подбор актуальной замены.</p>
           </div>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(listSchema) }} />

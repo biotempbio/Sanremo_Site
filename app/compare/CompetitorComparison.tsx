@@ -1,4 +1,5 @@
 import { Header, Footer } from "../components/Chrome";
+import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import { architectureForModel, modelBySlug, money, skusOfModel } from "@/lib/catalog";
 
@@ -49,5 +50,5 @@ export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice
       <section className="competitor-reading"><h2>Как выбрать по задаче</h2><p>{choice}</p><p>Для проекта с несколькими сортами сравните управление температурой, для потока с молочным меню — бойлерную систему и работу пара. До заказа проверьте питание, место под оборудование и сервис в вашем городе.</p><h2>Источники характеристик и цен</h2><p>Характеристики конкурентов взяты из материалов производителей. Цены зафиксированы по открытым страницам российских магазинов 16.11.2026; они не являются нашей офертой.</p><ul>{rivals.map((rival) => <li key={rival.name}><a href={rival.specUrl} rel="noopener noreferrer" target="_blank">{rival.name}: характеристики производителя ↗</a>{rival.priceSources.map((source) => <span key={source.url}> · <a href={source.url} rel="noopener noreferrer" target="_blank">{source.name}: {source.price} ↗</a></span>)}</li>)}</ul><p>Характеристики Sanremo и цены доступны в карточках моделей в таблице. Для них используется текущий каталог сайта.</p></section>
       <div className="competitor-actions"><a className="btn btn-solid" href="/solutions/kofejnya/">Подобрать Sanremo</a><a className="btn" href="/leasing/">Купить в лизинг</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <nav className="competitor-back"><a href="/compare/">← Все сравнения</a></nav>
-    </main><Footer /></>;
+    </main><BaristaAccessories /><Footer /></>;
 }

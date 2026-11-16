@@ -3,7 +3,8 @@ import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
-import { grinders, money } from "@/lib/catalog";
+import { money } from "@/lib/catalog";
+import { xOneEntries, xOneVariants, xOnePriceFrom, xOneHasPrice, xOneStockLabel } from "@/lib/x-one";
 
 export const metadata: Metadata = {
   title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
@@ -22,10 +23,9 @@ const features = [
 ];
 
 export default function GrindersPage() {
-  const entries = grinders.filter((item) => /x one/i.test(item.name));
-  const knownPrices = entries.map((item) => item.rrp).filter((price) => price > 0);
-  const priceFrom = knownPrices.length ? Math.min(...knownPrices) : null;
-  const primary = entries.find((item) => item.availability === "in_stock") ?? entries[0];
+  const entries = xOneEntries;
+  const priceFrom = xOneHasPrice ? xOnePriceFrom : null;
+  const nero = xOneVariants.find((variant) => variant.color === "Nero")!;
 
   return <>
     <Header active="/products" />
@@ -55,7 +55,7 @@ export default function GrindersPage() {
                 <div className="card-body">
                   <span className="price-from">от</span>
                   <span className="price num">{money(priceFrom)}</span>
-                  {primary ? <div style={{ marginTop: 12 }}><Stock status={primary.availability} /></div> : <div style={{ marginTop: 12 }}><Stock status="on_order" /></div>}
+                  <p className="small" style={{ marginTop: 12 }}>{xOneStockLabel(nero)}</p>
                   <a className="btn btn-solid" href="/contacts/?type=model" style={{ marginTop: 18 }}>Запросить поставку</a>
                 </div>
               </div>

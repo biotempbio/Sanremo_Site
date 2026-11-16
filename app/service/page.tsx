@@ -43,6 +43,7 @@ export default function ServicePage() {
         </section>
 
         <section className="section wrap">
+          <p className="small">Для владельцев архивной кофемашины Capri: <a href="/products/capri/">сервис, запчасти и подбор замены</a>.</p>
           <div className="sec-head">
             <div>
               <p className="eyebrow">Кто за что отвечает</p>

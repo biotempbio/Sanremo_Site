@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
+import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import CompareClient from "./CompareClient";
 
@@ -15,5 +16,5 @@ export default function ComparePage() {
       <p className="lead" style={{ maxWidth: "74ch", marginTop: 14 }}>Выберите две или три линейки: поток, группы, архитектура бойлеров, управление, цены и наличие — в одной таблице.</p>
       <CompareClient />
       <section className="competitor-links"><p className="eyebrow">Другие марки</p><h2>Сравнения с другими брендами</h2><div className="grid g2"><a href="/compare/sanremo-vs-nuova-simonelli-appia/"><strong>Sanremo и Nuova Simonelli Appia Life</strong><span>Двухгруппные машины для кофейни →</span></a><a href="/compare/sanremo-vs-la-marzocco-linea/"><strong>Sanremo и La Marzocco Linea</strong><span>Бойлеры, управление и цены →</span></a></div></section>
-    </main><Footer /></>;
+    </main><BaristaAccessories /><Footer /></>;
 }
