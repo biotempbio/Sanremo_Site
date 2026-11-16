@@ -124,6 +124,7 @@ export function sanitize(rawItems, { tiers, categoryGroups, existingCatalog }) {
     }
     const product = {
       code, name, kind, tier, modelSlug: slug,
+      model: clean(first(raw, ['model', 'Модель'])) || null,
       vendorCode: clean(first(raw, ['vendorCode', 'article', 'Артикул'])) || null,
       category, categoryGroup: group,
       price: safePrice, inStock: stock,

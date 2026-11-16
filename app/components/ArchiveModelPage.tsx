@@ -3,7 +3,9 @@ import { Header, Footer } from "./Chrome";
 import { BaristaAccessories } from "./BaristaAccessories";
 import { Crumbs } from "./Bits";
 import { ARCHIVE_MODELS, type ArchiveModelSlug } from "@/lib/archive-models";
-import { parts, money } from "@/lib/catalog";
+import { money } from "@/lib/catalog";
+import { capriParts, capriAvailability } from "@/lib/capri-parts";
+import CapriPartsTable from "../products/capri/CapriPartsTable";
 
 export function archiveMetadata(slug: ArchiveModelSlug): Metadata {
   const { name } = ARCHIVE_MODELS[slug];
@@ -16,7 +18,7 @@ export function archiveMetadata(slug: ArchiveModelSlug): Metadata {
 export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
   const model = ARCHIVE_MODELS[slug];
   const partsHref = `/parts/?q=${encodeURIComponent(model.partsQuery)}`;
-  const matchingParts = slug === "capri" ? parts.filter((part) => /capri/i.test(part.name)) : [];
+  const matchingParts = slug === "capri" ? capriParts : [];
   return <>
     <Header active="/products" />
     <Crumbs items={[{ href: "/", label: "Главная" }, { href: "/products/", label: "Кофемашины" }, { label: model.name }]} />
@@ -32,7 +34,11 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
         </div>
       </section>
 
-      {slug === "capri" ? <section className="wrap section-tight"><div className="sec-head"><div><p className="eyebrow">Каталог запчастей</p><h2>Детали с отметкой Capri</h2></div><p className="lead">Совместимость конкретной машины проверяем по серийному номеру.</p></div>{matchingParts.length ? <div className="table-scroll"><table className="data"><thead><tr><th>Деталь</th><th>Артикул</th><th>Цена</th><th>Наличие</th></tr></thead><tbody>{matchingParts.map((part) => <tr key={part.code}><td>{part.name}</td><td>{part.article ?? part.code}</td><td>{part.rrp > 0 ? money(part.rrp) : "По запросу"}</td><td>{part.stock >= 3 ? `На складе ${part.stock} шт.` : part.stock > 0 ? "В наличии" : "Под заказ"}</td></tr>)}</tbody></table></div> : <p>Готового списка деталей для Capri пока нет. Подберём запчасть по серийному номеру.</p>}<a className="btn btn-solid" href={partsHref} style={{ marginTop: 24 }}>Заявка на сервис / запчасти</a></section> : null}
+      {slug === "capri" ? <section className="wrap section-tight">
+        <div className="sec-head"><div><p className="eyebrow">Каталог запчастей</p><h2>Детали для Capri · {matchingParts.length}</h2></div><p className="lead">Совместимость конкретной машины проверяем по серийному номеру.</p></div>
+        <CapriPartsTable rows={matchingParts.map((part) => ({ code: part.code, name: part.name, article: part.article ?? part.code, price: part.rrp > 0 ? money(part.rrp) : "Цена по запросу", stock: part.stock, availability: capriAvailability(part.stock) }))} />
+        <a className="btn btn-solid" href={partsHref} style={{ marginTop: 24 }}>Заявка на сервис / запчасти</a>
+      </section> : null}
 
       <section className="bg-gray"><div className="wrap section"><div className="grid g3">
         <div><p className="eyebrow">Владельцам</p><h2 style={{ fontSize: "clamp(23px,2.3vw,32px)" }}>Сервис</h2><p className="small">Диагностика, обслуживание и запрос работ по вашей машине.</p><a className="link-arrow" href="/service/">Перейти в сервис</a></div>

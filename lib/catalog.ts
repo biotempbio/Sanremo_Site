@@ -83,6 +83,7 @@ export interface Part {
   code: string;
   article: string | null;
   name: string;
+  model?: string | null;
   node: string;
   category: string;
   rrp: number;
@@ -134,6 +135,7 @@ const catalog = raw as unknown as Catalog;
 type ApiProduct = {
   code: string; name: string; kind: "machine" | "grinder" | "part"; tier: number;
   modelSlug: string | null; vendorCode: string | null; category: string; categoryGroup: string;
+  model?: string | null;
   price: number | null; inStock: number; image: string | null;
   imageLocal?: string | null; imageWidth?: number; imageHeight?: number;
   imagePeerCode?: string; imagePeerGroups?: number;
@@ -144,6 +146,7 @@ type ApiProduct = {
 };
 const api = apiSnapshot as { dataAsOf: string | null; received: number; products: ApiProduct[] };
 const apiReady = Boolean(api.dataAsOf && api.products.length);
+export const bioCatalogActive = apiReady;
 const statusFromStock = (stock: number): Availability => stock >= 3 ? "in_stock" : stock > 0 ? "limited" : "on_order";
 const apiProducts = apiReady ? api.products : [];
 const familyOfModel = (slug: string) => catalog.models.find((item) => item.slug === slug)?.family ?? "";
@@ -215,7 +218,7 @@ export const parts: Part[] = (apiReady
   ? apiProducts.filter((item) => item.kind === "part").map((item) => {
       const base = catalog.parts.find((entry) => entry.code === item.code);
       return { code: item.code, article: item.vendorCode ?? base?.article ?? null,
-        name: item.name, node: base?.node ?? (item.categoryGroup || item.category),
+        name: item.name, model: item.model ?? base?.model ?? null, node: base?.node ?? (item.categoryGroup || item.category),
         category: item.category, rrp: item.price ?? 0, stock: item.inStock,
         availability: statusFromStock(item.inStock), image: item.image ?? base?.image ?? null,
         fits: base?.fits ?? [], fitsCount: base?.fitsCount ?? 0, tier: item.tier };
