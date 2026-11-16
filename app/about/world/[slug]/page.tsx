@@ -44,7 +44,7 @@ export default async function WorldPostPage({params}:{params:Promise<{slug:strin
     <main className="world-article wrap section-tight"><header><p className="eyebrow">{worldDate(post.date)}{post.country?` · ${post.city?`${post.city}, `:""}${post.country}`:""}</p><h1>{post.title}</h1></header>
       {post.images.length ? <WorldGallery images={post.images} title={post.title} /> : post.poster ? <figure className="world-article-hero"><img src={post.poster} alt={post.title} /><figcaption>Видео доступно ниже</figcaption></figure> : null}
       <div className="world-article-body">{post.text.split("\n").filter(Boolean).map((paragraph,index)=><p key={index}>{linkedText(paragraph)}</p>)}</div>
-      {post.video ? <WorldVideo id={post.id} poster={post.poster} title={post.title} /> : null}
+      {post.video ? <WorldVideo id={post.id} poster={post.poster} title={post.title} src={post.videoSrc} /> : null}
       <div className="world-article-end"><a href={post.source} target="_blank" rel="noopener noreferrer">Пост в Telegram</a><a href="/about/world/">Все истории Sanremo в мире</a></div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(schema)}} />
     </main><Footer /></>;

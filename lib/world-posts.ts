@@ -11,6 +11,8 @@ export type WorldPost = {
   images: string[];
   poster: string | null;
   video: boolean;
+  videoSrc?: string | null;
+  videoBytes?: number | null;
   source: string;
 };
 

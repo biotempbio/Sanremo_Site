@@ -15,6 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data/world-posts.json"
 SEED = ROOT / "data/world-seed.json"
 PHOTO = ROOT / "public/photo/world"
+VIDEO = ROOT / "public/video/world"
+MAX_VIDEO_BYTES = 30 * 1024 * 1024
 BASE = "https://t.me/s/sanremofamily"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; SanremoWorldImporter/1.0)"}
 SESSION = requests.Session()
@@ -61,6 +63,41 @@ def save_image(url, post_id, number):
     image.save(target, "WEBP", quality=82, method=6)
     return f"/photo/world/{target.name}"
 
+def save_video(node, post_id):
+    urls = list(dict.fromkeys(node.xpath('.//video/@src')))
+    if not urls:
+        return None, None
+    url = urls[0]
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or not (parsed.hostname or "").endswith(".telesco.pe"):
+        return None, None
+    head = SESSION.head(url, headers=HEADERS, allow_redirects=True, timeout=25)
+    head.raise_for_status()
+    size = int(head.headers.get("Content-Length", "0"))
+    if not 0 < size <= MAX_VIDEO_BYTES or "video/" not in head.headers.get("Content-Type", ""):
+        print(f"video {post_id}: unavailable or over 30 MiB")
+        return None, None
+    VIDEO.mkdir(parents=True, exist_ok=True)
+    target = VIDEO / f"{post_id}.mp4"
+    if not target.exists() or target.stat().st_size != size:
+        response = SESSION.get(url, headers=HEADERS, stream=True, timeout=60)
+        response.raise_for_status()
+        written = 0
+        temp = target.with_suffix(".download")
+        try:
+            with temp.open("wb") as output:
+                for chunk in response.iter_content(256 * 1024):
+                    written += len(chunk)
+                    if written > MAX_VIDEO_BYTES:
+                        raise ValueError("video exceeds 30 MiB")
+                    output.write(chunk)
+            if written != size:
+                raise ValueError("video size mismatch")
+            temp.replace(target)
+        finally:
+            temp.unlink(missing_ok=True)
+    return f"/video/world/{post_id}.mp4", size
+
 def make_post(post_id, meta):
     root = get_page(f"{BASE}/{post_id}")
     node = post_node(root, post_id)
@@ -81,12 +118,16 @@ def make_post(post_id, meta):
         if posters:
             try: poster = save_image(posters[0], post_id, "poster")
             except (requests.RequestException, OSError, ValueError) as error: print(f"poster {post_id}: {type(error).__name__}")
+    video_src, video_bytes = (None, None)
+    if video:
+        try: video_src, video_bytes = save_video(node, post_id)
+        except (requests.RequestException, OSError, ValueError) as error: print(f"video {post_id}: {type(error).__name__}")
     country = meta.get("country")
     if country is None:
         hits = [name for name in COUNTRIES if name.casefold() in text.casefold()]
         country = hits[0] if len(hits) == 1 else None
     title = meta.get("title") or re.sub(r"[^\w\s.,:—–-]", "", text.split("\n")[0]).strip()[:70]
-    return {"id":post_id,"slug":meta.get("slug") or f"sanremo-{post_id}","title":title[:70],"date":date[0][:10] if date else "", "text":text,"country":country,"city":meta.get("city"),"images":images,"poster":poster,"video":video,"source":f"https://t.me/sanremofamily/{post_id}"}
+    return {"id":post_id,"slug":meta.get("slug") or f"sanremo-{post_id}","title":title[:70],"date":date[0][:10] if date else "", "text":text,"country":country,"city":meta.get("city"),"images":images,"poster":poster,"video":video,"videoSrc":video_src,"videoBytes":video_bytes,"source":f"https://t.me/sanremofamily/{post_id}"}
 
 def recent_ids():
     out=[]; before=None
@@ -104,14 +145,24 @@ def recent_ids():
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument("mode",choices=["seed","weekly"])
+    parser.add_argument("mode",choices=["seed","weekly","hydrate-video"])
     args=parser.parse_args()
     seed={item["id"]:item for item in json.loads(SEED.read_text())}
     existing=json.loads(DATA.read_text()) if DATA.exists() else []
     by_id={item["id"]:item for item in existing}
     # The first scheduled run must not publish older posts outside the approved seed.
     latest_approved = max(by_id, default=0)
-    ids=list(seed) if args.mode=="seed" else [post_id for post_id in recent_ids() if post_id > latest_approved]
+    ids=list(seed) if args.mode=="seed" else [post_id for post_id in recent_ids() if post_id > latest_approved] if args.mode=="weekly" else []
+    if args.mode == "hydrate-video":
+        for post in existing:
+            if not post.get("video") or post.get("videoSrc"):
+                continue
+            try:
+                node = post_node(get_page(f"{BASE}/{post['id']}"), post["id"])
+                if node is None: continue
+                post["videoSrc"], post["videoBytes"] = save_video(node, post["id"])
+            except (requests.RequestException, OSError, ValueError) as error:
+                print(f"video {post['id']}: {type(error).__name__}")
     for post_id in ids:
         if post_id in by_id: continue
         try:
