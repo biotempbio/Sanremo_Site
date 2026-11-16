@@ -40,8 +40,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const m = modelBySlug(model);
   if (!m) return {};
   const groups = m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : "";
+  const title = `Sanremo ${m.name}${groups} — цена, характеристики, наличие`;
+  const withDistributor = `${title} — купить у официального дистрибьютора`;
   return {
-    title: `Sanremo ${m.name}${groups} — цена, характеристики, наличие`,
+    title: withDistributor.length <= 70 ? withDistributor : title,
     description: `Кофемашина Sanremo ${m.name}${groups}. Характеристики, артикулы, цена и наличие каждого исполнения; документы, официальные дилеры и сервис в России.`,
   };
 }
