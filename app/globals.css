@@ -1116,7 +1116,7 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .case-lightbox-caption b{font-size:19px;line-height:1.25}
 .case-lightbox-caption span{margin-top:4px;color:var(--muted);font-size:13px;line-height:1.35}
 .case-lightbox-caption-side{text-align:right;white-space:nowrap}
-.case-lightbox-caption-side a{display:inline-block;margin-top:4px;color:var(--forest);font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.case-lightbox-caption-side a{display:inline-block;margin:4px 0 0 12px;color:var(--forest);font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .case-lightbox-bottom{min-width:0;padding-top:11px;border-top:1px solid var(--line)}
 .case-lightbox-actions{display:none}
 .case-lightbox-thumbs{display:flex;gap:8px;min-width:0;overflow-x:auto;scrollbar-width:thin;overscroll-behavior-x:contain;touch-action:pan-x}
@@ -1450,3 +1450,25 @@ a:hover .action-arrow-icon,a:focus-visible .action-arrow-icon{transform:translat
 .competitor-table .action-arrow-icon,.competitor-mobile .action-arrow-icon,.competitor-reading .action-arrow-icon{width:16px;height:13px}
 
 @media(max-width:800px){.guide-choose-panel,.about-world-link{flex-direction:column;align-items:stretch}.guide-choose-panel>.guide-choose-button{width:100%;align-self:stretch}.about-world-link>.about-world-action{align-self:flex-start}}
+
+/* Кейсы: одинаковые карточки в ровной сетке, без выделенной первой карточки. */
+.cases-grid{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:24px;row-gap:40px;align-items:stretch}
+.cases-grid>.case-card:first-child{grid-column:auto}
+.case-card-index{display:flex;flex-direction:column;border:0;background:transparent;transition:none}
+.case-card-index:hover{border:0;background:transparent}
+.case-card-index .case-card-photo,.cases-grid>.case-card:first-child .case-card-photo{aspect-ratio:4/3}
+.case-card-index .case-card-photo{flex:none;border:0;border-radius:0;background:#e8e6e1;overflow:hidden}
+.case-card-index .case-card-photo img{object-fit:cover;object-position:center;transition:transform 250ms ease}
+.case-card-index:hover .case-card-photo img,.case-card-index:focus-within .case-card-photo img{transform:scale(1.03)}
+.case-card-index .case-card-copy{display:flex;flex:1;flex-direction:column;min-width:0;padding:18px 0 0}
+.case-card-index h3{margin:0 0 10px}
+.case-card-index:hover h3,.case-card-index:focus-within h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.case-card-index .case-card-location{margin:0 0 9px}
+.case-card-index .case-card-description{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;margin:0 0 18px;line-height:1.5}
+.case-card-index .case-card-foot{margin-top:auto;flex-wrap:nowrap;align-items:center;gap:10px;min-width:0}
+.case-card-index .case-card-foot>a,.case-card-index .case-card-foot>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.case-card-index .case-card-gallery-link{flex:none}
+.case-card-index :is(a,button):focus-visible{outline:2px solid var(--forest);outline-offset:2px}
+@media(max-width:1199px){.cases-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.cases-grid{grid-template-columns:minmax(0,1fr);row-gap:40px}}
+@media(prefers-reduced-motion:reduce){.case-card-index .case-card-photo img{transition:none}}

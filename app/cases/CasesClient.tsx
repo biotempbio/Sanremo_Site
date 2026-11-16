@@ -24,6 +24,7 @@ export function CasesClient() {
     }
   }, []);
   const selectedCase = sanremoCases.find((entry) => entry.slug === gallery);
+  const selectedTelegramPost = selectedCase ? /^telegram-(\d+)$/.exec(selectedCase.summary.source)?.[1] : undefined;
   useEffect(() => {
     if (!selectedCase) return;
     const dialog = dialogRef.current;
@@ -86,7 +87,7 @@ export function CasesClient() {
           <img className="case-lightbox-image" src={selectedCase.photos[photoIndex].value} alt={`${selectedCase.name.value} — фотография ${photoIndex + 1} из ${selectedCase.photos.length}`} />
           <button className="case-lightbox-side case-lightbox-next" type="button" onClick={() => changePhoto(1)} aria-label="Следующее фото">→</button>
         </div>
-        <div className="case-lightbox-caption"><div><b>{selectedCase.name.value}</b><span>{selectedCase.city.value} · {selectedCase.model ? `Sanremo ${selectedCase.model.value}` : "Оборудование Sanremo"}</span></div><div className="case-lightbox-caption-side"><span aria-live="polite">{photoIndex + 1} из {selectedCase.photos.length}</span>{selectedCase.page && <a href={`/cases/${selectedCase.slug}/`}>Подробнее о проекте</a>}</div></div>
+        <div className="case-lightbox-caption"><div><b>{selectedCase.name.value}</b><span>{selectedCase.city.value} · {selectedCase.model ? `Sanremo ${selectedCase.model.value}` : "Оборудование Sanremo"}</span></div><div className="case-lightbox-caption-side"><span aria-live="polite">{photoIndex + 1} из {selectedCase.photos.length}</span>{selectedCase.page && <a href={`/cases/${selectedCase.slug}/`}>Подробнее о проекте</a>}{selectedTelegramPost && <a href={`https://t.me/sanremofamily/${selectedTelegramPost}`} target="_blank" rel="noopener noreferrer">Пост в Telegram</a>}</div></div>
         <div className="case-lightbox-bottom"><div className="case-lightbox-actions"><button type="button" onClick={() => changePhoto(-1)} aria-label="Предыдущее фото">←</button><button type="button" onClick={() => changePhoto(1)} aria-label="Следующее фото">→</button></div><div className="case-lightbox-thumbs" role="group" aria-label="Фотографии проекта">{selectedCase.photos.map((photo, index) => <button key={photo.value} type="button" className={index === photoIndex ? "is-active" : ""} onClick={() => setPhotoIndex(index)} aria-label={`Показать фото ${index + 1}`} aria-pressed={index === photoIndex}>{/* eslint-disable-next-line @next/next/no-img-element */}<img src={photo.value} alt="" loading="lazy" /></button>)}</div></div>
       </div>
     </dialog>}
