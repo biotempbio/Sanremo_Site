@@ -1,0 +1,21 @@
+[
+  {"id":159,"slug":"raspakovka-sanremo-v-mire","title":"Распаковка Sanremo в разных странах","country":null,"city":null},
+  {"id":174,"slug":"raspakovka-d8-v-mire","title":"Распаковка Sanremo D8 в разных странах","country":null,"city":null},
+  {"id":393,"slug":"opera-2-australia","title":"Кастомная Sanremo Opera 2.0 в Австралии","country":"Австралия","city":null},
+  {"id":520,"slug":"cafe-racer-bensheim","title":"Café Racer в обжарке Bergsträßer Kaffeerösterei","country":"Германия","city":"Бенсхайм"},
+  {"id":600,"slug":"cafe-racer-polsha-nad-piekarnia","title":"Café Racer в Nad Piekarnią Cafe & Bistrot","country":"Польша","city":null},
+  {"id":637,"slug":"cafe-racer-indonesia-ombak","title":"Café Racer в Ombak Coffee","country":"Индонезия","city":null},
+  {"id":659,"slug":"cafe-racer-cornwall","title":"Café Racer в Surface Coffee Roasters","country":"Великобритания","city":"Корнуолл"},
+  {"id":732,"slug":"cafe-racer-australia-roots","title":"Café Racer в Roots Collective","country":"Австралия","city":null},
+  {"id":762,"slug":"d8-australia-mummas-deli","title":"Sanremo D8 в Mummas Deli","country":"Австралия","city":"Калаундра"},
+  {"id":772,"slug":"opera-v-yuzhnoj-koree","title":"Sanremo Opera 2.0 в Южной Корее","country":"Южная Корея","city":null},
+  {"id":906,"slug":"cafe-racer-jester-juice","title":"Café Racer в Jester Juice","country":"Великобритания","city":null},
+  {"id":931,"slug":"opera-ecuador-fankor","title":"Opera 2.0 в FANKØR Coffee","country":"Эквадор","city":null},
+  {"id":949,"slug":"shourum-sanremo-uzbekistan","title":"Шоурум Sanremo в Узбекистане","country":"Узбекистан","city":null},
+  {"id":998,"slug":"shourum-sanremo-mexico","title":"Шоурум Sanremo в Мексике","country":"Мексика","city":null},
+  {"id":1022,"slug":"cafe-racer-cairo-ratio","title":"Café Racer в RATIO Coffee, Каир","country":"Египет","city":"Каир"},
+  {"id":128,"slug":"sanremo-julius-meinl","title":"Коллаборация Sanremo и Julius Meinl","country":null,"city":null},
+  {"id":984,"slug":"sanremo-na-zira-fest","title":"Sanremo на ZIRA FEST в Ташкенте","country":"Узбекистан","city":"Ташкент"},
+  {"id":1011,"slug":"sanremo-d8-obzor","title":"Sanremo D8: обзор кофемашины","country":null,"city":null},
+  {"id":1006,"slug":"kofejnye-novosti-noyabr-2026","title":"Кофейные новости ноября 2026","country":null,"city":null}
+]

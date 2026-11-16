@@ -80,7 +80,7 @@ export function Footer() {
           <div>
             <h4>Компания</h4>
             <nav>
-              <a href="/about/">О Sanremo</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a><a href="/privacy/">Политика обработки данных</a>
+              <a href="/about/">О Sanremo</a><a href="/about/world/">Sanremo в мире</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a><a href="/privacy/">Политика обработки данных</a>
             </nav>
           </div>
           <div>

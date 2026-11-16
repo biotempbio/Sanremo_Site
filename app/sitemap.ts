@@ -4,6 +4,7 @@ import { families, models } from "@/lib/catalog";
 import { CONTENT_DATE, SITE_URL } from "@/lib/seo";
 import { detailedCases } from "@/lib/cases";
 import { newsPosts } from "@/lib/news";
+import { worldPosts } from "@/lib/world-posts";
 import { solutionLandings } from "@/lib/solution-landings";
 
 export const dynamic = "force-static";
@@ -25,7 +26,7 @@ function lastModified(paths: string[]): Date {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ["", "/about", "/bio", "/cases", "/choose", "/compare", "/compare/sanremo-vs-nuova-simonelli-appia", "/compare/sanremo-vs-la-marzocco-linea", "/contacts", "/dealers", "/documents", "/faq", "/guide", "/guide/kofemashina-dlya-kofejni", "/guide/kofemashina-dlya-restorana", "/guide/linejki-sanremo", "/guide/dvuhgruppnaya-kofemashina", "/guide/multiboylernaya-kofemashina", "/leasing", "/news", "/parts", "/prices", "/privacy", "/products", "/products/grinders", "/products/x-one", "/products/napoli", "/products/cube", "/products/verona", "/products/verona-rs", "/products/torino", "/service", "/solutions"];
+  const routes = ["", "/about", "/about/world", "/bio", "/cases", "/choose", "/compare", "/compare/sanremo-vs-nuova-simonelli-appia", "/compare/sanremo-vs-la-marzocco-linea", "/contacts", "/dealers", "/documents", "/faq", "/guide", "/guide/kofemashina-dlya-kofejni", "/guide/kofemashina-dlya-restorana", "/guide/linejki-sanremo", "/guide/dvuhgruppnaya-kofemashina", "/guide/multiboylernaya-kofemashina", "/leasing", "/news", "/parts", "/prices", "/privacy", "/products", "/products/grinders", "/products/x-one", "/products/napoli", "/products/cube", "/products/verona", "/products/verona-rs", "/products/torino", "/service", "/solutions"];
   return [
     ...routes.map((route) => ({ url: `${SITE_URL}${route}/`, lastModified: lastModified([`app${route || ""}/page.tsx`]) })),
     ...solutionLandings.map((entry) => ({ url: `${SITE_URL}/solutions/${entry.slug}/`, lastModified: lastModified(["app/solutions/[slug]/page.tsx", "lib/solution-landings.ts"]) })),
@@ -33,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...families.map((family) => ({ url: `${SITE_URL}/products/${family.slug}/`, lastModified: lastModified(["app/products/[family]/page.tsx", "data/catalog.json"]) })),
     ...models.map((model) => ({ url: `${SITE_URL}/products/${model.family}/${model.slug}/`, lastModified: lastModified(["app/products/[family]/[model]/page.tsx", "data/catalog.json"]) })),
     ...detailedCases.map((entry) => ({ url: `${SITE_URL}/cases/${entry.slug}/`, lastModified: lastModified(["app/cases/[slug]/page.tsx", "data/cases.json"]) })),
+    ...worldPosts.map((post) => ({ url: `${SITE_URL}/about/world/${post.slug}/`, lastModified: new Date(`${post.date}T00:00:00Z`) })),
     ...newsPosts.map((post) => ({ url: `${SITE_URL}/news/${post.slug}/`, lastModified: new Date(`${post.publishedAt}T00:00:00Z`) })),
   ];
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { ResponsiveImage } from "../components/ResponsiveImage";
 import { Crumbs } from "../components/Bits";
+import { WorldTeasers } from "../components/WorldTeasers";
 import { models, liveSkus, parts, families } from "@/lib/catalog";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
@@ -108,6 +109,8 @@ export default function AboutPage() {
             <Stat k={String(parts.length)} v="артикулов запчастей" />
           </div>
         </section>
+
+        <WorldTeasers />
 
         <section className="section bg-petrol">
           <div className="wrap" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(0,1fr)", gap: "clamp(24px,4vw,64px)", alignItems: "center" }}>

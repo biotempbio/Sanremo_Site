@@ -3,6 +3,7 @@ import { pluralize } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../../components/Chrome";
 import { BaristaAccessories } from "../../../components/BaristaAccessories";
+import { ShowroomVisit } from "../../../components/ShowroomVisit";
 import { Crumbs, Stock } from "../../../components/Bits";
 import ConfigPicker, { PickerSku } from "./ConfigPicker";
 import { ResponsiveImage } from "../../../components/ResponsiveImage";
@@ -472,6 +473,7 @@ export default async function ModelPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(productSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(questions)) }} />
       </main>
+      <ShowroomVisit />
       <BaristaAccessories />
       <Footer />
     </>
