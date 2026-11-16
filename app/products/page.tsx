@@ -17,9 +17,9 @@ import {
 } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Кофемашины Sanremo (Сан Ремо) — официальный дистрибьютор в России, цены и наличие",
+  title: "Купить кофемашину Sanremo — все модели, цены и наличие",
   description:
-    "Каталог кофемашин Sanremo в России: группы, архитектура бойлеров, исполнения, цены и наличие. Фильтры по потоку и задачам кофейни, карточки моделей Sanremo.",
+    "Каталог рожковых кофемашин Sanremo: Zoe, D8, F18, Café Racer, YOU, Opera — от одной до трёх групп. Сравните цены, наличие и характеристики исполнений.",
 };
 
 export default function ProductsPage() {
@@ -78,7 +78,7 @@ export default function ProductsPage() {
             <div>
               <p className="eyebrow">Официальная линейка Sanremo в России</p>
               <h1 style={{ fontSize: "clamp(32px,3.6vw,56px)" }}>
-                Профессиональные рожковые кофемашины Sanremo
+                Кофемашины Sanremo: все модели
               </h1>
             </div>
             <div>
