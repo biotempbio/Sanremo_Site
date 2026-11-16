@@ -3,6 +3,8 @@ import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import PartsClient, { PartRow } from "./PartsClient";
 import { parts, partNodes, catalogModels, CATALOG_LINEUP, skuByCode } from "@/lib/catalog";
+import { capriParts } from "@/lib/capri-parts";
+import { plainArticle } from "@/lib/format";
 
 export const metadata: Metadata = {
   title: "Запчасти Sanremo — каталог ЗИП с совместимостью и наличием",
@@ -11,13 +13,16 @@ export const metadata: Metadata = {
 };
 
 export default function PartsPage() {
-  const rows: PartRow[] = parts.map((p) => {
+  const capriCodes = new Set(capriParts.map((part) => part.code));
+  const existingCodes = new Set(parts.map((part) => part.code));
+  const allParts = [...parts, ...capriParts.filter((part) => !existingCodes.has(part.code))];
+  const rows: PartRow[] = allParts.map((p) => {
     const linked = p.fits.map((c) => skuByCode(c)).filter(Boolean);
-    const names = [...new Set(linked.map((s) => s!.modelName))];
+    const names = [...new Set([...linked.map((s) => s!.modelName), ...(capriCodes.has(p.code) ? ["Capri"] : [])])];
     const slugs = [...new Set(linked.map((s) => s!.model))];
     return {
       code: p.code,
-      article: p.article,
+      article: plainArticle(p.article),
       name: p.name,
       node: p.node,
       rrp: p.rrp,

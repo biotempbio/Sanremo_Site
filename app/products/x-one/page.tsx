@@ -36,7 +36,7 @@ export default function XOnePage() {
     <main>
       <section className="wrap" style={{ paddingBottom: 34 }}>
         <div className="sec-head">
-          <div><p className="eyebrow">Профессиональная кофемолка</p><h1 style={{ fontSize: "clamp(36px,4.2vw,60px)" }}>Кофемолка Sanremo X-One</h1></div>
+          <div><p className="eyebrow">Профессиональная кофемолка</p><h1 style={{ fontSize: "clamp(36px,4.2vw,60px)" }}>Кофемолка Sanremo <span style={{ whiteSpace: "nowrap" }}>X-One</span></h1></div>
           <p className="lead">X-One (X1) взвешивает зерно перед помолом, использует два бункера и сохраняет рецепты для работы барной станции.</p>
         </div>
       </section>

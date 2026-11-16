@@ -1,0 +1,270 @@
+{
+  "source": "BIO public catalog export",
+  "dataAsOf": "2026-11-12",
+  "items": [
+    {
+      "code": "169724",
+      "article": "10 502 110",
+      "name": "Уплотнение под чашку E61, арт.10502110",
+      "model": "TREVISO LX, MILANO, TORINO, VERONA, CAPRIDLX, OPERA, CUBE, ZOE, RS, CAFE RACER, F18SB. F18",
+      "stock": 151,
+      "rrp": 251.23
+    },
+    {
+      "code": "175783",
+      "article": "10402534B/ 10402534D",
+      "name": "Штифтовая чаша с прокладкой кранового клапана Sanremo, арт. 10402534D",
+      "model": "OPERA, CAPRIDLX, MILANO, TORINO, VERONA, ZOE - 10252070D",
+      "stock": 91,
+      "rrp": 6184.72
+    },
+    {
+      "code": "169738",
+      "article": "10852218",
+      "name": "Шайба, арт.10852218",
+      "model": "TREVISO LX, CAPRIDLX, MILANO, ZOE KOMPAKT, CUBE, TORINO, ZOE, VERONA, NAPOLI. VERONA RS",
+      "stock": 46,
+      "rrp": 207.58
+    },
+    {
+      "code": "169901",
+      "article": "10652040A",
+      "name": "Предохранительного клапан бойлера, арт.10652040A",
+      "model": "TREVISO LX, CAPRIDLX, MILANO, ZOE KOMPAKT, TORINO, ZOE,VERONA, OPERA, RS, VERONA RS, F18, F18SB",
+      "stock": 24,
+      "rrp": 2398.81
+    },
+    {
+      "code": "208816",
+      "article": "10402544",
+      "name": "Кольцо уплотнительное, Sanremo , арт.10402544",
+      "model": "OPERA,  CAPRIDLX, MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, CUBE, ZOE, OPERA, CAFE RACER, RS, F18SB, VERONA RS",
+      "stock": 20,
+      "rrp": 992.31
+    },
+    {
+      "code": "169902",
+      "article": "10652058B",
+      "name": "Клапан предохранительный, арт.10652058B",
+      "model": "TREVISO LX, CAPRIDLX, MILANO, ZOE KOMPAKT, CUBE, TORINO, ZOE,VERONA, NAPOLI, VERONA RS",
+      "stock": 18,
+      "rrp": 5770.53
+    },
+    {
+      "code": "200278",
+      "article": "10402609",
+      "name": "Насадка для отвода воды  Sanremo, арт. 10402609",
+      "model": "AMALFI, CAFE' RACER, CAPRI, MILANO LX, OPERA 2-3 GR, PISA, TORINO, TREVISO, TREVISO LX, VERONA, VERONA 2-3 GR, VERONA RS, ZOE, ZOE COMPACT 2 GR",
+      "stock": 16,
+      "rrp": 3948.87
+    },
+    {
+      "code": "169817",
+      "article": "10112290A",
+      "name": "Расходомер объемный 1/8', арт.10112290A",
+      "model": "TORINO, CAPRIDLX, VERONA, ZOE",
+      "stock": 10,
+      "rrp": 10459.51
+    },
+    {
+      "code": "169858",
+      "article": "10302088B",
+      "name": "Клапан электромагнитный, 3-ходовой, арт.10302088B",
+      "model": "MILANO, TORINO, VERONA, CAPRIDLX, ZOE KOMPAKT, ZOE, VERONA RS, F18SB - 10302088B",
+      "stock": 9,
+      "rrp": 11998.9
+    },
+    {
+      "code": "169894",
+      "article": "10505121A",
+      "name": "Кольцо уплотнительное корпуса крана, арт.10505121A",
+      "model": "MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, CAPRIDLX, RS, VERONA RS, F18",
+      "stock": 6,
+      "rrp": 70.81
+    },
+    {
+      "code": "169900",
+      "article": "10602010B",
+      "name": "Реле давления, арт.10602010B",
+      "model": "CAPRIDLX, MILANO, TORINO, VERONA, ZOE",
+      "stock": 6,
+      "rrp": 33458.21
+    },
+    {
+      "code": "197671",
+      "article": "10054070А",
+      "name": "Держатель фильтра (портафильтр на 2 чашки) C/BECC 2TZ+MA.+TA.CAPRI ACQ, арт. 10054070А",
+      "model": null,
+      "stock": 4,
+      "rrp": 14342.42
+    },
+    {
+      "code": "169888",
+      "article": "10402120C",
+      "name": "Корпус крана, арт.10402120C",
+      "model": "CAPRIDLX, MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, VERONA RS - 10402120C",
+      "stock": 4,
+      "rrp": 8517.57
+    },
+    {
+      "code": "202200",
+      "article": "10304169",
+      "name": "2-ходовой соленоидный клапан 1/8 230 В SIRAI, Sanremo, арт. 10304169",
+      "model": "MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, CAPRIDLX, RS, VERONA RS, F18RS, F18",
+      "stock": 2,
+      "rrp": 14560.67
+    },
+    {
+      "code": "199575",
+      "article": "10003052",
+      "name": "Нижняя труба теплообменника 2GR, Sanremo, арт.10003052 ( для кофемашин до 2018 г. выпуска )",
+      "model": "OPERA, CAPRIDLX, MILANO, TORINO, VERONA, ZOE - 10252070D",
+      "stock": 2,
+      "rrp": 2823.67
+    },
+    {
+      "code": "169735",
+      "article": "10806054",
+      "name": "Гайка нагревательного элемента, арт.10806054",
+      "model": "CAPRILDX, MILANO, ZOE KOMPAKT, TORINO, ZOE, VERONA, OPERA, VERONA RS, CAFE RACER, F18SB, F18",
+      "stock": 1,
+      "rrp": 21.34
+    },
+    {
+      "code": "175780",
+      "article": "10352430 / 5084245",
+      "name": "Держатель чашек Sanremo Zoe SAP, арт.10352430",
+      "model": "OPERA, CAPRIDLX, MILANO, TORINO, VERONA, ZOE - 10252070D",
+      "stock": 1,
+      "rrp": 11372.28
+    },
+    {
+      "code": "169769",
+      "article": "10052174A",
+      "name": "Жиклер D2,5, арт.10052174A",
+      "model": "CAPRIDLX, ZOE KOMPAKT, ZOE",
+      "stock": 1,
+      "rrp": 340.47
+    },
+    {
+      "code": "169696",
+      "article": "10505558",
+      "name": "Уплотнение крана силиконовое, арт.10505558",
+      "model": "MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, CAPRIDLX, RS, VERONA RS, F18RS, F18",
+      "stock": 1,
+      "rrp": 130.95
+    },
+    {
+      "code": "169737",
+      "article": "10809024",
+      "name": "Шайба нагревательного элемента, арт.10809024",
+      "model": "CAPRIDLX, MILANO, ZOE KOMPAKT, TORINO, ZOE, VERONA, RS, VERONA RS, F18SB",
+      "stock": 1,
+      "rrp": 8.73
+    },
+    {
+      "code": "169799",
+      "article": "10056058F",
+      "name": "Блок заполнительный светового корпуса, арт.10056058F",
+      "model": "CAPRIDLX, MILANO, TORINO, OPERA, ZOE KOMPAKT, RS, ZOE, CAFE RACER, VERONA RS, F18SB, F18",
+      "stock": 0,
+      "rrp": 12526.58
+    },
+    {
+      "code": "169805",
+      "article": "10112072F",
+      "name": "Блок управления XLC SED, арт.10112072F",
+      "model": "CAPRIDLX, MILANO, VERONA, TORINO,ZOE KOMPAKT, ZOE - 10112072F",
+      "stock": 0,
+      "rrp": 34279.8
+    },
+    {
+      "code": "199571",
+      "article": "10255028A",
+      "name": "Вращающийся фитинг угловой F 1/8, Sanremo, арт.10255028A",
+      "model": "TORINO, VERONA, ZOE KOMPAKT, ZOE, CAPRIDLX",
+      "stock": 0,
+      "rrp": 1317.26
+    },
+    {
+      "code": "169885",
+      "article": "10402015A",
+      "name": "Втулка крана, арт.10402015A",
+      "model": "TORINO, VERONA, ZOE KOMPAKT, ZOE, CAPRIDLX",
+      "stock": 0,
+      "rrp": 128.04
+    },
+    {
+      "code": "169726",
+      "article": "10505561",
+      "name": "Втулка отводная, арт.10505561",
+      "model": "VERONA, MILANO, TORINO, ZOE KOMPAKT, ZOE, CAPRIDLX",
+      "stock": 0,
+      "rrp": 106.7
+    },
+    {
+      "code": "169689",
+      "article": "10052120/ 10052120A",
+      "name": "Душ AISI304, арт.10052120A",
+      "model": "Treviso LX, MILANO, TORINO, VERONA, CAPRIDLX, ZOE KOMPAKT, ZOE, F18SB",
+      "stock": 0,
+      "rrp": 742.05
+    },
+    {
+      "code": "169859",
+      "article": "10302130B",
+      "name": "Клапан электромагнитный, 2-ходовой, арт.10302130B",
+      "model": "CAPRIDLX, MILANO, TORINO, VERONA, OPERA, ZOE KOMPAKT, ZOE, NAPOLI, VERONA RS, F18SB",
+      "stock": 0,
+      "rrp": 8111.14
+    },
+    {
+      "code": "169887",
+      "article": "10402056A, WGADM0041, 1786232",
+      "name": "Кольцо уплотнительное (зеленое), арт.10402056A 156*178 мм",
+      "model": "OPERA,  CAPRIDLX, MILANO, TORINO, VERONA, ZOE KOMPAKT, ZOE, CUBE, ZOE, OPERA, CAFE RACER, RS, F18SB, VERONA RS",
+      "stock": 0,
+      "rrp": 134.83
+    },
+    {
+      "code": "169850",
+      "article": "10252070D",
+      "name": "Насос ротационный 150 л, арт.10252070D",
+      "model": "OPERA, CAPRIDLX, MILANO, TORINO, VERONA, ZOE - 10252070D",
+      "stock": 0,
+      "rrp": 0.0
+    },
+    {
+      "code": "169694",
+      "article": "10111015",
+      "name": "Термостат ручной 169° Sanremo, арт.10111015",
+      "model": "CAPRIDLX, MILANO, VERONA, OPERA, ZOE, NAPOLI, VERONA RS, RS, CAFE RACER, F18 - 10111015",
+      "stock": 0,
+      "rrp": 7330.29
+    },
+    {
+      "code": "169889",
+      "article": "10455186A",
+      "name": "Тэн, арт.10455186A",
+      "model": "CAPRIDLX, MILANO, TORINO, ZOE, VERONA",
+      "stock": 0,
+      "rrp": 15515.0
+    },
+    {
+      "code": "183421",
+      "article": "1486044, 10502110, 10502160",
+      "name": "Уплотнитель холдера Ø 73X57X8,2 мм",
+      "model": "AMALFI, CAFE' RACER, CAPRI, MILANO LX, OPERA 2-3 GR, PISA, TORINO, TREVISO, TREVISO LX, VERONA, VERONA 2-3 GR, VERONA RS, ZOE, ZOE COMPACT 2 GR",
+      "stock": 0,
+      "rrp": 0.0
+    },
+    {
+      "code": "169907",
+      "article": "10857080A",
+      "name": "Фитинг прямой 6-1/8, арт.10857080A",
+      "model": "OPERA, TORINO, VERONA, CAPRIDLX, CAFE RACER, VERONA RS, RS, ZOE, F18SB, F18",
+      "stock": 0,
+      "rrp": 859.42
+    }
+  ]
+}

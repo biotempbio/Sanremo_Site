@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
+import { ShowroomVisit } from "../../components/ShowroomVisit";
 import { Crumbs, Stock } from "../../components/Bits";
 import SkuImage from "../../components/SkuImage";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
@@ -238,6 +239,7 @@ export default async function FamilyPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
         {familyProductSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(familyProductSchema) }} /> : null}
       </main>
+      <ShowroomVisit />
       <BaristaAccessories />
       <Footer />
     </>

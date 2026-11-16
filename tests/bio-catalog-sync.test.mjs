@@ -44,6 +44,17 @@ test('API envelopes are accepted but empty exports are rejected', () => {
   assert.throws(() => normalizeExport({ message: 'error' }), /no product array/);
 });
 
+test('spare-part model association survives export even when Capri is absent from its name', () => {
+  const item = sanitize([machine({
+    code: '169902', name: 'Клапан предохранительный, арт.10652058B',
+    model: 'TREVISO LX, CAPRIDLX, MILANO', category: 'Запчасти для кофемашин Sanremo',
+    inStock: 18, priceRUB: 5771, dilerPriceRUB: 4000,
+  })], options).products[0];
+  assert.equal(item.kind, 'part');
+  assert.equal(item.model, 'TREVISO LX, CAPRIDLX, MILANO');
+  assert.equal(item.inStock, 18);
+});
+
 test('warranty warnings apply to machines, not spare parts without a warranty', () => {
   const result = sanitize([
     machine({ warranty: '24 месяца' }),

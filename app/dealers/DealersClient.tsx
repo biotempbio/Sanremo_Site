@@ -9,28 +9,41 @@ export interface DealerRow {
   site: string | null;
   note: string | null;
   verified: boolean;
+  showroom: boolean;
 }
 
-const SERVICES = ["Продажа", "Шоурум", "Демонстрация", "Обучение", "Монтаж", "Гарантийный сервис", "Запчасти"];
+const SERVICES = ["Продажа", "Демонстрация", "Обучение", "Монтаж", "Гарантийный сервис", "Запчасти"];
 
 export default function DealersClient({
   dealers, cities,
 }: { dealers: DealerRow[]; cities: { city: string; count: number }[] }) {
   const [q, setQ] = useState("");
   const [city, setCity] = useState<string>("");
+  const [showroomOnly, setShowroomOnly] = useState(false);
+  const [urlReady, setUrlReady] = useState(false);
 
   useEffect(() => {
     const requestedCity = new URLSearchParams(window.location.search).get("city");
+    setShowroomOnly(new URLSearchParams(window.location.search).get("filter") === "showroom");
     if (requestedCity && cities.some((item) => item.city === requestedCity)) {
       setCity(requestedCity);
       setQ(requestedCity);
     }
+    setUrlReady(true);
   }, [cities]);
+
+  useEffect(() => {
+    if (!urlReady) return;
+    const params = new URLSearchParams(window.location.search);
+    if (showroomOnly) params.set("filter", "showroom"); else params.delete("filter");
+    window.history.replaceState(null, "", `${window.location.pathname}${params.size ? `?${params}` : ""}`);
+  }, [showroomOnly, urlReady]);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
     return dealers.filter((d) => {
       if (city && d.city !== city) return false;
+      if (showroomOnly && !d.showroom) return false;
       if (!needle) return true;
       return (
         d.name.toLowerCase().includes(needle) ||
@@ -38,7 +51,7 @@ export default function DealersClient({
         (d.address ?? "").toLowerCase().includes(needle)
       );
     });
-  }, [dealers, q, city]);
+  }, [dealers, q, city, showroomOnly]);
 
   return (
     <div className="dealers">
@@ -63,6 +76,7 @@ export default function DealersClient({
         <div className="filter-group">
           <h4>Услуги</h4>
           <div className="chips">
+            <button type="button" className="chip" aria-pressed={showroomOnly} onClick={() => setShowroomOnly(!showroomOnly)}>Официальный шоурум · {dealers.filter((d) => d.showroom).length}</button>
             {SERVICES.map((s) => <span className="tag" key={s}>{s}</span>)}
           </div>
         </div>
@@ -91,6 +105,7 @@ export default function DealersClient({
                 <div className="card-body">
                   <p className="eyebrow" style={{ margin: 0 }}>{d.city ?? "Регион уточняется"}</p>
                   <h3>{d.name}</h3>
+                  {d.showroom ? <p className="dealer-showroom-badge">Официальный шоурум Sanremo</p> : null}
                   {d.address ? (
                     <p className="small" style={{ margin: 0 }}>{d.address}</p>
                   ) : (
@@ -107,6 +122,7 @@ export default function DealersClient({
                     <span className="tiny">
                       {d.verified ? "Адрес и сайт подтверждены" : "На проверке"}
                     </span>
+                    {d.showroom && d.address ? <a className="link-arrow" href={`https://yandex.ru/maps/?text=${encodeURIComponent(d.address)}`} target="_blank" rel="noopener noreferrer">Официальный шоурум на карте</a> : null}
                     {d.site ? (
                       <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer" data-dealer-link>
                         Сайт дилера →

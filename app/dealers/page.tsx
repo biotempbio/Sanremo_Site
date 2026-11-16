@@ -3,6 +3,7 @@ import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import DealersClient from "./DealersClient";
 import { dealers, dealerCities } from "@/lib/catalog";
+import { isOfficialShowroom } from "@/lib/showrooms";
 
 export const metadata: Metadata = {
   title: "Где купить Sanremo — дилеры, шоурумы и сервис по России",
@@ -53,7 +54,7 @@ export default function DealersPage() {
         <section className="wrap section-tight">
           <p className="dealer-city-shortcuts"><a href="/dealers/moskva/">Дилеры в Москве</a><a href="/dealers/sankt-peterburg/">Дилеры в Санкт-Петербурге</a></p>
           <DealersClient
-            dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified }))}
+            dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified, showroom: isOfficialShowroom(d) }))}
             cities={cities}
           />
         </section>

@@ -5,6 +5,7 @@ import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, stockUni
 import { pluralize, stockSummary } from "@/lib/format";
 import { sanremoCases } from "@/lib/cases";
 import { CaseCard } from "./cases/CaseCard";
+import { WorldTeasers } from "./components/WorldTeasers";
 import { xOneVariants, xOneStockLabel } from "@/lib/x-one";
 
 export const metadata: Metadata = {
@@ -99,6 +100,8 @@ export default function HomePage() {
         <div className="home-cases-grid">{showcase.map((entry) => <CaseCard key={entry.slug} entry={entry} compact />)}</div>
         <p className="home-cases-more"><a className="btn" href="/cases/">Все проекты</a></p>
       </section>
+
+      <WorldTeasers />
 
       <section className="home-service bg-forest"><div className="wrap section"><div><p className="eyebrow">После выбора машины</p><h2>Поставка, сервис и запчасти у официального дистрибьютора</h2></div><div><p className="lead">Компания BIO — официальный дистрибьютор Sanremo в России. Для покупки и запуска оборудования обратитесь к официальному дилеру.</p><div className="home-actions"><a className="btn" href="/dealers/">Найти дилера</a><a className="btn" href="/service/">Сервис и запчасти</a></div></div></div></section>
     </main>
