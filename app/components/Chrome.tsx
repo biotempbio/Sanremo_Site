@@ -4,15 +4,13 @@ import { useState } from "react";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 const NAV = [
-  { href: "/compare/", label: "Сравнение" },
-  { href: "/choose/", label: "Подобрать" },
+  { href: "/products/", label: "Кофемашины" },
   { href: "/guide/", label: "Как выбрать" },
   { href: "/solutions/", label: "Решения" },
-  { href: "/dealers/", label: "Где купить" },
-  { href: "/service/", label: "Сервис" },
   { href: "/cases/", label: "Кейсы" },
+  { href: "/service/", label: "Сервис" },
+  { href: "/dealers/", label: "Где купить" },
   { href: "/about/", label: "О Sanremo" },
-  { href: "/contacts/?type=dealer", label: "Стать дилером", accent: true },
 ];
 
 export function Header({ active }: { active?: string }) {
@@ -25,6 +23,7 @@ export function Header({ active }: { active?: string }) {
           <span className="topbar-contact">
             <span>Москва, ул. Обручева, 23с1, БЦ «Геолог», 4 этаж</span>
             <a href="tel:+74953633801">8 (495) 363-38-01</a>
+            <a className="topbar-dealer" href="/contacts/?type=dealer">Стать дилером →</a>
           </span>
         </div>
       </div>
@@ -34,23 +33,17 @@ export function Header({ active }: { active?: string }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" />
           </a>
-          <button className="burger" onClick={() => setOpen(!open)} aria-expanded={open}>
+          <button className="burger" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="site-main-nav">
             {open ? "Закрыть" : "Меню"}
           </button>
-          <nav className={open ? "mainnav open" : "mainnav"}>
-            <details className="nav-equipment">
-              <summary data-active={active === "/products" || active === "/products/"}>Оборудование</summary>
-              <div className="nav-equipment-menu">
-                <a href="/products/">Кофемашины</a>
-                <a href="/products/grinders/">Кофемолки</a>
-              </div>
-            </details>
+          <nav id="site-main-nav" className={open ? "mainnav open" : "mainnav"} aria-label="Основное меню">
             {NAV.map((n) => (
-              <a className={n.accent ? "nav-accent" : undefined} key={n.href} href={n.href} data-active={active === n.href || active === n.href.slice(0, -1)}>
+              <a key={n.href} href={n.href} aria-current={active === n.href || active === n.href.slice(0, -1) || (n.href === "/guide/" && (active === "/compare" || active === "/compare/")) ? "page" : undefined} data-active={active === n.href || active === n.href.slice(0, -1) || (n.href === "/guide/" && (active === "/compare" || active === "/compare/"))}>
                 {n.label}
               </a>
             ))}
             <a className="nav-search" href="/search/" aria-label="Поиск по сайту"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><span>Поиск</span></a>
+            <div className="mobile-nav-tail"><a href="tel:+74953633801">8 (495) 363-38-01</a><a href="/contacts/?type=dealer">Стать дилером →</a><a className="mobile-nav-cta" href="/choose/">Подобрать машину</a></div>
           </nav>
           <a className="header-cta" href="/choose/">Подобрать машину</a>
         </div>
@@ -75,7 +68,7 @@ export function Footer() {
           <div>
             <h4>Каталог</h4>
             <nav>
-              <a href="/products/">Все кофемашины</a><a href="/choose/">Подобрать по задаче</a><a href="/guide/">Как выбрать</a><a href="/faq/">Частые вопросы</a><a href="/solutions/">Решения по формату</a><a href="/solutions/kofejnya/">Для кофейни</a><a href="/leasing/">Лизинг</a><a href="/compare/">Сравнения</a><a href="/prices/">Цены и наличие</a>
+              <a href="/products/">Все кофемашины</a><a href="/products/grinders/">Кофемолки</a><a href="/products/#discontinued-models">Архивные модели</a><a href="/choose/">Подобрать по задаче</a><a href="/guide/">Как выбрать</a><a href="/faq/">Частые вопросы</a><a href="/solutions/">Решения по формату</a><a href="/solutions/kofejnya/">Для кофейни</a><a href="/leasing/">Лизинг</a><a href="/compare/">Сравнения</a><a href="/prices/">Цены и наличие</a>
             </nav>
           </div>
           <div>
@@ -87,7 +80,7 @@ export function Footer() {
           <div>
             <h4>Компания</h4>
             <nav>
-              <a href="/about/">О Sanremo</a><a href="/about/world/">Sanremo в мире</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a><a href="/privacy/">Политика обработки данных</a>
+              <a href="/about/">О Sanremo</a><a href="/about/world/">Sanremo в мире</a><a href="/bio/">BIO в России</a><a href="/cases/">Кейсы</a><a href="/news/">Новости</a><a href="/contacts/">Контакты</a><a href="/contacts/?type=dealer">Стать дилером</a><a href="/privacy/">Политика обработки данных</a>
             </nav>
           </div>
           <div>

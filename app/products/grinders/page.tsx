@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
-import { Crumbs, Stock } from "../../components/Bits";
+import { Crumbs } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { money } from "@/lib/catalog";
 import { xOneEntries, xOneVariants, xOnePriceFrom, xOneHasPrice, xOneStockLabel } from "@/lib/x-one";
 
 export const metadata: Metadata = {
   title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
-  description: "Кофемолки Sanremo в России: X-One с двумя бункерами, взвешиванием зерна перед помолом и сохранением рецептов. Характеристики, цены и наличие на сайте.",
+  description: "Кофемолки Sanremo в России: X-One с тремя бункерами для разных сортов, взвешиванием зерна до помола и 12 рецептами. Исполнения, цены и наличие.",
 };
 
 const features = [
   ["Жернова", "плоские вертикальные, 98\u00a0мм, со специальным покрытием"],
-  ["Бункеры для зерна", "2 × 1\u00a0200\u00a0г"],
-  ["Весовой бункер", "250\u00a0г"],
+  ["Бункеры для зерна", "2 × 1,2\u00a0кг + фронтальный до 250\u00a0г"],
   ["Дозирование", "запатентованная система взвешивания зерна перед помолом"],
   ["Управление", "сенсорный дисплей, до 12 рецептов помола"],
   ["Скорости", "1 000 / 1 200 / 1 400 об/мин и настраиваемая 800–1 400 об/мин"],
@@ -37,7 +36,7 @@ export default function GrindersPage() {
             <p className="eyebrow">Профессиональное оборудование Sanremo</p>
             <h1 style={{ fontSize: "clamp(38px,4.6vw,68px)" }}>Кофемолки Sanremo</h1>
           </div>
-          <p className="lead">Высокопроизводительная кофемолка с контролем веса зерна перед помолом, двумя бункерами и настройкой рецептов для стабильной работы барной станции.</p>
+          <p className="lead">Три бункера для трёх сортов зерна: два основных по 1,2 кг и фронтальный для разовой порции. X-One взвешивает зерно до помола и сохраняет рецепты.</p>
         </div>
       </section>
 
@@ -50,7 +49,7 @@ export default function GrindersPage() {
             <div>
               <p className="eyebrow">Кофемолка Sanremo X-One</p>
               <h2>X-One: точный помол для профессиональной рабочей зоны</h2>
-              <p className="lead">X-One хранит рецепты, поддерживает несколько скоростей помола и помогает бариста работать с разными сортами зерна без лишних переключений.</p>
+              <p className="lead">X-One работает с основным блендом, вторым сортом и разовой порцией декафа, сезонного лота или фильтра без пересыпания зерна.</p>
               <div className="card" style={{ marginTop: 26 }}>
                 <div className="card-body">
                   <span className="price-from">от</span>
@@ -76,7 +75,7 @@ export default function GrindersPage() {
       <section className="wrap section-tight">
         <div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>Цены и наличие</h2></div></div>
         <div className="table-scroll"><table className="data"><thead><tr><th>Артикул</th><th>Исполнение</th><th className="num">Цена</th><th>Статус</th></tr></thead><tbody>
-          {entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{item.rrp > 0 ? money(item.rrp) : "Цена по запросу"}</td><td><Stock status={item.availability} free={"inStock" in item && typeof item.inStock === "number" ? item.inStock : undefined} /></td></tr>)}
+          {entries.map((item) => { const variant = xOneVariants.find((entry) => entry.codes.includes(item.code)); return <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{item.rrp > 0 ? money(item.rrp) : "Цена по запросу"}</td><td>{variant ? xOneStockLabel(variant) : "Под заказ"}</td></tr>; })}
         </tbody></table></div>
       </section>
     </main>

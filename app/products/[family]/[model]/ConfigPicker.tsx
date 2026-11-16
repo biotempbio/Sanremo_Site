@@ -26,6 +26,7 @@ export interface PickerSku {
   weightNet: number | null;
   secondaryProps: { name: string; value: string }[];
   descriptionBlocks: DescriptionBlock[];
+  description: string;
   image: string | null;
   imageExact: boolean;
   imageWidth?: number;

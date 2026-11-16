@@ -1,64 +1,26 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
-import { Crumbs, Stock } from "../../components/Bits";
-import { money } from "@/lib/catalog";
-import { xOneEntries, xOneVariants } from "@/lib/x-one";
+import { Crumbs } from "../../components/Bits";
+import { absoluteUrl, jsonLd } from "@/lib/seo";
+import { X_ONE_META_DESCRIPTION, X_ONE_SEARCH_DESCRIPTION, xOneEntries, xOneVariants } from "@/lib/x-one";
 import XOnePicker from "./XOnePicker";
-import { cleanDescriptionBlocks } from "@/lib/product-description.mjs";
-import type { DescriptionBlock } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Кофемолка Sanremo X-One (X1) — купить у официального дистрибьютора",
-  description: "Кофемолка Sanremo X-One в России: жернова, бункеры, скорости помола и электропитание. Сравните исполнения, цены и наличие по артикулам.",
+  description: X_ONE_META_DESCRIPTION,
 };
 
-const features = [
-  ["Жернова", "плоские вертикальные, 98\u00a0мм, со специальным покрытием"],
-  ["Бункеры для зерна", "2 × 1\u00a0200\u00a0г"],
-  ["Весовой бункер", "250\u00a0г"],
-  ["Дозирование", "запатентованная система взвешивания зерна перед помолом"],
-  ["Управление", "сенсорный дисплей, до 12 рецептов помола"],
-  ["Скорости", "1 000 / 1 200 / 1 400 об/мин и настраиваемая 800–1 400 об/мин"],
-  ["Стабильность работы", "система охлаждения и инверторный мотор"],
-  ["Подключение", "220\u00a0В, 1,65\u00a0кВт"],
-];
-
 export default function XOnePage() {
-  const entries = xOneEntries;
-  const primary = entries.find((item) => item.availability === "in_stock") ?? entries[0];
-  const descriptionBlocks = cleanDescriptionBlocks(primary?.descriptionBlocks ?? []) as DescriptionBlock[];
-  const secondaryProps = primary?.secondaryProps ?? [];
-
-  return <>
-    <Header active="/products" />
-    <Crumbs items={[{ href: "/", label: "Главная" }, { href: "/products/", label: "Кофемашины" }, { href: "/products/grinders/", label: "Кофемолки" }, { label: "X-One" }]} />
-    <main>
-      <section className="wrap" style={{ paddingBottom: 34 }}>
-        <div className="sec-head">
-          <div><p className="eyebrow">Профессиональная кофемолка</p><h1 style={{ fontSize: "clamp(36px,4.2vw,60px)" }}>Кофемолка Sanremo <span style={{ whiteSpace: "nowrap" }}>X-One</span></h1></div>
-          <p className="lead">X-One (X1) взвешивает зерно перед помолом, использует два бункера и сохраняет рецепты для работы барной станции.</p>
-        </div>
-      </section>
-
-      <XOnePicker variants={xOneVariants} />
-
-      <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Характеристики</p><h2>Всё необходимое — на странице</h2></div><p className="lead">Характеристики, доступные исполнения и цены X-One — прямо на странице.</p></div><div className="table-scroll"><table className="data spec-table"><tbody>{features.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div></section>
-
-      {descriptionBlocks.length > 0 ? <section className="wrap section-tight"><div style={{ maxWidth: 720 }}><p className="eyebrow">Описание кофемолки</p><h2>Sanremo X-One</h2><div className="product-description">{descriptionBlocks.map((block, index) => block.type === "heading" ? <h3 key={index}>{block.text}</h3> : block.type === "list" ? <ul key={index}>{block.items.map((item, itemIndex) => <li key={itemIndex}>{item}</li>)}</ul> : <p key={index}>{block.text}</p>)}</div></div></section> : null}
-      {secondaryProps.length > 0 ? <section className="wrap section-tight"><details className="product-more-specs"><summary>Все характеристики исполнения · {secondaryProps.length}</summary><div className="table-scroll"><table className="data spec-table"><tbody>{secondaryProps.map((item) => <tr key={`${item.name}:${item.value}`}><th scope="row">{item.name}</th><td>{item.value}</td></tr>)}</tbody></table></div></details></section> : null}
-
-      <section className="wrap section-tight"><div className="sec-head"><div><p className="eyebrow">Исполнения</p><h2>Цены и наличие</h2></div></div><div className="table-scroll"><table className="data"><thead><tr><th>Артикул</th><th>Исполнение</th><th className="num">Цена</th><th>Статус</th></tr></thead><tbody>{entries.map((item) => <tr key={item.code}><td className="sku">{item.code}</td><td>{item.name.replace(/^Кофемолка\s+/i, "")}</td><td className="num">{item.rrp > 0 ? money(item.rrp) : "Цена по запросу"}</td><td><Stock status={item.availability} free={"inStock" in item && typeof item.inStock === "number" ? item.inStock : undefined} /></td></tr>)}</tbody></table></div></section>
-
-      <section className="wrap section-tight" aria-label="Разделы Sanremo">
-        <div className="grid g3">
-          <a className="link-arrow" href="/products/grinders/">Все кофемолки Sanremo</a>
-          <a className="link-arrow" href="/dealers/">Найти дилера</a>
-          <a className="link-arrow" href="/service/">Сервис Sanremo</a>
-        </div>
-      </section>
-    </main>
-    <BaristaAccessories />
-      <Footer />
-  </>;
+  const product = {
+    "@context": "https://schema.org", "@type": "Product", name: "Кофемолка Sanremo X-One",
+    description: X_ONE_SEARCH_DESCRIPTION, brand: { "@type": "Brand", name: "Sanremo" },
+    image: absoluteUrl("/photo/official/x-one.webp"), url: absoluteUrl("/products/x-one/"),
+    offers: xOneEntries.filter((item) => item.rrp > 0).map((item) => ({
+      "@type": "Offer", sku: item.code, price: item.rrp, priceCurrency: "RUB",
+      availability: item.availability === "on_order" ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+      url: absoluteUrl("/products/x-one/"), seller: { "@type": "Organization", name: "BIO" },
+    })),
+  };
+  return <><Header active="/products" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/products/", label: "Кофемашины" }, { href: "/products/grinders/", label: "Кофемолки" }, { label: "X-One" }]} /><main><XOnePicker variants={xOneVariants} entries={xOneEntries} /></main><BaristaAccessories /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(product) }} /><Footer /></>;
 }

@@ -42,6 +42,8 @@ export default function ServicePage() {
           </div>
         </section>
 
+        <section className="section wrap service-parts-entry"><div><p className="eyebrow">Каталог запчастей</p><h2>Найти запчасть</h2><p>Введите артикул или модель, чтобы увидеть совместимые детали и наличие.</p></div><form action="/parts/" method="get" role="search"><label htmlFor="service-parts-search">Артикул или модель</label><div><input id="service-parts-search" name="q" type="search" placeholder="Например, D8 или 10652058B" /><button className="btn btn-solid" type="submit">Найти</button></div><a href="/parts/">Весь каталог запчастей →</a></form></section>
+
         <section className="section wrap">
           <p className="small">Для владельцев архивной кофемашины Capri: <a href="/products/capri/">сервис, запчасти и подбор замены</a>.</p>
           <div className="sec-head">

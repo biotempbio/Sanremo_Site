@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
-import { BaristaAccessories } from "../components/BaristaAccessories";
+import { ResponsiveImage } from "../components/ResponsiveImage";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
 import { pluralize } from "@/lib/format";
-import { xOneEntries, xOneVariants, xOneHasPrice, xOnePriceFrom, xOneStockLabel } from "@/lib/x-one";
+import { xOneVariants, xOneHasPrice, xOnePriceFrom, xOneStockLabel } from "@/lib/x-one";
 import { itemList, jsonLd } from "@/lib/seo";
 import {
   catalogModels,
@@ -64,20 +64,9 @@ export default function ProductsPage() {
       volumeBands: VOLUME_BANDS.filter((b) => b.models.includes(m.slug)).map((b) => b.id),
     };
   });
-  const nero = xOneVariants.find((variant) => variant.color === "Nero")!;
-  rows.push({
-    slug: "x-one", href: "/products/x-one/", kind: "grinder", name: "X-One",
-    family: "grinders", familyName: "Кофемолки", familyTagline: "Два бункера и взвешивание зерна перед помолом.",
-    architecture: "Кофемолка", scenarios: [], version: null, groups: [], heights: [], options: [],
-    colors: [{name:"Nero",hex:"#151515"},{name:"White",hex:"#f2f0e9"}],
-    priceFrom: xOneHasPrice ? xOnePriceFrom : null, priceTo: xOneHasPrice ? xOnePriceFrom : null,
-    stockUnits: nero.stock ?? 0, stockExecutions: 0, skuCount: xOneEntries.length,
-    heroColor: "#151515", heroImage: "/photo/official/x-one.webp", volumeBands: [],
-    stockText: xOneStockLabel(nero), stockStatus: nero.availability,
-  });
-
   const listSchema = itemList("Профессиональные кофемашины и кофемолки Sanremo в России", [
-    ...rows.map((row) => ({ name: `${row.kind === "grinder" ? "Кофемолка" : "Кофемашина"} Sanremo ${row.name}`, path: row.href ?? `/products/${row.family}/${row.slug}/` })),
+    ...rows.map((row) => ({ name: `Кофемашина Sanremo ${row.name}`, path: row.href ?? `/products/${row.family}/${row.slug}/` })),
+    { name: "Кофемолка Sanremo X-One", path: "/products/x-one/" },
   ]);
 
   return (
@@ -106,6 +95,7 @@ export default function ProductsPage() {
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
         </section>
+        <section className="wrap section-tight catalog-xone" aria-labelledby="catalog-xone-title"><div className="catalog-xone-visual"><a href="/products/x-one/"><ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One" width={1536} height={864} sizes="(max-width: 800px) 100vw, 45vw" /></a></div><div className="catalog-xone-copy"><p className="eyebrow">Кофемолки</p><h2 id="catalog-xone-title">Кофемолка к вашей кофемашине</h2><p><strong>X-One</strong> работает с тремя сортами зерна: два основных бункера по 1,2 кг и фронтальный для разовой порции. Зерно взвешивается до помола.</p><div className="catalog-xone-variants">{xOneVariants.map((variant) => <span key={variant.color}>{variant.color} · {xOneStockLabel(variant)}</span>)}</div><p className="catalog-xone-price">{xOneHasPrice ? `от ${money(xOnePriceFrom)}` : "Цена по запросу"}</p><a className="btn btn-solid" href="/products/x-one/">Смотреть X-One</a></div></section>
         <section className="wrap section-tight"><div className="callout"><h2 style={{ fontSize: 28 }}>С чего начать выбор?</h2><p>Сравните рабочий поток, группы, бойлеры и условия подключения. В гиде эти вопросы разобраны на примере актуальных линеек Sanremo.</p><a href="/guide/kofemashina-dlya-kofejni/">Гид для кофейни →</a> · <a href="/guide/kofemashina-dlya-restorana/">Гид для ресторана →</a> · <a href="/guide/linejki-sanremo/">Сравнение линеек →</a><p style={{marginTop:16,marginBottom:0}}><a href="/solutions/kofejnya/">Кофейня</a> · <a href="/solutions/professionalnye-kofemashiny/">Профессиональные машины</a> · <a href="/solutions/restoran/">Ресторан</a> · <a href="/leasing/">Лизинг</a></p></div></section>
         <section className="wrap section-tight" aria-labelledby="discontinued-models">
           <div className="callout">
@@ -115,7 +105,6 @@ export default function ProductsPage() {
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(listSchema) }} />
       </main>
-      <BaristaAccessories />
       <Footer />
     </>
   );

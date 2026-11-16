@@ -70,11 +70,6 @@ export default function HomePage() {
         <div><TrustIcon kind="service" /><b>Сервис и дилеры<br />по всей России</b></div>
       </div></section>
 
-      <section className="wrap section home-xone">
-        <div className="sec-head"><div><p className="eyebrow">К кофемашине</p><h2>Кофемолка к вашей кофемашине</h2></div><p className="lead">X-One взвешивает зерно перед помолом и сохраняет рецепты. Доступны исполнения Nero и White.</p></div>
-        <div className="home-xone-card"><a href="/products/x-one/" aria-label="Открыть кофемолку Sanremo X-One"><ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One Nero" width={1536} height={864} sizes="(max-width: 800px) 100vw, 50vw" /></a><div><h3>X-One</h3><p>Два бункера для зерна и управление рецептами помола.</p><div className="home-xone-variants">{xOneVariants.map((variant)=><div key={variant.color}><b>{variant.color}</b><span>{variant.price ? `от ${money(variant.price)}` : "Цена по запросу"}</span><small>{xOneStockLabel(variant)}</small></div>)}</div><a className="btn btn-solid" href="/products/x-one/">Смотреть кофемолку</a></div></div>
-      </section>
-
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>
         <div className="home-tasks">{tasks.map((task, index) => <a className="home-task" href={task.href} key={task.href}><span>0{index + 1}</span><h3>{task.title}</h3><p>{task.text}</p><b>Перейти →</b></a>)}</div>
@@ -88,6 +83,11 @@ export default function HomePage() {
           <div className="card-body"><p className="eyebrow">{family?.tagline ?? "Профессиональная кофемашина"}</p><h3><a href={modelPath(model)}>{label}</a></h3><p className="small">{lineupDescriptions[model.slug]}</p><div className="card-foot"><p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(model.priceFrom)}</span></p><p className="home-product-status">{stockSummary(stockUnitsOfModel(model.slug))}</p><a className="link-arrow" href={modelPath(model)}>Открыть модель</a></div></div>
         </article>)}</div>
       </div></section>
+
+      <section className="wrap section home-xone">
+        <div className="sec-head"><div><p className="eyebrow">К кофемашине</p><h2>Кофемолка к вашей кофемашине</h2></div><p className="lead">Три бункера в одной кофемолке: два основных по 1,2 кг для разных сортов эспрессо и фронтальный для третьего зерна.</p></div>
+        <div className="home-xone-card"><a href="/products/x-one/" aria-label="Открыть кофемолку Sanremo X-One"><ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One Nero" width={1536} height={864} sizes="(max-width: 800px) 100vw, 50vw" /></a><div><h3>X-One</h3><p>Три вида зерна без пересыпания: два сорта эспрессо и разовая порция декафа, сезонного лота или фильтра. Зерно взвешивается до помола.</p><div className="home-xone-variants">{xOneVariants.map((variant)=><div key={variant.color}><b>{variant.color}</b><span>{variant.price ? `от ${money(variant.price)}` : "Цена по запросу"}</span><small>{xOneStockLabel(variant)}</small></div>)}</div><a className="btn btn-solid" href="/products/x-one/">Смотреть кофемолку</a></div></div>
+      </section>
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">По числу чашек</p><h2>От первой чашки до высокого потока</h2></div><p className="lead">Подборщик учитывает формат точки, объём напитков и требования к рабочему месту.</p></div>

@@ -310,7 +310,12 @@
       }
     ],
     "order": 15,
-    "cover": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-00.jpg"
+    "cover": "/photo/case-projects/vkusvill/photo_2026-08-26_11-16-00.jpg",
+    "model": {
+      "value": "D8",
+      "source": "telegram-665",
+      "family": "d8"
+    }
   },
   {
     "slug": "vanlav",
@@ -559,7 +564,12 @@
       }
     ],
     "order": 18,
-    "cover": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-22.jpg"
+    "cover": "/photo/case-projects/coffee4human/photo_2026-07-03_15-57-22.jpg",
+    "model": {
+      "value": "D8",
+      "source": "telegram-794",
+      "family": "d8"
+    }
   },
   {
     "slug": "chaika-krichala",
@@ -606,7 +616,12 @@
       }
     ],
     "order": 9,
-    "cover": "/photo/case-projects/chaika/photo_7_2026-08-26_10-17-02.jpg"
+    "cover": "/photo/case-projects/chaika/photo_7_2026-08-26_10-17-02.jpg",
+    "model": {
+      "value": "F18",
+      "source": "telegram-884",
+      "family": "f18"
+    }
   },
   {
     "slug": "zatsepi-krasnodar-1",
@@ -914,5 +929,180 @@
     },
     "order": 6,
     "cover": "/photo/case-projects/litsey/01.webp"
+  },
+  {
+    "slug": "aeroplan",
+    "name": {
+      "value": "Аэроплан",
+      "source": "telegram-967"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "telegram-967"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-967"
+    },
+    "address": {
+      "value": "Пятницкая ул., 65/10; Садовническая ул., 80",
+      "source": "telegram-967"
+    },
+    "model": {
+      "value": "Café Racer",
+      "source": "telegram-967",
+      "family": "cafe-racer"
+    },
+    "summary": {
+      "value": "Две кофейни в Москве. Эспрессо готовят на Sanremo Café Racer.",
+      "source": "telegram-967"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/aeroplan/sanremo-case-967-1.webp",
+        "source": "telegram-967"
+      },
+      {
+        "value": "/photo/case-projects/aeroplan/sanremo-case-967-2.webp",
+        "source": "telegram-967"
+      },
+      {
+        "value": "/photo/case-projects/aeroplan/sanremo-case-967-3.webp",
+        "source": "telegram-967"
+      },
+      {
+        "value": "/photo/case-projects/aeroplan/sanremo-case-967-5.webp",
+        "source": "telegram-967"
+      }
+    ],
+    "cover": "/photo/case-projects/aeroplan/sanremo-case-967-5.webp",
+    "order": 21
+  },
+  {
+    "slug": "espresso-bar-trubnaya",
+    "name": {
+      "value": "Espresso Bar на Трубной",
+      "source": "telegram-387"
+    },
+    "format": {
+      "value": "Кофейня",
+      "source": "telegram-387"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "telegram-387"
+    },
+    "address": {
+      "value": "Трубная ул., 2",
+      "source": "telegram-387"
+    },
+    "model": {
+      "value": "Café Racer",
+      "source": "telegram-387",
+      "family": "cafe-racer"
+    },
+    "summary": {
+      "value": "Кофейня на Трубной с кастомным Café Racer. В меню есть cold brew.",
+      "source": "telegram-387"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/espresso-bar-trubnaya/sanremo-case-387-1.webp",
+        "source": "telegram-387"
+      },
+      {
+        "value": "/photo/case-projects/espresso-bar-trubnaya/sanremo-case-387-2.webp",
+        "source": "telegram-387"
+      },
+      {
+        "value": "/photo/case-projects/espresso-bar-trubnaya/sanremo-case-387-3.webp",
+        "source": "telegram-387"
+      }
+    ],
+    "cover": "/photo/case-projects/espresso-bar-trubnaya/sanremo-case-387-1.webp",
+    "order": 22
+  },
+  {
+    "slug": "safe-coffee",
+    "name": {
+      "value": "Сейф Coffee",
+      "source": "telegram-358"
+    },
+    "format": {
+      "value": "Кофейня-ростерия",
+      "source": "telegram-358"
+    },
+    "city": {
+      "value": "Санкт-Петербург",
+      "source": "https://play.google.com/store/apps/details?id=com.outsource.safecoffee"
+    },
+    "address": {
+      "value": "Невский проспект, 44",
+      "source": "https://play.google.com/store/apps/details?id=com.outsource.safecoffee"
+    },
+    "summary": {
+      "value": "Кофейня в здании бывшего Сибирского торгового банка. Зерно обжаривают в зале, кофе готовят на оборудовании Sanremo.",
+      "source": "telegram-358"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/safe-coffee/video-frame.webp",
+        "source": "telegram-358"
+      }
+    ],
+    "cover": "/photo/case-projects/safe-coffee/video-frame.webp",
+    "order": 23
+  },
+  {
+    "slug": "muzey-transporta",
+    "name": {
+      "value": "Музей транспорта Москвы",
+      "source": "manager-2026-11-16"
+    },
+    "format": {
+      "value": "Музей / кафе и ресторан",
+      "source": "manager-2026-11-16"
+    },
+    "city": {
+      "value": "Москва",
+      "source": "https://mtmuseum.ru/contacts/"
+    },
+    "address": {
+      "value": "Новорязанская ул., 27",
+      "source": "https://mtmuseum.ru/contacts/"
+    },
+    "summary": {
+      "value": "Кофе в музее варят на Sanremo в обеих точках: в кафе на первом этаже и в ресторане «Брик» на втором.",
+      "source": "manager-2026-11-16"
+    },
+    "photos": [
+      {
+        "value": "/photo/case-projects/muzey-transporta/brik-2.webp",
+        "source": "manager-2026-11-16"
+      },
+      {
+        "value": "/photo/case-projects/muzey-transporta/brik-1.webp",
+        "source": "manager-2026-11-16"
+      },
+      {
+        "value": "/photo/case-projects/muzey-transporta/brik-3.webp",
+        "source": "manager-2026-11-16"
+      },
+      {
+        "value": "/photo/case-projects/muzey-transporta/kafe-1-etazh-1.webp",
+        "source": "manager-2026-11-16"
+      },
+      {
+        "value": "/photo/case-projects/muzey-transporta/kafe-1-etazh-2.webp",
+        "source": "manager-2026-11-16"
+      }
+    ],
+    "cover": "/photo/case-projects/muzey-transporta/brik-2.webp",
+    "order": 0,
+    "model": {
+      "value": "D8",
+      "source": "sergey-2026-11-16",
+      "family": "d8"
+    }
   }
 ]

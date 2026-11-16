@@ -17,16 +17,23 @@ const articles = [
   { name: "Двухгруппная кофемашина", path: "/guide/dvuhgruppnaya-kofemashina/", summary: "Когда нужны две группы и чем отличаются двухгруппные версии Sanremo.", image: officialImageForModel("d8"), alt: "Двухгруппная кофемашина Sanremo D8", time: "≈ 5 мин", number: "04" },
   { name: "Мультибойлерная кофемашина", path: "/guide/multiboylernaya-kofemashina/", summary: "Раздельная температура групп, пар и выбор между гибридом и мультибойлером.", image: officialImageForModel("f18-mb"), alt: "Мультибойлерная кофемашина Sanremo F18 MB", time: "≈ 4 мин", number: "05" },
 ];
+const comparisons = [
+  { name: "Сравнить линейки Sanremo", path: "/compare/", summary: "Группы, бойлеры, управление, цена и наличие в одной таблице." },
+  { name: "Sanremo и La Marzocco Linea", path: "/compare/sanremo-vs-la-marzocco-linea/", summary: "Сопоставление бойлеров, управления и цен по открытым данным." },
+  { name: "Sanremo и Nuova Simonelli Appia Life", path: "/compare/sanremo-vs-nuova-simonelli-appia/", summary: "Двухгруппные машины для кофейни: оснащение и стоимость." },
+];
 
 export default function GuidePage() {
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Как выбрать" }]} />
     <main className="wrap section guide-page guide-index"><header className="guide-intro"><p className="eyebrow">Как выбрать</p><h1>Как выбрать кофемашину Sanremo</h1>
       <p className="lead">Начните с формата заведения, числа групп или бойлерной системы. В каждой статье — ссылки на модели и доступные версии.</p></header>
-      <div className="guide-index-grid">{articles.map((a) => <article className="guide-index-card" key={a.path}>
+      <a className="guide-choose-panel" href="/choose/"><span><small>Начните с вашей задачи</small><strong>Подобрать по задаче</strong><em>Ответьте на несколько вопросов о потоке, меню и рабочей зоне.</em></span><b aria-hidden="true">↗</b></a>
+      <section className="guide-comparisons"><div className="sec-head"><div><p className="eyebrow">Выбор между моделями</p><h2>Сравнения моделей</h2></div></div><div className="guide-comparison-grid">{comparisons.map((item) => <a href={item.path} key={item.path}><strong>{item.name}</strong><span>{item.summary}</span><b aria-hidden="true">↗</b></a>)}</div></section>
+      <section className="guide-articles"><div className="sec-head"><div><p className="eyebrow">Разобраться в деталях</p><h2>Статьи и гайды</h2></div></div><div className="guide-index-grid">{articles.map((a) => <article className="guide-index-card" key={a.path}>
         <a href={a.path} className="guide-index-visual"><Image src={a.image ?? ""} alt={a.alt} width={600} height={400} unoptimized /></a>
         <div className="guide-index-meta"><span>{a.number} / ГИД</span><span>{a.time} чтения</span></div>
         <h2><a href={a.path}>{a.name}</a></h2><p>{a.summary}</p><a className="guide-index-link" href={a.path}>Читать гид →</a>
-      </article>)}</div>
+      </article>)}</div></section>
       <div className="guide-index-next"><p>Уже знаете поток и меню?</p><a className="btn btn-solid" href="/choose/">Перейти к подбору</a></div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList("Гайды по выбору Sanremo", articles)) }} />
     </main><Footer /></>;

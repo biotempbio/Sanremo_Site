@@ -1,5 +1,6 @@
 import { families, grinders, models, skus, officialImageForModel } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
+import { X_ONE_SHORT_DESCRIPTION } from "@/lib/x-one";
 
 export const dynamic = "force-static";
 
@@ -36,7 +37,7 @@ export function GET() {
         <picture>${xml(absoluteUrl(image))}</picture>
         <vendor>Sanremo</vendor><model>X-One</model><name>${xml(grinder.name)}</name>
         <vendorCode>${xml(grinder.code)}</vendorCode>
-        <description>${xml(grinder.description || "Профессиональная кофемолка Sanremo X-One.")}</description>
+        <description>${xml(X_ONE_SHORT_DESCRIPTION)}</description>
       </offer>`;
   });
   const feed = `<?xml version="1.0" encoding="UTF-8"?>

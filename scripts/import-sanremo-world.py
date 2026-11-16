@@ -23,6 +23,7 @@ SESSION = requests.Session()
 MODEL_RE = re.compile(r"(?i)(sanremo|санремо|café racer|cafe racer|\bd8\b|\bzoe\b|\bopera\b|\byou\b|x.one)")
 MEDIA_RE = re.compile(r"background-image:\s*url\(['\"]?([^)'\"]+)")
 COUNTRIES = ["Германия", "Польша", "Индонезия", "Великобритания", "Австралия", "Южная Корея", "Эквадор", "Узбекистан", "Мексика", "Египет"]
+EXCLUDED_POST_IDS = {174}  # Removed by editorial decision; never import again.
 
 def get_page(url):
     response = SESSION.get(url, headers=HEADERS, timeout=25)
@@ -147,14 +148,14 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("mode",choices=["seed","weekly","hydrate-video"])
     args=parser.parse_args()
-    seed={item["id"]:item for item in json.loads(SEED.read_text())}
+    seed={item["id"]:item for item in json.loads(SEED.read_text()) if item["id"] not in EXCLUDED_POST_IDS}
     existing=json.loads(DATA.read_text()) if DATA.exists() else []
-    by_id={item["id"]:item for item in existing}
+    by_id={item["id"]:item for item in existing if item["id"] not in EXCLUDED_POST_IDS}
     # The first scheduled run must not publish older posts outside the approved seed.
     latest_approved = max(by_id, default=0)
-    ids=list(seed) if args.mode=="seed" else [post_id for post_id in recent_ids() if post_id > latest_approved] if args.mode=="weekly" else []
+    ids=list(seed) if args.mode=="seed" else [post_id for post_id in recent_ids() if post_id > latest_approved and post_id not in EXCLUDED_POST_IDS] if args.mode=="weekly" else []
     if args.mode == "hydrate-video":
-        for post in existing:
+        for post in by_id.values():
             if not post.get("video") or post.get("videoSrc"):
                 continue
             try:

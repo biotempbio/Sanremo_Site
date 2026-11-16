@@ -5,7 +5,8 @@ import { Header, Footer } from "../../../components/Chrome";
 import { BaristaAccessories } from "../../../components/BaristaAccessories";
 import { ShowroomVisit } from "../../../components/ShowroomVisit";
 import { Crumbs, Stock } from "../../../components/Bits";
-import ConfigPicker, { PickerSku } from "./ConfigPicker";
+import type { PickerSku } from "./ConfigPicker";
+import UnifiedProductCard from "./UnifiedProductCard";
 import { ResponsiveImage } from "../../../components/ResponsiveImage";
 import { modelQuestions } from "@/lib/model-faq";
 import { documentsForModel, fileSizeMb } from "@/lib/documents";
@@ -82,7 +83,7 @@ export default async function ModelPage({ params }: Props) {
     options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
     power: s.power, voltage: s.voltage, boilerTotal: s.boilerTotal,
     sizeNet: s.sizeNet, weightNet: s.weightNet,
-    secondaryProps: s.secondaryProps ?? [], descriptionBlocks: s.descriptionBlocks ?? [],
+    secondaryProps: s.secondaryProps ?? [], descriptionBlocks: s.descriptionBlocks ?? [], description: s.description ?? "",
     image: skuHeroMedia(s).image,
     imageExact: skuHeroMedia(s).exact,
     imageWidth: skuHeroMedia(s).width,
@@ -127,170 +128,8 @@ export default async function ModelPage({ params }: Props) {
         ]}
       />
       <main>
-        {/* 7.1 — первый экран */}
-        <section className="wrap" style={{ paddingBottom: "clamp(34px,4vw,64px)" }}>
-          <div style={{ maxWidth: "72ch", marginBottom: 28 }}>
-            <p className="eyebrow">{f.name} · {architectureForModel(m)}</p>
-            <h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Кофемашина Sanremo {m.name}{m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : ""}</h1>
-            <p className="lead" style={{ marginTop: 14 }}>{f.territory}</p>
-          </div>
-          <ConfigPicker skus={pickerSkus} modelName={m.name} modelSlug={m.slug} />
-        </section>
-
-        {/* 7.2.1 — кому подходит */}
-        <section className="section bg-sage">
-          <div className="wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow">Кому подходит</p>
-              <h2>Где {m.name} подходит по формату и нагрузке</h2>
-              </div>
-            </div>
-            <div className="grid g3">
-              {f.scenarios.map((s) => (
-                <div className="card" key={s}>
-                  <div className="card-body">
-                    <h3>{s}</h3>
-                    <p className="small" style={{ margin: 0 }}>
-                      Доступные группы: {m.groupsAvailable.join(" / ")} · {architectureForModel(m)}.
-                      {m.optionsAvailable.length ? ` Опции: ${m.optionsAvailable.join(", ")}.` : " Базовая комплектация."}
-                    </p>
-                  </div>
-                </div>
-              ))}
-              {bands.length > 0 && (
-                <div className="card" style={{ background: "var(--ink)", color: "#fff", borderColor: "var(--ink)" }}>
-                  <div className="card-body">
-                    <h3 style={{ color: "#fff" }}>Рабочий поток</h3>
-                    <div className="chips">
-                      {bands.map((b) => (
-                        <span className="tag" key={b.id} style={{ background: "transparent", color: "#fff", borderColor: "#5a5854" }}>
-                          {b.label}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="callout" style={{ marginTop: 26 }}><h3>Когда {m.name} не подходит</h3>
-              <p>{unavailableGroups.length ? `Нет исполнения с ${unavailableGroups.join(" / ")} ${unavailableGroups.length === 1 && unavailableGroups[0] === 1 ? "группой" : "группами"}. ` : ""}Если параметры питания или габариты выбранного артикула не соответствуют площадке, сравните другие модели.</p>
-              <a href="/guide/linejki-sanremo/">Сравнить линейки Sanremo →</a>
-            </div>
-          </div>
-        </section>
-
-        {/* 7.2.2 — ключевые функции */}
-        {feats.length > 0 && (
-          <section className="section wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow">Ключевые функции</p>
-                <h2>Что это даёт в смене</h2>
-              </div>
-            </div>
-            <div className="grid g2">
-              {feats.map((b, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: 16, padding: "16px 0", borderTop: "1px solid var(--line)" }}>
-                  <span className="num" style={{ fontFamily: "var(--sans)", fontWeight: 700, color: "var(--muted)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <p style={{ margin: 0, fontSize: 15 }}>{b}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* 7.2.3 — полная техническая таблица */}
-        <section className="section bg-gray">
-          <div className="wrap">
-            <div className="sec-head">
-              <div>
-                <p className="eyebrow">Спецификация</p>
-                <h2>Технические характеристики</h2>
-              </div>
-            </div>
-            <div className="grid g2" style={{ alignItems: "start" }}>
-              <div>
-                <SpecGroup title="Архитектура и гидравлика">
-                  <Spec k="Семейство" v={f.name} />
-                  <Spec k="Версия" v={m.version} />
-                  <Spec k="Архитектура бойлеров" v={architectureForModel(m)} />
-                  <Spec k="Общий объём бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal}\u00a0л` : null} />
-                  <Spec k="Количество групп" v={m.groupsAvailable.join(" / ")} />
-                  <Spec k="Посадка (высота) группы" v={hero?.seat} />
-                </SpecGroup>
-                <SpecGroup title="Управление и эксплуатация">
-                  <Spec k="Тип управления" v={hero?.control} />
-                  <Spec k="Подсветка" v={hero?.lighting} />
-                  <Spec k="Экономайзер" v={hero?.economizer} />
-                  <Spec k="Доступные опции" v={m.optionsAvailable.join(", ") || null} />
-                </SpecGroup>
-              </div>
-              <div>
-                <SpecGroup title="Подключение">
-                  <Spec k="Мощность" v={hero?.power ? `${kw(hero.power)}\u00a0кВт` : null} />
-                  <Spec k="Напряжение" v={hero?.voltage ? `${hero.voltage}\u00a0В` : null} />
-                </SpecGroup>
-                <SpecGroup title="Габариты и масса">
-                  <Spec k="Ширина" v={hero?.sizeNet ? `${hero.sizeNet.w}\u00a0мм` : null} />
-                  <Spec k="Высота" v={hero?.sizeNet ? `${hero.sizeNet.h}\u00a0мм` : null} />
-                  <Spec k="Глубина" v={hero?.sizeNet ? `${hero.sizeNet.d}\u00a0мм` : null} />
-                  <Spec k="Масса нетто" v={hero?.weightNet ? `${hero.weightNet}\u00a0кг` : null} />
-                  <Spec k="Гарантия" v={"12 месяцев с даты продажи"} />
-                </SpecGroup>
-                <SpecGroup title="Цены и наличие">
-                  <Spec k="Конфигураций в РФ" v={String(m.skuCount)} />
-                  <Spec k="Цена" v={`${money(m.priceFrom)} — ${money(m.priceTo)}`} />
-                </SpecGroup>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 7.2.4 — российские конфигурации */}
-        <section className="section wrap">
-          <div className="sec-head">
-            <div>
-              <p className="eyebrow">Российские конфигурации</p>
-              <h2>Исполнение, цена и наличие</h2>
-            </div>
-            <p className="small" style={{ maxWidth: "54ch" }}>Доступные исполнения, цены и наличие.</p>
-          </div>
-          <div className="table-scroll">
-            <table className="data">
-              <thead>
-                <tr>
-                  <th>Артикул</th>
-                  <th className="num">Групп</th>
-                  <th>Высота</th>
-                  <th>Исполнение / цвет</th>
-                  <th>Опции</th>
-                  <th className="num">Цена</th>
-                  <th>Наличие</th>
-                </tr>
-              </thead>
-              <tbody>
-                  {sk.sort((a, b) => a.rrp - b.rrp).map((s) => (
-                  <tr key={s.code} id={`sku-${s.code}`}>
-                    <td className="tiny sku">{s.vendorCode ?? s.code}</td>
-                    <td className="num">{s.groups ?? "—"}</td>
-                    <td>{s.groupHeight ?? "—"}</td>
-                    <td>
-                      <span className="swatches">
-                        {s.colorHex ? <i className="swatch" style={{ background: s.colorHex }} /> : null}
-                        {s.color ?? "—"}
-                      </span>
-                    </td>
-                    <td className="tiny">{s.options.join(", ") || "—"}</td>
-                    <td className="num">{money(s.rrp)}</td>
-                    <td><Stock status={s.availability} free={s.free} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <section className="wrap unified-product-shell">
+          <UnifiedProductCard skus={pickerSkus} modelName={m.name} modelSlug={m.slug} familyName={f.name} territory={f.territory} architecture={architectureForModel(m)} />
         </section>
 
         {/* 7.2.6 — сравнение версий в семействе */}

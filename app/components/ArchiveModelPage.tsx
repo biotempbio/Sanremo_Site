@@ -24,15 +24,13 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
     <Header active="/products" />
     <Crumbs items={[{ href: "/", label: "Главная" }, { href: "/products/", label: "Кофемашины" }, { label: model.name }]} />
     <main>
-      <section className="wrap section">
-        <div className="sec-head">
-          <div><p className="eyebrow">Архивная модель Sanremo</p><h1>Sanremo {model.name}</h1></div>
-          <p className="lead">{slug === "capri" ? "Модель снята с производства. Новые машины не продаём; поможем с сервисом и запчастями." : "Модель снята с поставки в Россию."}</p>
-        </div>
-        <div className="prose" style={{ marginTop: 30 }}>
+      <section className="wrap section archive-hero">
+        <div className="archive-hero-copy"><p className="eyebrow">Архивная модель Sanremo</p><h1>Sanremo {model.name}</h1>
+          <p className="lead">{slug === "capri" ? "Модель снята с производства. Поможем с сервисом и запчастями." : "Модель снята с поставки в Россию."}</p>
           <p>Sanremo {model.name} — профессиональная рожковая кофемашина. Новые поставки этой модели в Россию не ведутся.</p>
-          <p>Для точного подбора обслуживания и совместимых комплектующих укажите серийный номер и исполнение машины.</p>
+          <p>Для точного подбора совместимых деталей и обслуживания укажите серийный номер и исполнение машины.</p>
         </div>
+        <aside className="archive-hero-panel"><span className="eyebrow">Для владельцев</span><strong>{model.name}</strong><p>Найдите запчасть или оставьте запрос на обслуживание машины.</p><a className="btn btn-solid" href={partsHref}>Сервис и запчасти →</a></aside>
       </section>
 
       {slug === "capri" ? <section className="wrap section-tight">
