@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { FaqBlock } from "../../components/GuideBlocks";
-import { VOLUME_BANDS, familyBySlug, modelBySlug, skusOfModel, money, officialImageForModel } from "@/lib/catalog";
+import { VOLUME_BANDS, architectureForModel, modelBySlug, skusOfModel, money, officialImageForModel } from "@/lib/catalog";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
 const path = "/guide/dvuhgruppnaya-kofemashina/";
@@ -18,7 +18,7 @@ const rows = modelSlugs.flatMap((slug) => {
   if (!versions.length) return [];
   const price = Math.min(...versions.map((sku) => sku.rrp));
   const stocked = versions.reduce((sum, sku) => sum + sku.free, 0);
-  return [{ model, price, stocked, family: familyBySlug(model.family) }];
+  return [{ model, price, stocked }];
 });
 const minPrice = Math.min(...rows.map((row) => row.price));
 const maxPrice = Math.max(...rows.map((row) => row.price));
@@ -49,7 +49,7 @@ export default function TwoGroupGuide() {
       <p>Высокая группа оставляет место под стакан; проверьте высоту именно у нужной версии. До заказа сопоставьте мощность, напряжение и габариты с проектом стойки. Подготовьте линию питания, водоподвод, слив и место для фильтрации. На одной стойке рядом с кофемашиной должны разместиться кофемолка, питчеры и зона выдачи.</p>
       <h2>Двухгруппные модели Sanremo</h2>
       <p>Ниже показана минимальная цена среди двухгруппных исполнений каждой модели. Наличие взято из того же каталога, что и карточки машин.</p>
-      <div className="table-scroll" role="region" aria-label="Двухгруппные модели Sanremo" tabIndex={0}><table className="data guide-model-table"><thead><tr><th>Модель</th><th>Система</th><th>Цена от</th><th>Наличие в Москве</th></tr></thead><tbody>{rows.map(({ model, price, stocked, family }) => <tr key={model.slug}><th><a href={`/products/${model.family}/${model.slug}/`}>{model.name}</a></th><td>{family?.architecture ?? "—"}</td><td>{money(price)}</td><td>{stocked >= 3 ? `${stocked} шт.` : stocked > 0 ? "Мало на складе" : "Под заказ"}</td></tr>)}</tbody></table></div>
+      <div className="table-scroll" role="region" aria-label="Двухгруппные модели Sanremo" tabIndex={0}><table className="data guide-model-table"><thead><tr><th>Модель</th><th>Система</th><th>Цена от</th><th>Наличие в Москве</th></tr></thead><tbody>{rows.map(({ model, price, stocked }) => <tr key={model.slug}><th><a href={`/products/${model.family}/${model.slug}/`}>{model.name}</a></th><td>{architectureForModel(model)}</td><td>{money(price)}</td><td>{stocked >= 3 ? `${stocked} шт.` : stocked > 0 ? "Мало на складе" : "Под заказ"}</td></tr>)}</tbody></table></div>
       <p className="guide-note">Цены и остатки обновляются из каталога. Для выбора питания и высоты группы откройте конкретное исполнение.</p>
       <div className="guide-model-cards">{rows.slice(0, 4).map(({model, price}) => <a className="guide-model-card" href={`/products/${model.family}/${model.slug}/`} key={model.slug}><img src={officialImageForModel(model.slug) ?? ""} alt={`Sanremo ${model.name}`} loading="lazy" /><span>{model.name}</span><small>от {money(price)} →</small></a>)}</div>
       <div className="guide-actions"><a className="btn btn-solid" href="/choose/">Подобрать машину</a><a className="btn" href="/dealers/">Найти дилера</a></div>

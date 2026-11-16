@@ -1,6 +1,6 @@
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
-import { familyBySlug, modelBySlug, money, skusOfModel } from "@/lib/catalog";
+import { architectureForModel, modelBySlug, money, skusOfModel } from "@/lib/catalog";
 
 type Rival = {
   name: string;
@@ -33,7 +33,7 @@ function sanremoColumn(slug: string) {
   return {
     name: model.name,
     href: `/products/${model.family}/${model.slug}/`,
-    rows: ["2", slug === "f18-mb" ? "Мультибойлер" : slug === "d8-pro" ? "Гибридная платформа" : familyBySlug(model.family)?.architecture ?? "—", temperature, sku.boilerTotal ? `${sku.boilerTotal} л` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, sku.sizeNet ? `${sku.sizeNet.w} × ${sku.sizeNet.h} × ${sku.sizeNet.d} мм` : null, `от ${money(sku.rrp)}`, stock >= 3 ? `${stock} шт. в Москве` : stock > 0 ? "Мало на складе" : "Под заказ"],
+    rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), temperature, sku.boilerTotal ? `${sku.boilerTotal} л` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, sku.sizeNet ? `${sku.sizeNet.w} × ${sku.sizeNet.h} × ${sku.sizeNet.d} мм` : null, `от ${money(sku.rrp)}`, stock >= 3 ? `${stock} шт. в Москве` : stock > 0 ? "Мало на складе" : "Под заказ"],
   };
 }
 

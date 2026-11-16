@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { AVAILABILITY_LABEL, CATALOG_LINEUP, VOLUME_BANDS, familyBySlug, modelBySlug, modelPath, money, skusOfModel } from "@/lib/catalog";
+import { AVAILABILITY_LABEL, CATALOG_LINEUP, VOLUME_BANDS, architectureForModel, familyBySlug, modelBySlug, modelPath, money, skusOfModel } from "@/lib/catalog";
 import { pluralize } from "@/lib/format";
 
 const defaults = ["zoe-competition", "d8", "f18-sb"];
@@ -44,7 +44,7 @@ export default function CompareClient() {
   const rows = [
     ["Поток", (c: ReturnType<typeof line>) => c.flow],
     ["Группы", (c: ReturnType<typeof line>) => c.model.groupsAvailable.join(" / ")],
-    ["Бойлеры", (c: ReturnType<typeof line>) => c.family.architecture],
+    ["Бойлеры", (c: ReturnType<typeof line>) => architectureForModel(c.model)],
     ["Управление", (c: ReturnType<typeof line>) => c.controls || c.model.version || "—"],
     ["Возможности", (c: ReturnType<typeof line>) => c.model.optionsAvailable.join(" · ") || "Базовая комплектация"],
     ["Исполнения", (c: ReturnType<typeof line>) => `${c.model.skuCount} ${pluralize(c.model.skuCount, "исполнение", "исполнения", "исполнений")}`],

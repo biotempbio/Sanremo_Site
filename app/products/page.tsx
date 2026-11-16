@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
+import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import CatalogClient, { CatalogRow } from "./CatalogClient";
 import { pluralize } from "@/lib/format";
@@ -12,6 +13,7 @@ import {
   money,
   skusOfModel,
   stockUnitsOfModel,
+  architectureForModel,
   familyBySlug,
   VOLUME_BANDS,
 } from "@/lib/catalog";
@@ -45,7 +47,7 @@ export default function ProductsPage() {
       family: m.family,
       familyName: f.name,
       familyTagline: f.tagline,
-      architecture: f.architecture,
+      architecture: architectureForModel(m),
       scenarios: f.scenarios,
       version: m.version,
       groups: m.groupsAvailable,
@@ -103,6 +105,7 @@ export default function ProductsPage() {
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(listSchema) }} />
       </main>
+      <BaristaAccessories />
       <Footer />
     </>
   );

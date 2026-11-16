@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
+import { BaristaAccessories } from "../../components/BaristaAccessories";
 import { Crumbs, Stock } from "../../components/Bits";
 import SkuImage from "../../components/SkuImage";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
@@ -20,6 +21,7 @@ import {
   kw,
   officialImageForFamily,
   officialImageForModel,
+  architectureForModel,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string }> };
@@ -197,7 +199,7 @@ export default async function FamilyPage({ params }: Props) {
                           {s.edition && s.edition !== "Base" ? <div className="tiny">{s.edition}</div> : null}
                         </td>
                         <td className="tiny">{s.options.length ? s.options.join(", ") : "—"}</td>
-                        <td>{s.boilerTotal ? `${s.boilerTotal}\u00a0л` : f.architecture}</td>
+                        <td>{s.boilerTotal ? `${s.boilerTotal}\u00a0л` : architectureForModel({ slug: s.model, family: s.family })}</td>
                         <td>{s.power ? `${kw(s.power)}\u00a0кВт` : "—"}</td>
                         <td>{s.voltage ? `${s.voltage}\u00a0В` : "—"}</td>
                         <td className="num">{money(s.rrp)}</td>
@@ -236,6 +238,7 @@ export default async function FamilyPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
         {familyProductSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(familyProductSchema) }} /> : null}
       </main>
+      <BaristaAccessories />
       <Footer />
     </>
   );

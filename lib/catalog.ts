@@ -292,6 +292,12 @@ export const liveSkus = skus.filter((s) => !s.markdown && !/^[УВ]/i.test(s.cod
 
 export const familyBySlug = (slug: string) => families.find((f) => f.slug === slug);
 export const modelBySlug = (slug: string) => models.find((m) => m.slug === slug);
+/** A family can contain different boiler systems; model pages must not reuse its generic label. */
+export const architectureForModel = (model: Pick<Model, "slug" | "family">) => {
+  if (model.slug === "f18-sb") return "Один бойлер";
+  if (model.slug === "f18-mb") return "Мультибойлер";
+  return familyBySlug(model.family)?.architecture ?? "—";
+};
 export const modelsOfFamily = (slug: string) => models.filter((m) => m.family === slug);
 export const skusOfModel = (slug: string) => liveSkus.filter((s) => s.model === slug);
 /** Физические свободные единицы — единственный источник числа наличия в витрине. */

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "./Chrome";
+import { BaristaAccessories } from "./BaristaAccessories";
 import { Crumbs } from "./Bits";
 import { ARCHIVE_MODELS, type ArchiveModelSlug } from "@/lib/archive-models";
 
@@ -37,6 +38,7 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
 
       <section className="wrap section"><div className="sec-head"><div><p className="eyebrow">Актуальная замена</p><h2>Подберём модель под ваш проект</h2></div><p className="lead">Подберём замену из текущих линеек Sanremo по вашему потоку и меню.</p></div><a className="btn btn-solid" href="/choose/">Подобрать актуальную модель</a></section>
     </main>
+    <BaristaAccessories />
     <Footer />
   </>;
 }

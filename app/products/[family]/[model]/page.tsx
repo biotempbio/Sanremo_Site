@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pluralize } from "@/lib/format";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../../components/Chrome";
+import { BaristaAccessories } from "../../../components/BaristaAccessories";
 import { Crumbs, Stock } from "../../../components/Bits";
 import ConfigPicker, { PickerSku } from "./ConfigPicker";
 import { ResponsiveImage } from "../../../components/ResponsiveImage";
@@ -24,6 +25,7 @@ import {
   skuHeroMedia,
   catalogModels,
   stockUnitsOfModel,
+  architectureForModel,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ family: string; model: string }> };
@@ -69,7 +71,7 @@ export default async function ModelPage({ params }: Props) {
   ].filter((item): item is string => Boolean(item));
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
-  const questions = modelQuestions(m, f);
+  const questions = modelQuestions(m);
   const modelDocuments = documentsForModel(m.slug);
   const unavailableGroups = [1, 2, 3].filter((group) => !m.groupsAvailable.includes(group));
 
@@ -93,7 +95,7 @@ export default async function ModelPage({ params }: Props) {
     name: `Sanremo ${m.name}`,
     brand: { "@type": "Brand", name: "Sanremo" },
     category: "Профессиональные рожковые кофемашины",
-    description: `Sanremo ${m.name}: ${f.architecture}. Доступные конфигурации, характеристики и цены в России.`,
+    description: `Sanremo ${m.name}: ${architectureForModel(m)}. Доступные исполнения, характеристики и цены в России.`,
     image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
     url: absoluteUrl(`/products/${family}/${m.slug}/`),
     productGroupID: m.slug,
@@ -127,7 +129,7 @@ export default async function ModelPage({ params }: Props) {
         {/* 7.1 — первый экран */}
         <section className="wrap" style={{ paddingBottom: "clamp(34px,4vw,64px)" }}>
           <div style={{ maxWidth: "72ch", marginBottom: 28 }}>
-            <p className="eyebrow">{f.name} · {f.architecture}</p>
+            <p className="eyebrow">{f.name} · {architectureForModel(m)}</p>
             <h1 style={{ fontSize: "clamp(34px,4vw,62px)" }}>Кофемашина Sanremo {m.name}{m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : ""}</h1>
             <p className="lead" style={{ marginTop: 14 }}>{f.territory}</p>
           </div>
@@ -149,7 +151,7 @@ export default async function ModelPage({ params }: Props) {
                   <div className="card-body">
                     <h3>{s}</h3>
                     <p className="small" style={{ margin: 0 }}>
-                      Доступные группы: {m.groupsAvailable.join(" / ")} · {f.architecture}.
+                      Доступные группы: {m.groupsAvailable.join(" / ")} · {architectureForModel(m)}.
                       {m.optionsAvailable.length ? ` Опции: ${m.optionsAvailable.join(", ")}.` : " Базовая комплектация."}
                     </p>
                   </div>
@@ -213,7 +215,7 @@ export default async function ModelPage({ params }: Props) {
                 <SpecGroup title="Архитектура и гидравлика">
                   <Spec k="Семейство" v={f.name} />
                   <Spec k="Версия" v={m.version} />
-                  <Spec k="Архитектура бойлеров" v={f.architecture} />
+                  <Spec k="Архитектура бойлеров" v={architectureForModel(m)} />
                   <Spec k="Общий объём бойлеров" v={hero?.boilerTotal ? `${hero.boilerTotal}\u00a0л` : null} />
                   <Spec k="Количество групп" v={m.groupsAvailable.join(" / ")} />
                   <Spec k="Посадка (высота) группы" v={hero?.seat} />
@@ -470,6 +472,7 @@ export default async function ModelPage({ params }: Props) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(productSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema(questions)) }} />
       </main>
+      <BaristaAccessories />
       <Footer />
     </>
   );

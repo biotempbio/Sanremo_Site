@@ -86,9 +86,7 @@ export function Footer() {
           <div>
             <h4>Sanremo в России</h4>
             <p className="small" style={{ color: "#e7e5e1" }}>
-              Компания BIO
-              <br />
-              Официальный дистрибьютор Sanremo в РФ
+              <a href="https://holdingbio.ru/">Официальный дистрибьютор Sanremo в России — компания BIO</a>
             </p>
             <p className="small" style={{ color: "#b9b6b1" }}>
               117630, Москва, ул. Обручева, 23с1

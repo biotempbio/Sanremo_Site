@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
+import { BaristaAccessories } from "../../components/BaristaAccessories";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { grinders, money } from "@/lib/catalog";
@@ -79,6 +80,7 @@ export default function GrindersPage() {
         </tbody></table></div>
       </section>
     </main>
-    <Footer />
+    <BaristaAccessories />
+      <Footer />
   </>;
 }

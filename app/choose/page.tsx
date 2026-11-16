@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import ChooserClient, { ChooserModel } from "./ChooserClient";
-import { models, familyBySlug, skusOfModel, stockUnitsOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { architectureForModel, models, familyBySlug, skusOfModel, stockUnitsOfModel, VOLUME_BANDS } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Подбор кофемашины по формату бизнеса и потоку",
@@ -22,7 +22,7 @@ export default function ChoosePage() {
       family: m.family,
       familyName: f.name,
       tagline: f.tagline,
-      architecture: f.architecture,
+      architecture: architectureForModel(m),
       scenarios: f.scenarios,
       groups: m.groupsAvailable,
       priceFrom: m.priceFrom,

@@ -1,14 +1,14 @@
-import { Family, Model, Sku, money, stockUnitsOfModel } from "@/lib/catalog";
+import { Family, Model, Sku, architectureForModel, money, stockUnitsOfModel } from "@/lib/catalog";
 import { Question } from "@/lib/seo";
 
-export function modelQuestions(model: Model, family: Family): Question[] {
+export function modelQuestions(model: Model): Question[] {
   const groups = model.groupsAvailable.join(" / ");
   const stock = stockUnitsOfModel(model.slug);
   return [
     { question: `Сколько групп у Sanremo ${model.name}?`, answer: `Число групп в исполнениях ${model.name}: ${groups}. Доступные сочетания зависят от артикула.` },
     { question: `Сколько стоит Sanremo ${model.name}?`, answer: `Цена начинается от ${money(model.priceFrom)}. Цена выбранной конфигурации показана рядом с её артикулом и наличием.` },
     { question: `Есть ли Sanremo ${model.name} на складе?`, answer: stock ? `Модель есть на складе в Москве${stock >= 3 ? ` — ${stock} шт.` : ""}. Статус нужного цвета и исполнения смотрите по артикулу.` : `Сейчас свободных единиц модели на складе в Москве нет. Возможность заказа конкретного исполнения уточняйте у дилера.` },
-    { question: `Где найти характеристики и запчасти для ${model.name}?`, answer: `Архитектура семейства ${family.name} — ${family.architecture}. Мощность, напряжение и габариты смотрите в карточке выбранного артикула. Совместимые детали ищите в разделе запчастей.` },
+    { question: `Где найти характеристики и запчасти для ${model.name}?`, answer: `Бойлерная система ${model.name} — ${architectureForModel(model)}. Мощность, напряжение и габариты смотрите в карточке выбранного исполнения. Совместимые детали ищите в разделе запчастей.` },
   ];
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
+import { BaristaAccessories } from "../../components/BaristaAccessories";
 import { Crumbs, Stock } from "../../components/Bits";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { LeadForm } from "../../components/LeadForm";
@@ -68,6 +69,7 @@ export default function XOnePage() {
         </div>
       </section>
     </main>
-    <Footer />
+    <BaristaAccessories />
+      <Footer />
   </>;
 }
