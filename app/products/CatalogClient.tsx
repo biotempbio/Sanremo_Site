@@ -5,6 +5,10 @@ import SkuImage from "../components/SkuImage";
 import { formatPrice, pluralize, stockSummary } from "@/lib/format";
 
 export interface CatalogRow {
+  href?: string;
+  kind?: "grinder";
+  stockText?: string;
+  stockStatus?: "in_stock" | "limited" | "on_order" | "reserved";
   slug: string;
   name: string;
   family: string;
@@ -103,7 +107,7 @@ export default function CatalogClient({
       if (scen.length && !r.scenarios.some((s) => scen.includes(s))) return false;
       if (opts.length && !opts.every((o) => r.options.includes(o))) return false;
       if (vol.length && !r.volumeBands.some((v) => vol.includes(v))) return false;
-      if (stockOnly && r.stockUnits === 0) return false;
+      if (stockOnly && r.stockUnits === 0 && r.stockStatus !== "limited" && r.stockStatus !== "in_stock") return false;
       if (price.length) {
         const ok = price.some((id) => {
           const b = PRICE_BANDS.find((x) => x.id === id)!;
@@ -205,7 +209,7 @@ export default function CatalogClient({
       <div>
         <div className="catalog-results-toolbar">
           <p className="small" style={{ margin: 0 }}>
-            Найдено моделей: <b>{filtered.length}</b> из {rows.length}
+            Найдено товаров: <b>{filtered.length}</b> из {rows.length}
           </p>
           <label className="field catalog-desktop-sort" style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ margin: 0 }}>Сортировка</span>
@@ -227,15 +231,15 @@ export default function CatalogClient({
           <div className="grid g3">
             {filtered.map((r) => (
               <article className="card catalog-card" key={r.slug}>
-                <a className="card-visual catalog-card-visual" href={`/products/${r.family}/${r.slug}/`} aria-label={`Открыть ${r.name}`}>
+                <a className="card-visual catalog-card-visual" href={r.href ?? `/products/${r.family}/${r.slug}/`} aria-label={`Открыть ${r.name}`}>
                   <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" eager />
                 </a>
                 <div className="card-body">
-                  <h3><a href={`/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>
+                  <h3><a href={r.href ?? `/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>
                   <p className="small catalog-card-description">{r.familyTagline}</p>
                   <div className="chips catalog-card-tags">
-                    <span className="tag">{r.groups.join("/")} гр.</span>
-                    <span className="tag">{architectureLabel(r.architecture)}</span>
+                    {r.kind === "grinder" ? <span className="tag">Кофемолка</span> : <span className="tag">{r.groups.join("/")} гр.</span>}
+                    {r.kind !== "grinder" ? <span className="tag">{architectureLabel(r.architecture)}</span> : null}
                     {r.options.slice(0, 2).map((o) => <span className="tag" key={o}>{o}</span>)}
                   </div>
                   {r.colors.length > 0 && (
@@ -243,14 +247,14 @@ export default function CatalogClient({
                       {r.colors.slice(0, 8).map((c) => (
                         <i className="swatch" key={c.name} style={{ background: c.hex }} title={c.name} />
                       ))}
-                      <span className="tiny">{r.colors.length} {pluralize(r.colors.length, "цвет", "цвета", "цветов")} в наличии</span>
+                      <span className="tiny">{r.colors.length} {pluralize(r.colors.length, "цвет", "цвета", "цветов")}{r.kind === "grinder" ? "" : " в наличии"}</span>
                     </div>
                   )}
                   <div className="card-foot catalog-card-foot">
                     <p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{formatPrice(r.priceFrom)}</span></p>
                     <div className="catalog-card-availability">
-                      <i className={`dot ${r.stockUnits >= 3 ? "st-in_stock" : r.stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" />
-                      <div><span>{stockSummary(r.stockUnits)}</span>
+                      <i className={`dot ${r.stockStatus ? `st-${r.stockStatus}` : r.stockUnits >= 3 ? "st-in_stock" : r.stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" />
+                      <div><span>{r.stockText ?? stockSummary(r.stockUnits)}</span>
                         {r.stockUnits >= 3 && r.stockExecutions > 0 ? <small>{r.stockExecutions} {pluralize(r.stockExecutions, "исполнение", "исполнения", "исполнений")}</small> : null}
                       </div>
                     </div>

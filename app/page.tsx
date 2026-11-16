@@ -5,6 +5,7 @@ import { CATALOG_LINEUP, catalogModels, familyBySlug, modelPath, money, stockUni
 import { pluralize, stockSummary } from "@/lib/format";
 import { sanremoCases } from "@/lib/cases";
 import { CaseCard } from "./cases/CaseCard";
+import { xOneVariants, xOneStockLabel } from "@/lib/x-one";
 
 export const metadata: Metadata = {
   title: "Кофемашины Sanremo (Сан Ремо) — официальный дистрибьютор в России",
@@ -67,6 +68,11 @@ export default function HomePage() {
         <div><TrustIcon kind="leasing" /><b>Лизинг</b></div>
         <div><TrustIcon kind="service" /><b>Сервис и дилеры<br />по всей России</b></div>
       </div></section>
+
+      <section className="wrap section home-xone">
+        <div className="sec-head"><div><p className="eyebrow">К кофемашине</p><h2>Кофемолка к вашей кофемашине</h2></div><p className="lead">X-One взвешивает зерно перед помолом и сохраняет рецепты. Доступны исполнения Nero и White.</p></div>
+        <div className="home-xone-card"><a href="/products/x-one/" aria-label="Открыть кофемолку Sanremo X-One"><ResponsiveImage src="/photo/official/x-one.webp" alt="Кофемолка Sanremo X-One Nero" width={1536} height={864} sizes="(max-width: 800px) 100vw, 50vw" /></a><div><h3>X-One</h3><p>Два бункера для зерна и управление рецептами помола.</p><div className="home-xone-variants">{xOneVariants.map((variant)=><div key={variant.color}><b>{variant.color}</b><span>{variant.price ? `от ${money(variant.price)}` : "Цена по запросу"}</span><small>{xOneStockLabel(variant)}</small></div>)}</div><a className="btn btn-solid" href="/products/x-one/">Смотреть кофемолку</a></div></div>
+      </section>
 
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>

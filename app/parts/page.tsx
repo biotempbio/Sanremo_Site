@@ -49,6 +49,7 @@ export default function PartsPage() {
         </section>
 
         <section className="wrap section-tight">
+          <p className="small">Ищете запчасти для архивной Capri? <a href="/products/capri/">Откройте страницу Capri</a> или укажите модель и серийный номер в запросе.</p>
           <PartsClient
             parts={rows}
             nodes={partNodes()}

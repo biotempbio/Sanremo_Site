@@ -4,7 +4,6 @@ import { useState } from "react";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
 const NAV = [
-  { href: "/products/", label: "Кофемашины" },
   { href: "/compare/", label: "Сравнение" },
   { href: "/choose/", label: "Подобрать" },
   { href: "/guide/", label: "Как выбрать" },
@@ -39,11 +38,19 @@ export function Header({ active }: { active?: string }) {
             {open ? "Закрыть" : "Меню"}
           </button>
           <nav className={open ? "mainnav open" : "mainnav"}>
+            <details className="nav-equipment">
+              <summary data-active={active === "/products" || active === "/products/"}>Оборудование</summary>
+              <div className="nav-equipment-menu">
+                <a href="/products/">Кофемашины</a>
+                <a href="/products/grinders/">Кофемолки</a>
+              </div>
+            </details>
             {NAV.map((n) => (
               <a className={n.accent ? "nav-accent" : undefined} key={n.href} href={n.href} data-active={active === n.href || active === n.href.slice(0, -1)}>
                 {n.label}
               </a>
             ))}
+            <a className="nav-search" href="/search/" aria-label="Поиск по сайту"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 5 5"/></svg><span>Поиск</span></a>
           </nav>
           <a className="header-cta" href="/choose/">Подобрать машину</a>
         </div>
