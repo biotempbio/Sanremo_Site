@@ -4,6 +4,7 @@ export const ARCHIVE_MODELS = {
   verona: { name: "Verona", partsQuery: "Verona" },
   "verona-rs": { name: "Verona RS", partsQuery: "Verona RS" },
   torino: { name: "Torino", partsQuery: "Torino" },
+  capri: { name: "Capri", partsQuery: "Capri" },
 } as const;
 
 export type ArchiveModelSlug = keyof typeof ARCHIVE_MODELS;
