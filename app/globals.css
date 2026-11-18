@@ -1095,6 +1095,7 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .case-card .small{max-width:55ch;margin:0 0 16px;line-height:1.55}
 .case-card-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12px;line-height:1.4}
 .case-card-foot .link-arrow{white-space:nowrap;font-weight:700}
+.case-card-foot>.link-arrow{margin-inline-start:auto}
 .case-card-gallery-link{border:0;background:none;padding:0;color:var(--forest);font:700 12px var(--sans);text-align:left;cursor:pointer;white-space:nowrap}
 .case-card-gallery-link:hover{text-decoration:underline}
 .case-lightbox{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;width:100vw;max-width:none;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:hidden}

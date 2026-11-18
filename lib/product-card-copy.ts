@@ -21,6 +21,7 @@ export function showDescription(blocks: DescriptionBlock[], raw: string, modelNa
     if (result.length === 0 && /^кофемашина(?:\s|$)/i.test(text) && text.toLocaleLowerCase("ru-RU").includes(modelName.toLocaleLowerCase("ru-RU"))) {
       text = text.replace(/^[^.!?]+[.!?]\s*/, "");
     }
+    if (!text) continue;
     if (/^(основные преимущества|особенности|управление|функции):?$/i.test(text)) { result.push({ type: "heading", text: text.replace(/:$/, "") }); continue; }
     if (/инновационн|не просто (?:кофемашина|машина)/i.test(text)) continue;
     const sentences = text.split(/(?<=[.!?])\s+(?=[А-ЯЁA-Z])/u);
@@ -31,6 +32,28 @@ export function showDescription(blocks: DescriptionBlock[], raw: string, modelNa
         if (items.length) result.push({ type: "list", items });
       } else if (!technicalFact.test(sentence) && !/^автомат[.]?$/i.test(sentence)) result.push({ type: "paragraph", text: typography(sentence) });
     }
+  }
+  // Opera's source is a sequence of paragraphs, including long sentences.
+  // Keep those facts, but group them by task instead of relying on length to
+  // recognise a list. This also applies when the selected colour/SKU changes.
+  if (/^opera$/i.test(modelName) && result.every((block) => block.type === "paragraph")) {
+    const sections = [
+      { title: "Экстракция и управление", items: [] as string[] },
+      { title: "Пар, горячая вода и чашки", items: [] as string[] },
+      { title: "Мультибойлерная система", items: [] as string[] },
+      { title: "Материалы и обслуживание", items: [] as string[] },
+    ];
+    for (const block of result) {
+      if (block.type !== "paragraph" || /^Система мультибойлер\s*:/i.test(block.text)) continue;
+      const text = block.text.replace(/Подключениек\s+Wi-fi/i, "Подключение к Wi-Fi")
+        .replace(/(\d)(л)(?=[,\.\s]|$)/g, "$1\u00a0$2").replace(/[,;]$/, ".");
+      const section = /бойлер для|бойлеры для|Бойлеры изготовлены/i.test(text) ? 2
+        : /паровым|давления пара|подогреватель/i.test(text) ? 1
+        : /изготовлены|Портафильтры|Внутренний дисплей|Wi-Fi|автодиагност|очистка|обслуживан/i.test(text) ? 3 : 0;
+      sections[section].items.push(text);
+    }
+    return sections.flatMap(({ title, items }): DescriptionBlock[] => items.length
+      ? [{ type: "heading", text: title }, { type: "list", items }] : []);
   }
   const structured = result.length >= 3 && result.every((block) => block.type === "paragraph" && block.text.length < 110)
     ? [{ type: "heading" as const, text: "Оснащение" }, { type: "list" as const, items: result.map((block) => (block as { text: string }).text) }]
