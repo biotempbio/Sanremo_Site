@@ -1,9 +1,9 @@
-name: Refresh BIO catalog snapshot
+name: Refresh Sanremo stock daily and prices weekly
 
 on:
   schedule:
-    # 05:00 Moscow time (UTC+3); GitHub schedules can start with a delay.
-    - cron: '0 2 * * *'
+    # 06:30 Moscow: after the BIO 05:30 snapshot. Prices refresh once per Moscow week.
+    - cron: '30 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,5 +21,5 @@ jobs:
         run: |
           git config user.name 'Sanremo catalog refresh'
           git config user.email 'actions@users.noreply.github.com'
-          git commit --allow-empty -m "Refresh BIO catalog $(date -u +%F)"
+          git commit --allow-empty -m "Refresh Sanremo commercial data $(date -u +%F)"
           git push origin HEAD:main
