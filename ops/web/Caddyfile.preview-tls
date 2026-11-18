@@ -1,0 +1,16 @@
+{
+	admin off
+	auto_https off
+}
+https://localhost:3443 {
+	tls {$SANREMO_CERT} {$SANREMO_KEY}
+	import static.caddy
+	header X-Robots-Tag "noindex, nofollow"
+}
+https://www.localhost:3443 {
+	tls {$SANREMO_CERT} {$SANREMO_KEY}
+	redir https://localhost:3443{uri} 301
+}
+http://www.localhost:3119 {
+	redir https://localhost:3443{uri} 308
+}

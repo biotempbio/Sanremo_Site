@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "@/app/components/Chrome";
 import { Crumbs } from "@/app/components/Bits";
 import { worldPosts } from "@/lib/world-posts";
 import WorldFeed from "./WorldFeed";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/about/world/", {
   title: "Sanremo в мире — проекты и истории | Sanremo",
   description: "Кофейни, обжарки и шоурумы Sanremo в разных странах. Фото, видео и истории из открытого канала SanremoFamily со ссылками на оригинальные публикации.",
-};
+});
 
 export default function WorldPage() {
   return <><Header active="/about" /><Crumbs items={[{href:"/",label:"Главная"},{href:"/about/",label:"О Sanremo"},{label:"Sanremo в мире"}]} />

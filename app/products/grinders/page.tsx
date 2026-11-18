@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
@@ -6,10 +7,10 @@ import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { money } from "@/lib/catalog";
 import { xOneEntries, xOneVariants, xOnePriceFrom, xOneHasPrice, xOneStockLabel } from "@/lib/x-one";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/products/grinders/", {
   title: "Кофемолки Sanremo — X-One: характеристики, цены и наличие",
   description: "Кофемолки Sanremo в России: X-One с тремя бункерами для разных сортов, взвешиванием зерна до помола и 12 рецептами. Исполнения, цены и наличие.",
-};
+});
 
 const features = [
   ["Жернова", "плоские вертикальные, 98\u00a0мм, со специальным покрытием"],

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -6,11 +7,11 @@ import { parts, partNodes, catalogModels, CATALOG_LINEUP, skuByCode } from "@/li
 import { capriParts } from "@/lib/capri-parts";
 import { plainArticle } from "@/lib/format";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/parts/", {
   title: "Запчасти Sanremo — каталог ЗИП с совместимостью и наличием",
   description:
     "Запчасти Sanremo в России: поиск по артикулу, названию и модели, совместимость, цена и наличие. Запрос нужной детали через BIO.",
-};
+});
 
 export default function PartsPage() {
   const capriCodes = new Set(capriParts.map((part) => part.code));

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "./components/Chrome";
 import { ResponsiveImage } from "./components/ResponsiveImage";
@@ -9,10 +10,10 @@ import { WorldTeasers } from "./components/WorldTeasers";
 import { CardAction } from "./components/ActionArrow";
 import { xOneVariants, xOneStockLabel } from "@/lib/x-one";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/", {
   title: "Кофемашины Sanremo (Сан Ремо) — официальный дистрибьютор в России",
   description: "Профессиональные кофемашины Sanremo для кофеен, ресторанов и отелей: цены, наличие на складе в Москве, лизинг, сервис и дилеры по всей России.",
-};
+});
 
 const tasks = [
   { href: "/choose/", title: "Подобрать по задаче", text: "Формат, поток, меню и рабочая зона" },

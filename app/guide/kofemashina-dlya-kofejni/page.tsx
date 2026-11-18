@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
@@ -7,7 +8,7 @@ import { articleSchema, jsonLd } from "@/lib/seo";
 
 const headline = "Как выбрать кофемашину для кофейни: 7 шагов";
 const description = "Пошаговый выбор кофемашины для кофейни: поток, группы, бойлеры, волюметрика, молочное меню, подключение, цены, сервис и линейки Sanremo.";
-export const metadata: Metadata = { title: headline, description };
+export const metadata: Metadata = pageMetadata("/guide/kofemashina-dlya-kofejni/", { title: headline, description });
 
 export default function CafeGuide() {
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: "Для кофейни" }]} />

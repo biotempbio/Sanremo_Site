@@ -32,7 +32,9 @@ test("mobile contact and grinder layouts have no fixed outer width", async () =>
   ]);
   assert.match(contacts, /class="data contact-routes"/);
   assert.doesNotMatch(contacts, /min-width:460px/);
-  for (const html of [grinders, xOne]) assert.match(html, /class="data spec-table"/);
+  assert.match(grinders, /class="data spec-table"/);
+  assert.match(xOne, /id="xone-specs"/);
+  assert.match(xOne, /class="xone-spec-table"/);
   const cssRoot = new URL("../out/_next/static/", import.meta.url);
   const cssFiles = [];
   const collectCss = async (dir) => {
@@ -138,24 +140,25 @@ test("case archive has traceable facts, local photos and only substantive detail
     read("cases/index.html"), read("cases/coffee-combo/index.html"), read("index.html"),
     read("products/d8/index.html"), read("sitemap.xml"),
   ]);
-  assert.equal(entries.length, 20);
+  assert.equal(entries.length, 24);
+  assert.equal(new Set(entries.map((entry) => entry.slug)).size, entries.length);
   assert.match(listing, /Где варят на Sanremo/);
   assert.match(detail, /Coffee Combo — Москва/);
   assert.match(detail, /"@type":"Article"/);
   assert.match(home, /href="\/cases\/"/);
   assert.match(d8, /Где работает/);
-  assert.match(d8, /Coffee Combo/);
+  assert.match(d8, /Музей транспорта Москвы/);
   const detailed = entries.filter((entry) => entry.page);
   assert.deepEqual(detailed.map((entry) => entry.slug), ["coffee-combo"]);
   for (const entry of entries) {
     for (const [field, value] of Object.entries(entry)) {
       if (["slug", "page", "order", "cover"].includes(field)) continue;
       for (const fact of Array.isArray(value) ? value : [value]) {
-        assert.match(fact.source, /^(old-site|telegram-\d+)$/, `${entry.slug}.${field}`);
+        assert.match(fact.source, /^(old-site|telegram-\d+|(?:sergey|manager)-\d{4}-\d{2}-\d{2}|https:\/\/[^\s]+)$/, `${entry.slug}.${field}`);
         if (field === "photos") await stat(new URL(`../out${fact.value}`, import.meta.url));
       }
     }
-    assert.ok(Number.isInteger(entry.order) && entry.order >= 1 && entry.order <= 20, entry.slug);
+    assert.ok(Number.isInteger(entry.order) && entry.order >= 0 && entry.order < entries.length, entry.slug);
     assert.ok(entry.photos.some((photo) => photo.value === entry.cover), entry.slug);
     await stat(new URL(`../out${entry.cover}`, import.meta.url));
     if (entry.page) {
@@ -163,5 +166,5 @@ test("case archive has traceable facts, local photos and only substantive detail
       assert.match(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
     } else assert.doesNotMatch(sitemap, new RegExp(`/cases/${entry.slug}/</loc>`));
   }
-  assert.deepEqual(entries.map((entry) => entry.order).sort((a, b) => a - b), Array.from({ length: 20 }, (_, index) => index + 1));
+  assert.deepEqual(entries.map((entry) => entry.order).sort((a, b) => a - b), Array.from({ length: entries.length }, (_, index) => index));
 });

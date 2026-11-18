@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
@@ -9,7 +10,7 @@ import { stockSummary } from "@/lib/format";
 const path = "/guide/multiboylernaya-kofemashina/";
 const title = "Мультибойлерная кофемашина — что это, плюсы и модели Sanremo";
 const description = "Что меняет мультибойлерная кофемашина в работе кофейни: раздельная температура групп, пар, управление и стоимость. Сравнение моделей Sanremo из каталога.";
-export const metadata: Metadata = { title, description };
+export const metadata: Metadata = pageMetadata("/guide/multiboylernaya-kofemashina/", { title, description });
 const slugs = ["d8-pro", "f18-mb", "cafe-racer", "opera", "you"];
 const rows = slugs.flatMap((slug) => {
   const model = modelBySlug(slug);

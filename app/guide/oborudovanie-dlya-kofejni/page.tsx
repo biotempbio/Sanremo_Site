@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { EditorialGuide, GuideModelPrice, GuidePairPrice, GuideProductCard } from "../GuideEditorial";
 
 const path = "/guide/oborudovanie-dlya-kofejni/";
 const title = "Оборудование для кофейни: список и сколько стоит";
 const description = "Какое оборудование нужно для кофейни: кофемашина, кофемолка, водоподготовка, холодильник и инвентарь. Список, порядок выбора и текущие цены Sanremo из каталога.";
-export const metadata: Metadata = { title, description };
+export const metadata: Metadata = pageMetadata("/guide/oborudovanie-dlya-kofejni/", { title, description });
 const sections = [
   { id: "essentials", label: "Что нужно для открытия" }, { id: "later", label: "Что добавить позже" },
   { id: "budget", label: "Бюджет оборудования" }, { id: "priorities", label: "Где экономить" },

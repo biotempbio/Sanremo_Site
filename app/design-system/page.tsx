@@ -1,11 +1,12 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/design-system/", {
   title: "Дизайн-система — внутренний UI-kit",
   description:
     "Живая витрина токенов и компонентов сайта Sanremo Россия. Основана на Sanremo Brand Guidelines 2026.",
   robots: { index: false, follow: false },
-};
+});
 
 /* ─────────────────────────────────────────────────────────── вспомогательное */
 

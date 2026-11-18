@@ -1,0 +1,11 @@
+{
+	admin off
+	auto_https off
+}
+http://localhost:3118 {
+	import static.caddy
+	header X-Robots-Tag "noindex, nofollow"
+}
+http://www.localhost:3118 {
+	redir http://localhost:3118{uri} 301
+}

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -7,10 +8,10 @@ import { faqSchema, jsonLd, type Question } from "@/lib/seo";
 import { LeasingRequest } from "./LeasingRequest";
 import { leasingModelOptions } from "@/lib/leasing-options";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/leasing/", {
   title: "Кофемашина в лизинг для кофейни | Sanremo",
   description: "Кофемашина Sanremo в лизинг для кофейни и ресторана. Выберите модель, оставьте заявку и получите индивидуальные условия от лизингового партнёра Аренза.",
-};
+});
 
 const questions: Question[] = [
   { question: "Кто может купить кофемашину в лизинг?", answer: "Заявку могут подать юридические лица и индивидуальные предприниматели. Решение и условия определяет Аренза после рассмотрения документов." },

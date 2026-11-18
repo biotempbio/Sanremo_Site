@@ -16,7 +16,10 @@
     "check:predeploy": "npm run test",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
-    "lead-server": "node server/lead-server.mjs"
+    "lead-server": "node server/lead-server.mjs",
+    "check:seo": "node scripts/check-seo-audit.mjs",
+    "sync:commercial": "node scripts/sync-bio-catalog.mjs",
+    "import:content": "BIO_IMPORT_CONTENT=1 node scripts/import-bio-content.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

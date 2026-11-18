@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { FaqBlock } from "../components/GuideBlocks";
 import { Question, faqSchema, jsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/faq/", {
   title: "Вопросы о кофемашинах Sanremo в России",
   description: "Ответы о выборе, ценах, наличии, поставке, сервисе, запчастях, подключении и дилерах Sanremo в России. Уточняйте условия по конкретной конфигурации.",
-};
+});
 
 const questions: (Question & { actionHref?: string; actionLabel?: string })[] = [
   { question: "Где посмотреть доступные модели Sanremo?", answer: "В каталоге есть модели, версии, цены и наличие." },

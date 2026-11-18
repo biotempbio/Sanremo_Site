@@ -1,0 +1,69 @@
+# Import inside the existing site block; preserve its API/form proxy routes.
+root * {$SANREMO_ROOT:./out}
+encode zstd gzip {
+	match {
+		header Content-Type text/*
+		header Content-Type application/javascript*
+		header Content-Type application/json*
+		header Content-Type application/ld+json*
+		header Content-Type application/xml*
+		header Content-Type image/svg+xml*
+	}
+}
+header X-Content-Type-Options nosniff
+header Referrer-Policy strict-origin-when-cross-origin
+@https expression {http.request.scheme} == "https"
+header @https Strict-Transport-Security "max-age=86400"
+
+route {
+	# Evaluate before the file server silently cleans duplicate slashes.
+	@doubleSlash expression {http.request.orig_uri.path}.contains("//")
+	handle @doubleSlash {
+		route {
+			uri path_regexp /{2,} /
+			redir {uri} 308
+		}
+	}
+	map {query} {querySuffix} {
+		"" ""
+		default "?{query}"
+	}
+	@directoryWithoutSlash {
+		not path */
+		file {path}/index.html
+	}
+	redir @directoryWithoutSlash {path}/{querySuffix} 308
+
+	# Keep these exact legacy redirects when importing into an owned Caddy server.
+	redir /moments /cases/ 301
+	redir /buy /dealers/ 301
+	redir /products/f18sb/ /products/f18/f18-sb/ 301
+	redir /products/zoe-new/ /products/zoe/ 301
+	redir /tpost/3oa0z0r951-vstrechaite-novuyu-platformu-d8-na-vista /news/d8-host-2023/ 301
+	redir /tpost/vz3l6i6rj1-rossiiskii-duet-raskrivaet-potentsial-ba /news/d8-pro-julius-meinl-barista-skills/ 301
+	redir /tpost/h16ppjnd31-no-drama-just-coffee /news/zoe-2026/ 301
+	redir /tpost/fzpb79apg1-sanremo-tsentr-prityazheniya /news/sanremo-pir-coffee-2025/ 301
+	redir /tpost/hngoulmxr1-poisk-sinergii-vkusov-na-dalnem-vostoke /news/coffee-pairing-dalnii-vostok/ 301
+
+	header Cache-Control "no-cache"
+	# Only actual existing files get a long cache; missing chunk 404s never do.
+	@nextStatic {
+		path /_next/static/*
+		file
+	}
+	header @nextStatic Cache-Control "public, max-age=31536000, immutable"
+	@images {
+		path /photo/* /brand/*
+		file
+	}
+	# These URLs are not content-hashed: permit replacement in place.
+	header @images Cache-Control "public, max-age=86400, must-revalidate"
+	try_files {path} {path}/index.html {path}.html
+	file_server
+}
+handle_errors {
+	rewrite * /404.html
+	file_server {
+		status {err.status_code}
+	}
+}

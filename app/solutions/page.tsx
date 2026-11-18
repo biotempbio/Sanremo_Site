@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -5,11 +6,11 @@ import { SCENARIOS, VOLUME_BANDS, modelBySlug, familyBySlug, money, modelPath } 
 import { ResponsiveImage } from "../components/ResponsiveImage";
 import { solutionLandings } from "@/lib/solution-landings";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/solutions/", {
   title: "Решения по формату бизнеса — какая Sanremo нужна вашей точке",
   description:
     "Подбор кофемашины Sanremo по задаче: кофейня, ресторан, пекарня, сеть или лаборатория. Сравните подходящие модели, цены, характеристики и наличие.",
-};
+});
 
 export default function SolutionsPage() {
   return (

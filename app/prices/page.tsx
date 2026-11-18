@@ -1,12 +1,13 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs, Price, Stock } from "../components/Bits";
 import { models, modelPath, skusOfModel } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/prices/", {
   title: "Цены и наличие кофемашин Sanremo",
   description: "Цены на кофемашины Sanremo в России: сравните конфигурации, проверьте наличие по артикулу и откройте карточку модели Sanremo.",
-};
+});
 
 export default function PricesPage() {
   return <><Header /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Цены и наличие" }]} />

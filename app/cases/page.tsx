@@ -1,12 +1,13 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { CasesClient } from "./CasesClient";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/cases/", {
   title: "Sanremo в кофейнях России — проекты и фотографии",
   description: "Посмотрите кофейни и рестораны России, где работают машины Sanremo: фотографии стоек, города, адреса и модели. Выберите город или линейку.",
-};
+});
 
 export default function CasesPage() {
   return <><Header active="/cases" /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Кейсы" }]} />

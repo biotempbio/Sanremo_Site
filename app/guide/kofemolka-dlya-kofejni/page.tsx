@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { EditorialGuide, GuideProductCard } from "../GuideEditorial";
 
 const path = "/guide/kofemolka-dlya-kofejni/";
 const title = "Кофемолка для кофейни: как выбрать";
 const description = "Как выбрать профессиональную кофемолку для кофейни: размер жерновов, дозирование по времени или по весу, сколько сортов держать. Отраслевые стандарты и Sanremo X-One.";
-export const metadata: Metadata = { title: "Кофемолка для кофейни: как выбрать профессиональную кофемолку", description };
+export const metadata: Metadata = pageMetadata("/guide/kofemolka-dlya-kofejni/", { title: "Кофемолка для кофейни: как выбрать профессиональную кофемолку", description });
 const sections = [
   { id: "types", label: "Типы кофемолок" }, { id: "criteria", label: "На что смотреть" },
   { id: "weight", label: "Доза по весу" }, { id: "beans", label: "Один, два или три сорта" },

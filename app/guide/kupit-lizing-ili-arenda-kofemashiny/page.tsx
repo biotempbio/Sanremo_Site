@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { EditorialGuide, GuideModelPrice, GuideProductCard } from "../GuideEditorial";
 
 const path = "/guide/kupit-lizing-ili-arenda-kofemashiny/";
 const title = "Купить, взять в лизинг или в аренду: что выбрать для кофейни";
 const description = "Сравниваем покупку, лизинг и аренду профессиональной кофемашины для кофейни. Текущие цены Sanremo из каталога и порядок заявки на лизинг через Арензу.";
-export const metadata: Metadata = { title: "Кофемашина для кофейни: купить, взять в лизинг или в аренду", description };
+export const metadata: Metadata = pageMetadata("/guide/kupit-lizing-ili-arenda-kofemashiny/", { title: "Кофемашина для кофейни: купить, взять в лизинг или в аренду", description });
 const sections = [
   { id: "prices", label: "Текущие цены Sanremo" }, { id: "comparison", label: "Сравнение способов" },
   { id: "purchase", label: "Покупка" }, { id: "leasing", label: "Лизинг" },

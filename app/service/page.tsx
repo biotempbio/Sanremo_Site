@@ -1,14 +1,15 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { parts, dealerCities, models } from "@/lib/catalog";
 import { LeadForm } from "../components/LeadForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/service/", {
   title: "Сервис Sanremo в России — монтаж, обслуживание, гарантия",
   description:
     "Сервис Sanremo в России: подготовка к подключению, порядок обращения по гарантии, обслуживание и запчасти. Найдите дилера или отправьте запрос в BIO.",
-};
+});
 
 export default function ServicePage() {
   const cities = dealerCities();

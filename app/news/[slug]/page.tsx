@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -11,7 +12,7 @@ export function generateStaticParams() { return newsPosts.map(({ slug }) => ({ s
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = newsBySlug((await params).slug);
   if (!post) return {};
-  return { title: `${post.title} — новости Sanremo`, description: post.description || post.paragraphs[0]?.slice(0, 155), openGraph: { images: [post.images[0].src], type: "article", publishedTime: post.publishedAt } };
+  return pageMetadata(`/news/${post.slug}/`, { title: `${post.title} — новости Sanremo`, description: post.description || post.paragraphs[0]?.slice(0, 155), openGraph: { images: [post.images[0].src], type: "article", publishedTime: post.publishedAt } }, post.images[0]?.src);
 }
 
 export default async function NewsArticlePage({ params }: Props) {

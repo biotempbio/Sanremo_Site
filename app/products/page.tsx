@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { ResponsiveImage } from "../components/ResponsiveImage";
@@ -18,11 +19,11 @@ import {
   VOLUME_BANDS,
 } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/products/", {
   title: "Купить кофемашину Sanremo — все модели, цены и наличие",
   description:
     "Каталог рожковых кофемашин Sanremo: Zoe, D8, F18, Café Racer, YOU, Opera — от одной до трёх групп. Сравните цены, наличие и характеристики исполнений.",
-};
+});
 
 export default function ProductsPage() {
   const currentPrices = skus.map((sku) => sku.rrp).filter((price) => price > 0);

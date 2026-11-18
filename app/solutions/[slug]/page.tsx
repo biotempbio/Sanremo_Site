@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
@@ -12,7 +13,7 @@ import { solutionBySlug, solutionLandings } from "@/lib/solution-landings";
 export function generateStaticParams() { return solutionLandings.map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const entry = solutionBySlug((await params).slug);
-  return entry ? { title: entry.title, description: entry.description } : {};
+  return entry ? pageMetadata(`/solutions/${entry?.slug}/`, { title: entry.title, description: entry.description }, undefined) : {};
 }
 
 const coffeeSets = [

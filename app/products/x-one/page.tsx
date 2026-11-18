@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { BaristaAccessories } from "../../components/BaristaAccessories";
@@ -6,10 +7,10 @@ import { absoluteUrl, jsonLd } from "@/lib/seo";
 import { X_ONE_META_DESCRIPTION, X_ONE_SEARCH_DESCRIPTION, xOneEntries, xOneVariants } from "@/lib/x-one";
 import XOnePicker from "./XOnePicker";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/products/x-one/", {
   title: "Кофемолка Sanremo X-One (X1) — купить у официального дистрибьютора",
   description: X_ONE_META_DESCRIPTION,
-};
+});
 
 export default function XOnePage() {
   const product = {

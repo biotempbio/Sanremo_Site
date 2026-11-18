@@ -1,7 +1,1 @@
-{
-  "dataAsOf": null,
-  "syncedAt": null,
-  "received": 463,
-  "published": 0,
-  "stockedProducts": 0
-}
+{"dataAsOf":"2026-11-18T02:30:10.245Z","syncedAt":"2026-11-18T07:58:49.505Z","stockDataAsOf":"2026-11-18T02:30:10.245Z","stockSyncedAt":"2026-11-18T07:58:49.505Z","priceDataAsOf":"2026-11-18T02:30:10.245Z","priceSyncedAt":"2026-11-18T07:58:49.505Z","contentImportedAt":"2026-11-18T10:32:01.752Z","received":463,"published":448,"stockedProducts":367,"hidden":{"markdown":14,"retired":1,"invalid":0,"otherBrand":0,"unknownEquipment":0,"excludedGroup":0,"duplicate":0},"warnings":[]}
