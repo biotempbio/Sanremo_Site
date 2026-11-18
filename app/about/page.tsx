@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { ResponsiveImage } from "../components/ResponsiveImage";
@@ -6,10 +7,10 @@ import { CardAction } from "../components/ActionArrow";
 import { models, liveSkus, parts, families } from "@/lib/catalog";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/about/", {
   title: "О бренде Sanremo Coffee Machines",
   description: "О бренде Sanremo Coffee Machines: профессиональные кофемашины из Италии, инженерные решения и дизайн. В России модели, сервис и дилеров представляет BIO.",
-};
+});
 
 export default function AboutPage() {
   return (

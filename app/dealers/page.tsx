@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -5,11 +6,11 @@ import DealersClient from "./DealersClient";
 import { dealers, dealerCities } from "@/lib/catalog";
 import { isOfficialShowroom } from "@/lib/showrooms";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/dealers/", {
   title: "Где купить Sanremo — дилеры, шоурумы и сервис по России",
   description:
     "Найдите официального дилера Sanremo в России по городу. Адреса партнёров, сайты и контакты для покупки кофемашины, консультации, монтажа и сервиса.",
-};
+});
 
 export default function DealersPage() {
   const cities = dealerCities();

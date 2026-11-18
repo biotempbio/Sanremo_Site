@@ -19,7 +19,7 @@ export default function WorldGallery({ images, title }: { images: string[]; titl
   const move=(direction:number)=>setIndex((value)=>(value+direction+images.length)%images.length);
   return <>
     <figure className="world-article-hero"><button type="button" onClick={()=>{setIndex(0);setOpen(true);}} aria-label={`Открыть галерею: ${title}`}><img src={images[0]} alt={title} /></button><figcaption>{images.length} фото · нажмите, чтобы листать</figcaption></figure>
-    {images.length>1?<div className="world-article-gallery">{images.slice(1).map((src,i)=><button type="button" key={src} onClick={()=>{setIndex(i+1);setOpen(true);}} aria-label={`Открыть фото ${i+2}`}><img src={src} alt="" loading="lazy" /></button>)}</div>:null}
+    {images.length>1?<div className="world-article-gallery">{images.slice(1).map((src,i)=><button type="button" key={src} onClick={()=>{setIndex(i+1);setOpen(true);}} aria-label={`Открыть фото ${i+2}`}><img src={src} alt={`${title} — фото ${i+1}`} loading="lazy" /></button>)}</div>:null}
     {open?<dialog ref={dialog} className="case-lightbox" aria-label={`Фотографии: ${title}`} onCancel={()=>setOpen(false)}>
       <div className="case-lightbox-backdrop" aria-hidden="true" onClick={()=>setOpen(false)} style={{backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)"}} />
       <div className="case-lightbox-panel"><button className="case-lightbox-close" onClick={()=>setOpen(false)} aria-label="Закрыть галерею">×</button>
@@ -27,7 +27,7 @@ export default function WorldGallery({ images, title }: { images: string[]; titl
           <button className="case-lightbox-side case-lightbox-prev" onClick={()=>move(-1)} aria-label="Предыдущее фото">←</button><img className="case-lightbox-image" src={images[index]} alt={`${title} — фото ${index+1} из ${images.length}`} /><button className="case-lightbox-side case-lightbox-next" onClick={()=>move(1)} aria-label="Следующее фото">→</button>
         </div>
         <div className="case-lightbox-caption"><b>{title}</b><span aria-live="polite">{index+1} из {images.length}</span></div>
-        <div className="case-lightbox-bottom"><div className="case-lightbox-actions"><button onClick={()=>move(-1)} aria-label="Предыдущее фото">←</button><button onClick={()=>move(1)} aria-label="Следующее фото">→</button></div><div className="case-lightbox-thumbs">{images.map((src,i)=><button key={src} onClick={()=>setIndex(i)} aria-label={`Показать фото ${i+1}`} aria-pressed={i===index} className={i===index?"is-active":""}><img src={src} alt="" /></button>)}</div></div>
+        <div className="case-lightbox-bottom"><div className="case-lightbox-actions"><button onClick={()=>move(-1)} aria-label="Предыдущее фото">←</button><button onClick={()=>move(1)} aria-label="Следующее фото">→</button></div><div className="case-lightbox-thumbs">{images.map((src,i)=><button key={src} onClick={()=>setIndex(i)} aria-label={`Показать фото ${i+1}`} aria-pressed={i===index} className={i===index?"is-active":""}><img src={src} alt={`${title} — фото ${i+1}`} /></button>)}</div></div>
       </div>
     </dialog>:null}
   </>;

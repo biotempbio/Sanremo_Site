@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -5,10 +6,10 @@ import { DocumentLibrary } from "./DocumentLibrary";
 import { documents } from "@/lib/documents";
 import { models } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/documents/", {
   title: "Документы Sanremo — инструкции, схемы и декларации",
   description: "Документы Sanremo в России: инструкции, схемы, каталоги запчастей и декларации по моделям. Выберите модель и тип документа, скачайте PDF прямо с сайта.",
-};
+});
 
 export default function DocumentsPage() {
   const options = models.map((model) => ({ slug: model.slug, name: model.name, family: model.family }));

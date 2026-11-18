@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
@@ -17,7 +18,7 @@ export function generateStaticParams() { return cities.map(({ slug }) => ({ city
 export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
   const { city } = await params;
   const config = cities.find((item) => item.slug === city);
-  return config ? { title: config.title, description: `Официальные дилеры Sanremo в ${config.name}: адреса, сайты и покупка профессиональной кофемашины. Сравните модели, цены и наличие на сайте.` } : {};
+  return config ? pageMetadata(`/dealers/${city}/`, { title: config.title, description: `Официальные дилеры Sanremo в ${config.name}: адреса, сайты и покупка профессиональной кофемашины. Сравните модели, цены и наличие на сайте.` }, undefined) : {};
 }
 
 export default async function DealerCityPage({ params }: { params: Promise<{ city: string }> }) {

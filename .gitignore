@@ -50,3 +50,7 @@ yarn-error.log*
 /_backup_prev/
 /_to_delete/
 *.tsbuildinfo
+
+# Generated image variants and their manifest
+public/**/*-w*.webp
+public/**/*-w*.avif

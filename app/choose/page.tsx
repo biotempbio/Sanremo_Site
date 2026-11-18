@@ -1,14 +1,15 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import ChooserClient, { ChooserModel } from "./ChooserClient";
 import { architectureForModel, models, familyBySlug, skusOfModel, stockUnitsOfModel, VOLUME_BANDS } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/choose/", {
   title: "Подбор кофемашины по формату бизнеса и потоку",
   description:
     "Подберите кофемашину Sanremo по формату заведения, потоку, меню, группам и бюджету. Сравните подходящие конфигурации, их цены и наличие.",
-};
+});
 
 export default function ChoosePage() {
   const rows: ChooserModel[] = models.map((m) => {

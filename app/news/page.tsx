@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
 import { newsDate, newsPosts } from "@/lib/news";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/news/", {
   title: "Новости Sanremo: модели, события и люди кофе",
   description: "Новости Sanremo в России: выход моделей Zoe и D8, выставки, кофейные чемпионаты и люди профессиональной кофейной индустрии.",
-};
+});
 
 export default function NewsPage() {
   const [first, ...rest] = newsPosts;

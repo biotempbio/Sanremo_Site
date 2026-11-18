@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Header, Footer } from "../components/Chrome";
@@ -6,10 +7,10 @@ import { CardAction } from "../components/ActionArrow";
 import { itemList, jsonLd } from "@/lib/seo";
 import { officialImageForModel } from "@/lib/catalog";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/guide/", {
   title: "Как выбрать кофемашину Sanremo — гид для бизнеса",
   description: "Гид по выбору кофемашины Sanremo для кофейни и ресторана: поток, группы, бойлеры, питание, цены и сервис. Сравните семь линеек.",
-};
+});
 
 const articles = [
   { name: "Кофемолка для кофейни", path: "/guide/kofemolka-dlya-kofejni/", summary: "Жернова, доза по весу и число сортов: как выбрать кофемолку под свою стойку.", image: "/photo/official/x-one.webp", alt: "Кофемолка Sanremo X-One", time: "≈ 6 мин", number: "01" },

@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "@/app/components/Chrome";
@@ -35,7 +36,7 @@ function linkedText(text: string) {
 export function generateStaticParams() { return worldPosts.map((post) => ({slug:post.slug})); }
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata> {
   const {slug}=await params; const post=worldPosts.find((entry)=>entry.slug===slug);
-  return post ? {title:`${post.title} | Sanremo в мире`,description:`${post.title}. ${post.country ? `${post.country}. `:""}Фото и видео проекта Sanremo, источник — SanremoFamily.`} : {};
+  return post ? pageMetadata(`/about/world/${slug}/`, {title:`${post.title} | Sanremo в мире`,description:`${post.title}. ${post.country ? `${post.country}. `:""}Фото и видео проекта Sanremo, источник — SanremoFamily.`}, post?.images[0] ?? post?.poster ?? undefined) : {};
 }
 export default async function WorldPostPage({params}:{params:Promise<{slug:string}>}) {
   const {slug}=await params; const post=worldPosts.find((entry)=>entry.slug===slug); if(!post) notFound();

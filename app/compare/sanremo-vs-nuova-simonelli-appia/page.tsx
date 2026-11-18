@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/compare/sanremo-vs-nuova-simonelli-appia/", {
   title: "Sanremo или Nuova Simonelli Appia Life — сравнение для кофейни",
   description: "Сравните двухгруппные Sanremo Zoe и D8 с Nuova Simonelli Appia Life: бойлеры, управление, подключение, цены и наличие. Источники производителя и магазинов.",
-};
+});
 
 export default function AppiaComparisonPage() {
   return <CompetitorComparison

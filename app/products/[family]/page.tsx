@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
@@ -38,10 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const entries = modelsOfFamily(family).flatMap((model) => skusOfModel(model.slug));
   const prices = entries.map((sku) => sku.rrp).filter((price) => price > 0);
   const groups = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
-  return {
+  return pageMetadata(`/products/${family}/`, {
     title: family === "d8" ? "Кофемашина Sanremo D8 и D8 PRO — цены и наличие" : family === "zoe" ? "Кофемашина Sanremo Zoe — Competition, Compact, SED, SAP: цены" : family === "cafe-racer" ? "Кофемашина Sanremo Café Racer (Cafe Racer) — цены и наличие" : `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
     description: family === "zoe" ? `Sanremo Zoe Competition, Compact, SED и SAP: версии с высокими группами, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}, характеристики и наличие в Москве.` : `Кофемашина Sanremo ${f.name}${family === "d8" ? " и D8 PRO" : family === "cafe-racer" ? " (Cafe Racer)" : ""}: группы ${groups.join(", ")}, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие в Москве и дилеры.`,
-  };
+  }, officialImageForFamily(f.slug) ?? undefined);
 }
 
 export default async function FamilyPage({ params }: Props) {
@@ -61,7 +62,9 @@ export default async function FamilyPage({ params }: Props) {
     url: absoluteUrl(`/products/${family}/`),
     image: officialImageForFamily(f.slug) ? absoluteUrl(officialImageForFamily(f.slug)!) : undefined,
     offers: { "@type": "AggregateOffer", lowPrice: Math.min(...pricedSkus.map((sku) => sku.rrp)),
-      highPrice: Math.max(...pricedSkus.map((sku) => sku.rrp)), priceCurrency: "RUB", offerCount: pricedSkus.length },
+      highPrice: Math.max(...pricedSkus.map((sku) => sku.rrp)), priceCurrency: "RUB", offerCount: pricedSkus.length,
+      url: absoluteUrl(`/products/${family}/`),
+      availability: [...new Set(pricedSkus.map((sku) => sku.availability === "reserved" ? "https://schema.org/OutOfStock" : sku.free > 0 ? "https://schema.org/InStock" : "https://schema.org/PreOrder"))] },
   } : null;
 
   return (
@@ -83,7 +86,7 @@ export default async function FamilyPage({ params }: Props) {
             </div>
             <div className="module-copy">
               <p className="eyebrow">Линейка · {f.architecture}</p>
-              <h1>Кофемашина Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
+              <h1>Линейка Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
               <p className="lead">Sanremo (Сан Ремо) {f.name}: {f.territory}</p>
               <div className="chips" style={{ margin: "6px 0 20px" }}>

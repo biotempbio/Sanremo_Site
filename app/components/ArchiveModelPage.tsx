@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "./Chrome";
 import { BaristaAccessories } from "./BaristaAccessories";
@@ -8,16 +9,27 @@ import { plainArticle } from "@/lib/format";
 import { capriParts, capriAvailability } from "@/lib/capri-parts";
 import CapriPartsTable from "../products/capri/CapriPartsTable";
 
+
+const ARCHIVE_COPY: Record<ArchiveModelSlug, { intro: string; heading: string; detail: string; service: string; source?: string }> = {
+  napoli: { intro: "Sanremo Napoli — рычажная кофемашина из каталога производителя. В России линейка сохранена в архиве: новые поставки не ведутся.", heading: "Napoli: рычажная группа", detail: "При обращении в сервис укажите, какая группа требует внимания, и приложите фото рычага и шильдика. Это поможет отличить исполнение Napoli и подобрать документацию к вашей машине.", service: "Для запроса деталей группы, уплотнений или парового крана укажите серийный номер. Совместимость каждой позиции подтверждается при подборе.", source: "https://www.sanremomachines.com/wp-content/uploads/2020/10/NAPOLI.pdf" },
+  cube: { intro: "Sanremo Cube — компактная одногруппная кофемашина. Производитель относит её к полупрофессиональному классу; в российской витрине модель находится в архиве поставок.", heading: "Cube и Cube R: уточните версию", detail: "На сайте производителя представлены Cube и Cube R. Для обслуживания важно указать полное обозначение с шильдика: версия влияет на выбор документации и деталей.", service: "Если обращение связано с подачей воды, напишите, как подключена ваша машина, и приложите фото подключения. Для запроса помпы, уплотнений или другой детали нужен серийный номер; наличие и совместимость подтвердит менеджер.", source: "https://www.sanremomachines.com/en/products/cube/" },
+  verona: { intro: "Sanremo Verona сохранена для владельцев машин этой линейки. Поставка новых кофемашин Verona в Россию не ведётся; на этой странице доступны переходы к сервису и подбору запчастей.", heading: "Verona: не путать с Verona RS", detail: "В архиве отдельно представлена Verona RS. В обращении укажите точное название с заводской таблички, число групп и серийный номер: одного слова Verona недостаточно для выбора детали.", service: "При поиске уплотнений, крана или элемента управления приложите фото узла и его маркировки. Деталь подбирается для конкретной машины, а не только по названию линейки." },
+  "verona-rs": { intro: "Sanremo Verona RS — отдельная архивная линейка. Новые поставки в Россию не ведутся; владельцы могут обратиться за обслуживанием и подбором совместимых деталей.", heading: "Обслуживание Verona RS", detail: "Сохраните обозначение RS в запросе: в архиве есть и Verona, и Verona RS. Фото шильдика и нужного узла помогут уточнить версию до заказа запчасти.", service: "Опишите, на какой группе или узле проявляется неисправность, и укажите серийный номер. Сервис подтвердит состав работ и совместимость деталей." },
+  torino: { intro: "Sanremo Torino находится в архиве российских поставок. Страница предназначена для действующих владельцев и не является предложением купить новую машину.", heading: "Запрос на обслуживание Torino", detail: "Для диагностики Torino укажите число групп, серийный номер и условия возникновения неисправности. Фото заводской таблички особенно полезно, если машина меняла владельца и исходные документы не сохранились.", service: "В запросе запчасти укажите старый артикул, если он известен, и приложите фото детали. Совместимость и возможность поставки подтверждаются до заказа." },
+  capri: { intro: "Sanremo Capri снята с производства. Владельцам доступны каталог деталей, поиск по артикулу и запрос на обслуживание по серийному номеру.", heading: "", detail: "", service: "" },
+};
+
 export function archiveMetadata(slug: ArchiveModelSlug): Metadata {
   const { name } = ARCHIVE_MODELS[slug];
-  return {
+  return pageMetadata(`/products/${slug}/`, {
     title: `Sanremo ${name} — архив: сервис и запчасти`,
     description: `Sanremo ${name} снята с поставки в Россию. Для владельцев: сервис в России, поиск совместимых запчастей по модели и помощь в выборе актуальной машины Sanremo.`,
-  };
+  });
 }
 
 export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
   const model = ARCHIVE_MODELS[slug];
+  const copy = ARCHIVE_COPY[slug];
   const partsHref = `/parts/?q=${encodeURIComponent(model.partsQuery)}`;
   const matchingParts = slug === "capri" ? capriParts : [];
   return <>
@@ -27,11 +39,13 @@ export function ArchiveModelPage({ slug }: { slug: ArchiveModelSlug }) {
       <section className="wrap section archive-hero">
         <div className="archive-hero-copy"><p className="eyebrow">Архивная модель Sanremo</p><h1>Sanremo {model.name}</h1>
           <p className="lead">{slug === "capri" ? "Модель снята с производства. Поможем с сервисом и запчастями." : "Модель снята с поставки в Россию."}</p>
-          <p>Sanremo {model.name} — профессиональная рожковая кофемашина. Новые поставки этой модели в Россию не ведутся.</p>
+          <p>{copy.intro}</p>
           <p>Для точного подбора совместимых деталей и обслуживания укажите серийный номер и исполнение машины.</p>
         </div>
         <aside className="archive-hero-panel"><span className="eyebrow">Для владельцев</span><strong>{model.name}</strong><p>Найдите запчасть или оставьте запрос на обслуживание машины.</p><a className="btn btn-solid" href={partsHref}>Сервис и запчасти →</a></aside>
       </section>
+
+      {copy.detail ? <section className="wrap section-tight"><h2>{copy.heading}</h2><p>{copy.detail}</p><p>{copy.service}</p>{copy.source ? <p className="small"><a href={copy.source} target="_blank" rel="noopener noreferrer">Документация Sanremo</a></p> : null}</section> : null}
 
       {slug === "capri" ? <section className="wrap section-tight">
         <div className="sec-head"><div><p className="eyebrow">Каталог запчастей</p><h2>Детали для Capri · {matchingParts.length}</h2></div><p className="lead">Совместимость конкретной машины проверяем по серийному номеру.</p></div>

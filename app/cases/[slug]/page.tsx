@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components/Chrome";
@@ -11,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const entry = detailedCases.find((item) => item.slug === slug);
   if (!entry) return {};
-  return { title: `${entry.name.value} — ${entry.city.value}: Sanremo за стойкой`, description: entry.summary.value, openGraph: { images: [entry.cover] } };
+  return pageMetadata(`/cases/${slug}/`, { title: `${entry.name.value} — ${entry.city.value}: Sanremo за стойкой`, description: entry.summary.value, openGraph: { images: [entry.cover] } }, entry.cover);
 }
 
 export default async function CasePage({ params }: Props) {

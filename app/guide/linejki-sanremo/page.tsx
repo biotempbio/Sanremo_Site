@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Header, Footer } from "../../components/Chrome";
@@ -6,10 +7,10 @@ import { RelatedReading } from "../../components/GuideBlocks";
 import { familyBySlug, familyPriceFrom, modelBySlug, modelsOfFamily, money, officialImageForModel, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/guide/linejki-sanremo/", {
   title: "Линейки Sanremo: группы, бойлеры и цены",
   description: "Сравните семь линеек Sanremo по группам, бойлерам, управлению, потоку и цене. Откройте подходящую модель и её конфигурации.",
-};
+});
 
 const lineups = [
   { key: "zoe", name: "Zoe", family: "zoe", models: ["zoe-compact", "zoe-sap", "zoe-sed", "zoe-competition"], image: "zoe-competition", fit: ["Первая кофейня", "Пекарня"], headline: "Теплообменная отправная точка", description: "В линейке Zoe есть компактная версия, полуавтоматическая SAP, автоматическая SED и Competition. Их объединяет теплообменная архитектура; управление, цена и исполнение различаются. Откройте модель, если нужен понятный стартовый ассортимент, и отдельно сравните версии по способу дозирования." },
@@ -52,7 +53,7 @@ export default function LinejkiPage() {
       <div className="table-scroll guide-lineup-table" role="region" aria-label="Сравнение линеек Sanremo" tabIndex={0}>
         <table className="data"><thead><tr><th>Линейка</th><th>Группы</th><th>Бойлеры</th><th>Управление</th><th>Чашек в день</th><th>Цена от</th><th>Кому подходит</th></tr></thead>
           <tbody>{rows.map((line) => <tr key={line.key}>
-            <td><a className="lineup-name" href={"/products/" + line.family + "/"}><Image src={officialImageForModel(line.image) ?? ""} alt="" width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть линейку</small></span></a></td>
+            <td><a className="lineup-name" href={"/products/" + line.family + "/"}><Image src={officialImageForModel(line.image) ?? ""} alt={`Sanremo ${line.name}`} width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть линейку</small></span></a></td>
             <td className="lineup-nowrap">{line.groups.join(" / ")}</td>
             <td>{line.key === "f18-sb" ? "Один бойлер" : line.key === "f18-mb" ? "Мультибойлер" : line.architecture}</td>
             <td>{line.controls.join(" / ") || "Смотрите карточку"}</td><td>{line.flow}</td>

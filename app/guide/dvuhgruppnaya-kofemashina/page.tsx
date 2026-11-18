@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
@@ -9,7 +10,7 @@ import { stockSummary } from "@/lib/format";
 const path = "/guide/dvuhgruppnaya-kofemashina/";
 const title = "Двухгруппная кофемашина для кофейни — как выбрать, модели Sanremo";
 const description = "Как выбрать двухгруппную кофемашину Sanremo: поток, тип бойлера, пар, питание и управление. Сравнение доступных моделей, цен и наличия в Москве.";
-export const metadata: Metadata = { title, description };
+export const metadata: Metadata = pageMetadata("/guide/dvuhgruppnaya-kofemashina/", { title, description });
 
 const modelSlugs = ["zoe-competition", "zoe-compact", "zoe-sed", "zoe-sap", "d8", "d8-pro", "f18-sb", "f18-mb", "cafe-racer", "opera"];
 const rows = modelSlugs.flatMap((slug) => {

@@ -1,3 +1,5 @@
+import { showDescription } from "@/lib/product-card-copy";
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { pluralize } from "@/lib/format";
 import { notFound } from "next/navigation";
@@ -19,10 +21,8 @@ import {
   skusOfModel,
   partsForSku,
   dealerCities,
-  VOLUME_BANDS,
   money,
   moneyPrecise,
-  kw,
   officialImageForModel,
   skuHeroMedia,
   catalogModels,
@@ -46,10 +46,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const groups = m.groupsAvailable.length ? `, ${groupsLabel(m.groupsAvailable)}` : "";
   const title = `Sanremo ${m.name}${groups} — цена, характеристики, наличие`;
   const withDistributor = `${title} — купить у официального дистрибьютора`;
-  return {
+  return pageMetadata(`/products/${m.family}/${m.slug}/`, {
     title: withDistributor.length <= 70 ? withDistributor : title,
     description: `Кофемашина Sanremo ${m.name}${groups}. Характеристики, артикулы, цена и наличие каждого исполнения; документы, официальные дилеры и сервис в России.`,
-  };
+  }, officialImageForModel(m.slug) ?? undefined);
 }
 
 export default async function ModelPage({ params }: Props) {
@@ -59,31 +59,28 @@ export default async function ModelPage({ params }: Props) {
   const f = familyBySlug(family)!;
 
   const sk = skusOfModel(m.slug);
-  const hero = sk.find((s) => s.code === m.heroSku) ?? sk[0];
   const siblings = modelsOfFamily(family).filter((x) => x.slug !== m.slug);
-  const bands = VOLUME_BANDS.filter((b) => b.models.includes(m.slug));
   const partCodes = [...new Set(sk.flatMap((s) => s.spareParts))];
   const modelParts = [...new Map(sk.flatMap((s) => partsForSku(s.code)).map((p) => [p.code, p])).values()];
-  const feats = [
-    m.groupsAvailable.length ? `Исполнения с ${m.groupsAvailable.join(" / ")} ${m.groupsAvailable.length === 1 && m.groupsAvailable[0] === 1 ? "группой" : "группами"} — выбирайте число рабочих мест под пиковую нагрузку.` : null,
-    hero?.boilerTotal ? `Общий объём бойлеров — ${hero.boilerTotal}\u00a0л для выбранной конфигурации.` : null,
-    hero?.control ? `Управление: ${hero.control}.` : null,
-    m.optionsAvailable.length ? `Доступные опции: ${m.optionsAvailable.join(", ")}.` : null,
-    m.family === "d8" && m.slug === "d8-pro" ? "Версия PRO позволяет отдельно настраивать температуру групп." : null,
-  ].filter((item): item is string => Boolean(item));
   const cities = dealerCities().slice(0, 8);
   const currentLineSlug = m.family === "d8" ? "d8" : m.family === "zoe" ? "zoe-competition" : m.slug;
   const questions = modelQuestions(m);
   const modelDocuments = documentsForModel(m.slug);
-  const unavailableGroups = [1, 2, 3].filter((group) => !m.groupsAvailable.includes(group));
 
-  const pickerSkus: PickerSku[] = sk.map((s) => ({
-    code: s.code, vendorCode: s.vendorCode, title: s.title, groups: s.groups,
+  // Flight reuses references; repeated specification blocks need only one payload.
+  const sharedValues = new Map<string, unknown>();
+  function shared<T>(value: T): T {
+    const key = JSON.stringify(value);
+    if (!sharedValues.has(key)) sharedValues.set(key, value);
+    return sharedValues.get(key) as T;
+  }
+  const pickerSkus: Omit<PickerSku, "title" | "availability" | "description">[] = sk.map((s) => ({
+    code: s.code, vendorCode: s.vendorCode, groups: s.groups,
     groupHeight: s.groupHeight, color: s.color, colorHex: s.colorHex, edition: s.edition,
-    options: s.options, rrp: s.rrp, availability: s.availability, free: s.free,
+    options: shared(s.options), rrp: s.rrp, free: s.free,
     power: s.power, voltage: s.voltage, boilerTotal: s.boilerTotal,
-    sizeNet: s.sizeNet, weightNet: s.weightNet,
-    secondaryProps: s.secondaryProps ?? [], descriptionBlocks: s.descriptionBlocks ?? [], description: s.description ?? "",
+    sizeNet: shared(s.sizeNet), weightNet: s.weightNet,
+    secondaryProps: shared(s.secondaryProps ?? []), descriptionBlocks: shared(showDescription(s.descriptionBlocks ?? [], s.description ?? "", m.name)),
     image: skuHeroMedia(s).image,
     imageExact: skuHeroMedia(s).exact,
     imageWidth: skuHeroMedia(s).width,
@@ -316,25 +313,6 @@ export default async function ModelPage({ params }: Props) {
       <BaristaAccessories />
       <Footer />
     </>
-  );
-}
-
-function SpecGroup({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="spec-group">
-      <h4>{title}</h4>
-      <dl style={{ margin: 0 }}>{children}</dl>
-    </section>
-  );
-}
-
-function Spec({ k, v }: { k: string; v: string | null | undefined }) {
-  if (!v) return null;
-  return (
-    <div className="spec-row">
-      <dt>{k}</dt>
-      <dd>{v}</dd>
-    </div>
   );
 }
 

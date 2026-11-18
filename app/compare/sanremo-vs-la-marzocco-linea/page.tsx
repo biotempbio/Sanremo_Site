@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/compare/sanremo-vs-la-marzocco-linea/", {
   title: "Sanremo или La Marzocco Linea — сравнение для кофейни",
   description: "Сравните двухгруппные Sanremo D8 PRO и F18 MB с La Marzocco Linea Classic S и Linea PB: бойлеры, питание, управление и открытые цены в России.",
-};
+});
 
 export default function LineaComparisonPage() {
   return <CompetitorComparison

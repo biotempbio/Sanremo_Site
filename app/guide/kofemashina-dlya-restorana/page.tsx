@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
@@ -6,7 +7,7 @@ import { articleSchema, jsonLd } from "@/lib/seo";
 
 const title = "Как выбрать кофемашину для ресторана: 6 шагов";
 const description = "Как выбрать профессиональную кофемашину для ресторана: меню, нагрузка, волюметрика, пар, подключение и сервис. Сравните конфигурации Sanremo по группам, питанию и цене.";
-export const metadata: Metadata = { title, description };
+export const metadata: Metadata = pageMetadata("/guide/kofemashina-dlya-restorana/", { title, description });
 
 export default function RestaurantGuide() {
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: "Для ресторана" }]} />

@@ -1,3 +1,5 @@
+import { pageMetadata } from "@/lib/page-metadata";
+import { organizationSchema, absoluteUrl, jsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { Crumbs } from "../components/Bits";
@@ -6,11 +8,11 @@ import { LeadForm } from "../components/LeadForm";
 import ContactPrefillFields, { ContactTaskField } from "./ContactPrefillFields";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/contacts/", {
   title: "Контакты BIO — официального дистрибьютора Sanremo в России",
   description:
     "Отдел продаж, сервис и запчасти Sanremo в России. Запрос конфигурации, коммерческое предложение для сети, сервисное обращение, заявка на дилерство.",
-};
+});
 
 const FORMS = [
   { id: "quote", title: "Подбор и коммерческое предложение", who: "Отдел продаж BIO или дилер региона",
@@ -33,6 +35,7 @@ export default function ContactsPage() {
       <Header />
       <Crumbs items={[{ href: "/", label: "Главная" }, { label: "Контакты" }]} />
       <main>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd({ "@context": "https://schema.org", ...organizationSchema(), "@type": "LocalBusiness", "@id": absoluteUrl("/contacts/#location"), url: absoluteUrl("/contacts/"), parentOrganization: { "@id": absoluteUrl("/#organization") } }) }} />
         <section className="wrap" style={{ paddingBottom: 30 }}>
           <div className="sec-head">
             <div>

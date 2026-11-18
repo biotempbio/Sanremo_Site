@@ -1,13 +1,14 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { Header, Footer } from "../components/Chrome";
 import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import CompareClient from "./CompareClient";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/compare/", {
   title: "Сравнение линеек кофемашин Sanremo",
   description: "Сравните линейки Sanremo между собой: рабочий поток, число групп, архитектура бойлеров, управление, цены и наличие. Откройте карточки моделей Sanremo.",
-};
+});
 
 export default function ComparePage() {
   return <><Header active="/compare" /><Crumbs items={[{ href: "/", label: "Главная" }, { label: "Сравнение линеек" }]} />

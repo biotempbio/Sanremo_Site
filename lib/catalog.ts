@@ -1,3 +1,4 @@
+import { optimizedImage } from "./responsive-images";
 import raw from "@/data/catalog.json";
 import apiSnapshot from "@/data/bio-catalog.snapshot.json";
 
@@ -267,7 +268,7 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
   d8: "/photo/model-d8.webp",
   "d8-pro": "/photo/official/d8-pro.jpg",
 };
-export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ?? null;
+export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ? optimizedImage(OFFICIAL_MODEL_IMAGES[slug]) : null;
 /** Use the largest measured full-card image; never stretch an export thumbnail as hero. */
 export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerGroups">) => {
   if (sku.imageLocal) return {

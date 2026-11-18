@@ -1,0 +1,15 @@
+# Reference only: Timeweb frontend currently owns Caddy's generated config.
+# Do not assume this file is automatically consumed by App Platform.
+http://www.sanremomachines.ru {
+	redir https://sanremomachines.ru{uri} 308
+}
+http://sanremomachines.ru {
+	redir https://sanremomachines.ru{uri} 308
+}
+https://www.sanremomachines.ru {
+	redir https://sanremomachines.ru{uri} 301
+}
+https://sanremomachines.ru {
+	import static.caddy
+	# Retain the existing /api/* reverse proxy before static routing if applicable.
+}
