@@ -54,3 +54,6 @@ yarn-error.log*
 # Generated image variants and their manifest
 public/**/*-w*.webp
 public/**/*-w*.avif
+
+# Build-time public commercial cache (static content remains checked in)
+/public/catalog-commercial.json

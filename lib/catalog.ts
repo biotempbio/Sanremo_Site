@@ -145,7 +145,7 @@ type ApiProduct = {
   description?: string;
   descriptionBlocks?: DescriptionBlock[];
 };
-const api = apiSnapshot as { dataAsOf: string | null; received: number; products: ApiProduct[] };
+const api = apiSnapshot as { dataAsOf: string | null; priceDataAsOf?: string | null; stockDataAsOf?: string | null; received: number; products: ApiProduct[] };
 const apiReady = Boolean(api.dataAsOf && api.products.length);
 export const bioCatalogActive = apiReady;
 const statusFromStock = (stock: number): Availability => stock >= 3 ? "in_stock" : stock > 0 ? "limited" : "on_order";
@@ -195,11 +195,12 @@ function mergeSku(base: Sku | undefined, item: ApiProduct): Sku {
 
 /* ── Актуальность коммерческих данных ─────────────────────────────────────
    Дата берётся из выгрузки BIO. В продакшене её проставляет импорт (ТЗ §18). */
-export const PRICE_DATE_ISO = apiReady ? api.dataAsOf!.slice(0, 10) : "2026-08-25";
-export const PRICE_DATE = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Moscow" }).format(new Date(apiReady ? api.dataAsOf! : `${PRICE_DATE_ISO}T00:00:00Z`));
+export const PRICE_DATE_ISO = apiReady ? (api.priceDataAsOf ?? api.dataAsOf)!.slice(0, 10) : "2026-08-25";
+export const PRICE_DATE = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Moscow" }).format(new Date(apiReady ? (api.priceDataAsOf ?? api.dataAsOf)! : `${PRICE_DATE_ISO}T00:00:00Z`));
 const priceValidUntil = new Date(`${PRICE_DATE_ISO}T00:00:00Z`);
 priceValidUntil.setUTCDate(priceValidUntil.getUTCDate() + 30);
 export const PRICE_VALID_UNTIL = priceValidUntil.toISOString().slice(0, 10);
+export const STOCK_DATE_ISO = apiReady ? (api.stockDataAsOf ?? api.dataAsOf)!.slice(0, 10) : "2026-08-25";
 export const DATA_OWNER = "Компания BIO — официальный дистрибьютор Sanremo в России";
 
 export const families = [...catalog.families].sort((a, b) => a.order - b.order);
