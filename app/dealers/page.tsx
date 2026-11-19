@@ -28,6 +28,8 @@ export default function DealersPage() {
         name: d.name,
         address: d.address ?? d.city ?? undefined,
         url: d.site ?? undefined,
+        telephone: d.phone,
+        email: d.email,
       },
     })),
   };
@@ -55,7 +57,7 @@ export default function DealersPage() {
         <section className="wrap section-tight">
           <p className="dealer-city-shortcuts"><a href="/dealers/moskva/">Дилеры в Москве</a><a href="/dealers/sankt-peterburg/">Дилеры в Санкт-Петербурге</a></p>
           <DealersClient
-            dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified, showroom: isOfficialShowroom(d) }))}
+            dealers={dealers.map((d) => ({ name: d.name, city: d.city, address: d.address, site: d.site, note: d.note, verified: d.verified, showroom: isOfficialShowroom(d), contactName: d.contactName, phone: d.phone, email: d.email }))}
             cities={cities}
           />
         </section>

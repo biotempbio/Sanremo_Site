@@ -12851,6 +12851,81 @@
    "note": null,
    "verified": false,
    "raw": "ИП Кустов Олег Владимирович"
+  },
+  {
+   "name": "Техно Холод",
+   "city": "Вологда",
+   "address": "Вологда, ул. Некрасова, д. 25",
+   "site": "https://dto-35.ru/",
+   "contactName": "Дмитрий Хабаров",
+   "phone": "+7 (921) 125-25-01",
+   "email": "habarov71@mail.ru",
+   "note": null,
+   "verified": true,
+   "raw": "Техно Холод г. Вологда"
+  },
+  {
+   "name": "H2O Company",
+   "city": "Уфа",
+   "address": "450071, Республика Башкортостан, Уфа, ул. 50 лет СССР, д. 39/11",
+   "site": "http://www.h2ocompany.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "H2O Company г. Уфа"
+  },
+  {
+   "name": "РусТорг",
+   "city": "Боровский",
+   "address": "625504, Тюменская область, Тюменский район, рп. Боровский, ул. Новая Озерная, д. 80",
+   "site": "http://www.rustorg72.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "РусТорг г. Боровский"
+  },
+  {
+   "name": "Амикон",
+   "city": "Пермь",
+   "address": "614990, Пермь, ул. Луначарского, д. 3А",
+   "site": "https://amikon.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "Амикон г. Пермь"
+  },
+  {
+   "name": "Иренго",
+   "city": "Самара",
+   "address": "443011, Самарская область, Самара, ул. Тихвинская, д. 26",
+   "site": "https://irengo.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "Иренго г. Самара"
+  },
+  {
+   "name": "Вендми",
+   "city": "Челябинск",
+   "address": "454000, Челябинск, ул. Братьев Кашириных, д. 34",
+   "site": "http://www.procm.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "Вендми г. Челябинск"
+  },
+  {
+   "name": "Кофеоп",
+   "city": "Челябинск",
+   "address": "Челябинск, Троицкий тракт, д. 74/1",
+   "site": "https://kofeop.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "Кофеоп г. Челябинск"
+  },
+  {
+   "name": "Фудпром",
+   "city": "Екатеринбург",
+   "address": "Екатеринбург, ул. Турбинная, д. 7, оф. 117",
+   "site": "https://foodprom66.ru/",
+   "note": null,
+   "verified": true,
+   "raw": "Фудпром г. Екатеринбург"
   }
  ],
  "chains": [

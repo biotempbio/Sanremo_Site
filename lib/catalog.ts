@@ -111,6 +111,9 @@ export interface Analog {
 
 export interface Dealer {
   name: string;
+  contactName?: string;
+  phone?: string;
+  email?: string;
   city: string | null;
   address: string | null;
   site: string | null;

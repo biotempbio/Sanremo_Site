@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 
 export interface DealerRow {
   name: string;
+  contactName?: string;
+  phone?: string;
+  email?: string;
   city: string | null;
   address: string | null;
   site: string | null;
@@ -114,6 +117,9 @@ export default function DealersClient({
                     </p>
                   )}
                   {d.note ? <p className="tiny" style={{ margin: 0 }}>{d.note}</p> : null}
+                  {d.contactName ? <p className="small" style={{ margin: 0 }}>{d.contactName}</p> : null}
+                  {d.phone ? <p className="small" style={{ margin: 0 }}><a href={`tel:${d.phone.replace(/[^+\d]/g, "")}`}>{d.phone}</a></p> : null}
+                  {d.email ? <p className="small" style={{ margin: 0 }}><a href={`mailto:${d.email}`}>{d.email}</a></p> : null}
                   <div className="chips">
                     <span className="tag">Продажа</span>
                     <span className="tag">Консультация</span>
