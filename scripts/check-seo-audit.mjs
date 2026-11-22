@@ -33,8 +33,10 @@ for(const source of ['/photo/official/you.png','/photo/home-hero-cafe-racer-v2.j
 const family=await read('/products/cafe-racer/'),card=await read('/products/cafe-racer/cafe-racer/');
 const h1=s=>decode(s.match(/<h1[^>]*>(.*?)<\/h1>/)?.[1].replaceAll(/<!--.*?-->/g,'')??'');
 assert.notEqual(h1(family),h1(card));
-const aggregate=all(schemas(family),'AggregateOffer')[0];assert.ok(aggregate.lowPrice>0);assert.equal(aggregate.priceCurrency,'RUB');assert.ok(aggregate.offerCount>0);assert.ok(aggregate.availability.length>0);assert.equal(aggregate.url,origin+'/products/cafe-racer/');
+assert.equal(all(schemas(family),'AggregateOffer').length,0,'Family listing must not aggregate variant prices');
 const group=all(schemas(card),'ProductGroup')[0];assert.ok(group.hasVariant.every(x=>x.offers.price>0&&x.offers.availability));
+assert.ok(group.hasVariant.every(x=>x.url.includes('?sku=')));
+assert.ok(new Set(group.hasVariant.map(x=>x.image)).size>1,'Variants need their own matching images');
 assert.ok(all(schemas(await read('/contacts/')),'LocalBusiness')[0].address.addressCountry==='RU');
 const archives=await Promise.all(['napoli','cube','verona'].map(m=>read(`/products/${m}/`)));
 assert.equal(new Set(archives.map(s=>s.match(/<section class="wrap section-tight"><h2>(.*?)<\/section>/)?.[1])).size,3);

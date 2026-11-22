@@ -229,10 +229,10 @@ export default function CatalogClient({
           </div>
         ) : (
           <div className="grid g3">
-            {filtered.map((r) => (
+            {filtered.map((r, index) => (
               <article className="card catalog-card" key={r.slug}>
                 <a className="card-visual catalog-card-visual" href={r.href ?? `/products/${r.family}/${r.slug}/`} aria-label={`Открыть ${r.name}`}>
-                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" eager />
+                  <SkuImage src={r.heroImage} alt={`Sanremo ${r.name}`} groups={r.groups[0]} color={r.heroColor} fit="cover" eager={index < 3} />
                 </a>
                 <div className="card-body">
                   <h3><a href={r.href ?? `/products/${r.family}/${r.slug}/`}>{r.name}</a></h3>

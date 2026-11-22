@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { execFileSync } from "node:child_process";
 import { families, models } from "@/lib/catalog";
-import { CONTENT_DATE, SITE_URL } from "@/lib/seo";
+import { SITE_URL } from "@/lib/seo";
 import { detailedCases } from "@/lib/cases";
 import { newsPosts } from "@/lib/news";
 import { worldPosts } from "@/lib/world-posts";
@@ -9,20 +9,21 @@ import { solutionLandings } from "@/lib/solution-landings";
 
 export const dynamic = "force-static";
 
-const modifiedCache = new Map<string, string>();
-function lastModified(paths: string[]): Date {
+const modifiedCache = new Map<string, string | undefined>();
+function lastModified(paths: string[]): Date | undefined {
   const dates = paths.map((path) => {
     if (!modifiedCache.has(path)) {
-      let date = CONTENT_DATE;
+      let date: string | undefined;
       try {
         const recorded = execFileSync("git", ["log", "-1", "--format=%cs", "--", path], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
         if (recorded) date = recorded;
-      } catch { /* Источник без .git: дата содержимого зафиксирована в CONTENT_DATE. */ }
+      } catch { /* Без истории Git достоверная дата изменения неизвестна. */ }
       modifiedCache.set(path, date);
     }
-    return modifiedCache.get(path)!;
+    return modifiedCache.get(path);
   });
-  return new Date(`${dates.sort().at(-1) ?? CONTENT_DATE}T00:00:00Z`);
+  const latest = dates.filter((date): date is string => Boolean(date)).sort().at(-1);
+  return latest ? new Date(`${latest}T00:00:00Z`) : undefined;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...families.map((family) => ({ url: `${SITE_URL}/products/${family.slug}/`, lastModified: lastModified(["app/products/[family]/page.tsx", "data/catalog.json"]) })),
     ...models.map((model) => ({ url: `${SITE_URL}/products/${model.family}/${model.slug}/`, lastModified: lastModified(["app/products/[family]/[model]/page.tsx", "data/catalog.json"]) })),
     ...detailedCases.map((entry) => ({ url: `${SITE_URL}/cases/${entry.slug}/`, lastModified: lastModified(["app/cases/[slug]/page.tsx", "data/cases.json"]) })),
-    ...worldPosts.map((post) => ({ url: `${SITE_URL}/about/world/${post.slug}/`, lastModified: new Date(`${post.date}T00:00:00Z`) })),
-    ...newsPosts.map((post) => ({ url: `${SITE_URL}/news/${post.slug}/`, lastModified: new Date(`${post.publishedAt}T00:00:00Z`) })),
+    ...worldPosts.map((post) => ({ url: `${SITE_URL}/about/world/${post.slug}/`, lastModified: lastModified(["data/world-posts.json", "app/about/world/[slug]/page.tsx"]) })),
+    ...newsPosts.map((post) => ({ url: `${SITE_URL}/news/${post.slug}/`, lastModified: lastModified(["data/news.json", "app/news/[slug]/page.tsx"]) })),
   ];
 }

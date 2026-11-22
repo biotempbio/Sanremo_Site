@@ -55,17 +55,7 @@ export default async function FamilyPage({ params }: Props) {
   const colors = [...new Map(allSkus.filter((s) => s.color).map((s) => [s.color!, s.colorHex!])).entries()];
   const familyCases = casesForFamily(family);
   const familyFaq = familyQuestions(f, fmodels, allSkus);
-  const pricedSkus = allSkus.filter((sku) => sku.rrp > 0);
-  const familyProductSchema = pricedSkus.length ? {
-    "@context": "https://schema.org", "@type": "Product", name: `Кофемашина Sanremo ${f.name}`,
-    brand: { "@type": "Brand", name: "Sanremo" },
-    url: absoluteUrl(`/products/${family}/`),
-    image: officialImageForFamily(f.slug) ? absoluteUrl(officialImageForFamily(f.slug)!) : undefined,
-    offers: { "@type": "AggregateOffer", lowPrice: Math.min(...pricedSkus.map((sku) => sku.rrp)),
-      highPrice: Math.max(...pricedSkus.map((sku) => sku.rrp)), priceCurrency: "RUB", offerCount: pricedSkus.length,
-      url: absoluteUrl(`/products/${family}/`),
-      availability: [...new Set(pricedSkus.map((sku) => sku.availability === "reserved" ? "https://schema.org/OutOfStock" : sku.free > 0 ? "https://schema.org/InStock" : "https://schema.org/PreOrder"))] },
-  } : null;
+
 
   return (
     <>
@@ -127,14 +117,14 @@ export default async function FamilyPage({ params }: Props) {
             </p>
           </div>
           <div className="grid g3">
-            {fmodels.map((m) => {
+            {fmodels.map((m, index) => {
               const sk = skusOfModel(m.slug);
               const stockUnits = stockUnitsOfModel(m.slug);
               const hero = sk.find((s) => s.availability === "in_stock") ?? sk[0];
               return (
                 <article className="card catalog-card" key={m.slug}>
                   <a className="card-visual catalog-card-visual" href={`/products/${family}/${m.slug}/`} aria-label={`Открыть ${m.name}`}>
-                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager />
+                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager={index === 0} />
                   </a>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>
@@ -240,7 +230,6 @@ export default async function FamilyPage({ params }: Props) {
           <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
-        {familyProductSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(familyProductSchema) }} /> : null}
       </main>
       <ShowroomVisit />
       <BaristaAccessories />
