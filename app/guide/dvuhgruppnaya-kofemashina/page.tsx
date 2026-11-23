@@ -4,6 +4,7 @@ import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { FaqBlock } from "../../components/GuideBlocks";
 import { VOLUME_BANDS, architectureForModel, modelBySlug, skusOfModel, money, officialImageForModel } from "@/lib/catalog";
+import { editorialOffer } from "@/lib/editorial-offers";
 import { articleSchema, jsonLd } from "@/lib/seo";
 import { stockSummary } from "@/lib/format";
 
@@ -20,7 +21,7 @@ const rows = modelSlugs.flatMap((slug) => {
   if (!versions.length) return [];
   const price = Math.min(...versions.map((sku) => sku.rrp));
   const stocked = versions.reduce((sum, sku) => sum + sku.free, 0);
-  return [{ model, price, stocked }];
+  return [{ model, price, stocked, offer: editorialOffer(slug) }];
 });
 const minPrice = Math.min(...rows.map((row) => row.price));
 const maxPrice = Math.max(...rows.map((row) => row.price));
@@ -53,7 +54,7 @@ export default function TwoGroupGuide() {
       <p>Ниже показана минимальная цена среди двухгруппных исполнений каждой модели. Наличие взято из того же каталога, что и карточки машин.</p>
       <div className="table-scroll" role="region" aria-label="Двухгруппные модели Sanremo" tabIndex={0}><table className="data guide-model-table"><thead><tr><th>Модель</th><th>Система</th><th>Цена от</th><th>Наличие в Москве</th></tr></thead><tbody>{rows.map(({ model, price, stocked }) => <tr key={model.slug}><th><a href={`/products/${model.family}/${model.slug}/`}>{model.name}</a></th><td>{architectureForModel(model)}</td><td>{money(price)}</td><td>{stockSummary(stocked)}</td></tr>)}</tbody></table></div>
       <p className="guide-note">Цены и остатки обновляются из каталога. Для выбора питания и высоты группы откройте конкретное исполнение.</p>
-      <div className="guide-model-cards">{rows.slice(0, 4).map(({model, price}) => <a className="guide-model-card" href={`/products/${model.family}/${model.slug}/`} key={model.slug}><img src={officialImageForModel(model.slug) ?? ""} alt={`Sanremo ${model.name}`} loading="lazy" /><span>{model.name}</span><small>от {money(price)} →</small></a>)}</div>
+      <div className="guide-model-cards">{rows.slice(0, 4).map(({model, price, offer}) => <a className="guide-model-card" href={offer?.href ?? `/products/${model.family}/${model.slug}/`} key={model.slug}>{offer?.image && <img src={offer.image} alt={`Sanremo ${model.name} · 2 группы`} loading="lazy" />}<span>{model.name} · 2 группы</span><small>от {money(price)} →</small></a>)}</div>
       <div className="guide-actions"><a className="btn btn-solid" href="/choose/">Подобрать машину</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <FaqBlock questions={faq} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Двухгруппная кофемашина: кому подходит и как выбрать", description, path)) }} />

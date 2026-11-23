@@ -4,7 +4,8 @@ import Image from "next/image";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { RelatedReading } from "../../components/GuideBlocks";
-import { familyBySlug, familyPriceFrom, modelBySlug, modelsOfFamily, money, officialImageForModel, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { familyBySlug, modelBySlug, modelsOfFamily, money, officialImageForModel, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
+import { editorialOffer } from "@/lib/editorial-offers";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata("/guide/linejki-sanremo/", {
@@ -38,8 +39,8 @@ export default function LinejkiPage() {
     const skus = selectedModels.flatMap((model) => skusOfModel(model.slug));
     const groups = [...new Set(skus.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
     const controls = [...new Set(skus.map((sku) => sku.control).filter((value): value is string => Boolean(value)))];
-    const price = line.key === "zoe" || line.key === "d8" ? familyPriceFrom(line.family) : modelBySlug(line.models[0])?.priceFrom;
-    return { ...line, groups, controls, price, architecture: familyBySlug(line.family)?.architecture ?? "", flow: flowFor(line.models) };
+    const offer = selectedModels.flatMap((model) => { const item = editorialOffer(model.slug, model.groupsAvailable.includes(2) ? 2 : 1); return item ? [item] : []; }).sort((a, b) => a.sku.rrp - b.sku.rrp)[0]; const price = offer?.sku.rrp;
+    return { ...line, groups, controls, price, offer, architecture: familyBySlug(line.family)?.architecture ?? "", flow: flowFor(line.models) };
   });
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: "Линейки Sanremo" }]} />
     <main className="wrap section guide-page guide-comparison"><article>
@@ -53,11 +54,11 @@ export default function LinejkiPage() {
       <div className="table-scroll guide-lineup-table" role="region" aria-label="Сравнение линеек Sanremo" tabIndex={0}>
         <table className="data"><thead><tr><th>Линейка</th><th>Группы</th><th>Бойлеры</th><th>Управление</th><th>Чашек в день</th><th>Цена от</th><th>Кому подходит</th></tr></thead>
           <tbody>{rows.map((line) => <tr key={line.key}>
-            <td><a className="lineup-name" href={"/products/" + line.family + "/"}><Image src={officialImageForModel(line.image) ?? ""} alt={`Sanremo ${line.name}`} width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть линейку</small></span></a></td>
+            <td><a className="lineup-name" href={"/products/" + line.family + "/"}><Image src={line.offer?.image ?? officialImageForModel(line.image) ?? ""} alt={`Sanremo ${line.name}`} width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть линейку</small></span></a></td>
             <td className="lineup-nowrap">{line.groups.join(" / ")}</td>
             <td>{line.key === "f18-sb" ? "Один бойлер" : line.key === "f18-mb" ? "Мультибойлер" : line.architecture}</td>
             <td>{line.controls.join(" / ") || "Смотрите карточку"}</td><td>{line.flow}</td>
-            <td className="lineup-nowrap">от {money(line.price)}</td><td><span className="lineup-tags">{line.fit.map((tag) => <span key={tag}>{tag}</span>)}</span></td>
+            <td className="lineup-nowrap">от {money(line.price)}<br /><small>{line.offer?.sku.groups} гр.</small></td><td><span className="lineup-tags">{line.fit.map((tag) => <span key={tag}>{tag}</span>)}</span></td>
           </tr>)}</tbody></table>
       </div>
       <section className="guide-lineup-notes" aria-labelledby="lineup-details"><h2 id="lineup-details">Чем различаются линейки</h2>

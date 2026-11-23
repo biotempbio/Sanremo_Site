@@ -27,6 +27,6 @@ export default function EagleOneComparisonPage() {
     <h2>Как сравнить бюджет поставки</h2>
     <p>В колонках Sanremo показаны реальные артикулы из каталога. Другой цвет, напряжение или опции могут менять цену и наличие. Для Eagle One запросите предложение с тем же числом групп и необходимым оснащением. Отдельно запишите кофемолку, водоподготовку, монтаж и запуск — это часть бюджета проекта.</p>
     <p>Выбирайте Eagle One, если её рабочий процесс, оснащение и сервис отвечают вашим требованиям. Если рассматриваете Sanremo, сравните версии из таблицы и обсудите запуск с <a href="/dealers/">дилером в вашем регионе</a>. Способы приобретения разобраны в <a href="/guide/kupit-lizing-ili-arenda-kofemashiny/">гиде по покупке и лизингу</a>.</p>
-    <p>Дополнительные источники: <a href="https://www.sanremomachines.com/en/products/f18/" target="_blank" rel="noopener noreferrer">Sanremo F18</a> и <a href="https://www.sanremomachines.com/en/products/cafe-racer/" target="_blank" rel="noopener noreferrer">Café Racer</a>, проверены 23.11.2026.</p>
+    <p>Дополнительные источники: <a href="https://www.sanremomachines.com/en/products/f18/" target="_blank" rel="noopener noreferrer">Sanremo F18</a> и <a href="https://www.sanremomachines.com/en/products/cafe-racer/" target="_blank" rel="noopener noreferrer">Café Racer</a>.</p>
   </CompetitorComparison>;
 }
