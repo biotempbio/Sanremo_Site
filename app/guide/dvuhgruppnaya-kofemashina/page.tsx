@@ -57,6 +57,6 @@ export default function TwoGroupGuide() {
       <div className="guide-model-cards">{rows.slice(0, 4).map(({model, price, offer}) => <a className="guide-model-card" href={offer?.href ?? `/products/${model.family}/${model.slug}/`} key={model.slug}>{offer?.image && <img src={offer.image} alt={`Sanremo ${model.name} · 2 группы`} loading="lazy" />}<span>{model.name} · 2 группы</span><small>от {money(price)} →</small></a>)}</div>
       <div className="guide-actions"><a className="btn btn-solid" href="/choose/">Подобрать машину</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <FaqBlock questions={faq} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Двухгруппная кофемашина: кому подходит и как выбрать", description, path)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Двухгруппная кофемашина: кому подходит и как выбрать", description, path, { modified: "2026-11-23" })) }} />
     </article></main><Footer /></>;
 }

@@ -68,6 +68,6 @@ export default function LinejkiPage() {
         <p>Внутри одной линейки исполнения отличаются числом групп, управлением, опциями, ценой и складским статусом. Например, F18 SB и F18 MB имеют разные бойлерные системы, поэтому их лучше сравнивать как отдельные версии. Цвет и высота группы зависят от исполнения.</p>
         <p>Сохраните две или три подходящие версии и сопоставьте их в <a href="/compare/">сравнении линеек</a>. Затем проверьте мощность, напряжение и место на стойке по карточке версии. Если точка только проектируется, <a href="/choose/">подборщик</a> поможет сократить список по формату и меню.</p></div>
       <RelatedReading />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Линейки Sanremo: что меняется от модели к модели", metadata.description as string, "/guide/linejki-sanremo/")) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Линейки Sanremo: что меняется от модели к модели", metadata.description as string, "/guide/linejki-sanremo/", { modified: "2026-11-23" })) }} />
     </article></main><Footer /></>;
 }
