@@ -3,7 +3,8 @@ import { Header, Footer } from "../components/Chrome";
 import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import { ActionArrow } from "../components/ActionArrow";
-import { architectureForModel, modelBySlug, money, skusOfModel } from "@/lib/catalog";
+import { architectureForModel, money } from "@/lib/catalog";
+import { editorialOffer } from "@/lib/editorial-offers";
 import { stockSummary } from "@/lib/format";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
@@ -23,11 +24,9 @@ type Rival = {
 };
 
 function sanremoColumn(slug: string) {
-  const model = modelBySlug(slug);
-  if (!model) throw new Error(`Missing catalog model ${slug}`);
-  const versions = skusOfModel(slug).filter((sku) => sku.groups === 2 && sku.rrp > 0);
-  const sku = [...versions].sort((a, b) => a.rrp - b.rrp)[0];
-  if (!sku) throw new Error(`Missing 2-group version ${slug}`);
+  const offer = editorialOffer(slug);
+  if (!offer) throw new Error(`Missing 2-group version ${slug}`);
+  const { model, sku } = offer;
   const control = sku.control;
   const temperature = slug === "d8-pro" ? "Раздельная настройка групп"
     : slug === "d8" ? "PID"
@@ -36,7 +35,7 @@ function sanremoColumn(slug: string) {
     : null;
   return {
     name: `${model.name} · арт. ${sku.code}`,
-    href: `/products/${model.family}/${model.slug}/?sku=${encodeURIComponent(sku.code)}&groups=2`,
+    href: offer.href,
     rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), temperature, sku.boilerTotal ? `${sku.boilerTotal} л суммарно` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, "Монтажные размеры — по чертежу исполнения", money(sku.rrp), stockSummary(sku.free)],
   };
 }

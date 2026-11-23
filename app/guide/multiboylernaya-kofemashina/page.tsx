@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { FaqBlock } from "../../components/GuideBlocks";
-import { architectureForModel, modelBySlug, money, skusOfModel, officialImageForModel } from "@/lib/catalog";
+import { architectureForModel, modelBySlug, money } from "@/lib/catalog";
 import { editorialOffer } from "@/lib/editorial-offers";
 import { articleSchema, jsonLd } from "@/lib/seo";
 import { stockSummary } from "@/lib/format";
@@ -16,14 +16,15 @@ const slugs = ["d8-pro", "f18-mb", "cafe-racer", "opera", "you"];
 const rows = slugs.flatMap((slug) => {
   const model = modelBySlug(slug);
   if (!model) return [];
-  const versions = skusOfModel(slug).filter((sku) => sku.rrp > 0 && sku.groups === (model.groupsAvailable.includes(2) ? 2 : 1));
-  return [{ model, offer: editorialOffer(slug, model.groupsAvailable.includes(2) ? 2 : 1), price: versions.length ? Math.min(...versions.map((sku) => sku.rrp)) : null, stock: versions.reduce((sum, sku) => sum + sku.free, 0) }];
+  const offer = editorialOffer(slug, model.groupsAvailable.includes(2) ? 2 : 1);
+  if (!offer) return [];
+  return [{ model, offer, price: offer.sku.rrp, stock: offer.sku.free }];
 });
 const faq = [
   { question: "Чем мультибойлер отличается от гибрида?", answer: "В мультибойлерной схеме у групп отдельные температурные контуры. Гибрид D8 сочетает общую платформу с электронным управлением; в D8 PRO температуру групп можно настраивать раздельно. Схему конкретной версии смотрите в технической карточке." },
   { question: "Нужен ли мультибойлер для одной смеси?", answer: "Если команда работает с одним стабильным рецептом, сначала сравните требуемый поток, пар и бюджет. Раздельная настройка групп особенно полезна, когда одновременно готовят разные сорта." },
   { question: "Сложнее ли обслуживание?", answer: "У мультибойлерной машины больше управляемых узлов. Плановое обслуживание, водоподготовка и доступ к узлам при монтаже важны для любой профессиональной машины; порядок работ уточняют у сервисного партнёра." },
-  { question: "Можно ли сравнить модели по цене и наличию?", answer: "Да. В таблице приведена начальная цена модели и наличие в Москве, а карточки содержат исполнения и их характеристики.", actionHref: "/compare/", actionLabel: "Сравнить линейки" },
+  { question: "Можно ли сравнить модели по цене и наличию?", answer: "Да. В таблице приведены цена и наличие выбранного исполнения, а карточки содержат исполнения и их характеристики.", actionHref: "/compare/", actionLabel: "Сравнить линейки" },
 ];
 
 export default function MultiboilerGuide() {
@@ -46,9 +47,9 @@ export default function MultiboilerGuide() {
       <p>Мощность, напряжение и объём бойлеров зависят от версии. Они приведены на странице исполнения вместе с габаритами. Для выбора между соседними моделями полезно открыть их рядом в <a href="/compare/">сравнении линеек</a> и затем проверить техническую карточку нужного варианта.</p>
       <h2>Модели Sanremo с раздельным управлением</h2>
       <p>F18 MB, Café Racer, Opera и YOU представлены в мультибойлерном сегменте. D8 PRO включена для сравнения как гибридная платформа с отдельной настройкой температуры групп. У YOU одна группа; остальные модели предлагают два или три рабочих места в зависимости от исполнения.</p>
-      <div className="table-scroll" role="region" aria-label="Мультибойлерные и гибридные модели Sanremo" tabIndex={0}><table className="data guide-model-table"><thead><tr><th>Модель</th><th>Архитектура</th><th>Группы</th><th>Цена от</th><th>Наличие в Москве</th></tr></thead><tbody>{rows.map(({ model, price, stock }) => <tr key={model.slug}><th><a href={`/products/${model.family}/${model.slug}/`}>{model.name}</a></th><td>{architectureForModel(model)}</td><td>{model.groupsAvailable.includes(2) ? "2" : "1 · отдельная задача"}</td><td>{price ? money(price) : "По запросу"}</td><td>{stockSummary(stock)}</td></tr>)}</tbody></table></div>
-      <p className="guide-note">Начальная цена и наличие рассчитываются по текущим исполнениям каталога. Характеристики подключения смотрите в карточке выбранной версии.</p>
-      <div className="guide-model-cards">{rows.filter((row) => row.price).slice(0, 4).map(({model, price, offer}) => <a className="guide-model-card" href={offer?.href ?? `/products/${model.family}/${model.slug}/`} key={model.slug}>{offer?.image && <img src={offer.image} alt={`Sanremo ${model.name} · ${offer.sku.groups} гр.`} loading="lazy" />}<span>{model.name} · {offer?.sku.groups} гр.</span><small>от {money(price)} →</small></a>)}</div>
+      <div className="table-scroll" role="region" aria-label="Мультибойлерные и гибридные модели Sanremo" tabIndex={0}><table className="data guide-model-table"><thead><tr><th>Модель</th><th>Архитектура</th><th>Группы</th><th>Цена исполнения</th><th>Наличие в Москве</th></tr></thead><tbody>{rows.map(({ model, price, stock, offer }) => <tr key={model.slug}><th><a href={offer.href}>{model.name}</a></th><td>{architectureForModel(model)}</td><td>{model.groupsAvailable.includes(2) ? "2" : "1 · отдельная задача"}</td><td>{price ? money(price) : "По запросу"}</td><td>{stockSummary(stock)}</td></tr>)}</tbody></table></div>
+      <p className="guide-note">Характеристики подключения смотрите в карточке выбранной версии.</p>
+      <div className="guide-model-cards">{rows.filter((row) => row.price).slice(0, 4).map(({model, price, offer}) => <a className="guide-model-card" href={offer?.href ?? `/products/${model.family}/${model.slug}/`} key={model.slug}>{offer?.image && <img src={offer.image} alt={`Sanremo ${model.name} · ${offer.sku.groups} гр.`} loading="lazy" />}<span>{model.name} · {offer?.sku.groups} гр.</span><small>{money(price)} →</small></a>)}</div>
       <div className="guide-actions"><a className="btn btn-solid" href="/choose/">Подобрать машину</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <FaqBlock questions={faq} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema("Мультибойлерная кофемашина: что это и когда нужна", description, path, { modified: "2026-11-23" })) }} />

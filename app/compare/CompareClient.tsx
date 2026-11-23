@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AVAILABILITY_LABEL, CATALOG_LINEUP, VOLUME_BANDS, architectureForModel, familyBySlug, modelBySlug, modelPath, money, skusOfModel } from "@/lib/catalog";
+import { editorialOffer } from "@/lib/editorial-offers";
 import { pluralize } from "@/lib/format";
 
 const defaults = ["zoe-competition", "d8", "f18-sb"];
@@ -23,13 +24,15 @@ function line(slug: string) {
   const entry = CATALOG_LINEUP.find((item) => item.slug === slug)!;
   const model = modelBySlug(slug)!;
   const family = familyBySlug(model.family)!;
-  const skus = skusOfModel(slug);
-  const stock = skus.reduce((sum, sku) => sum + sku.free, 0);
-  const first = skus.find((sku) => sku.free > 0) ?? skus[0];
+  const groups = model.groupsAvailable.includes(2) ? 2 : 1;
+  const offer = editorialOffer(slug, groups);
+  const first = offer?.sku;
+  const skus = skusOfModel(slug).filter((sku) => sku.groups === groups);
+  const stock = first?.free ?? 0;
   const flow = flowRange(slug);
-  const controls = [...new Set(skus.map((sku) => sku.control).filter((value): value is string => !!value))]
-    .map((value) => value.charAt(0).toLocaleUpperCase("ru-RU") + value.slice(1)).join("; ");
-  return { entry, model, family, stock, first, flow, controls };
+  const controls = first?.control ? first.control.charAt(0).toLocaleUpperCase("ru-RU") + first.control.slice(1) : "";
+  return { entry, model, family, stock, first, flow, controls, image: offer?.image, href: offer?.href ?? modelPath(model), versions: skus.length };
+
 }
 
 export default function CompareClient() {
@@ -43,11 +46,11 @@ export default function CompareClient() {
   }
   const rows = [
     ["Поток", (c: ReturnType<typeof line>) => c.flow],
-    ["Группы", (c: ReturnType<typeof line>) => c.model.groupsAvailable.join(" / ")],
+    ["Группы", (c: ReturnType<typeof line>) => c.first?.groups === 1 ? "1 · отдельная задача" : String(c.first?.groups ?? "—")],
     ["Бойлеры", (c: ReturnType<typeof line>) => architectureForModel(c.model)],
     ["Управление", (c: ReturnType<typeof line>) => c.controls || c.model.version || "—"],
-    ["Возможности", (c: ReturnType<typeof line>) => c.model.optionsAvailable.join(" · ") || "Базовая комплектация"],
-    ["Исполнения", (c: ReturnType<typeof line>) => `${c.model.skuCount} ${pluralize(c.model.skuCount, "исполнение", "исполнения", "исполнений")}`],
+    ["Возможности", (c: ReturnType<typeof line>) => c.first?.options.join(" · ") || "Базовая комплектация"],
+    ["Исполнения", (c: ReturnType<typeof line>) => `${c.versions} ${pluralize(c.versions, "исполнение", "исполнения", "исполнений")}`],
     ["Наличие", (c: ReturnType<typeof line>) => c.first ? AVAILABILITY_LABEL[c.first.availability] : "—"],
   ] as const;
 
@@ -58,22 +61,22 @@ export default function CompareClient() {
     <p className="tiny" style={{ marginTop: 12 }}>{selected.length === 3 ? "Выбрано три линейки — снимите одну, чтобы добавить другую" : "Можно добавить ещё одну линейку"}</p>
     <div className="table-scroll compare-desktop" style={{ marginTop: 30 }}><table className="data" style={{ minWidth: 860 }}>
       <thead><tr><th style={{ width: 190 }} />{cols.map((c) => <th key={c.model.slug} style={{ verticalAlign: "top", minWidth: 250 }}>
-        <Image src={c.entry.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} style={{ width: "100%", height: 170, objectFit: "contain", background: "var(--gray)" }} />
-        <p className="eyebrow" style={{ margin: "16px 0 7px" }}>{c.family.tagline}</p><h2 style={{ fontSize: 28 }}>{c.entry.label}</h2>
-        <p style={{ margin: "10px 0 4px" }}><b>от {money(c.model.priceFrom)}</b></p><p className="tiny" style={{ margin: 0 }}>{c.stock > 0 ? `На складе в Москве: ${c.stock}` : "Под заказ · 6–8 недель"}</p>
-        <a className="btn btn-solid" href={modelPath(c.model)} style={{ marginTop: 16 }}>Открыть линейку</a>
+        {c.image && <Image src={c.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} style={{ width: "100%", height: 170, objectFit: "contain", background: "var(--gray)" }} />}
+        <p className="eyebrow" style={{ margin: "16px 0 7px" }}>{c.family.tagline}</p><h2 style={{ fontSize: 28 }}>{c.model.name}</h2>
+        <p style={{ margin: "10px 0 4px" }}><b>{c.first ? money(c.first.rrp) : "Цена по запросу"}</b></p><p className="tiny" style={{ margin: 0 }}>{c.stock > 0 ? `На складе в Москве: ${c.stock}` : "Под заказ · 6–8 недель"}</p>
+        <a className="btn btn-solid" href={c.href} style={{ marginTop: 16 }}>Открыть исполнение</a>
       </th>)}</tr></thead>
       <tbody>{rows.map(([label, value]) => <tr key={label}><td className="eyebrow">{label}</td>{cols.map((c) => <td key={c.model.slug}>{value(c)}</td>)}</tr>)}</tbody>
     </table></div>
     <div className="compare-mobile" aria-label="Сравнение выбранных линеек">
       {cols.map((c) => <article className="compare-mobile-card" key={c.model.slug}>
         <div className="compare-mobile-head">
-          <Image src={c.entry.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} />
-          <div><p className="eyebrow">{c.family.tagline}</p><h2>{c.entry.label}</h2><p className="compare-mobile-price">от {money(c.model.priceFrom)}</p>
+          {c.image && <Image src={c.image} alt={`Sanremo ${c.entry.label}`} width={520} height={340} />}
+          <div><p className="eyebrow">{c.family.tagline}</p><h2>{c.model.name}</h2><p className="compare-mobile-price">{c.first ? money(c.first.rrp) : "Цена по запросу"}</p>
             <p className="small">{c.stock > 0 ? "На складе в Москве" : "Под заказ · 6–8 недель"}</p></div>
         </div>
         <dl>{rows.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value(c)}</dd></div>)}</dl>
-        <a className="btn btn-solid" href={modelPath(c.model)}>Открыть линейку</a>
+        <a className="btn btn-solid" href={c.href}>Открыть исполнение</a>
       </article>)}
     </div>
     <div className="grid g2" style={{ marginTop: 40 }}>

@@ -5,7 +5,7 @@ import { Header, Footer } from "../../components/Chrome";
 import { Crumbs } from "../../components/Bits";
 import { RelatedReading } from "../../components/GuideBlocks";
 import { familyBySlug, modelBySlug, modelsOfFamily, money, officialImageForModel, skusOfModel, VOLUME_BANDS } from "@/lib/catalog";
-import { editorialOffer } from "@/lib/editorial-offers";
+import { editorialOffer, compareEditorialSkus } from "@/lib/editorial-offers";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata("/guide/linejki-sanremo/", {
@@ -39,7 +39,7 @@ export default function LinejkiPage() {
     const skus = selectedModels.flatMap((model) => skusOfModel(model.slug));
     const groups = [...new Set(skus.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
     const controls = [...new Set(skus.map((sku) => sku.control).filter((value): value is string => Boolean(value)))];
-    const offer = selectedModels.flatMap((model) => { const item = editorialOffer(model.slug, model.groupsAvailable.includes(2) ? 2 : 1); return item ? [item] : []; }).sort((a, b) => a.sku.rrp - b.sku.rrp)[0]; const price = offer?.sku.rrp;
+    const offer = selectedModels.flatMap((model) => { const item = editorialOffer(model.slug, model.groupsAvailable.includes(2) ? 2 : 1); return item ? [item] : []; }).sort((a, b) => compareEditorialSkus(a.sku, b.sku))[0]; const price = offer?.sku.rrp;
     return { ...line, groups, controls, price, offer, architecture: familyBySlug(line.family)?.architecture ?? "", flow: flowFor(line.models) };
   });
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: "Линейки Sanremo" }]} />
@@ -54,7 +54,7 @@ export default function LinejkiPage() {
       <div className="table-scroll guide-lineup-table" role="region" aria-label="Сравнение линеек Sanremo" tabIndex={0}>
         <table className="data"><thead><tr><th>Линейка</th><th>Группы</th><th>Бойлеры</th><th>Управление</th><th>Чашек в день</th><th>Цена от</th><th>Кому подходит</th></tr></thead>
           <tbody>{rows.map((line) => <tr key={line.key}>
-            <td><a className="lineup-name" href={"/products/" + line.family + "/"}><Image src={line.offer?.image ?? officialImageForModel(line.image) ?? ""} alt={`Sanremo ${line.name}`} width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть линейку</small></span></a></td>
+            <td><a className="lineup-name" href={line.offer?.href ?? "/products/" + line.family + "/"}><Image src={line.offer?.image ?? officialImageForModel(line.image) ?? ""} alt={`Sanremo ${line.name}`} width={82} height={62} unoptimized /><span><strong>{line.name}</strong><small>Смотреть исполнение</small></span></a></td>
             <td className="lineup-nowrap">{line.groups.join(" / ")}</td>
             <td>{line.key === "f18-sb" ? "Один бойлер" : line.key === "f18-mb" ? "Мультибойлер" : line.architecture}</td>
             <td>{line.controls.join(" / ") || "Смотрите карточку"}</td><td>{line.flow}</td>
