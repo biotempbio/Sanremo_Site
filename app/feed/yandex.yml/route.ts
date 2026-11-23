@@ -18,11 +18,13 @@ export function GET() {
   const machineOffers = liveSkus.filter((sku) => !sku.markdown && sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family === "f18" ? sku.model : sku.family)).map((sku) => {
     const model = modelBySlug.get(sku.model);
     const media = skuHeroMedia(sku);
-    const image = media.exact ? media.image : null;
+    const image = media.exact && media.width >= 300 && media.height >= 400 ? media.image : null;
+    // Current Yandex Search feed requirements: available=true and a usable exact photo.
+    if (sku.availability === "reserved" || sku.free <= 0 || !image) return null;
     const name = `Кофемашина Sanremo ${model?.name ?? sku.model}${sku.groups ? `, ${sku.groups} гр.` : ""} — ${sku.title}`;
-    return `      <offer id="${xml(sku.code)}" available="${sku.availability !== "reserved" && sku.free > 0}">
+    return `      <offer id="${xml(sku.code)}" available="true">
         <url>${xml(absoluteUrl(skuProductPath(sku)))}</url>
-        <price>${sku.rrp}</price><currencyId>RUB</currencyId>
+        <price>${sku.rrp}</price><currencyId>RUR</currencyId>
         <categoryId>${categoryBySlug.get(sku.family === "f18" ? sku.model : sku.family)}</categoryId>
         ${image ? `<picture>${xml(absoluteUrl(image))}</picture>` : ""}
         <vendor>Sanremo</vendor><model>${xml(model?.name ?? sku.model)}</model>
@@ -33,9 +35,11 @@ export function GET() {
   });
   const grinderOffers = xOneEntries.filter((grinder) => grinder.rrp > 0).map((grinder) => {
     const image = xOneProductImage(grinder);
+    const available = "inStock" in grinder && typeof grinder.inStock === "number" ? grinder.inStock > 0 : grinder.availability === "in_stock";
+    if (!available || !image) return null;
     return `      <offer id="${xml(grinder.code)}" available="${"inStock" in grinder && typeof grinder.inStock === "number" ? grinder.inStock > 0 : grinder.availability === "in_stock"}">
         <url>${xml(absoluteUrl(xOneProductPath(grinder)))}</url>
-        <price>${grinder.rrp}</price><currencyId>RUB</currencyId><categoryId>100</categoryId>
+        <price>${grinder.rrp}</price><currencyId>RUR</currencyId><categoryId>100</categoryId>
         ${image ? `<picture>${xml(absoluteUrl(image))}</picture>` : ""}
         <vendor>Sanremo</vendor><model>X-One</model><name>${xml(grinder.name)}</name>
         <vendorCode>${xml(grinder.code)}</vendorCode>
@@ -45,15 +49,15 @@ export function GET() {
   const feed = `<?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="${new Date().toISOString()}">
   <shop>
-    <name>Sanremo в России</name><company>BIO</company><url>${xml(absoluteUrl("/"))}</url>
-    <currencies><currency id="RUB" rate="1"/></currencies>
+    <name>Sanremo в России</name><company>ООО «КОМПАНИЯ БИО»</company><url>${xml(absoluteUrl("/"))}</url>
+    <currencies><currency id="RUR" rate="1"/></currencies>
     <categories>
       <category id="1">Кофемашины</category>
 ${categories.map((category) => `      <category id="${category.id}" parentId="1">${xml(category.name)}</category>`).join("\n")}
       <category id="100">Кофемолки</category>
     </categories>
     <offers>
-${[...machineOffers, ...grinderOffers].join("\n")}
+${[...machineOffers, ...grinderOffers].filter(Boolean).join("\n")}
     </offers>
   </shop>
 </yml_catalog>`;

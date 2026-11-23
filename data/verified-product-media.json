@@ -1,0 +1,41 @@
+{
+  "188203": {
+    "model": "cafe-racer",
+    "groups": 3,
+    "color": "Черно-красная",
+    "edition": "Naked",
+    "source": "https://www.sanremomachines.com/wp-content/uploads/2021/01/Cafe-Racer-Naked-04-2-2.jpg",
+    "page": "https://www.sanremomachines.com/en/products/cafe-racer/",
+    "image": "/photo/verified/188203.webp",
+    "width": 1920,
+    "height": 1080,
+    "reviewedAt": "2026-11-23",
+    "review": "Группность, цвет и исполнение сверены визуально; изображение не увеличивалось."
+  },
+  "188441": {
+    "model": "cafe-racer",
+    "groups": 3,
+    "color": "Коричневая",
+    "edition": "Custom Renegade",
+    "source": "https://www.sanremomachines.com/wp-content/uploads/2021/01/cr-custom.png",
+    "page": "https://www.sanremomachines.com/en/products/cafe-racer/",
+    "image": "/photo/verified/188441.webp",
+    "width": 960,
+    "height": 540,
+    "reviewedAt": "2026-11-23",
+    "review": "Группность, цвет и исполнение сверены визуально; изображение не увеличивалось."
+  },
+  "208943": {
+    "model": "zoe-competition",
+    "groups": 2,
+    "color": "Белая",
+    "edition": null,
+    "source": "https://portal.holdingbio.ru/api/img/ebb95497-840d-11f1-b7a1-a87cb3c289fa.jpg",
+    "page": "https://sanremomachines.ru/products/zoe/zoe-competition/?sku=208943&groups=2",
+    "image": "/photo/verified/208943.webp",
+    "width": 564,
+    "height": 556,
+    "reviewedAt": "2026-11-23",
+    "review": "Группность, цвет и исполнение сверены визуально; изображение не увеличивалось."
+  }
+}

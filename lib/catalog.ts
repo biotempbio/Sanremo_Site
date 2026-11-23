@@ -1,5 +1,6 @@
 import { optimizedImage } from "./responsive-images";
 import raw from "@/data/catalog.json";
+import reviewedProductMedia from "@/data/verified-product-media.json";
 import apiSnapshot from "@/data/bio-catalog.snapshot.json";
 
 /* ── Модель данных (ТЗ §6). Единый источник для всех страниц. ─────────────── */
@@ -274,7 +275,9 @@ const OFFICIAL_MODEL_IMAGES: Record<string, string> = {
 };
 export const officialImageForModel = (slug: string) => OFFICIAL_MODEL_IMAGES[slug] ? optimizedImage(OFFICIAL_MODEL_IMAGES[slug]) : null;
 /** Use the largest measured full-card image; never stretch an export thumbnail as hero. */
-export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerGroups">) => {
+export const skuHeroMedia = (sku: Pick<Sku, "code" | "model" | "imageLocal" | "imageWidth" | "imageHeight" | "imagePeerCode" | "imagePeerGroups" | "groups" | "color" | "edition">) => {
+  const reviewed = (reviewedProductMedia as Record<string, {model:string;groups:number;color:string;edition:string|null;image:string;width:number;height:number}>)[sku.code];
+  if (reviewed?.model === sku.model && reviewed.groups === sku.groups && reviewed.color === sku.color && reviewed.edition === sku.edition) return { image: reviewed.image, exact: true, width: reviewed.width, height: reviewed.height, caption: null, source: "reviewed-original" as const };
   if (sku.imageLocal) return {
     image: sku.imageLocal, exact: !sku.imagePeerCode,
     width: sku.imageWidth ?? 900, height: sku.imageHeight ?? 900,

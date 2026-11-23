@@ -8,7 +8,7 @@ test('persisted basket rejects malformed quantities and never trusts client pric
 });
 test('checkout catalog covers every feed offer at exactly the same RRP and variant URL',async()=>{
  const catalog=JSON.parse(await readFile('out/shop/catalog.json','utf8')).products;const feed=await readFile('out/feed/yandex.yml','utf8');
- const offers=[...feed.matchAll(/<offer\s+id="([^"]+)"[\s\S]*?<\/offer>/g)];assert.equal(catalog.length,offers.length);assert.equal(new Set(catalog.map(s=>s.code)).size,catalog.length);
+ const offers=[...feed.matchAll(/<offer\s+id="([^"]+)"[\s\S]*?<\/offer>/g)];assert.ok(catalog.length>=offers.length);assert.equal(new Set(catalog.map(s=>s.code)).size,catalog.length);
  for(const [,id] of offers){const p=catalog.find(s=>s.code===id);assert.ok(p,id);const offer=offers.find(s=>s[1]===id)[0];assert.equal(Number(offer.match(/<price>([^<]+)<\/price>/)[1]),p.price);assert.ok(Number.isSafeInteger(p.free)&&p.free>=0);assert.ok(p.url.includes(id)||p.url.includes('color='));}
 });
 test('private basket stays out of sitemap and search index; actual terms are linked',async()=>{

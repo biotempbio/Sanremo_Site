@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
+import sharp from "sharp";
 
 const origin = "https://sanremomachines.ru";
 const read = (path) => readFile(new URL(`../out/${path}`, import.meta.url), "utf8");
@@ -14,6 +15,12 @@ const offers = [...feed.matchAll(/<offer id="([^"]+)" available="([^"]+)">([\s\S
 });
 const feedByUrl = new Map(offers.map((offer) => [offer.url, offer]));
 const imageVariants = JSON.parse(await readFile(new URL("../data/image-variants.json", import.meta.url), "utf8"));
+
+async function eligible(image, availability) {
+  if (!image || availability !== "https://schema.org/InStock") return false;
+  const {width,height} = await sharp(new URL(`../out${new URL(image).pathname}`,import.meta.url).pathname).metadata();
+  return width >= 300 && height >= 400;
+}
 
 test("every model publishes matching product data and a real representative photo", async () => {
   for (const model of catalog.models) {
@@ -35,7 +42,8 @@ test("every model publishes matching product data and a real representative phot
       assert.ok(new URL(variant.url).searchParams.get("sku"), variant.name);
       assert.equal(variant.offers.priceCurrency, "RUB", variant.name);
       const offer = feedByUrl.get(variant.url);
-      assert.ok(offer, variant.name);
+      assert.equal(Boolean(offer), await eligible(variant.image, variant.offers.availability), variant.name);
+      if (!offer) continue;
       assert.equal(offer.price, variant.offers.price, variant.name);
       assert.equal(offer.available, variant.offers.availability === "https://schema.org/InStock", variant.name);
       assert.equal(offer.image, variant.image ?? "", variant.name);
@@ -59,7 +67,8 @@ test("every family lists its actual executions without treating the entire famil
     for (const offer of list.itemListElement) {
       assert.equal(new URL(offer.url).pathname.split("/")[2], family.slug, offer.url);
       const feedOffer = feedByUrl.get(offer.url);
-      assert.ok(feedOffer, offer.url);
+      assert.equal(Boolean(feedOffer), await eligible(offer.image, offer.availability), offer.url);
+      if (!feedOffer) continue;
       assert.equal(offer.price, feedOffer.price, offer.url);
       assert.equal(offer.image ?? "", feedOffer.image, offer.url);
     }
@@ -69,12 +78,16 @@ test("every family lists its actual executions without treating the entire famil
 test("feed execution links select SKU or X-One colour and never claim the wrong photo", async () => {
   assert.equal(new Set(offers.map((offer) => offer.id)).size, offers.length);
   assert.equal(feedByUrl.size, offers.length);
+  assert.ok(offers.length > 0);
+  assert.ok(feed.includes("<currency id=\"RUR\""));
+  assert.ok(!feed.includes("<currencyId>RUB</currencyId>"));
   const grinderHtml = await read("products/x-one/index.html");
   const grinder = schemas(grinderHtml).find((entry) => entry["@type"] === "ProductGroup");
   assert.equal(grinder.hasVariant.length, 2);
   for (const variant of grinder.hasVariant) {
     const offer = feedByUrl.get(variant.url);
-    assert.ok(offer, variant.url);
+    assert.equal(Boolean(offer), await eligible(variant.image, variant.offers.availability), variant.url);
+    if (!offer) continue;
     assert.equal(offer.price, variant.offers.price);
     assert.equal(offer.image, variant.image ?? "");
     assert.equal(new URL(variant.url).searchParams.get("color"), variant.color.toLowerCase());
@@ -85,6 +98,9 @@ test("feed execution links select SKU or X-One colour and never claim the wrong 
     assert.equal(url.hash, "");
     assert.ok(url.searchParams.get("sku") || url.searchParams.get("color"), offer.url);
     assert.ok(offer.price > 0 && offer.description, offer.id);
+    assert.equal(offer.available, true);
+    assert.ok(offer.image);
+    assert.equal(await eligible(offer.image,"https://schema.org/InStock"),true);
     if (offer.image) assert.ok((await stat(new URL(`../out${new URL(offer.image).pathname}`, import.meta.url))).size > 0, offer.image);
   }
 });
@@ -95,4 +111,17 @@ test("archive pages remain service pages and keep their canonical URLs", async (
     assert.ok(html.includes(`rel="canonical" href="${origin}/products/${slug}/"`));
     assert.ok(!schemas(html).some((entry) => ["Product", "ProductGroup", "OfferCatalog"].includes(entry["@type"])));
   }
+});
+
+test('reviewed originals reach their exact variants without enlargement', async()=>{
+ const reviewed=JSON.parse(await readFile(new URL('../data/verified-product-media.json',import.meta.url),'utf8'));
+ for(const[code,entry]of Object.entries(reviewed)){
+  const model=catalog.models.find(m=>m.slug===entry.model);
+  const group=schemas(await read(`products/${model.family}/${model.slug}/index.html`)).find(s=>s['@type']==='ProductGroup');
+  const variant=group.hasVariant.find(v=>new URL(v.url).searchParams.get('sku')===code);
+  assert.equal(variant.image,origin+entry.image,code);
+  const actual=await sharp(new URL(`../public${entry.image}`,import.meta.url).pathname).metadata();
+  assert.equal(actual.width,entry.width);assert.equal(actual.height,entry.height);
+  assert.ok(entry.source.startsWith('https://'));assert.ok(entry.groups>0);
+ }
 });
