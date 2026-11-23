@@ -16,7 +16,7 @@ test('private basket stays out of sitemap and search index; actual terms are lin
 });
 
 test('phone validation works with the current HTML Unicode-sets pattern mode',async()=>{
- const html=await readFile('out/cart/index.html','utf8');const pattern=html.match(/<input(?=[^>]*name="phone")[^>]*>/)[0].match(/pattern="([^"]+)"/)[1];const regex=new RegExp(`^(?:${pattern})$`,'v');
+ const source=await readFile('app/cart/CartClient.tsx','utf8');const pattern=JSON.parse(source.match(/pattern=\{(".*?")\}/)[1]);const regex=new RegExp(`^(?:${pattern})$`,'v');
  for(const value of ['+7 (495) 363-38-01','89211252501'])assert.ok(regex.test(value));
  for(const value of ['abcdefghijk','123'])assert.equal(regex.test(value),false);
 });
