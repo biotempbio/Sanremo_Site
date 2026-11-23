@@ -4,6 +4,8 @@ import { optimizedImage } from "./responsive-images";
 
 const covers: Record<string, string> = {
   "/": "/photo/home-hero-cafe-racer-v2.jpg",
+  "/products/": "/photo/official/zoe-competition.jpg",
+  "/products/grinders/": "/photo/official/x-one.webp",
   "/products/x-one/": "/photo/official/x-one.webp",
   "/guide/kofemolka-dlya-kofejni/": "/photo/official/x-one.webp",
 };

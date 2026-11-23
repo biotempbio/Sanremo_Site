@@ -9,7 +9,8 @@ import SkuImage from "../../components/SkuImage";
 import { ResponsiveImage } from "../../components/ResponsiveImage";
 import { FaqBlock } from "../../components/GuideBlocks";
 import { familyQuestions } from "@/lib/model-faq";
-import { absoluteUrl, itemList, jsonLd } from "@/lib/seo";
+import { itemList, jsonLd } from "@/lib/seo";
+import { familySearchCopy, familyPriceDescription, machineOfferCatalog, modelSearchImage } from "@/lib/product-search";
 import { casesForFamily } from "@/lib/cases";
 import { CaseCard } from "../../cases/CaseCard";
 import { stockSummary } from "@/lib/format";
@@ -22,7 +23,6 @@ import {
   money,
   kw,
   officialImageForFamily,
-  officialImageForModel,
   architectureForModel,
 } from "@/lib/catalog";
 
@@ -37,11 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const f = familyBySlug(family);
   if (!f) return {};
   const entries = modelsOfFamily(family).flatMap((model) => skusOfModel(model.slug));
-  const prices = entries.map((sku) => sku.rrp).filter((price) => price > 0);
-  const groups = [...new Set(entries.map((sku) => sku.groups).filter((value): value is number => value !== null))].sort();
   return pageMetadata(`/products/${family}/`, {
     title: family === "d8" ? "Кофемашина Sanremo D8 и D8 PRO — цены и наличие" : family === "zoe" ? "Кофемашина Sanremo Zoe — Competition, Compact, SED, SAP: цены" : family === "cafe-racer" ? "Кофемашина Sanremo Café Racer (Cafe Racer) — цены и наличие" : `Кофемашина Sanremo ${f.name} — цены и наличие в России`,
-    description: family === "zoe" ? `Sanremo Zoe Competition, Compact, SED и SAP: версии с высокими группами, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}, характеристики и наличие в Москве.` : `Кофемашина Sanremo ${f.name}${family === "d8" ? " и D8 PRO" : family === "cafe-racer" ? " (Cafe Racer)" : ""}: группы ${groups.join(", ")}, цена от ${prices.length ? money(Math.min(...prices)) : "по запросу"}. Характеристики исполнений, наличие в Москве и дилеры.`,
+    description: familyPriceDescription(f, entries),
   }, officialImageForFamily(f.slug) ?? undefined);
 }
 
@@ -55,6 +53,8 @@ export default async function FamilyPage({ params }: Props) {
   const colors = [...new Map(allSkus.filter((s) => s.color).map((s) => [s.color!, s.colorHex!])).entries()];
   const familyCases = casesForFamily(family);
   const familyFaq = familyQuestions(f, fmodels, allSkus);
+  const searchCopy = familySearchCopy(f);
+  const offerCatalog = machineOfferCatalog(`Кофемашины Sanremo ${f.name}: исполнения`, allSkus, f);
 
 
   return (
@@ -78,7 +78,7 @@ export default async function FamilyPage({ params }: Props) {
               <p className="eyebrow">Линейка · {f.architecture}</p>
               <h1>Линейка Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
-              <p className="lead">Sanremo (Сан Ремо) {f.name}: {f.territory}</p>
+              <p className="lead">{searchCopy.intro}</p>
               <div className="chips" style={{ margin: "6px 0 20px" }}>
                 {f.scenarios.map((s) => <span className="tag tag-solid" key={s}>{s}</span>)}
               </div>
@@ -100,8 +100,8 @@ export default async function FamilyPage({ params }: Props) {
         <section className="wrap section-tight guide-decision">
           <div><p className="eyebrow">Для каких задач</p><h2>Кому подходит {f.name}</h2>
             <p>{f.scenarios.join(", ")}. Проверьте число групп, архитектуру и условия вашей площадки по выбранной версии.</p></div>
-          <div><p className="eyebrow">Граница выбора</p><h2>Когда смотреть другую линейку</h2>
-            <p>Если нужного числа групп нет среди версий {f.name} или мощность, напряжение и габариты исполнения не подходят площадке, сравните другие линейки Sanremo.</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
+          <div><p className="eyebrow">Выбор исполнения</p><h2>Как выбрать {f.name}</h2>
+            <p>{searchCopy.selection}</p><a href="/guide/linejki-sanremo/">Сравнить линейки →</a></div>
         </section>
 
         {/* Модели внутри семейства */}
@@ -124,7 +124,7 @@ export default async function FamilyPage({ params }: Props) {
               return (
                 <article className="card catalog-card" key={m.slug}>
                   <a className="card-visual catalog-card-visual" href={`/products/${family}/${m.slug}/`} aria-label={`Открыть ${m.name}`}>
-                    <SkuImage src={officialImageForModel(m.slug)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager={index === 0} />
+                    <SkuImage src={modelSearchImage(m)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager={index === 0} />
                   </a>
                   <div className="card-body">
                     <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>
@@ -229,6 +229,7 @@ export default async function FamilyPage({ params }: Props) {
         <section className="wrap section-tight"><FaqBlock questions={familyFaq} title={`Частые вопросы о ${f.name}`} />
           <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
         </section>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(offerCatalog) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />
       </main>
       <ShowroomVisit />

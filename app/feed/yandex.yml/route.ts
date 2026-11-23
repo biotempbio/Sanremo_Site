@@ -1,6 +1,7 @@
-import { families, grinders, models, skus, officialImageForModel } from "@/lib/catalog";
+import { skuProductPath, skuSearchDescription } from "@/lib/product-search";
+import { families, models, liveSkus, skuHeroMedia } from "@/lib/catalog";
 import { absoluteUrl } from "@/lib/seo";
-import { X_ONE_SHORT_DESCRIPTION } from "@/lib/x-one";
+import { X_ONE_SHORT_DESCRIPTION, xOneEntries, xOneProductPath, xOneProductImage } from "@/lib/x-one";
 
 export const dynamic = "force-static";
 
@@ -14,27 +15,28 @@ export function GET() {
     : [{ slug: family.slug, name: family.name }]).map((category, index) => ({ ...category, id: index + 2 }));
   const categoryBySlug = new Map(categories.map((category) => [category.slug, category.id]));
   const modelBySlug = new Map(models.map((model) => [model.slug, model]));
-  const machineOffers = skus.filter((sku) => !sku.markdown && sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family === "f18" ? sku.model : sku.family)).map((sku) => {
+  const machineOffers = liveSkus.filter((sku) => !sku.markdown && sku.rrp > 0 && sku.model && categoryBySlug.has(sku.family === "f18" ? sku.model : sku.family)).map((sku) => {
     const model = modelBySlug.get(sku.model);
-    const image = officialImageForModel(sku.model);
+    const media = skuHeroMedia(sku);
+    const image = media.exact ? media.image : null;
     const name = `Кофемашина Sanremo ${model?.name ?? sku.model}${sku.groups ? `, ${sku.groups} гр.` : ""} — ${sku.title}`;
-    return `      <offer id="${xml(sku.code)}" available="${sku.free > 0}">
-        <url>${xml(absoluteUrl(`/products/${sku.family}/${sku.model}/#sku-${encodeURIComponent(sku.code)}`))}</url>
+    return `      <offer id="${xml(sku.code)}" available="${sku.availability !== "reserved" && sku.free > 0}">
+        <url>${xml(absoluteUrl(skuProductPath(sku)))}</url>
         <price>${sku.rrp}</price><currencyId>RUB</currencyId>
         <categoryId>${categoryBySlug.get(sku.family === "f18" ? sku.model : sku.family)}</categoryId>
         ${image ? `<picture>${xml(absoluteUrl(image))}</picture>` : ""}
         <vendor>Sanremo</vendor><model>${xml(model?.name ?? sku.model)}</model>
         <name>${xml(name)}</name>
         <vendorCode>${xml(sku.vendorCode ?? sku.code)}</vendorCode>
-        <description>${xml(sku.description || model?.description || `Профессиональная кофемашина Sanremo ${model?.name ?? sku.model}.`)}</description>
+        <description>${xml(skuSearchDescription(sku))}</description>
       </offer>`;
   });
-  const grinderOffers = grinders.filter((grinder) => !grinder.markdown && grinder.rrp > 0).map((grinder) => {
-    const image = "/photo/official/x-one.webp";
+  const grinderOffers = xOneEntries.filter((grinder) => grinder.rrp > 0).map((grinder) => {
+    const image = xOneProductImage(grinder);
     return `      <offer id="${xml(grinder.code)}" available="${"inStock" in grinder && typeof grinder.inStock === "number" ? grinder.inStock > 0 : grinder.availability === "in_stock"}">
-        <url>${xml(absoluteUrl("/products/x-one/"))}</url>
+        <url>${xml(absoluteUrl(xOneProductPath(grinder)))}</url>
         <price>${grinder.rrp}</price><currencyId>RUB</currencyId><categoryId>100</categoryId>
-        <picture>${xml(absoluteUrl(image))}</picture>
+        ${image ? `<picture>${xml(absoluteUrl(image))}</picture>` : ""}
         <vendor>Sanremo</vendor><model>X-One</model><name>${xml(grinder.name)}</name>
         <vendorCode>${xml(grinder.code)}</vendorCode>
         <description>${xml(X_ONE_SHORT_DESCRIPTION)}</description>

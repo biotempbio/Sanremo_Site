@@ -10,12 +10,13 @@ export function jsonLd(value: unknown) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
 }
 
-export function itemList(name: string, entries: { name: string; path: string }[]) {
+export function itemList(name: string, entries: { name: string; path: string; image?: string | null }[]) {
   return {
     "@context": "https://schema.org", "@type": "ItemList", name,
     numberOfItems: entries.length,
     itemListElement: entries.map((entry, index) => ({
       "@type": "ListItem", position: index + 1, name: entry.name, url: absoluteUrl(entry.path),
+      ...(entry.image ? { image: absoluteUrl(entry.image) } : {}),
     })),
   };
 }

@@ -1,3 +1,4 @@
+import { modelSearchDescription, modelSearchImage, skuSearchDescription, skuProductPath, skuAvailability } from "@/lib/product-search";
 import { showDescription } from "@/lib/product-card-copy";
 import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
@@ -48,8 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const withDistributor = `${title} — купить у официального дистрибьютора`;
   return pageMetadata(`/products/${m.family}/${m.slug}/`, {
     title: withDistributor.length <= 70 ? withDistributor : title,
-    description: `Кофемашина Sanremo ${m.name}${groups}. Характеристики, артикулы, цена и наличие каждого исполнения; документы, официальные дилеры и сервис в России.`,
-  }, officialImageForModel(m.slug) ?? undefined);
+    description: `Sanremo ${m.name}${groups}. ${modelSearchDescription(m)} ${m.priceFrom ? `Цена от ${money(m.priceFrom)}.` : "Цена по запросу."} Наличие, дилеры и сервис в России.`,
+  }, modelSearchImage(m) ?? undefined);
 }
 
 export default async function ModelPage({ params }: Props) {
@@ -94,21 +95,23 @@ export default async function ModelPage({ params }: Props) {
     name: `Sanremo ${m.name}`,
     brand: { "@type": "Brand", name: "Sanremo" },
     category: "Профессиональные рожковые кофемашины",
-    description: `Sanremo ${m.name}: ${architectureForModel(m)}. Доступные исполнения, характеристики и цены в России.`,
-    image: officialImageForModel(m.slug) ? absoluteUrl(officialImageForModel(m.slug)!) : undefined,
+    description: `Sanremo ${m.name}. ${modelSearchDescription(m)}`,
+    image: modelSearchImage(m) ? absoluteUrl(modelSearchImage(m)!) : undefined,
     url: absoluteUrl(`/products/${family}/${m.slug}/`),
     productGroupID: m.slug,
     variesBy: ["https://schema.org/color", "https://schema.org/size"],
     hasVariant: sk.map((s) => ({
       "@type": "Product", name: `Sanremo ${m.name} — ${s.title}`,
+      description: skuSearchDescription(s),
       sku: s.vendorCode ?? s.code,
       brand: { "@type": "Brand", name: "Sanremo" },
-      image: skuHeroMedia(s).image ? absoluteUrl(skuHeroMedia(s).image!) : undefined,
+      image: skuHeroMedia(s).exact && skuHeroMedia(s).image ? absoluteUrl(skuHeroMedia(s).image!) : undefined,
       color: s.color ?? undefined,
       size: s.groups ? `${s.groups} группы` : undefined,
-      url: absoluteUrl(`/products/${family}/${m.slug}/?sku=${encodeURIComponent(s.code)}${s.groups ? `&groups=${s.groups}` : ""}`),
+      url: absoluteUrl(skuProductPath(s)),
       offers: s.rrp > 0 ? { "@type": "Offer", price: s.rrp, priceCurrency: "RUB",
-        availability: s.availability === "in_stock" || s.availability === "limited" ? "https://schema.org/InStock" : s.availability === "reserved" ? "https://schema.org/OutOfStock" : "https://schema.org/PreOrder",
+        url: absoluteUrl(skuProductPath(s)),
+        availability: skuAvailability(s),
         seller: { "@type": "Organization", name: "BIO", url: absoluteUrl("/") },
       } : undefined,
     })),
@@ -127,7 +130,7 @@ export default async function ModelPage({ params }: Props) {
       />
       <main>
         <section className="wrap unified-product-shell">
-          <UnifiedProductCard skus={pickerSkus} modelName={m.name} modelSlug={m.slug} familyName={f.name} territory={f.territory} architecture={architectureForModel(m)} />
+          <UnifiedProductCard skus={pickerSkus} modelName={m.name} modelSlug={m.slug} familyName={f.name} territory={modelSearchDescription(m)} architecture={architectureForModel(m)} />
         </section>
 
         {/* 7.2.6 — сравнение версий в семействе */}
@@ -288,7 +291,7 @@ export default async function ModelPage({ params }: Props) {
               .map((x) => (
                 <article className="card" key={x.slug}>
                   <div className="card-media">
-                    <ResponsiveImage src={officialImageForModel(x.slug)!} alt={`Sanremo ${x.name}`} width={1536} height={864} sizes="(max-width: 620px) 100vw, 33vw" />
+                    <ResponsiveImage src={modelSearchImage(x) ?? officialImageForModel(x.slug)!} alt={`Sanremo ${x.name}`} width={1536} height={864} sizes="(max-width: 620px) 100vw, 33vw" />
                   </div>
                   <div className="card-body">
                     <p className="eyebrow" style={{ margin: 0 }}>{familyBySlug(x.family)!.name}</p>

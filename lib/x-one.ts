@@ -14,6 +14,9 @@ export const xOneEntries = grinders.filter((item) =>
   /x[\s-]?one/i.test(item.name) && !item.markdown && !/^[УВ]/i.test(item.code.trim())
 );
 export type XOneEntry = (typeof xOneEntries)[number];
+export const xOneEntryColor = (entry: XOneEntry): XOneColor => /white/i.test(entry.name) ? "White" : "Nero";
+export const xOneProductPath = (entry: XOneEntry) => `/products/x-one/?color=${xOneEntryColor(entry).toLowerCase()}`;
+export const xOneProductImage = (entry: XOneEntry) => xOneEntryColor(entry) === "Nero" ? "/photo/official/x-one.webp" : null;
 
 export const xOneVariants: XOneVariant[] = colors.map((color) => {
   const matches = xOneEntries.filter((item) => item.name.toLocaleLowerCase("en-US").includes(color.toLocaleLowerCase("en-US")));

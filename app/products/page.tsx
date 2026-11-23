@@ -66,8 +66,8 @@ export default function ProductsPage() {
     };
   });
   const listSchema = itemList("Профессиональные кофемашины и кофемолки Sanremo в России", [
-    ...rows.map((row) => ({ name: `Кофемашина Sanremo ${row.name}`, path: row.href ?? `/products/${row.family}/${row.slug}/` })),
-    { name: "Кофемолка Sanremo X-One", path: "/products/x-one/" },
+    ...rows.map((row) => ({ name: `Кофемашина Sanremo ${row.name}`, path: row.href ?? `/products/${row.family}/${row.slug}/`, image: row.heroImage })),
+    { name: "Кофемолка Sanremo X-One", path: "/products/x-one/", image: "/photo/official/x-one.webp" },
   ]);
 
   return (
