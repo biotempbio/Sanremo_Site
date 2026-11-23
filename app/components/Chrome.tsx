@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CartLink } from "./CartControls";
 import { usePathname } from "next/navigation";
 import { SITE_EMAIL, SITE_MAILTO } from "@/lib/site-contact";
 
@@ -42,6 +43,7 @@ export function Header({ active }: { active?: string }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/sanremo-official-black-v4.svg" alt="Sanremo Coffee Machines" />
           </a>
+          <CartLink />
           <button className="burger" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="site-main-nav">
             {open ? "Закрыть" : "Меню"}
           </button>
@@ -83,7 +85,7 @@ export function Footer() {
           <div>
             <h4>Владение</h4>
             <nav>
-              <a href="/dealers/">Где купить</a><a href="/service/">Сервис</a><a href="/parts/">Запчасти</a><a href="/documents/">Документы</a>
+              <a href="/cart/">Корзина</a><a href="/order-terms/">Заказ и оплата</a><a href="/delivery/">Доставка и самовывоз</a><a href="/dealers/">Где купить</a><a href="/service/">Сервис</a><a href="/parts/">Запчасти</a><a href="/documents/">Документы</a>
             </nav>
           </div>
           <div>
@@ -110,7 +112,7 @@ export function Footer() {
             </p>
           </div>
         </div>
-        <div className="fine">Sanremo Coffee Machines S.r.l. · Официальная дистрибуция BIO в России · © 2026</div>
+        <div className="fine">Продавец: ООО «КОМПАНИЯ БИО» · ИНН 4632236086 · ОГРН 1174632018550 · © 2026</div>
       </div>
     </footer>
   );
