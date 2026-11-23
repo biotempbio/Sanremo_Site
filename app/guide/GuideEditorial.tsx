@@ -38,11 +38,11 @@ export function GuidePairPrice({ machineSlug }: { machineSlug: string }) {
   return <>{prices.length && xOneHasPrice ? `от ${money(Math.min(...prices) + xOnePriceFrom)}` : "Цена по запросу"}</>;
 }
 
-export function EditorialGuide({ path, title, crumb, description, eyebrow, lead, quick, sections, aside, faq, related, children }: {
+export function EditorialGuide({ path, title, crumb, description, eyebrow, lead, quick, sections, aside, faq, related, children, modified }: {
   path: string; title: string; crumb: string; description: string; eyebrow: string; lead: ReactNode;
   quick: { lead: string; text: string }[]; sections: { id: string; label: string }[];
   aside: { slug: string; heading: string; text: string }; faq: Question[];
-  related: { href: string; label: string }[]; children: ReactNode;
+  related: { href: string; label: string }[]; children: ReactNode; modified?: string;
 }) {
   return <><Header active="/guide/" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/guide/", label: "Как выбрать" }, { label: crumb }]} />
     <main className="wrap editorial-guide"><header className="editorial-guide-head"><div className="editorial-guide-intro"><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lead">{lead}</p>
@@ -54,6 +54,6 @@ export function EditorialGuide({ path, title, crumb, description, eyebrow, lead,
       <FaqBlock questions={faq} />
       <section className="editorial-related"><h2>Читайте также</h2><div>{related.map((item) => <a key={item.href} href={item.href}>{item.label} →</a>)}</div></section>
     </article><aside className="editorial-guide-aside"><p className="eyebrow">Связано с темой</p><h2>{aside.heading}</h2><p>{aside.text}</p><GuideProductCard slug={aside.slug} /><a className="btn" href="/choose/">Подобрать по задаче</a></aside></div>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema(title, description, path)) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema(title, description, path, modified ? { modified } : undefined)) }} />
     </main><Footer /></>;
 }

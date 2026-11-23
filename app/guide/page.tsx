@@ -23,6 +23,7 @@ const articles = [
   { name: "Мультибойлерная кофемашина", path: "/guide/multiboylernaya-kofemashina/", summary: "Раздельная температура групп, пар и выбор между гибридом и мультибойлером.", image: officialImageForModel("f18-mb"), alt: "Мультибойлерная кофемашина Sanremo F18 MB", time: "≈ 4 мин", number: "08" },
 ];
 const comparisons = [
+  { name: "Sanremo и Victoria Arduino Eagle One", path: "/compare/sanremo-vs-victoria-arduino-eagle-one/", summary: "F18 MB, Café Racer и Eagle One: нагрев, рабочая стойка и выбор исполнения." },
   { name: "Сравнить линейки Sanremo", path: "/compare/", summary: "Группы, бойлеры, управление, цена и наличие в одной таблице." },
   { name: "Sanremo и La Marzocco Linea", path: "/compare/sanremo-vs-la-marzocco-linea/", summary: "Сопоставление бойлеров, управления и цен по открытым данным." },
   { name: "Sanremo и Nuova Simonelli Appia Life", path: "/compare/sanremo-vs-nuova-simonelli-appia/", summary: "Двухгруппные машины для кофейни: оснащение и стоимость." },

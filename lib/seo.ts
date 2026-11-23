@@ -32,13 +32,13 @@ export function faqSchema(questions: Question[]) {
   };
 }
 
-export function articleSchema(headline: string, description: string, path: string) {
+export function articleSchema(headline: string, description: string, path: string, dates?: { published?: string; modified: string }) {
   return {
     "@context": "https://schema.org", "@type": "Article", headline, description,
     mainEntityOfPage: absoluteUrl(path),
     author: { "@type": "Organization", name: "BIO" },
     publisher: { "@type": "Organization", name: "BIO", url: SITE_URL },
-    datePublished: CONTENT_DATE, dateModified: CONTENT_DATE, inLanguage: "ru-RU",
+    datePublished: dates?.published ?? CONTENT_DATE, dateModified: dates?.modified ?? CONTENT_DATE, inLanguage: "ru-RU",
   };
 }
 

@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { Header, Footer } from "../components/Chrome";
 import { BaristaAccessories } from "../components/BaristaAccessories";
 import { Crumbs } from "../components/Bits";
 import { ActionArrow } from "../components/ActionArrow";
 import { architectureForModel, modelBySlug, money, skusOfModel } from "@/lib/catalog";
 import { stockSummary } from "@/lib/format";
+import { articleSchema, jsonLd } from "@/lib/seo";
 
 type Rival = {
   name: string;
@@ -26,31 +28,31 @@ function sanremoColumn(slug: string) {
   const versions = skusOfModel(slug).filter((sku) => sku.groups === 2 && sku.rrp > 0);
   const sku = [...versions].sort((a, b) => a.rrp - b.rrp)[0];
   if (!sku) throw new Error(`Missing 2-group version ${slug}`);
-  const stock = versions.reduce((sum, current) => sum + current.free, 0);
-  const control = sku.control ?? versions.find((version) => version.control)?.control;
+  const control = sku.control;
   const temperature = slug === "d8-pro" ? "Раздельная настройка групп"
     : slug === "d8" ? "PID"
     : slug === "f18-mb" ? "Индивидуальная настройка температуры групп"
     : slug === "zoe-competition" ? "Теплообменная система (HX)"
     : null;
   return {
-    name: model.name,
-    href: `/products/${model.family}/${model.slug}/`,
-    rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), temperature, sku.boilerTotal ? `${sku.boilerTotal} л` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, sku.sizeNet ? `${sku.sizeNet.w} × ${sku.sizeNet.h} × ${sku.sizeNet.d} мм` : null, `от ${money(sku.rrp)}`, stockSummary(stock)],
+    name: `${model.name} · арт. ${sku.code}`,
+    href: `/products/${model.family}/${model.slug}/?sku=${encodeURIComponent(sku.code)}&groups=2`,
+    rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), temperature, sku.boilerTotal ? `${sku.boilerTotal} л суммарно` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, "Монтажные размеры — по чертежу исполнения", money(sku.rrp), stockSummary(sku.free)],
   };
 }
 
 const labels = ["Группы", "Система бойлеров", "Контроль температуры", "Бойлер", "Управление", "Высота группы", "Мощность и питание", "Габариты", "Цена", "Наличие"];
 const rivalRows = (rival: Rival) => [rival.groups, rival.boiler, rival.temperature, rival.steam, rival.control, rival.height, rival.electrical, rival.dimensions, rival.price, "Уточните у продавца"];
 
-export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice }: { title: string; lead: string; sanremoSlugs: string[]; rivals: Rival[]; choice: string }) {
+export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice, path, children, factsDate = "23.11.2026", priceDate, published }: { title: string; lead: string; sanremoSlugs: string[]; rivals: Rival[]; choice: string; path: string; children?: ReactNode; factsDate?: string; priceDate?: string; published?: string }) {
   const ours = sanremoSlugs.map(sanremoColumn);
   const columns = [...ours.map((item) => ({ name: item.name, href: item.href, rows: item.rows })), ...rivals.map((item) => ({ name: item.name, href: item.specUrl, rows: rivalRows(item) }))];
   return <><Header active="/compare" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/compare/", label: "Сравнение" }, { label: title }]} />
-    <main className="wrap section guide-page competitor-page"><header className="competitor-intro"><p className="eyebrow">Сравнение по открытым данным</p><h1>{title}</h1><p className="lead">{lead}</p><p>Сравниваем двухгруппные исполнения для профессиональной стойки. Цены Sanremo берём из каталога; цены других марок — из открытых предложений магазинов, проверенных 16.11.2026. Комплектации продавцов могут отличаться.</p></header>
+    <main className="wrap section guide-page competitor-page"><header className="competitor-intro"><p className="eyebrow">Сравнение для кофейни</p><h1>{title}</h1><p className="lead">{lead}</p><p>Материал подготовлен официальным дистрибьютором Sanremo в России. Сравниваем двухгруппные исполнения. В колонке Sanremo указаны артикул, цена и наличие конкретной версии; другие варианты доступны по ссылке в карточке.</p><p>Проверка характеристик конкурента: {factsDate}.{priceDate ? ` Открытые цены конкурента — срез на ${priceDate}, не наша оферта.` : " Цену и наличие конкурента уточняйте для выбранной комплектации у его продавца."}</p></header>
       <section className="competitor-wide"><div className="competitor-scroll" role="region" aria-label="Таблица сравнения моделей" tabIndex={0}><table className="data competitor-table"><thead><tr><th>Параметр</th>{columns.map((item) => <th key={item.name}><a href={item.href}>{item.name} <ActionArrow /></a></th>)}</tr></thead><tbody>{labels.map((label, index) => <tr key={label}><th>{label}</th>{columns.map((item) => <td key={item.name}>{item.rows[index] ?? "Нет данных"}</td>)}</tr>)}</tbody></table></div><div className="competitor-mobile">{columns.map((item) => <article key={item.name}><h2><a href={item.href}>{item.name} <ActionArrow /></a></h2><dl>{labels.map((label, index) => item.rows[index] ? <div key={label}><dt>{label}</dt><dd>{item.rows[index]}</dd></div> : null)}</dl></article>)}</div></section>
-      <section className="competitor-reading"><h2>Как выбрать по задаче</h2><p>{choice}</p><p>Для проекта с несколькими сортами сравните управление температурой, для потока с молочным меню — бойлерную систему и работу пара. До заказа проверьте питание, место под оборудование и сервис в вашем городе.</p><h2>Источники характеристик и цен</h2><p>Характеристики конкурентов взяты из материалов производителей. Цены зафиксированы по открытым страницам российских магазинов 16.11.2026; они не являются нашей офертой.</p><ul>{rivals.map((rival) => <li key={rival.name}><a href={rival.specUrl} rel="noopener noreferrer" target="_blank">{rival.name}: характеристики производителя <ActionArrow /></a>{rival.priceSources.map((source) => <span key={source.url}> · <a href={source.url} rel="noopener noreferrer" target="_blank">{source.name}: {source.price} <ActionArrow /></a></span>)}</li>)}</ul><p>Характеристики Sanremo и цены доступны в карточках моделей в таблице. Для них используется текущий каталог сайта.</p></section>
+      <section className="competitor-reading"><h2>Как выбрать по задаче</h2><p>{choice}</p><p>Для проекта с несколькими сортами сравните управление температурой, для молочного меню — пар и работу бариста в пиковый час. До заказа проверьте питание, место на стойке и сервис в вашем городе. Для планировки используйте <a href="/documents/">монтажный чертёж нужной версии</a>; суммарный объём бойлеров не равен объёму парового бойлера.</p>{children}<h2>Источники характеристик и цен</h2><ul>{rivals.map((rival) => <li key={rival.name}><a href={rival.specUrl} rel="noopener noreferrer" target="_blank">{rival.name}: документ производителя <ActionArrow /></a>{rival.priceSources.map((source) => <span key={source.url}> · <a href={source.url} rel="noopener noreferrer" target="_blank">{source.name}: {source.price} <ActionArrow /></a></span>)}</li>)}</ul><p>Данные Sanremo и цены — из действующего каталога сайта. Итоговую комплектацию, стоимость поставки и запуска согласуйте до заказа.</p></section>
       <div className="competitor-actions"><a className="btn btn-solid" href="/solutions/kofejnya/">Подобрать Sanremo</a><a className="btn" href="/leasing/">Купить в лизинг</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <nav className="competitor-back"><a href="/compare/">← Все сравнения</a></nav>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema(title, lead, path, { published, modified: "2026-11-23" })) }} />
     </main><BaristaAccessories /><Footer /></>;
 }
