@@ -14,3 +14,9 @@ test('checkout catalog covers every feed offer at exactly the same RRP and varia
 test('private basket stays out of sitemap and search index; actual terms are linked',async()=>{
  const cart=await readFile('out/cart/index.html','utf8');const sitemap=await readFile('out/sitemap.xml','utf8');assert.match(cart,/name="robots" content="noindex, follow"/);assert.ok(!sitemap.includes('/cart/'));assert.ok(sitemap.includes('/order-terms/'));assert.ok(sitemap.includes('/delivery/'));assert.match(cart,/4632236086/);
 });
+
+test('phone validation works with the current HTML Unicode-sets pattern mode',async()=>{
+ const html=await readFile('out/cart/index.html','utf8');const pattern=html.match(/<input(?=[^>]*name="phone")[^>]*>/)[0].match(/pattern="([^"]+)"/)[1];const regex=new RegExp(`^(?:${pattern})$`,'v');
+ for(const value of ['+7 (495) 363-38-01','89211252501'])assert.ok(regex.test(value));
+ for(const value of ['abcdefghijk','123'])assert.equal(regex.test(value),false);
+});
