@@ -21,6 +21,7 @@ const articles = [
   { name: "Линейки Sanremo", path: "/guide/linejki-sanremo/", summary: "Семь линеек в одной таблице: бойлеры, группы, управление, поток и цены.", image: officialImageForModel("cafe-racer"), alt: "Кофемашина Sanremo Café Racer", time: "≈ 4 мин", number: "06" },
   { name: "Двухгруппная кофемашина", path: "/guide/dvuhgruppnaya-kofemashina/", summary: "Когда нужны две группы и чем отличаются двухгруппные версии Sanremo.", image: officialImageForModel("d8"), alt: "Двухгруппная кофемашина Sanremo D8", time: "≈ 5 мин", number: "07" },
   { name: "Мультибойлерная кофемашина", path: "/guide/multiboylernaya-kofemashina/", summary: "Раздельная температура групп, пар и выбор между гибридом и мультибойлером.", image: officialImageForModel("f18-mb"), alt: "Мультибойлерная кофемашина Sanremo F18 MB", time: "≈ 4 мин", number: "08" },
+  { name: "Рожковая или суперавтомат", path: "/guide/rozhkovaya-kofemashina-ili-superavtomat/", summary: "Когда работа бариста помогает продавать кофе дороже и как проверить экономику точки.", image: officialImageForModel("zoe-competition"), alt: "Рожковая кофемашина Sanremo Zoe Competition", time: "≈ 9 мин", number: "09" },
 ];
 const comparisons = [
   { name: "Sanremo и Victoria Arduino Eagle One", path: "/compare/sanremo-vs-victoria-arduino-eagle-one/", summary: "F18 MB, Café Racer и Eagle One: нагрев, рабочая стойка и выбор исполнения." },
