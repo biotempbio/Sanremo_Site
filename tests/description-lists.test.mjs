@@ -26,14 +26,12 @@ test("ordinary descriptive prose and a long explanatory paragraph stay paragraph
   assert.ok(blocks.every((block) => block.type !== "list"));
 });
 
-test("Opera boiler components and D8 equipment and options retain their own list headings", () => {
+test("D8 equipment and options form lists while Opera paragraphs stay available for its section renderer", () => {
   for (const label of ["Конструкция и оснащение", "Управление всеми функциями с основной группы", "Опционально"]) {
     const blocks = descriptionBlocks(`${label}:\nПервый пункт\nВторой пункт\nСледующий раздел:\nСвязный абзац описания.`);
     assert.deepEqual(blocks.slice(0,2), [{type:"heading",text:label},{type:"list",items:["Первый пункт","Второй пункт"]}]);
     assert.equal(blocks.at(-1).type,"paragraph");
   }
   const boilers=descriptionBlocks("Система мультибойлер:\nбойлер для пара - 8л,\nбойлер для предварительного нагрева 2,8л,\nбойлеры для подачи 0,5+0,5л.\nБойлеры изготовлены из нержавеющей стали.\nПрограммируемый подогреватель для чашек.");
-  assert.equal(boilers[1].items.length,3);
-  assert.equal(boilers[2].type,"paragraph");
-  assert.equal(boilers[3].type,"paragraph");
+  assert.ok(boilers.every(block=>block.type==='paragraph'));
 });
