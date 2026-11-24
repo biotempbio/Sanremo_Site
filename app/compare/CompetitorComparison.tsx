@@ -34,7 +34,7 @@ function sanremoColumn(slug: string) {
     : slug === "zoe-competition" ? "Теплообменная система (HX)"
     : null;
   return {
-    name: `${model.name} · арт. ${sku.code}`,
+    name: model.name,
     href: offer.href,
     rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), temperature, sku.boilerTotal ? `${sku.boilerTotal} л суммарно` : null, control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, [sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null, "Монтажные размеры — по чертежу исполнения", money(sku.rrp), stockSummary(sku.free)],
   };

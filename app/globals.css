@@ -728,7 +728,8 @@ table.data.compare tbody tr:hover th[scope="row"] { background: var(--wash-sage)
 .competitor-reading{max-width:720px;margin:64px auto 0}
 .competitor-reading h2{font-size:30px;margin:48px 0 16px}
 .competitor-reading p,.competitor-reading li{font-size:16px;line-height:1.65;margin-bottom:16px}
-.competitor-reading ul{padding-left:22px;overflow-wrap:anywhere}
+.competitor-reading ul{list-style:disc outside;padding-left:22px;overflow-wrap:anywhere}
+.competitor-reading li::marker{color:var(--forest)}
 .competitor-actions{max-width:720px;display:flex;flex-wrap:wrap;gap:12px;margin:40px auto}
 .competitor-back{max-width:720px;margin:0 auto;border-top:1px solid var(--line);padding-top:20px}
 .competitor-links{margin-top:80px;border-top:2px solid var(--ink);padding-top:32px}
