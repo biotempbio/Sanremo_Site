@@ -34,7 +34,7 @@ test("business guide compares two-group offers with their own price, stock and p
 
 test("comparison tables prefer stocked two-group executions and fall back only when none are stocked", () => {
   const products = JSON.parse(readFileSync("out/shop/catalog.json", "utf8")).products;
-  for (const route of ["compare", "compare/sanremo-vs-nuova-simonelli-appia", "compare/sanremo-vs-la-marzocco-linea", "compare/sanremo-vs-victoria-arduino-eagle-one"]) {
+  for (const route of ["compare", "compare/sanremo-vs-nuova-simonelli-appia", "compare/sanremo-vs-la-marzocco-linea", "compare/sanremo-vs-victoria-arduino-eagle-one", "compare/sanremo-vs-carimali", "compare/sanremo-vs-la-cimbali", "compare/sanremo-vs-fiamma"]) {
     const page = readFileSync(`out/${route}/index.html`, "utf8");
     const links = [...new Set([...page.matchAll(/href="([^\"]*\?sku=\d+&amp;groups=2)"/g)].map((match) => match[1].replaceAll("&amp;", "&")))];
     assert.ok(links.length >= 2, route);

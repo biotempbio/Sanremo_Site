@@ -43,7 +43,7 @@ function sanremoColumn(slug: string) {
 const labels = ["Группы", "Система бойлеров", "Контроль температуры", "Бойлер", "Управление", "Высота группы", "Мощность и питание", "Габариты", "Цена", "Наличие"];
 const rivalRows = (rival: Rival) => [rival.groups, rival.boiler, rival.temperature, rival.steam, rival.control, rival.height, rival.electrical, rival.dimensions, rival.price, "Уточните у продавца"];
 
-export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice, path, children, published }: { title: string; lead: string; sanremoSlugs: string[]; rivals: Rival[]; choice: string; path: string; children?: ReactNode; published?: string }) {
+export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice, path, children, published, modified = "2026-11-23" }: { title: string; lead: string; sanremoSlugs: string[]; rivals: Rival[]; choice: string; path: string; children?: ReactNode; published?: string; modified?: string }) {
   const ours = sanremoSlugs.map(sanremoColumn);
   const columns = [...ours.map((item) => ({ name: item.name, href: item.href, rows: item.rows })), ...rivals.map((item) => ({ name: item.name, href: item.specUrl, rows: rivalRows(item) }))];
   return <><Header active="/compare" /><Crumbs items={[{ href: "/", label: "Главная" }, { href: "/compare/", label: "Сравнение" }, { label: title }]} />
@@ -52,6 +52,6 @@ export function CompetitorComparison({ title, lead, sanremoSlugs, rivals, choice
       <section className="competitor-reading"><h2>Как выбрать по задаче</h2><p>{choice}</p><p>Для проекта с несколькими сортами сравните управление температурой, для молочного меню — пар и работу бариста в пиковый час. До заказа проверьте питание, место на стойке и сервис в вашем городе. Для планировки используйте <a href="/documents/">монтажный чертёж нужной версии</a>; суммарный объём бойлеров не равен объёму парового бойлера.</p>{children}<h2>Источники характеристик и цен</h2><ul>{rivals.map((rival) => <li key={rival.name}><a href={rival.specUrl} rel="noopener noreferrer" target="_blank">{rival.name}: документ производителя <ActionArrow /></a>{rival.priceSources.map((source) => <span key={source.url}> · <a href={source.url} rel="noopener noreferrer" target="_blank">{source.name}: {source.price} <ActionArrow /></a></span>)}</li>)}</ul><p>Данные Sanremo и цены — из действующего каталога сайта. Итоговую комплектацию, стоимость поставки и запуска согласуйте до заказа.</p></section>
       <div className="competitor-actions"><a className="btn btn-solid" href="/solutions/kofejnya/">Подобрать Sanremo</a><a className="btn" href="/leasing/">Купить в лизинг</a><a className="btn" href="/dealers/">Найти дилера</a></div>
       <nav className="competitor-back"><a href="/compare/">← Все сравнения</a></nav>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema(title, lead, path, { published, modified: "2026-11-23" })) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema(title, lead, path, { published, modified })) }} />
     </main><BaristaAccessories /><Footer /></>;
 }

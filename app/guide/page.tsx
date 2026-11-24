@@ -24,6 +24,9 @@ const articles = [
   { name: "Рожковая или суперавтомат", path: "/guide/rozhkovaya-kofemashina-ili-superavtomat/", summary: "Когда работа бариста помогает продавать кофе дороже и как проверить экономику точки.", image: officialImageForModel("zoe-competition"), alt: "Рожковая кофемашина Sanremo Zoe Competition", time: "≈ 9 мин", number: "09" },
 ];
 const comparisons = [
+  { name: "Sanremo и Carimali", path: "/compare/sanremo-vs-carimali/", summary: "Cento и Bubble рядом с Zoe и D8: управление, подключение и полный комплект." },
+  { name: "Sanremo и La Cimbali", path: "/compare/sanremo-vs-la-cimbali/", summary: "M26 SE DT2, Zoe и D8: чем отличаются BE, SE и Compact." },
+  { name: "Sanremo и Fiamma", path: "/compare/sanremo-vs-fiamma/", summary: "Caravel 2 CV и Compass 2 SE: PID, размеры и переход к раздельным бойлерам." },
   { name: "Sanremo и Victoria Arduino Eagle One", path: "/compare/sanremo-vs-victoria-arduino-eagle-one/", summary: "F18 MB, Café Racer и Eagle One: нагрев, рабочая стойка и выбор исполнения." },
   { name: "Сравнить линейки Sanremo", path: "/compare/", summary: "Группы, бойлеры, управление, цена и наличие в одной таблице." },
   { name: "Sanremo и La Marzocco Linea", path: "/compare/sanremo-vs-la-marzocco-linea/", summary: "Сопоставление бойлеров, управления и цен по открытым данным." },

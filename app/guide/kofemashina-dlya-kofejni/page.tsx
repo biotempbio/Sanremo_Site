@@ -53,6 +53,7 @@ export default function CafeGuide() {
 
       <h3>Как выбрать между Sanremo и другой маркой?</h3>
       <p>Если в вашем коротком списке уже есть конкретная машина, сопоставьте одинаковое число групп, управление дозой, питание и комплектацию. Для первой двухгруппной стойки откройте <a href="/compare/sanremo-vs-nuova-simonelli-appia/">сравнение Zoe/D8 с Nuova Simonelli Appia Life</a>. Для мультибойлерного проекта — <a href="/compare/sanremo-vs-victoria-arduino-eagle-one/">F18 MB и Café Racer рядом с Victoria Arduino Eagle One</a> или <a href="/compare/sanremo-vs-la-marzocco-linea/">F18 MB/D8 PRO рядом с La Marzocco Linea</a>.</p>
+      <p>Для базовой двухгруппной стойки сравните также <a href="/compare/sanremo-vs-carimali/">Carimali Cento и Bubble с Zoe и D8</a>, <a href="/compare/sanremo-vs-la-cimbali/">La Cimbali M26 в исполнениях BE, SE и Compact</a> и <a href="/compare/sanremo-vs-fiamma/">Fiamma Caravel и Compass</a>. В таблицах Sanremo выбраны конкретные двухгруппные исполнения с приоритетом наличия.</p>
       <p>Уточните одинаковый состав цены: сама машина, доставка, водоподготовка, запуск и обслуживание. В сравнении должны участвовать реальные исполнения. Название марки без версии не показывает, какую машину вы получите.</p>
 
       <h2>7. Как устроены сервис и запчасти?</h2>
