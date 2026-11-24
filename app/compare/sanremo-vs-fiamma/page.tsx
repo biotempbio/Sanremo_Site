@@ -1,3 +1,4 @@
+import { competitorPrice } from "@/lib/competitor-prices";
 import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
@@ -16,8 +17,8 @@ export default function FiammaComparisonPage() {
     sanremoSlugs={["zoe-competition", "d8"]}
     choice="Для бара с привычным меню сопоставьте Zoe Competition и Caravel 2 CV: управление дозой, работу с молоком и полную стоимость запуска. Если нужна регулировка через PID, сравните D8 и Compass 2 SE. Переход к Compass Dualboiler или Multiboiler — отдельное решение о температурной архитектуре, его стоит принимать по рецептам и работе смены."
     rivals={[
-      { name: "Fiamma Caravel 2 CV", groups: "2", boiler: "Один бойлер, традиционная система", temperature: "Прессостат", steam: "11 л", control: "Программируемые порции напитка и горячей воды", height: "Проверьте под вашу посуду", electrical: "3,7 кВт; 220–240 В", dimensions: "665 × 530 × 563 мм (Ш × В × Г)", price: "По предложению поставщика", specUrl: "https://fiammaespresso.com/en/p/caravel-2-cv-2262563301", priceSources: [] },
-      { name: "Fiamma Compass 2 SE", groups: "2", boiler: "Один бойлер, термосифонная система", temperature: "PID", steam: "11 л", control: "Контроль дозы, таймеры пролива", height: "Проверьте под вашу посуду", electrical: "3,7 кВт; 220–240 В", dimensions: "750 × 590 × 600 мм (Ш × В × Г)", price: "По предложению поставщика", specUrl: "https://fiammaespresso.com/en/p/compass-2-se-1711524845", priceSources: [] },
+      { name: "Fiamma Caravel 2 CV TC Restyle", groups: "2", boiler: "Один бойлер, традиционная система", temperature: "Прессостат", steam: "11 л", control: "Программируемые порции напитка и горячей воды", height: "Высокая (TC)", electrical: "3,7 кВт; 220–240 В", dimensions: "665 × 530 × 563 мм (Ш × В × Г)", ...competitorPrice("caravel"), specUrl: "https://fiammaespresso.com/en/p/caravel-2-cv-2262563301" },
+      { name: "Fiamma Compass 2 SE TC White", groups: "2", boiler: "Один бойлер, термосифонная система", temperature: "PID", steam: "11 л", control: "Контроль дозы, таймеры пролива", height: "Высокая (TC)", electrical: "3,7 кВт; 220–240 В", dimensions: "750 × 590 × 600 мм (Ш × В × Г)", ...competitorPrice("compass"), specUrl: "https://fiammaespresso.com/en/p/compass-2-se-1711524845" },
     ]}
   >
     <h2>Caravel 2 CV: дозы и место на стойке</h2>

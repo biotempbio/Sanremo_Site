@@ -1,3 +1,4 @@
+import { competitorPrice } from "@/lib/competitor-prices";
 import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
@@ -16,8 +17,8 @@ export default function CarimaliComparisonPage() {
     sanremoSlugs={["zoe-competition", "d8"]}
     choice="Для кофейни с постоянным эспрессо-блендом начните с Zoe Competition, Cento и Bubble. Во всех трёх случаях сравните работу теплообменной системы и удобство ежедневных операций. D8 добавьте в выбор, если команде нужна настройка температуры через PID. Сначала определите полезные для меню функции, затем сопоставляйте предложения на одинаковое число групп."
     rivals={[
-      { name: "Carimali Cento 2 GR", groups: "2", boiler: "Теплообменник, термосифонная циркуляция", temperature: "Цифровая настройка", steam: "11 л, паровой бойлер", control: "5 кнопок, буквенно-цифровой дисплей", height: "Есть высокие и низкие группы", electrical: "3,15 кВт; версия 220–240 В", dimensions: "722 × 497 × 515 мм (Ш × В × Г)", price: "По предложению поставщика", specUrl: "https://carimali.com/wp-content/uploads/2023/10/Cento_EN.pdf", priceSources: [] },
-      { name: "Carimali Bubble 2 GR", groups: "2", boiler: "Теплообменник, термосифонная циркуляция", temperature: "Цифровая настройка", steam: "11 л, паровой бойлер", control: "5 кнопок, буквенно-цифровой дисплей", height: "Есть высокие и низкие группы", electrical: "3,85 кВт; версия 220–240 В", dimensions: "722 × 497 × 515 мм (Ш × В × Г)", price: "По предложению поставщика", specUrl: "https://carimali.com/wp-content/uploads/2023/10/Bubble_EN.pdf", priceSources: [] },
+      { name: "Carimali Cento 2 GR · высокие группы", groups: "2", boiler: "Теплообменник, термосифонная циркуляция", temperature: "Цифровая настройка", steam: "11 л, паровой бойлер", control: "5 кнопок, буквенно-цифровой дисплей", height: "Высокая", electrical: "3,15 кВт; версия 220–240 В", dimensions: "722 × 497 × 515 мм (Ш × В × Г)", ...competitorPrice("cento"), specUrl: "https://carimali.com/wp-content/uploads/2023/10/Cento_EN.pdf" },
+      { name: "Carimali Bubble 2 GR · White", groups: "2", boiler: "Теплообменник, термосифонная циркуляция", temperature: "Цифровая настройка", steam: "11 л, паровой бойлер", control: "5 кнопок, буквенно-цифровой дисплей", height: "Высокая", electrical: "3,85 кВт; версия 220–240 В", dimensions: "722 × 497 × 515 мм (Ш × В × Г)", ...competitorPrice("bubble"), specUrl: "https://carimali.com/wp-content/uploads/2023/10/Bubble_EN.pdf" },
     ]}
   >
     <h2>Cento или Bubble: похожие цифры, разные предложения</h2>

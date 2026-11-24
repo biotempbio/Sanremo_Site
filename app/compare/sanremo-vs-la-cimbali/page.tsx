@@ -1,3 +1,4 @@
+import { competitorPrice } from "@/lib/competitor-prices";
 import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
@@ -16,7 +17,7 @@ export default function CimbaliComparisonPage() {
     sanremoSlugs={["zoe-competition", "d8"]}
     choice="Zoe Competition включите в выбор для двухгруппного бара с теплообменной системой. D8 — если оператору нужна настройка температуры через PID. Для M26 сначала зафиксируйте обозначение SE DT2 и полноразмерный корпус: у Compact другие размеры и бойлер, а оснащение BE отличается от SE. Таблица относится к M26 SE DT2 Tall Cup."
     rivals={[
-      { name: "La Cimbali M26 SE DT2 Tall Cup · full size", groups: "2", boiler: "Тепловая система LaCimbali, общий бойлер", temperature: "Smart Boiler в исполнении SE", steam: "10 л", control: "Кнопочная панель, дисплей SE", height: "Tall Cup", electrical: "4,2–4,9 кВт; 220–240 В, 50/60 Гц", dimensions: "794 × 548 × 528 мм (Ш × В × Г)", price: "516 140 ₽ · Арт-Вендинг", specUrl: "https://www.cimbali.com/sites/default/files/dati_tecnici_m26.pdf", priceSources: [{ name: "Арт-Вендинг · M26 SE DT2 TC", url: "https://art-vending.ru/catalog/kofemashiny/rozhkovyie/lacimbali-m26-se-dt2-ts/", price: "516 140 ₽" }] },
+      { name: "La Cimbali M26 SE DT2 Tall Cup · full size", groups: "2", boiler: "Тепловая система LaCimbali, общий бойлер", temperature: "Smart Boiler в исполнении SE", steam: "10 л", control: "Кнопочная панель, дисплей SE", height: "Tall Cup", electrical: "4,2–4,9 кВт; 220–240 В, 50/60 Гц", dimensions: "794 × 548 × 528 мм (Ш × В × Г)", ...competitorPrice("cimbali"), specUrl: "https://www.cimbali.com/sites/default/files/dati_tecnici_m26.pdf" },
     ]}
   >
     <h2>M26 BE и SE: за что сравнивать комплектацию</h2>

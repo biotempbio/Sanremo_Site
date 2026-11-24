@@ -285,11 +285,11 @@ export default async function ModelPage({ params }: Props) {
               контроля и профилирования.
             </p>
           </div>
-          <div className="grid g3">
+          <div className="grid g3 lineup-related-grid">
             {catalogModels
               .filter((x) => x.slug !== currentLineSlug)
               .map((x) => (
-                <article className="card" key={x.slug}>
+                <article className={`card lineup-related-card${x.slug === "opera" ? " is-opera" : ""}`} key={x.slug}>
                   <div className="card-media">
                     <ResponsiveImage src={modelSearchImage(x) ?? officialImageForModel(x.slug)!} alt={`Sanremo ${x.name}`} width={1536} height={864} sizes="(max-width: 620px) 100vw, 33vw" />
                   </div>

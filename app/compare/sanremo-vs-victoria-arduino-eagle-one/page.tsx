@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { competitorPrice } from "@/lib/competitor-prices";
 import { pageMetadata } from "@/lib/page-metadata";
 import { CompetitorComparison } from "../CompetitorComparison";
 
@@ -9,13 +10,13 @@ export const metadata: Metadata = pageMetadata(path, {
 });
 
 export default function EagleOneComparisonPage() {
-  return <CompetitorComparison path={path} published="2026-11-23"
+  return <CompetitorComparison path={path} published="2026-11-23" modified="2026-11-24"
     title="Sanremo или Victoria Arduino Eagle One"
     lead="Выбираете Eagle One для кофейни? Сравните её с Sanremo F18 MB и Café Racer по работе с рецептом, паром, подключению и месту на стойке. Ниже рассматриваем двухгруппную Eagle One; E1 Prima в эту таблицу не входит."
     sanremoSlugs={["f18-mb", "cafe-racer"]}
     choice="Eagle One стоит рассматривать, если вам подходит система нагрева NEO и организация работы этой машины. F18 MB и Café Racer — варианты Sanremo с мультибойлерной архитектурой. Они не повторяют устройство Eagle One: сопоставлять нужно функции конкретного исполнения, привычки команды и условия запуска."
     rivals={[{
-      name: "Victoria Arduino Eagle One · 2 groups", groups: "2", boiler: "NEO: оптимизированный нагрев воды", temperature: "Система NEO, сухой нагрев групп", steam: "Объём уточнить в паспорте поставки", control: "Сенсорный интерфейс; комплектацию VIS уточнить", height: "Сверить высоту чашки по паспорту", electrical: "5 кВт; подогрев чашек указан отдельно: 400 Вт", dimensions: "758 × 437 × 576 мм (Ш × В × Г)", price: "Уточнить у продавца", specUrl: "https://victoriaarduino.com/en/products-machines/eagle-one/", priceSources: [],
+      name: "Victoria Arduino Eagle One · 2 groups", groups: "2", boiler: "NEO: оптимизированный нагрев воды", temperature: "Система NEO, сухой нагрев групп", steam: "Объём уточнить в паспорте поставки", control: "Сенсорный интерфейс; комплектацию VIS уточнить", height: "Сверить высоту чашки по паспорту", electrical: "5 кВт; подогрев чашек указан отдельно: 400 Вт", dimensions: "758 × 437 × 576 мм (Ш × В × Г)", ...competitorPrice("eagle"), specUrl: "https://victoriaarduino.com/en/products-machines/eagle-one/",
     }]}>
     <h2>Почему Eagle One и E1 Prima сравниваются отдельно</h2>
     <p>У Victoria Arduino есть профессиональная Eagle One на две и три группы и отдельное семейство E1 Prima. Обозначение «Eagle One» в предложении продавца проверьте вместе с числом групп. Одногруппная машина и двухгруппная стойка требуют разного рабочего пространства и организации смены.</p>

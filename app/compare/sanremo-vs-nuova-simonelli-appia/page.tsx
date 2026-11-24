@@ -1,3 +1,4 @@
+import { competitorPrice } from "@/lib/competitor-prices";
 import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 import { CompetitorComparison } from "../CompetitorComparison";
@@ -10,13 +11,13 @@ export const metadata: Metadata = pageMetadata("/compare/sanremo-vs-nuova-simone
 export default function AppiaComparisonPage() {
   return <CompetitorComparison
     path="/compare/sanremo-vs-nuova-simonelli-appia/"
-    published="2026-11-16"
+    published="2026-11-16" modified="2026-11-24"
     title="Sanremo или Nuova Simonelli Appia Life"
     lead="Если вы выбираете Appia Life для кофейни, сопоставьте её с двухгруппными Sanremo Zoe и D8. Сначала определите нужное управление и исполнение, затем сравните цену, подключение и обслуживание."
     sanremoSlugs={["zoe-competition", "d8"]}
     choice="Zoe стоит рассмотреть для двухгруппной стойки с теплообменной системой. D8 — если важен PID. В семействе Appia Life есть разные версии: Standard, Timer и XT. Для числовой таблицы ниже выбрана Appia Life XT 2 Groups Volumetric с TFT-дисплеем: именно это исполнение описано в текущем техническом листе производителя. Его характеристики нельзя автоматически переносить на Standard 2GR V или Compact."
     rivals={[{
-      name: "Appia Life XT 2 Groups Volumetric", groups: "2", boiler: "Бойлер по техническому листу XT", temperature: "Настройки — по паспорту исполнения XT", steam: "11 л", control: "Волюметрика, TFT-дисплей", height: "Уточнить исполнение группы", electrical: "3,35 кВт; питание — по паспорту поставки", dimensions: "784 × 498 × 545 мм (Ш × В × Г)", price: "Уточнить для XT у продавца", specUrl: "https://nuovasimonelli.com/en/machine/appia-life-2/", priceSources: [],
+      name: "Appia Life XT 2 Groups Volumetric", groups: "2", boiler: "Бойлер по техническому листу XT", temperature: "Настройки — по паспорту исполнения XT", steam: "11 л", control: "Волюметрика, TFT-дисплей", height: "Уточнить исполнение группы", electrical: "3,35 кВт; питание — по паспорту поставки", dimensions: "784 × 498 × 545 мм (Ш × В × Г)", ...competitorPrice("appia"), specUrl: "https://nuovasimonelli.com/en/machine/appia-life-2/",
     }]}
   >
     <h2>Appia Life Standard, Timer и XT: что сравнивать</h2>
