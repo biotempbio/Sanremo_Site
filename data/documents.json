@@ -1,5 +1,18 @@
 [
   {
+    "id": "brochure-zoe-stainless-en",
+    "name": "Брошюра Zoe с бойлером AISI 316L (EN)",
+    "type": "Брошюра",
+    "models": [
+      "zoe-competition"
+    ],
+    "href": "/documents/brochures/zoe-stainless-en.pdf",
+    "bytes": 999465,
+    "pages": 11,
+    "source": "Sanremo Coffee Machines / Sanremo UK",
+    "originalName": "ZOE_EN_2026_09"
+  },
+  {
     "id": "brochure-cafe-racer-pdf",
     "name": "Брошюра Café Racer",
     "type": "Брошюра",
@@ -61,7 +74,7 @@
   },
   {
     "id": "brochure-zoe-2026-ru-pdf",
-    "name": "Брошюра Zoe 2026",
+    "name": "Брошюра Zoe с медным бойлером (RU)",
     "type": "Брошюра",
     "models": [
       "zoe-competition"
@@ -159,7 +172,7 @@
   },
   {
     "id": "zoe-sanremo-zoe-306bdb",
-    "name": "Взрыв-схема Zoe Competition",
+    "name": "Взрыв-схема Zoe R с медным бойлером",
     "type": "Взрыв-схема",
     "models": [
       "zoe-competition"
@@ -323,7 +336,7 @@
   },
   {
     "id": "zoe-81003003-libr-utente-zoe-competition-tall-russo-13af88",
-    "name": "Инструкция по эксплуатации Zoe Competition (RU)",
+    "name": "Инструкция Zoe Competition: предыдущее исполнение (RU)",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -337,7 +350,7 @@
   },
   {
     "id": "zoe-81003016-zoe-ru-132289",
-    "name": "Инструкция по эксплуатации Zoe Competition (RU)",
+    "name": "Инструкция Zoe Competition: предыдущее исполнение (RU)",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"
@@ -443,7 +456,7 @@
   },
   {
     "id": "zoe-zoe-5-51891f",
-    "name": "Инструкция по эксплуатации Zoe Competition",
+    "name": "Брошюра Zoe с медным бойлером",
     "type": "Эксплуатационная документация",
     "models": [
       "zoe-competition"

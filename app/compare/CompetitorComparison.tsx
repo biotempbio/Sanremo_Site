@@ -6,6 +6,7 @@ import { ActionArrow } from "../components/ActionArrow";
 import { architectureForModel, money } from "@/lib/catalog";
 import { editorialOffer } from "@/lib/editorial-offers";
 import { comparisonSpecifications } from "@/lib/comparison-specifications";
+import { isStainlessZoe, zoeBrochure } from "@/lib/verified-product-facts.mjs";
 import { stockSummary } from "@/lib/format";
 import { articleSchema, jsonLd } from "@/lib/seo";
 
@@ -38,7 +39,7 @@ function sanremoColumn(slug: string) {
   return {
     name: model.name,
     href: offer.href,
-    source: verified?.source,
+    source: isStainlessZoe(sku) ? zoeBrochure : verified?.source,
     rows: ["2", slug === "d8-pro" ? "Гибридная платформа" : architectureForModel(model), verified?.temperature ?? temperature, verified?.boiler ?? (sku.boilerTotal ? `${sku.boilerTotal} л суммарно` : null), control ? control.charAt(0).toLocaleUpperCase("ru-RU") + control.slice(1) : null, sku.groupHeight ?? null, verified?.electrical ?? ([sku.power ? `${String(sku.power).replace(".", ",")} кВт` : null, sku.voltage ? `${sku.voltage} В` : null].filter(Boolean).join(" · ") || null), verified?.dimensions ?? "Монтажные размеры — по чертежу исполнения", money(sku.rrp), stockSummary(sku.free)],
   };
 }

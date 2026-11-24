@@ -2,6 +2,7 @@ import { optimizedImage } from "./responsive-images";
 import raw from "@/data/catalog.json";
 import reviewedProductMedia from "@/data/verified-product-media.json";
 import apiSnapshot from "@/data/bio-catalog.snapshot.json";
+import { applyVerifiedProductFacts } from "./verified-product-facts.mjs";
 
 /* ── Модель данных (ТЗ §6). Единый источник для всех страниц. ─────────────── */
 
@@ -208,9 +209,9 @@ export const STOCK_DATE_ISO = apiReady ? (api.stockDataAsOf ?? api.dataAsOf)!.sl
 export const DATA_OWNER = "Компания BIO — официальный дистрибьютор Sanremo в России";
 
 export const families = [...catalog.families].sort((a, b) => a.order - b.order);
-export const skus: Sku[] = apiReady
+export const skus: Sku[] = (apiReady
   ? apiProducts.filter((item) => item.kind === "machine").map((item) => mergeSku(catalog.skus.find((base) => base.code === item.code), item))
-  : catalog.skus;
+  : catalog.skus).map(applyVerifiedProductFacts);
 export const grinders = apiReady
   ? apiProducts.filter((item) => item.kind === "grinder").map((item) => {
       const base = catalog.grinders.find((entry) => entry.code === item.code);

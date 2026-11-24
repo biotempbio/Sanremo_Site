@@ -4,6 +4,7 @@ import {
   type Family, type Model, type Sku,
 } from "./catalog";
 import { absoluteUrl } from "./seo";
+import { isStainlessZoe } from "./verified-product-facts.mjs";
 
 const familyCopy: Record<string, { intro: string; selection: string }> = {
   zoe: {
@@ -77,7 +78,7 @@ export function skuAvailability(sku: Pick<Sku, "availability" | "free">) {
 
 export function skuSearchDescription(sku: Sku) {
   const model = modelBySlug(sku.model);
-  const facts = [sku.groups ? `Групп: ${sku.groups}` : null, sku.color, sku.edition && sku.edition !== "Base" ? sku.edition : null].filter(Boolean).join("; ");
+  const facts = [sku.groups ? `Групп: ${sku.groups}` : null, sku.color, sku.edition && sku.edition !== "Base" ? sku.edition : null, isStainlessZoe(sku) ? `бойлер ${sku.boilerTotal} л из нержавеющей стали AISI 316L` : null].filter(Boolean).join("; ");
   return `Sanremo ${sku.modelName}. ${facts ? `${facts}. ` : ""}${model ? modelSearchDescription(model) : "Профессиональная рожковая кофемашина."}`;
 }
 

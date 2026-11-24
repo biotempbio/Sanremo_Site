@@ -115,7 +115,7 @@ test("guide, FAQ and product pages expose linked HTML and valid structured data"
 test("document library serves every unique PDF and links model files directly", async () => {
   const manifest = JSON.parse(await readFile(new URL("../data/documents.json", import.meta.url), "utf8"));
   const [library, model] = await Promise.all([read("documents/index.html"), read("products/d8/d8/index.html")]);
-  assert.equal(manifest.length, 43);
+  assert.equal(manifest.length, 44);
   assert.equal(new Set(manifest.map((entry) => entry.href)).size, manifest.length);
   assert.match(library, /Все модели/);
   assert.match(library, /Все типы/);
