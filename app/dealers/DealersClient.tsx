@@ -10,8 +10,6 @@ export interface DealerRow {
   city: string | null;
   address: string | null;
   site: string | null;
-  note: string | null;
-  verified: boolean;
   showroom: boolean;
 }
 
@@ -111,12 +109,7 @@ export default function DealersClient({
                   {d.showroom ? <p className="dealer-showroom-badge">Официальный шоурум Sanremo</p> : null}
                   {d.address ? (
                     <p className="small" style={{ margin: 0 }}>{d.address}</p>
-                  ) : (
-                    <p className="tiny" style={{ margin: 0 }}>
-                      Адрес и контакты опубликованы в карточке дилера.
-                    </p>
-                  )}
-                  {d.note ? <p className="tiny" style={{ margin: 0 }}>{d.note}</p> : null}
+                  ) : null}
                   {d.contactName ? <p className="small" style={{ margin: 0 }}>{d.contactName}</p> : null}
                   {d.phone ? <p className="small" style={{ margin: 0 }}><a href={`tel:${d.phone.replace(/[^+\d]/g, "")}`}>{d.phone}</a></p> : null}
                   {d.email ? <p className="small" style={{ margin: 0 }}><a href={`mailto:${d.email}`}>{d.email}</a></p> : null}
@@ -125,9 +118,6 @@ export default function DealersClient({
                     <span className="tag">Консультация</span>
                   </div>
                   <div className="card-foot">
-                    <span className="tiny">
-                      {d.verified ? "Адрес и сайт подтверждены" : "На проверке"}
-                    </span>
                     {d.showroom && d.address ? <a className="link-arrow" href={`https://yandex.ru/maps/?text=${encodeURIComponent(d.address)}`} target="_blank" rel="noopener noreferrer">Официальный шоурум на карте</a> : null}
                     {d.site ? (
                       <a className="link-arrow" href={d.site} target="_blank" rel="noopener noreferrer" data-dealer-link>
