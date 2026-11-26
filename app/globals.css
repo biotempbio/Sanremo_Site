@@ -1557,3 +1557,15 @@ a:hover .action-arrow-icon,a:focus-visible .action-arrow-icon{transform:translat
 @media(max-width:900px){.header .cart-link{margin-left:auto}.header .burger{margin-left:0}.shop-layout{grid-template-columns:1fr}.shop-total{max-width:none}.shop-checkout{grid-template-columns:1fr;gap:20px}.shop-item{grid-template-columns:120px minmax(0,1fr) 100px}.shop-line-total{grid-column:auto}.shop-item{grid-template-columns:120px minmax(0,1fr) 100px 125px}}
 @media(max-width:620px){.header .wrap{gap:14px}.header .cart-link{font-size:12px}.shop-page h1{margin-bottom:30px}.shop-item{grid-template-columns:80px minmax(0,1fr);gap:12px;padding:24px 0}.shop-item h3{font-size:20px}.shop-item-quantity{grid-column:2;display:flex;align-items:end;gap:16px}.shop-item-quantity>span{margin-bottom:10px}.shop-line-total{grid-column:2;text-align:left;font-size:20px}.shop-item-photo{align-self:start}.shop-item-photo img{height:75px!important}.shop-total-value{font-size:36px}.shop-checkout{margin-top:40px;padding-top:32px}.shop-form{grid-template-columns:1fr}.shop-checkout h2{font-size:32px}.shop-form .btn{white-space:normal;line-height:1.5}.shop-receipt h2{font-size:23px}}
 .shop-sku-choice{display:grid;gap:8px;margin:18px 0;font-size:14px}.shop-sku-choice select{width:100%;max-width:100%;min-width:0;min-height:44px;font:inherit;padding:10px;background:#fff;border:1px solid var(--line-strong)}
+
+/* Keep the commercial price and stock readable without side-scrolling on phones. */
+@media(max-width:620px){
+  .solution-table-scroll .solution-table{min-width:0;width:100%;display:block}
+  .solution-table-scroll .solution-table thead{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .solution-table-scroll .solution-table tbody{display:block}
+  .solution-table-scroll .solution-table tbody tr{display:block;padding:16px 0;border-bottom:1px solid var(--line)}
+  .solution-table-scroll .solution-table td{display:grid;grid-template-columns:78px minmax(0,1fr);gap:12px;padding:7px 10px;border:0;overflow-wrap:anywhere}
+  .solution-table-scroll .solution-table td::before{content:attr(data-label);color:var(--muted);font-size:12px;font-weight:400}
+  .solution-table-scroll .solution-table td:first-child{font-weight:600}
+}
+#family-models,#models{scroll-margin-top:100px}

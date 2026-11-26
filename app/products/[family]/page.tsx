@@ -14,6 +14,8 @@ import { familySearchCopy, familyPriceDescription, machineOfferCatalog, modelSea
 import { casesForFamily } from "@/lib/cases";
 import { CaseCard } from "../../cases/CaseCard";
 import { stockSummary } from "@/lib/format";
+import { editorialOffer } from "@/lib/editorial-offers";
+import { skuProductPath } from "@/lib/product-search";
 import {
   families,
   familyBySlug,
@@ -76,7 +78,7 @@ export default async function FamilyPage({ params }: Props) {
             </div>
             <div className="module-copy">
               <p className="eyebrow">Линейка · {f.architecture}</p>
-              <h1>Линейка Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
+              <h1>Кофемашины Sanremo {f.name}{family === "d8" ? " и D8 PRO" : ""}</h1>
               <span className="plaque plaque-lg">{f.tagline}</span>
               <p className="lead">{searchCopy.intro}</p>
               <div className="chips" style={{ margin: "6px 0 20px" }}>
@@ -88,7 +90,7 @@ export default async function FamilyPage({ params }: Props) {
                 <Fact k="Цена от" v={money(Math.min(...fmodels.map((m) => m.priceFrom ?? Infinity)))} />
               </div>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <a className="btn btn-solid" href="/choose/">Подобрать версию</a>
+                <a className="btn btn-solid" href="#family-models">Смотреть цены и исполнения</a>
                 <a className="btn" href="/dealers/">Где купить</a>
                 <a className="btn" href={`/leasing/?model=${encodeURIComponent(f.name)}#leasing-request`}>Купить в лизинг</a>
               </div>
@@ -105,7 +107,7 @@ export default async function FamilyPage({ params }: Props) {
         </section>
 
         {/* Модели внутри семейства */}
-        <section className="section wrap">
+        <section className="section wrap" id="family-models">
           <div className="sec-head">
             <div>
               <p className="eyebrow">Что доступно в России</p>
@@ -120,26 +122,30 @@ export default async function FamilyPage({ params }: Props) {
             {fmodels.map((m, index) => {
               const sk = skusOfModel(m.slug);
               const stockUnits = stockUnitsOfModel(m.slug);
-              const hero = sk.find((s) => s.availability === "in_stock") ?? sk[0];
+              const offer = editorialOffer(m.slug, m.groupsAvailable.includes(2) ? 2 : m.groupsAvailable[0]);
+              const hero = offer?.sku ?? sk.find((s) => s.free > 0) ?? sk[0];
+              const href = offer?.href ?? `/products/${family}/${m.slug}/`;
               return (
                 <article className="card catalog-card" key={m.slug}>
-                  <a className="card-visual catalog-card-visual" href={`/products/${family}/${m.slug}/`} aria-label={`Открыть ${m.name}`}>
-                    <SkuImage src={modelSearchImage(m)} alt={`Sanremo ${m.name}`} groups={m.groupsAvailable[0]} color={hero?.colorHex} fit="cover" eager={index === 0} />
+                  <a className="card-visual catalog-card-visual" href={href} aria-label={`Открыть ${m.name}`}>
+                    <SkuImage src={offer ? offer.image : modelSearchImage(m)} alt={`Sanremo ${m.name}${offer ? ` · ${offer.sku.groups} гр.` : ""}`} groups={hero?.groups} color={hero?.colorHex} fit="contain" eager={index === 0} />
                   </a>
                   <div className="card-body">
-                    <h3><a href={`/products/${family}/${m.slug}/`}>{m.name}</a></h3>
+                    <h3><a href={href}>{m.name}</a></h3>
+                    {offer && <p className="small family-offer-label">{offer.sku.groups} гр. · {[offer.sku.color, offer.sku.edition !== "Base" ? offer.sku.edition : null].filter(Boolean).join(" · ")}</p>}
                     {m.version ? <p className="small" style={{ margin: 0 }}>Версия: {m.version}</p> : null}
                     <div className="chips catalog-card-tags">
-                      <span className="tag">{m.groupsAvailable.join("/")} гр.</span>
-                      {m.optionsAvailable.slice(0, 3).map((o) => <span className="tag" key={o}>{o}</span>)}
+                      <span className="tag">{offer ? offer.sku.groups : m.groupsAvailable.join("/")} гр.</span>
+                      {(offer ? offer.sku.options : m.optionsAvailable).slice(0, 3).map((o) => <span className="tag" key={o}>{o}</span>)}
                     </div>
                     <div className="card-foot catalog-card-foot">
-                      <p className="catalog-card-price"><span className="price-from">от</span> <span className="price num">{money(m.priceFrom)}</span></p>
+                      <p className="catalog-card-price"><span className="price-from">{offer ? "РРЦ" : "от"}</span> <span className="price num">{money(offer?.sku.rrp ?? m.priceFrom)}</span></p>
                       <div className="catalog-card-availability">
-                        <i className={`dot ${stockUnits >= 3 ? "st-in_stock" : stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" />
-                        <span>{stockSummary(stockUnits)}</span>
+                        {offer ? <Stock status={offer.sku.availability} free={offer.sku.free} /> : <><i className={`dot ${stockUnits >= 3 ? "st-in_stock" : stockUnits ? "st-limited" : "st-on_order"}`} aria-hidden="true" /><span>{stockSummary(stockUnits)}</span></>}
                       </div>
                     </div>
+                    {offer && <p className="small family-offer-action"><a href={href}>Выбрать это исполнение →</a></p>}
+                    <a className="small" href={`/products/${family}/${m.slug}/`}>Все исполнения {m.name}</a>
                   </div>
                 </article>
               );
@@ -178,7 +184,7 @@ export default async function FamilyPage({ params }: Props) {
                     .map((s) => (
                       <tr key={s.code}>
                         <td>
-                          <a className="link-arrow" href={`/products/${family}/${s.model}/`} style={{ border: 0 }}>
+                          <a className="link-arrow" href={skuProductPath(s)} style={{ border: 0 }}>
                             {s.modelName}
                           </a>
                           <div className="tiny sku">{s.vendorCode ?? s.code}</div>
@@ -228,6 +234,7 @@ export default async function FamilyPage({ params }: Props) {
 
         <section className="wrap section-tight"><FaqBlock questions={familyFaq} title={`Частые вопросы о ${f.name}`} />
           <p><a href="/guide/">Как выбрать кофемашину →</a> · <a href="/faq/">Все вопросы о покупке и сервисе →</a></p>
+          <p><a href="/solutions/professionalnye-kofemashiny/">Сравнить профессиональные кофемашины</a> · <a href="/solutions/kofejnya/">Подобрать комплект для кофейни</a></p>
         </section>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(offerCatalog) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(itemList(`Модели Sanremo ${f.name}`, fmodels.map((model) => ({ name: `Sanremo ${model.name}`, path: `/products/${family}/${model.slug}/` })))) }} />

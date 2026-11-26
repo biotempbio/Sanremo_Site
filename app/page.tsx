@@ -75,7 +75,7 @@ export default function HomePage() {
       <section className="wrap section">
         <div className="sec-head"><div><p className="eyebrow">Начните с задачи</p><h2>Выберите путь к подходящей машине</h2></div><p className="lead">Не нужно искать данные в PDF: ключевые параметры, исполнения и статусы собраны в каталоге.</p></div>
         <div className="home-tasks">{tasks.map((task, index) => <a className="home-task" href={task.href} key={task.href}><span>0{index + 1}</span><h3>{task.title}</h3><p>{task.text}</p><CardAction>Открыть</CardAction></a>)}</div>
-        <nav className="home-solution-links" aria-label="Кофемашины по формату"><span>По формату:</span><a href="/solutions/kofejnya/">Для кофейни</a><a href="/solutions/restoran/">Для ресторана</a><a href="/solutions/otel/">Для отеля</a><a href="/solutions/kofe-s-soboj/">Кофе с собой</a><a href="/leasing/">В лизинг</a></nav>
+        <nav className="home-solution-links" aria-label="Кофемашины по формату"><span>Выбор машины:</span><a href="/solutions/professionalnye-kofemashiny/">Профессиональные кофемашины</a><a href="/solutions/kofejnya/">Для кофейни</a><a href="/solutions/restoran/">Для ресторана</a><a href="/solutions/otel/">Для отеля</a><a href="/solutions/kofe-s-soboj/">Кофе с собой</a><a href="/leasing/">В лизинг</a></nav>
       </section>
 
       <section className="bg-gray"><div className="wrap section">

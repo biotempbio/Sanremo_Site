@@ -93,6 +93,7 @@ export default function ProductsPage() {
             </div>
           </div>
         </section>
+        <nav className="wrap section-tight dealer-city-shortcuts" aria-label="Выбор кофемашины"><a href="/solutions/professionalnye-kofemashiny/">Профессиональные кофемашины: сравнение</a><a href="/solutions/kofejnya/">Купить кофемашину для кофейни</a><a href="/prices/">Все цены и наличие</a></nav>
         <section className="wrap section-tight">
           <CatalogClient rows={rows} bands={VOLUME_BANDS.map((b) => ({ id: b.id, label: b.label }))} />
         </section>
